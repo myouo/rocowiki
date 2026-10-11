@@ -15,6 +15,7 @@ import {
 import { Link, TypeBadge, Section, TextLink } from "./core";
 import { PetCard } from "./CatalogPages";
 import { pets } from "./data";
+import { petCatalogHref } from "./catalog/pets/officialModel";
 import { weekly } from "./content/bundled.js";
 import { ColorIcon } from "./visuals";
 import WelcomeBackdrop from "./WelcomeBackdrop";
@@ -31,7 +32,7 @@ const shortDate = (date) => date?.slice(5).replace("-", ".") || "";
 function PetName({ name }) {
   const pet = pets.find((p) => p.name === name);
   return pet ? (
-    <Link to={"/pets/" + pet.slug + "/"}>{name}</Link>
+    <Link to={petCatalogHref(pet)}>{name}</Link>
   ) : (
     <span>{name}</span>
   );

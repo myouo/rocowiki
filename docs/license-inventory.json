@@ -543,6 +543,19 @@
       ]
     },
     {
+      "name": "saxes",
+      "requests": [
+        {
+          "manifest": "package.json",
+          "version": "6.0.0"
+        }
+      ],
+      "version": "6.0.0",
+      "declaredLicense": "ISC",
+      "status": "metadata-only",
+      "notices": []
+    },
+    {
       "name": "tsx",
       "requests": [
         {
@@ -695,6 +708,16 @@
       "evidence": [
         "apps/web/content/asset-sources.json",
         "apps/web/content/pet-sources.json"
+      ]
+    },
+    {
+      "id": "official-pet-data",
+      "status": "permission-unverified",
+      "license": "Not established by this repository",
+      "file": "apps/web/content/official-pets.json",
+      "source": "https://res.17roco.qq.com/conf/Angel.config",
+      "evidence": [
+        "apps/web/content/official-pets.json"
       ]
     }
   ]

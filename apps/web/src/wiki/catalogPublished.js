@@ -1,4 +1,5 @@
 import { normalizeSkillLearners } from "./skillLearnerModel";
+import { petCatalogHref } from "./catalog/pets/officialModel";
 /* Published catalogue projections. Drafts and deletion proposals stay out of the reader. */
 const plain = (value) => value && typeof value === "object" && !Array.isArray(value);
 const text = (value, fallback = "") => typeof value === "string" ? value.slice(0, 15000) : fallback;
@@ -22,9 +23,7 @@ function requestSlug(submission, kind) {
 }
 
 export function petDetailHref(pet) {
-  return pet?.localEntry
-    ? "/pets/?entry=" + encodeURIComponent(pet.slug)
-    : "/pets/" + encodeURIComponent(pet?.slug || "") + "/";
+  return petCatalogHref(pet || {});
 }
 
 export function skillDetailHref(skill) {

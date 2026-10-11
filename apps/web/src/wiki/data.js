@@ -1,26 +1,10 @@
-import { petSourceData, publicSearchRecords } from "./content/bundled.js";
+import { petSourceData, petMetadata, officialPetData, publicSearchRecords } from "./content/bundled.js";
+import { buildOfficialPetCatalog, petCatalogHref } from "./catalog/pets/officialModel";
 
 const sourcePets = Array.isArray(petSourceData)
   ? petSourceData
   : petSourceData.pets || [];
-export const pets = sourcePets.map((p) => ({
-  ...p,
-  slug: p.name === "海芙约忒" ? "haifu" : p.slug,
-  types: (p.type || p.types || []).map((t) => t.replace("系", "")),
-  aliases: [
-    ...new Set([
-      ...(p.aliases ||
-        {
-          海芙约忒: ["海芙", "神水"],
-          碧水灵兽: ["碧水"],
-          魔神武王: ["武王"],
-          皇家圣光迪莫: ["圣光迪莫"],
-        }[p.name] ||
-        []),
-      ...(p.name === "海芙约忒" ? ["海弗耶特", "海芙约特", "海弗约忒"] : []),
-    ]),
-  ],
-}));
+export const pets = buildOfficialPetCatalog(officialPetData, sourcePets, petMetadata.pets);
 export const skillSource = "https://news.4399.com/luoke/jinengsearch/";
 export const haifuSource = "https://roco.dvg.cn/spirit_info.php?id=3092";
 export const skills = [
@@ -505,7 +489,7 @@ export function getSearchRecords() {
     ...pets.map((p) => ({
       title: p.name,
       kind: "宠物",
-      to: "/pets/" + p.slug + "/",
+      to: petCatalogHref(p),
       meta: "#" + (p.number ?? "待录入") + " · " + p.types.join(" / "),
       keywords: [...p.aliases, ...p.types].join(" "),
     })),

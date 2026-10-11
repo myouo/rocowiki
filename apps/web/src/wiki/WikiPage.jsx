@@ -31,6 +31,7 @@ import WikiRecoveryBoundary from "./WikiRecoveryBoundary";
 import { isReaderPath } from "./editingContext";
 import {useWikiRuntime} from "./runtime/useWikiRuntime";
 import CopyrightPage from "./legal/CopyrightPage";
+import { useHydratedSearch } from "./catalog/pets/useHydratedSearch";
 
 export function GuideIndex({ help = false }) {
   const entries = help
@@ -92,7 +93,7 @@ export function PageContent({ path, query }) {
   if (["/copyright/", "/copyright/en/"].includes(path)) return <CopyrightPage english={path === "/copyright/en/"} />;
   if (path === "/mechanics/") return <MechanicsHome />;
   if (path === "/mechanics/relations/") return <EffectRelations />;
-  if (path === "/pets/") return <PetsPage />;
+  if (path === "/pets/") return <PetsPage query={query} />;
   if (path.startsWith("/pets/")) return <PetPage slug={path.split("/")[2]} />;
   if (path === "/skills/") return <SkillsPage />;
   if (path.startsWith("/skills/"))
@@ -148,9 +149,9 @@ export default function WikiPage({ routeData }) {
   const {demo} = useWikiRuntime();
   const location = useLocation();
   const path = normalizePath(routeData?.path || location.pathname);
-  const query = new URLSearchParams(location.search);
+  const query = new URLSearchParams(useHydratedSearch(location.search));
   const title =
-    pets.find((p) => path === "/pets/" + p.slug + "/")?.name ||
+    pets.find((p) => path === "/pets/" + p.slug + "/" || (path === "/pets/" && query.get("entry") === p.slug))?.name ||
     skills.find((s) => path === "/skills/" + s.slug + "/")?.name ||
     {
       "/": "洛克王国资料库",

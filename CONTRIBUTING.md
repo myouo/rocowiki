@@ -23,6 +23,16 @@
 
 离线/浏览器演示不提供认证绕过或生产发布。生成文件从来源重建，不手工修改 build、dist、docs-generated或 src/generated来修复当前业务。
 
+### 官方宠物基础资料
+
+`npm run pets:import` 从 `https://res.17roco.qq.com/conf/Angel.config` 下载公开配置，校验包头、解压 zlib 并解码 AMF3 XML，重建 `apps/web/content/official-pets.json`。离线复现使用 `npm run pets:import -- --input /path/to/Angel.config --retrieved-at 2026-10-11T15:35:45.354Z`，时间填写实际采集时间。快照保留原包 SHA-256、配置版本、重复 ID 与排除数量；只取 `spirit_conf` 中 `isInBook="0"` 的条目，同 ID 同内容去重，冲突则停止导入。客户端的种族值 `int()` 转换按截断处理，缺失数值保留未知。
+
+解码格式参考 [open-roco-conn 的 QueueConfs](https://github.com/fangtiancheng/open-roco-conn/blob/main/reference/main.swf/scripts/com/QQ/angel/install/config/QueueConfs.as) 与 `SpiritDesProxy.as`，导入器以 TypeScript 独立实现。官方基础资料与现有攻略、血脉和活动来源分别保留；配置中的获取文字不代表活动正在开放。普通检查与构建读取已提交快照，不访问官方服务。新增条目通过 `/pets/?entry=official-ID` 阅读，既有条目的 URL 保留。
+
+`Update official pet snapshot` 工作流每 3 小时检查一次（UTC 每个 3 小时周期的第 23 分钟），也可手动运行。配置及解析结果不变时保留原采集时间，不写空提交；需要显式重新记录采集时间时使用 `npm run pets:import -- --force`。数据变化后校验、重建章节快照，并生成基于数据摘要和主分支基线的 `chore/official-pets-*` PR；同一基线与数据的重试复用候选，不强推、不自动合并。合并后由现有发布工作流处理。
+
+工作流进入 `main` 后定时触发才会生效；仓库 Actions 设置需允许创建 PR，使用内置 `GITHUB_TOKEN`，不新增私密配置。因为该令牌的 push 不触发普通 CI，更新器显式 dispatch `Validate` 在候选分支执行完整只读检查。远程权限、定时运行及实际发布仍需在 GitHub 验收；`isInBook="0"` 只代表客户端图鉴标记，不证明宠物已发布或可获得。
+
 ### 邮箱密码与发信配置
 
 当前采用站内邮箱密码认证，生产 OIDC 回调关闭。邮箱或用户名均可登录。用户名统一小写，3–24 位，以字母开头，允许数字、下划线和连字符，注册后不可改；昵称单独修改。密码为 15–128 个字符，保存独立随机盐的 scrypt 哈希。邮箱不公开，发信服务不接收密码。

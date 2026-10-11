@@ -18,6 +18,8 @@ Local Noto Serif SC/Noto Sans SC subsets retain OFL-1.1 and FONT-SOURCE evidence
 
 The V7.3.1 interface was imported from the user-provided RocoWiki_Docusaurus_V7_3_1 project. Preserve existing author and provenance records without presenting third-party work as project-original.
 
+Official pet base data comes from the public `https://res.17roco.qq.com/conf/Angel.config`. `apps/web/content/official-pets.json` records retrieval time, version and the package SHA-256; icons reference official resources directly. This game data is outside the project's GPL/CC grant, rights remain with their holders, and redistribution permission is unverified. The new XML parser dependency saxes 6.0.0 declares ISC, but its installed package lacks the full license text and is recorded as metadata-only. Format research used open-roco-conn without copying its C++ implementation or decompiled code.
+
 <a id="changes"></a>
 ## Updates and distribution
 

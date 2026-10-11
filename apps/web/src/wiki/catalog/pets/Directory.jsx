@@ -1,6 +1,6 @@
 import CustomSelect from "../../Select";
 import EditEntry from "../../editing/EditEntry";
-import { petMetadata } from "../../content/bundled.js";
+import { petMetadata, officialPetData } from "../../content/bundled.js";
 import { weekly } from "../../content/bundled.js";
 import React, { useState, useEffect } from "react";
 import { useHistory, useLocation } from "@docusaurus/router";
@@ -10,18 +10,23 @@ import { PetPage } from "./Detail.jsx";
 import { UNKNOWN, catalogTypes, compareCatalogPets, matchesCatalogMetadata, normalType, petMeta, sortFields } from "../model.js";
 import { usePublishedPets } from "../hooks.js";
 import { AttributeBadge, PetCard } from "../components.jsx";
+import { paginatePets } from "./officialModel";
+import PetPagination from "./Pagination";
+import { useHydratedSearch } from "./useHydratedSearch";
 
-function PetsPage() {
+function PetsPage({ query }) {
   const location = useLocation();
-  const entry = new URLSearchParams(location.search).get("entry");
-  return entry ? <PetPage slug={entry} /> : <PetCatalogPage />;
+  const search = useHydratedSearch(location.search);
+  const params = query || new URLSearchParams(search);
+  const entry = params.get("entry");
+  return entry ? <PetPage slug={entry} /> : <PetCatalogPage query={params} />;
 }
 
-function PetCatalogPage() {
+function PetCatalogPage({ query }) {
   const pets = usePublishedPets().filter((pet) => !pet.deleted);
   const history = useHistory(),
     location = useLocation();
-  const q = new URLSearchParams(location.search),
+  const q = query,
     term = q.get("q") || "",
     type = q.get("type") || "",
     sort = sortFields.some((field) => field.value === q.get("sort"))
@@ -55,6 +60,7 @@ function PetCatalogPage() {
     ) || weekly.pvp.typeTournament.periods[0];
   const [compare, setCompare] = useState([]),
     [message, setMessage] = useState("");
+  const changeFilters = (changes) => setQuery(history, location, { ...changes, page: null });
   useEffect(() => {
     try {
       const value = JSON.parse(
@@ -107,6 +113,7 @@ function PetCatalogPage() {
   result = [...result].sort((a, b) =>
     compareCatalogPets(a, b, sort, direction),
   );
+  const pagination = paginatePets(result, q.get("page"));
   const valuesFor = (key) =>
     [
       ...new Set(
@@ -181,6 +188,7 @@ function PetCatalogPage() {
       experience: null,
       bloodline: null,
       magic: null,
+      page: null,
     });
   return (
     <div className="rw-pets-v5 rw-catalog-v6">
@@ -218,6 +226,10 @@ function PetCatalogPage() {
           </Link>
         </div>
       </div>
+      <p className="rw-subnote">
+        官方图鉴基础资料采集于 {officialPetData.source.retrievedAt.slice(0, 10)}。
+        技能、血脉与活动记录按各自来源补充。
+      </p>
       {pvp && (
         <div className="rw-pvp-filter-note">
           <Swords size={21} />
@@ -232,9 +244,7 @@ function PetCatalogPage() {
           </div>
           <button
             className="rw-small-button"
-            onClick={() =>
-              setQuery(history, location, { pvp: null, period: null })
-            }
+            onClick={() => changeFilters({ pvp: null, period: null })}
           >
             移除赛事条件 <X size={14} />
           </button>
@@ -247,7 +257,7 @@ function PetCatalogPage() {
             <input
               value={term}
               onChange={(e) =>
-                setQuery(history, location, { q: e.target.value })
+                changeFilters({ q: e.target.value })
               }
               aria-label="筛选宠物"
               placeholder="输入宠物名、图鉴编号或别名"
@@ -259,7 +269,7 @@ function PetCatalogPage() {
               ariaLabel="属性筛选口径"
               value={typeMode}
               onChange={(value) =>
-                setQuery(history, location, { typeMode: value })
+                changeFilters({ typeMode: value })
               }
               options={[
                 { value: "any", label: "主属性或副属性" },
@@ -273,7 +283,7 @@ function PetCatalogPage() {
           <button
             className={!type ? "active" : ""}
             aria-pressed={!type}
-            onClick={() => setQuery(history, location, { type: null })}
+            onClick={() => changeFilters({ type: null })}
           >
             全部
           </button>
@@ -283,7 +293,7 @@ function PetCatalogPage() {
               className={type === t ? "active" : ""}
               aria-pressed={type === t}
               onClick={() =>
-                setQuery(history, location, { type: type === t ? null : t })
+                changeFilters({ type: type === t ? null : t })
               }
             >
               <AttributeBadge type={t} />
@@ -300,7 +310,7 @@ function PetCatalogPage() {
                 options={field.options}
                 searchable={field.key === "group" || field.key === "bloodline"}
                 onChange={(value) =>
-                  setQuery(history, location, { [field.key]: value || null })
+                  changeFilters({ [field.key]: value || null })
                 }
               />
             </label>
@@ -322,7 +332,7 @@ function PetCatalogPage() {
                 className="rw-filter-token-v6"
                 aria-label={"移除" + field.label + "筛选"}
                 onClick={() =>
-                  setQuery(history, location, { [field.key]: null })
+                  changeFilters({ [field.key]: null })
                 }
               >
                 {field.label}：
@@ -349,7 +359,7 @@ function PetCatalogPage() {
               ariaLabel="宠物排序字段"
               value={sort}
               onChange={(value) =>
-                setQuery(history, location, { sort: value, order: direction })
+                changeFilters({ sort: value, order: direction })
               }
               options={sortFields}
             />
@@ -362,7 +372,7 @@ function PetCatalogPage() {
               (direction === "asc" ? "升序，切换降序" : "降序，切换升序")
             }
             onClick={() =>
-              setQuery(history, location, {
+              changeFilters({
                 order: direction === "asc" ? "desc" : "asc",
               })
             }
@@ -385,7 +395,7 @@ function PetCatalogPage() {
       </div>
       {result.length ? (
         <div className="rw-petgrid">
-          {result.map((p) => (
+          {pagination.items.map((p) => (
             <PetCard
               key={p.slug}
               pet={p}
@@ -405,6 +415,7 @@ function PetCatalogPage() {
           当前收录范围内没有匹配项；未收录的宠物不等于游戏内不存在。
         </EmptyState>
       )}
+      <PetPagination {...pagination} onPage={(page) => setQuery(history, location, { page })} />
       {compare.length > 0 && (
         <div className="rw-comparebar">
           <GitCompareArrows size={20} />

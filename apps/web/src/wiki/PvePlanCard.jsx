@@ -2,6 +2,7 @@ import React from "react";
 import Link from "@docusaurus/Link";
 import { ArrowRight, ExternalLink, Shield, Swords } from "lucide-react";
 import { pets } from "./data";
+import { petCatalogHref } from "./catalog/pets/officialModel";
 import ReadingMarkdown from "./editing/ReadingMarkdown";
 import "./WorldV7.css";
 
@@ -16,7 +17,7 @@ function PetNames({ value }) {
   const names = lines(value).flatMap((line) => line.split(/[、,，;；]/)).map((name) => name.trim()).filter(Boolean);
   return names.length ? names.map((name, index) => {
     const pet = pets.find((row) => row.name === name || row.slug === name);
-    return pet ? <Link key={index} to={`/pets/${pet.slug}/`}>{pet.name}<ArrowRight size={13} /></Link> : <span key={index}>{name}</span>;
+    return pet ? <Link key={index} to={petCatalogHref(pet)}>{pet.name}<ArrowRight size={13} /></Link> : <span key={index}>{name}</span>;
   }) : <span>挑战宠物待补充</span>;
 }
 /** The same readable plan is used in PVE pages and the editor's rendered preview. */

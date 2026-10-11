@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { CalendarDays, ExternalLink } from "lucide-react";
 import { Link, Badge } from "../core";
 import { pets } from "../data";
+import { petCatalogHref } from "../catalog/pets/officialModel";
 import { weekly } from "../content/bundled.js";
 
 function shanghaiDate() {
@@ -117,7 +118,7 @@ function WeeklyEdition({ stale }) {
 function RewardName({ reward }) {
   const pet = pets.find((item) => item.name === reward.name);
   return pet ? (
-    <Link to={`/pets/${pet.slug}/`}>{reward.name}</Link>
+    <Link to={petCatalogHref(pet)}>{reward.name}</Link>
   ) : (
     <span>{reward.name}</span>
   );

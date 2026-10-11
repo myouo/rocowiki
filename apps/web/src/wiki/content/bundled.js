@@ -1,5 +1,6 @@
 // Bundled published inputs. Pages and snapshot readers share this adapter; replace inputs here during data migration.
 export { default as petSourceData } from "../../../content/pet-sources.json";
+export { default as officialPetData } from "../../../content/official-pets.json";
 export { default as petMetadata } from "../../../content/pet-metadata-v6.json";
 export { default as petAppearances } from "../../../content/pet-appearances-v72.json";
 export { default as eventData } from "../../../content/events-v7.json";

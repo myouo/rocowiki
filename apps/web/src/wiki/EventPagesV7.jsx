@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { petCatalogHref } from "./catalog/pets/officialModel";
 import { useHistory, useLocation } from "@docusaurus/router";
 import {
   ArrowRight,
@@ -112,7 +113,7 @@ function Reward({ reward }) {
     <span className="wv7-reward">
       <Gift size={14} />
       {pet ? (
-        <Link to={`/pets/${pet.slug}/`}>{rewardLabel(reward)}</Link>
+        <Link to={petCatalogHref(pet)}>{rewardLabel(reward)}</Link>
       ) : (
         <span>{rewardLabel(reward)}</span>
       )}

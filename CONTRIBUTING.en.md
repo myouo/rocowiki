@@ -23,6 +23,16 @@ Use Node.js 24.15.0+, npm ci for locked dependencies, and npm run db:migrate for
 
 Offline/browser demos provide neither authentication bypass nor production publishing. Regenerate outputs from their sources; do not patch build, dist, docs-generated, or src/generated to fix current behavior.
 
+### Official pet base data
+
+`npm run pets:import` downloads the public `https://res.17roco.qq.com/conf/Angel.config`, validates its header, inflates zlib and decodes AMF3 XML to rebuild `apps/web/content/official-pets.json`. For offline reproduction, use `npm run pets:import -- --input /path/to/Angel.config --retrieved-at 2026-10-11T15:35:45.354Z`, supplying the actual retrieval time. The snapshot retains the package SHA-256, configuration version, duplicate IDs and excluded count. Only `spirit_conf` entries with `isInBook="0"` are imported; identical rows with the same ID are deduplicated, while conflicting rows stop the import. Stat values follow the client's truncating `int()` conversion; missing values remain unknown.
+
+The format was checked against [QueueConfs in open-roco-conn](https://github.com/fangtiancheng/open-roco-conn/blob/main/reference/main.swf/scripts/com/QQ/angel/install/config/QueueConfs.as) and `SpiritDesProxy.as`; the importer is independently implemented in TypeScript. Official base data and existing guides, bloodlines and activity sources retain separate provenance. Acquisition text in the configuration does not establish that an activity is open. Normal checks and builds use the committed snapshot without accessing official services. New entries use `/pets/?entry=official-ID`; existing article URLs are preserved.
+
+The `Update official pet snapshot` workflow checks every three hours (minute 23 of each three-hour UTC interval), with manual dispatch available. Unchanged configuration and parsed data retain the original retrieval time without empty commits; use `npm run pets:import -- --force` to explicitly capture a fresh retrieval time. Changed data is validated, section baselines are regenerated, and a `chore/official-pets-*` PR is created using the data digest and main baseline. Retries with the same baseline and data reuse the candidate without force pushes or automatic merges. The existing deployment workflow handles merged updates.
+
+Scheduling becomes active after the workflow reaches `main`. Repository Actions settings must permit PR creation; the built-in `GITHUB_TOKEN` is used without additional private configuration. Since its push events do not trigger normal CI, the updater explicitly dispatches `Validate` on the candidate branch for full read-only checks. Remote permissions, scheduling and actual publication still require GitHub acceptance. `isInBook="0"` indicates client catalogue membership rather than proof of release or acquisition availability.
+
 ### Email/password and delivery setup
 
 The active flow uses site email/password credentials; production OIDC callbacks are disabled. Email and username both work for login. Usernames are stored in lowercase, contain 3–24 letters, digits, underscores or hyphens, start with a letter and cannot change after registration. Display names can change separately. Passwords contain 15–128 characters and are independently salted with scrypt. Email addresses are private; delivery providers never receive passwords.

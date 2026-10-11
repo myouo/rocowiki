@@ -1,4 +1,15 @@
 /* V7.2 keeps the reference-card vocabulary from the home page. */
+.rw-pet-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin: 1.5rem 0;
+}
+.rw-pet-pagination button:disabled { opacity: .45; cursor: default; }
+.rw-official-pet-source { margin-bottom: 1.5rem; }
+.rw-official-pet-source p { margin: .6rem 0; }
+.rw-official-pet-hash { overflow-wrap: anywhere; }
 .rw .rw-pet-detail-v6 .rw-pet-overview-v72 {
   grid-template-columns: minmax(180px, .8fr) minmax(280px, 1.35fr) minmax(220px, 1fr);
   align-items: stretch;

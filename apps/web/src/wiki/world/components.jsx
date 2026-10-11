@@ -3,6 +3,7 @@ import { useHistory, useLocation } from "@docusaurus/router";
 import { ArrowRight, BookOpen, ChevronRight, CircleHelp, Compass, ExternalLink, Flag, Map, Package, Users } from "lucide-react";
 import { Link, PageHeader, Badge, EmptyState } from "../core";
 import { historicalEvent, pets } from "../data";
+import { petCatalogHref } from "../catalog/pets/officialModel";
 import { ColorIcon } from "../visuals";
 import { NPC_SOURCE } from "../npcPresentation";
 
@@ -204,7 +205,7 @@ function PetNameChips({ names }) {
         return pet ? (
           <Link
             key={name}
-            to={`/pets/${pet.slug}/`}
+            to={petCatalogHref(pet)}
             title={`查看${name}的图鉴`}
           >
             {name}

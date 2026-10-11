@@ -12,6 +12,8 @@ import { usePublishedPets, usePublishedSkills } from "../hooks.js";
 import { AttributeBadge, PetAppearanceGallery, SkillTable } from "../components.jsx";
 import { AcquisitionTimeline } from "./Acquisition.jsx";
 import { PetMatchups } from "./Matchups.jsx";
+import { officialPetData } from "../../content/bundled.js";
+import OfficialPetSource from "./OfficialSource";
 
 function PetPage({ slug }) {
   const pets = usePublishedPets();
@@ -34,7 +36,7 @@ function PetPage({ slug }) {
             </Link>
           }
         >
-          当前预览只收录一组资料样本，未给未知宠物套用其他宠物数据。
+          当前官方配置和已收录资料中没有这个条目。
         </EmptyState>
       </>
     );
@@ -310,7 +312,8 @@ function PetPage({ slug }) {
           </div>
         </Section>
         <Section title="来源与修订" id="sources">
-          <div className="rw-source-row">
+          <OfficialPetSource pet={pet.official} source={officialPetData.source} />
+          {pet.sourceUrl !== officialPetData.source.url && <div className="rw-source-row">
             <BookOpen size={18} />
             <div>
               <strong>页游资料站 · {pet.name}图鉴</strong>
@@ -325,7 +328,7 @@ function PetPage({ slug }) {
             >
               打开来源 <ExternalLink size={13} />
             </a> : <span className="rw-muted">来源待补</span>}
-          </div>
+          </div>}
           <Contribution
             entity={pet.name}
             source={externalSource(pet.sourceUrl)}

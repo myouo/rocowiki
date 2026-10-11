@@ -18,6 +18,8 @@
 
 V7.3.1 界面来自用户提供的 RocoWiki_Docusaurus_V7_3_1 项目；保留现有作者与来源记录，不把第三方归属改写为本项目原创。
 
+官方宠物基础资料来自公开 `https://res.17roco.qq.com/conf/Angel.config`；`apps/web/content/official-pets.json` 记录采集时间、版本与原包 SHA-256，图标直接引用官方资源。该游戏资料不纳入本项目的 GPL 或 CC 授权，原权利仍归原权利人，再分发许可尚未核验。新增 XML 解析依赖 saxes 6.0.0 声明使用 ISC，但安装包未附完整许可文本，台账标记为 metadata-only；格式调查参考 open-roco-conn，未复制其 C++ 实现或反编译代码。
+
 <a id="changes"></a>
 ## 更新与发行
 
