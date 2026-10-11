@@ -15,7 +15,7 @@
     "name": "rocowiki-api-production",
     "workers_dev": false, "preview_urls": false,
     "routes": [{"pattern": "api.wiki.rocoai.app", "custom_domain": true}],
-    "d1_databases": [{"binding": "DB", "database_name": "rocowiki-production", "database_id": "00000000-0000-0000-0000-000000000000", "migrations_dir": "../../database/migrations"}],
+    "d1_databases": [{"binding": "DB", "database_name": "rocowiki-production", "database_id": "6f870bb0-5dbf-45a7-8d4e-f23ab6833614", "migrations_dir": "../../database/migrations"}],
     "vars": {
       "ENVIRONMENT": "production", "WEB_ORIGIN": "https://wiki.rocoai.app", "API_ORIGIN": "https://api.wiki.rocoai.app", "SITE_URL": "https://wiki.rocoai.app",
       "API_SOURCE_COMMIT_SHA": "", "OIDC_ISSUER": "", "OIDC_CLIENT_ID": "", "GITHUB_OWNER": "myouo", "GITHUB_REPO": "rocowiki", "GITHUB_DEFAULT_BRANCH": "main",
