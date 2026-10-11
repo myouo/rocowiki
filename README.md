@@ -1,14 +1,14 @@
 # RocoWiki
 
 [English](README.en.md) · [贡献指南](CONTRIBUTING.md) · [版权声明](COPYRIGHT.md)
-<!-- rocowiki-policy: overview; version: 4; lang: zh-CN -->
+<!-- rocowiki-policy: overview; version: 5; lang: zh-CN -->
 
 <a id="about"></a>
 ## 关于 RocoWiki
 
 RocoWiki 是面向《洛克王国》页游玩家的社区百科，整理宠物、技能、战斗机制与冒险资料，帮助大家查资料、理解规则、分享经验。本站由玩家建设，与游戏官方没有隶属关系。
 
-网站地址：[wiki.rocoai.app](https://wiki.rocoai.app)。目前正在配置上线，注册、登录和正式投稿尚未开放。部分资料仍是待完善的样本，以页面标注的来源和适用版本为准。
+网站地址：[wiki.rocoai.app](https://wiki.rocoai.app)。阅读站已上线，注册、登录和正式投稿尚未开放。部分资料仍是待完善的样本，以页面标注的来源和适用版本为准。
 
 <a id="reading"></a>
 ## 查找资料

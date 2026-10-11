@@ -1,14 +1,14 @@
 # RocoWiki
 
 [中文](README.md) · [Contributing](CONTRIBUTING.en.md) · [Copyright](COPYRIGHT.en.md)
-<!-- rocowiki-policy: overview; version: 4; lang: en -->
+<!-- rocowiki-policy: overview; version: 5; lang: en -->
 
 <a id="about"></a>
 ## About RocoWiki
 
 RocoWiki is a community encyclopedia for players of the original browser version of Roco Kingdom. It collects pet, skill, battle and adventure information to help players find facts, understand rules and share experience. The site is built by players and is not affiliated with the game publisher.
 
-Website: [wiki.rocoai.app](https://wiki.rocoai.app). Launch configuration is in progress; registration, login and formal submissions are not open yet. Some entries remain samples awaiting completion. Check each page's sources and applicable game version.
+Website: [wiki.rocoai.app](https://wiki.rocoai.app). The reading site is live; registration, login and formal submissions are not open yet. Some entries remain samples awaiting completion. Check each page's sources and applicable game version.
 
 <a id="reading"></a>
 ## Find information

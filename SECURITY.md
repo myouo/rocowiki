@@ -1,6 +1,6 @@
 # 安全政策
 [English](SECURITY.en.md) · [贡献指南](CONTRIBUTING.md)
-<!-- rocowiki-policy: security; version: 2; lang: zh-CN -->
+<!-- rocowiki-policy: security; version: 3; lang: zh-CN -->
 
 <a id="reporting"></a>
 ## 私密报告
@@ -12,7 +12,7 @@
 <a id="versions"></a>
 ## 支持范围
 
-当前没有正式发行版本或已经验收的生产部署。维护者以当前受维护的 main 开发版本为修复目标；旧原型、离线演示和历史构建没有独立安全维护承诺。后续发行须在此登记支持周期。未配置的 OIDC、GitHub App、D1、CDN 和镜像不能算作已通过安全验收。
+当前静态阅读站已部署，账号、投稿与发布服务尚未完成生产验收，也没有正式发行版本。维护者以当前受维护的 main 开发版本为修复目标；旧原型、离线演示和历史构建没有独立安全维护承诺。后续发行须在此登记支持周期。OIDC、GitHub App、D1 和镜像仍未完成生产安全验收。
 
 <a id="report"></a>
 ## 报告内容
