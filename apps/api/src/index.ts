@@ -60,7 +60,11 @@ app.use('*',async(c,next)=>{
   }
   await next();
 });
-app.get('/health',c=>c.json({status:'ok',schema:1,registration:'oidc',publishing:c.env.PUBLISH_ENABLED==='true'}));
+app.get('/health',c=>c.json({status:'ok',schema:1,registration:'oidc',
+  authentication_configured:Boolean(c.env.OIDC_ISSUER&&c.env.OIDC_CLIENT_ID&&c.env.OIDC_CLIENT_SECRET),
+  submissions:c.env.SUBMISSIONS_ENABLED==='true',publishing:c.env.PUBLISH_ENABLED==='true',
+  source_commit_sha:c.env.API_SOURCE_COMMIT_SHA||null,
+}));
 app.get('/pages',c=>c.json({pages:catalog}));
 app.get('/mirror',async c=>c.json(await c.env.DB.prepare('SELECT source_sha,mirror_sha,status,checked_at FROM mirror_observations ORDER BY checked_at DESC LIMIT 1').first()??{status:'unknown'}));
 app.post('/auth/register',async c=>{const start=await beginOidc(c.env,c.get('session')??null);c.header('Set-Cookie',cookie(c.env,'oidc',start.browser,600));return c.json({redirect_url:start.url});});

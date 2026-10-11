@@ -25,7 +25,8 @@
     "build": "npm run check:production-config && npm run check:content && npm run generate && npm run check:content -w @rocowiki/web && npm run build -w @rocowiki/web && pagefind --site apps/web/build && node scripts/version-manifest.mjs",
     "check": "npm run check:repository && npm run check:architecture && npm run check:content && npm run typecheck && npm test && npm run build",
     "api:dry-run": "npm run dry-run -w @rocowiki/api",
-    "deploy:web": "node --import tsx scripts/deploy-workers.ts"
+    "deploy:web": "node --import tsx scripts/deploy-workers.ts",
+    "deploy:api": "node --import tsx scripts/deploy-api.ts"
   },
   "dependencies": {
     "hono": "4.12.32",
