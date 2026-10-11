@@ -25,6 +25,14 @@ it('does not bootstrap over an existing Worker or convert a permission error int
   const http:typeof fetch=async(_input,options)=>{expect(options?.method).toBeUndefined();return new Response(JSON.stringify({success:false,errors:[{code:10000}]}),{status:403});};
   await expect(ensureWorkerExists('a'.repeat(32),'fixture-worker-token',http)).rejects.toThrow('WORKER_LOOKUP_FAILED (403)');
 });
+it('identifies denied Worker creation even when Cloudflare returns no numeric error code',async()=>{
+  let calls=0;
+  const http:typeof fetch=async()=>++calls===1
+    ?new Response(JSON.stringify({success:false,errors:[{code:10090}]}),{status:404})
+    :new Response(JSON.stringify({success:false,errors:[{message:'No access to the specified resource. fixture-worker-token'}]}),{status:403});
+  await expect(ensureWorkerExists('a'.repeat(32),'fixture-worker-token',http)).rejects.toThrow('grant Workers Scripts Write access to the target account');
+  expect(calls).toBe(2);
+});
 it('uses separate credentials and creates the exact Worker route before preferred DNS',async()=>{
   const calls:{url:string;method:string;body:unknown}[]=[],zone='b'.repeat(32);
   const http:typeof fetch=async(input,options)=>{

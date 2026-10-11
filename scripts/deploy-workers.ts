@@ -25,7 +25,10 @@ export async function ensureWorkerExists(accountId:string,token:string,http:Http
   body.append('index.mjs',new Blob(['export default {fetch(){return new Response("Wiki deployment in progress",{status:503});}};'],{type:'application/javascript+module'}),'index.mjs');
   const response=await http(`${base}/scripts/rocowiki-web`,{...options,method:'PUT',body});
   const result=await response.json() as {success:boolean;errors?:{code:number}[]};
-  if(!response.ok||!result.success)throw Error(`WORKER_BOOTSTRAP_FAILED (${response.status}; codes: ${(result.errors??[]).map(error=>error.code).join(',')})`);
+  if(!response.ok||!result.success){
+    if(response.status===403)throw Error('WORKER_BOOTSTRAP_FAILED (403): grant Workers Scripts Write access to the target account, including creation of rocowiki-web');
+    throw Error(`WORKER_BOOTSTRAP_FAILED (${response.status}; codes: ${(result.errors??[]).map(error=>error.code).filter(code=>Number.isInteger(code)).join(',')})`);
+  }
 }
 
 export async function inspectArtifact(root:string,expectedSha:string):Promise<Release> {
