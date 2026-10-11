@@ -12,6 +12,7 @@ export function useWorkbench() {
     } = useDocusaurusContext(),
     origin = String(siteConfig.customFields?.apiOrigin);
   const [me, setMe] = useState<Me | null>(null),
+    [accountLink,setAccountLink]=useState(false),
     [booting, setBooting] = useState(true),
     [busy, setBusy] = useState(false),
     [notice, setNotice] = useState(''),
@@ -60,6 +61,7 @@ export function useWorkbench() {
     lifetime.current = controller;
     setBooting(true);setBusy(false);setMe(null);setNotice('');
     const params = new URLSearchParams(window.location.search);
+    if(/^#(?:verify|reset)=[a-f0-9]{64}$/.test(window.location.hash))setAccountLink(true);
     if (params.get('tab') === 'account') setTab('account');
     const id = new URLSearchParams(window.location.search).get('page');
     if (id && data.pages.some(p => p.id === id) && id!==pageId) {
@@ -77,13 +79,18 @@ export function useWorkbench() {
       if (!controller.signal.aborted) setBooting(false);
     });
     return () => controller.abort();
-  }, [origin,location.search]);
+  }, [origin,location.search,location.hash]);
   useEffect(() => {
     if (!me?.github?.enabled) setOptIn(false);
   }, [me?.github?.enabled]);
-  async function login() {
-    const result = await service.login();
-    window.location.assign(result.redirect_url);
+  async function login(identifier:string,password:string) {
+    await service.login({identifier,password});
+    // A login may replace a different account in this browser. Drop its private UI state.
+    setTab('edit');setBase(null);setSelected(null);setBody('');setEntity({});
+    setSubmissions([]);setDrafts([]);setQueue([]);setJobs([]);setSummary('');
+    setPreview('');setDraftId('');setSupersedes('');setSources([freshSource()]);setOptIn(false);setSubmitRequest(null);
+    await refreshMe();
+    setAccountLink(false);
   }
   async function listMine() {
     const [s, d] = await Promise.all([service.mine(), service.drafts()]);
@@ -201,6 +208,7 @@ export function useWorkbench() {
   const canContribute = me && ['contributor', 'reviewer', 'admin'].includes(me.user.role);
   return {
     me,
+    accountLink,
     setMe,
     booting,
     busy,

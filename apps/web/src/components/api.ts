@@ -1,5 +1,8 @@
 export class RequestError extends Error {constructor(public code:string){super(code);}}
 export const errorText:Record<string,string>={
+  INVALID_CREDENTIALS:'邮箱、用户名或密码不正确。',EMAIL_VERIFICATION_REQUIRED:'请先验证注册邮箱，再登录。',ACCOUNT_UNAVAILABLE:'这个用户名或邮箱无法用于注册，请换一个或尝试登录。',REGISTRATION_PAUSED:'注册暂未开放。',
+  INVALID_REGISTRATION:'请检查邮箱、用户名、昵称和密码。用户名需 3–24 位，密码需 15–128 个字符。',INVALID_PASSWORD:'密码需 15–128 个字符，请避开常见弱密码。',PASSWORD_CONFIRMATION_MISMATCH:'两次输入的密码不一致。',INVALID_DISPLAY_NAME:'昵称需 1–80 个字符，不能包含控制字符或尖括号。',
+  INVALID_ACCOUNT_TOKEN:'验证链接已失效或已使用，请重新申请邮件。',CREDENTIALS_CHANGED:'密码或账号状态已变更，请重新登录。',MAIL_NOT_CONFIGURED:'邮箱验证与找回服务尚未开放。',MAIL_DELIVERY_FAILED:'邮件暂时发送失败，请稍后重新申请验证邮件。',
   UNAUTHORIZED:'请先登录。',FORBIDDEN:'当前账号没有此操作权限。',ORIGIN_REJECTED:'请求来源未通过验证。',CSRF_REJECTED:'会话验证已更新，请刷新工作台后重试。',
   AUTH_NOT_CONFIGURED:'登录服务尚未开放，请联系维护者。',GITHUB_NOT_CONFIGURED:'内容服务尚未开放，请联系维护者。',GITHUB_OAUTH_NOT_CONFIGURED:'GitHub 绑定服务尚未开放。',
   INVALID_OIDC_TOKEN:'身份验证信息已过期或不完整，请重新登录。',

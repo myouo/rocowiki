@@ -1,6 +1,7 @@
 import {z} from 'zod';
 import {api, RequestError} from '../../components/api';
 import * as dto from './contracts';
+import type {Registration,PasswordLogin} from '../../../../../packages/wiki-schema/src/account';
 
 function decode<T>(schema:z.ZodType<T>,value:unknown):T {
   const result=schema.safeParse(value);
@@ -30,7 +31,16 @@ export function createWorkspaceService(origin:string,csrf?:string,signal?:AbortS
   return {
     me:()=>request('/me',dto.me),
     profile:async(uid:string)=>{const result=await request(`/users/${encodeURIComponent(uid)}`,dto.publicProfile);if(result.user.uid!==uid)throw new RequestError('INVALID_SERVICE_RESPONSE');return result;},
-    login:()=>request('/auth/login',redirect,'POST',{}),
+    authStatus:()=>request('/health',dto.authStatus),
+    login:(input:PasswordLogin)=>request('/auth/login',ok,'POST',input),
+    register:(input:Registration)=>request('/auth/register',z.object({verification_required:z.boolean()}),'POST',input),
+    reauthenticate:(input:PasswordLogin)=>request('/auth/reauthenticate',ok,'POST',input),
+    updateProfile:(display_name:string)=>request('/me',ok,'PATCH',{display_name}),
+    changePassword:(current_password:string,new_password:string)=>request('/auth/password/change',ok,'POST',{current_password,new_password}),
+    requestReset:(identifier:string)=>request('/auth/password/request-reset',ok,'POST',{identifier}),
+    resendVerification:(identifier:string)=>request('/auth/email/resend',ok,'POST',{identifier}),
+    verifyEmail:(token:string,password:string)=>request('/auth/email/verify',ok,'POST',{token,password}),
+    resetPassword:(token:string,password:string)=>request('/auth/password/reset',ok,'POST',{token,password}),
     base:async(id:string)=>{const result=await request(`/pages/${encodeURIComponent(id)}/edit-base`,dto.base);if(result.page.id!==id)throw new RequestError('INVALID_SERVICE_RESPONSE');return result;},
     mine:()=>request('/submissions',z.object({submissions:z.array(dto.submissionRow)})),
     drafts:()=>request('/drafts',z.object({drafts:z.array(dto.draft)})),
@@ -50,3 +60,4 @@ export function createWorkspaceService(origin:string,csrf?:string,signal?:AbortS
     logout:()=>request('/auth/logout',ok,'POST',{}),
   };
 }
+export type WorkspaceService=ReturnType<typeof createWorkspaceService>;

@@ -8,9 +8,12 @@ import '../css/workbench.css';
 import BoundedTextarea from '../wiki/BoundedTextarea';
 import { statuses, freshSource, type SubmissionRow } from '../features/workbench/contracts';
 import { parseSources } from '../features/workbench/service';
+import {AuthenticationPanel} from '../features/workbench/AuthenticationPanel';
+import {AccountSettings} from '../features/workbench/AccountSettings';
 export default function Workbench() {
   const {
     me,
+    accountLink,
     setMe,
     booting,
     busy,
@@ -66,7 +69,7 @@ export default function Workbench() {
   return <Layout title="共建工作台"><main className="workspace">
     <div className="workspace-heading"><div><div className="eyebrow">COMMUNITY WORKSPACE</div><h1>共建工作台</h1><p>保存发现，附上证据，让修订经过审核走向公开。</p></div>{me && <div className="identity-chip">{me.user.display_name}<small>{me.user.role === 'admin' ? '管理员' : canReview ? '审核员' : me.user.role === 'viewer' ? '只读用户' : '贡献者'}</small></div>}</div>
     {notice && <div className="notice" role="status">{notice}</div>}
-    {booting ? <p role="status">正在读取登录状态…</p> : !me ? <div className="empty-state"><h2>从你的第一份记录开始</h2><p>使用已验证邮箱的身份服务登录。Wiki 会为你建立独立账号，GitHub 绑定可选。</p><button className="button button--primary" disabled={busy} onClick={() => void action(login)}>注册 / 登录</button><p><Link to="/wiki/guides/contributing">先了解投稿流程 ↗</Link></p></div> : <>
+    {booting ? <p role="status">正在读取登录状态…</p> : !me||accountLink ? <AuthenticationPanel service={service} busy={busy} action={action} login={login} notice={setNotice} /> : <>
       <div className="workspace-tabs" role="tablist" aria-label="工作台栏目">{[['edit', '编辑投稿'], ['mine', '我的草稿与投稿'], ...(canReview ? [['review', '审核队列']] : []), ...(me.user.role === 'admin' ? [['jobs', '发布任务']] : []), ['account', '账号与归属']].map(([id, label]) => <button key={id} role="tab" aria-selected={tab === id} className={tab === id ? 'active' : ''} disabled={busy} onClick={() => void action(() => openTab(id))}>{label}</button>)}</div>
       {tab === 'edit' && !canContribute && <p role="status">当前账号只有阅读权限，不能编辑或投稿。</p>}
       {tab === 'edit' && canContribute && <section className="editor-panel"><div className="toolbar"><label>编辑对象 <select disabled={busy} value={pageId} onChange={e => {
@@ -136,7 +139,7 @@ export default function Workbench() {
               await service.retry(j.job_id);
               await openTab('jobs');
             })}>重试</button>}</div>) : <p>暂无发布任务。</p>}</section>}
-      {tab === 'account' && <section className="account-panel"><h2>账号与贡献归属</h2><p>Wiki UID：<code>{me.user.uid}</code></p><p><Link to={`/contributors?uid=${me.user.uid}`}>查看公开贡献主页 ↗</Link></p><h3>可选 GitHub 绑定</h3>{me.github ? <><p>已绑定 <b>{me.github.login}</b> · Co-author {me.github.enabled ? '已开启' : '未开启'}</p><p>可核验提交邮箱：{me.github.coauthor_email || '暂无'}</p><label className="checkbox-field"><input type="checkbox" checked={consent} onChange={e => setConsent(e.target.checked)} />我同意在未来主动勾选的投稿中公开此邮箱。已进入 Git 历史的邮箱无法保证撤回。</label><div className="toolbar"><button className="button button--secondary" disabled={busy || !me.github.enabled && !consent} onClick={() => void action(async () => {
+      {tab === 'account' && <section className="account-panel"><h2>账号与贡献归属</h2><p>Wiki UID：<code>{me.user.uid}</code></p><AccountSettings me={me} service={service} busy={busy} action={action} refresh={refreshMe} notice={setNotice} /><p><Link to={`/contributors?uid=${me.user.uid}`}>查看公开贡献主页 ↗</Link></p><h3>可选 GitHub 绑定</h3>{me.github ? <><p>已绑定 <b>{me.github.login}</b> · Co-author {me.github.enabled ? '已开启' : '未开启'}</p><p>可核验提交邮箱：{me.github.coauthor_email || '暂无'}</p><label className="checkbox-field"><input type="checkbox" checked={consent} onChange={e => setConsent(e.target.checked)} />我同意在未来主动勾选的投稿中公开此邮箱。已进入 Git 历史的邮箱无法保证撤回。</label><div className="toolbar"><button className="button button--secondary" disabled={busy || !me.github.enabled && !consent} onClick={() => void action(async () => {
                 await service.consent(!me.github!.enabled, me.consent_version);
                 await refreshMe();
               })}>{me.github.enabled ? '关闭未来关联' : '开启 Co-author 关联'}</button><button className="text-button" disabled={busy} onClick={() => void action(async () => {
@@ -145,7 +148,7 @@ export default function Workbench() {
               })}>解绑 GitHub</button></div></> : <><p>绑定不影响站内投稿。只有再次同意公开邮箱并在投稿中选择关联时，提交才会带 Co-author。</p><button className="button button--secondary" disabled={busy} onClick={() => void action(async () => {
               const r = await service.bind();
               window.location.assign(r.redirect_url);
-            })}>绑定 GitHub</button></>}<hr /><div className="toolbar"><button className="text-button" disabled={busy} onClick={() => void action(login)}>重新验证身份</button><button className="button button--secondary" disabled={busy} onClick={() => void action(async () => {
+            })}>绑定 GitHub</button></>}<hr /><div className="toolbar"><button className="button button--secondary" disabled={busy} onClick={() => void action(async () => {
               await service.logout();
               setMe(null);
               setSelected(null);

@@ -15,9 +15,10 @@
     const headers=new Headers(init.headers),body=init.body?JSON.parse(init.body):null,path=url.pathname,method=init.method||'GET';
     state.requests.push({path,method,key:headers.get('Idempotency-Key')});store();
     const ok=(value,status=200)=>Response.json(value,{status});
-    if(path==='/auth/login')return ok({redirect_url:new URL('/workbench/?fixture=contributor&page=contributing',location.origin).href});
+    if(path==='/auth/login')return ok({ok:true});
+    if(path==='/health')return ok({registration:'password',registration_enabled:true,email_verification_required:true,password_reset_available:false});
     if(!ids[role])return ok({error:{code:'UNAUTHORIZED'}},401);
-    if(path==='/me')return ok({user:{uid:ids[role],display_name:`Browser fixture ${role}`,role},csrf_token:'a'.repeat(64),github:null,consent_version:'fixture'});
+    if(path==='/me')return ok({user:{uid:ids[role],username:role,display_name:`Browser fixture ${role}`,role},csrf_token:'a'.repeat(64),github:null,consent_version:'fixture'});
     if(path==='/pages/contributing/edit-base')return ok({page:{id:'contributing',kind:'article',title:'参与贡献'},commit_sha:'a'.repeat(40),blob_sha:'b'.repeat(40),content:'# Baseline',base_data_revision:null});
     let response;
     if(path==='/drafts'&&method==='GET')return ok({drafts:Object.values(state.drafts)});

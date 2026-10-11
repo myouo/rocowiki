@@ -1,4 +1,6 @@
 # Copy to .dev.vars; never commit actual secrets.
+BREVO_API_KEY=
+RESEND_API_KEY=
 OIDC_CLIENT_SECRET=
 GITHUB_APP_PRIVATE_KEY=
 GITHUB_OAUTH_CLIENT_SECRET=

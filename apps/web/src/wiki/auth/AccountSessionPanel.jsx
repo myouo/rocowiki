@@ -23,7 +23,7 @@ export default function AccountSessionPanel() {
       if(!apiOrigin)throw new RequestError('AUTH_NOT_CONFIGURED');
       const service=createWorkspaceService(String(apiOrigin),me?.csrf_token,controller?.signal);
       if(kind==='logout'){await service.logout();setMe(null);}
-      else {const result=await(kind==='bind'?service.bind():service.login());window.location.assign(result.redirect_url);}
+      else {const result=await service.bind();window.location.assign(result.redirect_url);}
     }catch(error){if(!controller?.signal.aborted)setNotice(message(error));}
     finally{if(!controller?.signal.aborted)setBusy(false);}
   }
@@ -31,12 +31,13 @@ export default function AccountSessionPanel() {
     <div><span className="rw-social-local-tag">服务端身份</span><h2>站内账号与 GitHub 关联</h2></div>
     {loading?<p role="status">正在读取登录状态…</p>:me?<>
       <p>{me.user.display_name} · {me.user.role==='viewer'?'只读账号':me.user.role==='admin'?'管理员':me.user.role==='reviewer'?'审核员':'贡献者'}</p>
+      <p>用户名：{me.user.username}（不可更改，可用于登录）</p>
       <p>Wiki UID：<code>{me.user.uid}</code></p>
       <p>{me.github?`已关联 GitHub：${me.github.login}`:'尚未绑定 GitHub；不影响注册或投稿。'}</p>
       <div className="rw-actions">{!me.github&&<button type="button" className="rw-button" disabled={busy} onClick={()=>act('bind')}>绑定 GitHub</button>}<Link className="rw-button" to="/workbench/?tab=account">管理账号与贡献署名</Link><button type="button" className="rw-button" disabled={busy} onClick={()=>act('logout')}>退出登录</button></div>
     </>:<>
       <p>游客可阅读资料；编辑需要注册登录。注册使用已验证邮箱，GitHub 关联可选。</p>
-      <button type="button" className="rw-button primary" disabled={busy} onClick={()=>act('login')}>注册 / 登录</button>
+      <Link className="rw-button primary" to="/workbench/">注册 / 登录</Link>
     </>}
     {notice&&<p role="status">{notice}</p>}
     <p className="rw-muted">下方积分、签到和点赞仍是本机体验记录，尚未接入服务端账本。</p>

@@ -25,16 +25,16 @@ describe('formal workflow boundaries',()=>{
     await expect(createWorkspaceService('https://api.test').me()).rejects.toMatchObject({code:'INVALID_SERVICE_RESPONSE'});
   });
   it('accepts a genuine read-only role without treating it as malformed identity',async()=>{
-    vi.stubGlobal('fetch',vi.fn(async()=>Response.json({user:{uid:'usr_one',display_name:'Reader',role:'viewer'},csrf_token:'csrf',consent_version:'one',github:null})));
+    vi.stubGlobal('fetch',vi.fn(async()=>Response.json({user:{uid:'usr_one',username:'reader',display_name:'Reader',role:'viewer'},csrf_token:'csrf',consent_version:'one',github:null})));
     expect((await createWorkspaceService('https://api.test').me()).user.role).toBe('viewer');
   });
   it('rejects a well-formed edit baseline belonging to another page',async()=>{
     vi.stubGlobal('fetch',vi.fn(async()=>Response.json(base)));
     await expect(createWorkspaceService('https://api.test').base('another-page')).rejects.toMatchObject({code:'INVALID_SERVICE_RESPONSE'});
   });
-  it('does not navigate to an executable URL returned by a broken login service',async()=>{
+  it('does not navigate to an executable URL returned by a broken binding service',async()=>{
     vi.stubGlobal('fetch',vi.fn(async()=>Response.json({redirect_url:'javascript:alert(1)'})));
-    await expect(createWorkspaceService('https://api.test').login()).rejects.toMatchObject({code:'INVALID_SERVICE_RESPONSE'});
+    await expect(createWorkspaceService('https://api.test').bind()).rejects.toMatchObject({code:'INVALID_SERVICE_RESPONSE'});
   });
   it('rejects malformed public profiles before a contribution page can crash',async()=>{
     vi.stubGlobal('fetch',vi.fn(async()=>Response.json({user:{uid:'usr_one'},github:null,contributions:null})));

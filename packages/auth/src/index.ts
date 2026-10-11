@@ -16,14 +16,18 @@ export function cookie(env:ApiEnv,kind:string,value:string,age:number):string {
 export async function getSession(request:Request,env:ApiEnv):Promise<AuthSession|null> {
   const token=cookieValue(request,cookieName(env));
   if(!token||!/^[0-9a-f]{64}$/.test(token))return null;
-  return env.DB.prepare('SELECT u.uid,u.username,u.display_name,u.role,s.id_hash,s.csrf_hash,s.authenticated_at FROM sessions s JOIN users u ON u.uid=s.uid WHERE s.id_hash=? AND s.expires_at>? AND s.revoked_at IS NULL AND u.disabled_at IS NULL').bind(await hash(token),now()).first<AuthSession>();
+  return env.DB.prepare('SELECT u.uid,u.username,u.display_name,u.role,s.id_hash,s.csrf_hash,s.authenticated_at FROM sessions s JOIN users u ON u.uid=s.uid LEFT JOIN password_credentials p ON p.uid=u.uid WHERE s.id_hash=? AND s.expires_at>? AND s.revoked_at IS NULL AND u.disabled_at IS NULL AND (?=0 OR p.uid IS NULL OR p.email_verified_at IS NOT NULL)').bind(await hash(token),now(),env.EMAIL_VERIFICATION_REQUIRED==='true'?1:0).first<AuthSession>();
 }
 export const recentAuthMaxAge=600;
 const authClockTolerance=30;
-export async function createSession(env:ApiEnv,uid:string,authenticatedAt:number) {
+export async function createSession(env:ApiEnv,uid:string,authenticatedAt:number,fence?:{passwordHash:string;credentialVersion:number}) {
   const token=randomToken(),csrf=await deriveCsrf(token),ts=now();
   if(!Number.isSafeInteger(authenticatedAt)||authenticatedAt<=0||authenticatedAt>ts+authClockTolerance)throw new Error('INVALID_OIDC_TOKEN');
-  await env.DB.prepare('INSERT INTO sessions(id_hash,uid,csrf_hash,created_at,authenticated_at,expires_at) VALUES(?,?,?,?,?,?)').bind(await hash(token),uid,await hash(csrf),ts,Math.min(authenticatedAt,ts),ts+604800).run();
+  const values=[await hash(token),uid,await hash(csrf),ts,Math.min(authenticatedAt,ts),ts+604800];
+  if(fence){
+    const inserted=await env.DB.prepare('INSERT INTO sessions(id_hash,uid,csrf_hash,created_at,authenticated_at,expires_at) SELECT ?,?,?,?,?,? FROM password_credentials c JOIN users u USING(uid) WHERE c.uid=? AND c.password_hash=? AND c.credential_version=? AND u.disabled_at IS NULL AND (?=0 OR c.email_verified_at IS NOT NULL) RETURNING id_hash').bind(...values,uid,fence.passwordHash,fence.credentialVersion,env.EMAIL_VERIFICATION_REQUIRED==='true'?1:0).first();
+    if(!inserted)throw new Error('CREDENTIALS_CHANGED');
+  }else await env.DB.prepare('INSERT INTO sessions(id_hash,uid,csrf_hash,created_at,authenticated_at,expires_at) VALUES(?,?,?,?,?,?)').bind(...values).run();
   return {token,csrf};
 }
 // Domain-separated from the HttpOnly session secret; stable until the session changes.

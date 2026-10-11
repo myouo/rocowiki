@@ -1,6 +1,6 @@
 import {it,expect} from 'vitest';
 import {readFileSync} from 'node:fs';
-import {productionApiConfig,provisionApiDatabase,verifyApiRelease} from '../scripts/deploy-api';
+import {productionApiConfig,provisionApiDatabase,verifyApiRelease,verifyPasswordRuntime} from '../scripts/deploy-api';
 import {app} from '../apps/api/src/index';
 import {TestDatabase} from './d1';
 const account='a'.repeat(32),id='11111111-1111-4111-8111-111111111111',sha='1'.repeat(40);
@@ -17,6 +17,16 @@ it('creates only the named Wiki database after a valid empty lookup',async()=>{
   };
   expect(await provisionApiDatabase(account,'fixture-token',undefined,http)).toEqual(database);
   expect(methods).toEqual(['GET','POST']);
+});
+it('requires real Worker password failures, rather than accepting a successful health response as proof',async()=>{
+  const db=new TestDatabase();let count=0;
+  try{
+    const env=db.env({WEB_ORIGIN:'https://wiki.rocoai.app'});
+    await verifyPasswordRuntime(async(input,options)=>{count++;const body=JSON.parse(String(options?.body));expect(body.identifier.length).toBeGreaterThan(24);expect(body.identifier).not.toContain('@');return app.fetch(new Request(input,options),env);});
+    expect(count).toBe(3);expect(db.sql.prepare('SELECT count(*) AS n FROM users').get()!.n).toBe(0);
+    await expect(verifyPasswordRuntime(async()=>Response.json({status:'ok'}))).rejects.toThrow('PASSWORD_RUNTIME_CHECK_FAILED (HTTP_200)');
+    await expect(verifyPasswordRuntime(async()=>new Response('Worker exceeded CPU limits',{status:500}))).rejects.toThrow('PASSWORD_RUNTIME_CHECK_FAILED (HTTP_500)');
+  }finally{db.close();}
 });
 it('reuses the existing Wiki database without writes',async()=>{
   let calls=0;
@@ -53,7 +63,7 @@ it('reports bootstrap readiness through the real API after its D1 rate-limit wri
   const db=new TestDatabase();
   try{
     const result=await app.request('http://localhost:8787/health',{},db.env({API_SOURCE_COMMIT_SHA:sha,SUBMISSIONS_ENABLED:'false',PUBLISH_ENABLED:'false'}));
-    expect(result.status).toBe(200);expect(await result.json()).toMatchObject({status:'ok',authentication_configured:false,submissions:false,publishing:false,source_commit_sha:sha});
+    expect(result.status).toBe(200);expect(await result.json()).toMatchObject({status:'ok',registration:'password',authentication_configured:true,registration_enabled:false,submissions:false,publishing:false,source_commit_sha:sha});
     expect(db.sql.prepare('SELECT count(*) AS n FROM rate_limits').get()!.n).toBe(1);
   }finally{db.close();}
 });

@@ -1,7 +1,7 @@
 # RocoWiki
 
 [English](README.en.md) · [贡献指南](CONTRIBUTING.md) · [版权声明](COPYRIGHT.md)
-<!-- rocowiki-policy: overview; version: 5; lang: zh-CN -->
+<!-- rocowiki-policy: overview; version: 6; lang: zh-CN -->
 
 <a id="about"></a>
 ## 关于 RocoWiki
@@ -26,7 +26,7 @@ RocoWiki 是面向《洛克王国》页游玩家的社区百科，整理宠物�
 
 可以通过 [资料纠错与建议](https://github.com/myouo/rocowiki/issues/new/choose) 提交问题，附上词条位置、修改理由及可核验来源。引用他人资料时保留出处，不提交账号密码或其他私人信息。
 
-正式投稿开放后，需要注册并登录账号；GitHub 绑定为可选项。修改经过审核后发布。当前界面中的本机积分、点赞与演示操作只保存在本地，不代表公开社区记录。资料及代码贡献的详细要求见 [贡献指南](CONTRIBUTING.md)。
+正式投稿开放后，需要注册并登录账号；邮箱验证后可用邮箱或用户名与密码登录。用户名不可更改，昵称可以修改，GitHub 绑定可选。修改经过审核后发布。当前界面中的本机积分、点赞与演示操作只保存在本地，不代表公开社区记录。资料及代码贡献的详细要求见 [贡献指南](CONTRIBUTING.md)。
 
 <a id="community"></a>
 ## 社区与反馈

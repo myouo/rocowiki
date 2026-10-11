@@ -12,7 +12,7 @@ afterEach(()=>{vi.clearAllMocks();vi.useRealTimers();db.close();});
 const request=new Request('http://localhost:8787/auth/callback?state=state&code=code');
 const state={uid:null,session_hash:null,verifier:'verifier',nonce:'nonce'};
 async function provider(authTime:unknown) {
-  const env=db.env({OIDC_ISSUER:'https://issuer.test',OIDC_CLIENT_ID:'client',OIDC_CLIENT_SECRET:'secret'});
+  const env=db.env({AUTH_MODE:'oidc',OIDC_ISSUER:'https://issuer.test',OIDC_CLIENT_ID:'client',OIDC_CLIENT_SECRET:'secret'});
   const config=new oidc.Configuration({issuer:env.OIDC_ISSUER,authorization_endpoint:'https://issuer.test/authorize',token_endpoint:'https://issuer.test/token'},'client','secret');
   const {privateKey}=await generateKeyPair('RS256');
   const token=await new SignJWT({sub:'subject',nonce:'nonce',email:'private@example.com',email_verified:true,...(authTime===undefined?{}:{auth_time:authTime})})

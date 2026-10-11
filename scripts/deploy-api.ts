@@ -47,7 +47,10 @@ export function productionApiConfig(input:unknown,databaseId:string,sourceSha:st
   const production=config.env.production;
   if(production.vars.API_ORIGIN!=='https://api.wiki.rocoai.app'||production.vars.WEB_ORIGIN!=='https://wiki.rocoai.app'||production.vars.SITE_URL!=='https://wiki.rocoai.app')throw Error('API_ORIGIN_CONFIGURATION_MISMATCH');
   if(production.vars.SUBMISSIONS_ENABLED!=='false'||production.vars.PUBLISH_ENABLED!=='false')throw Error('API_BOOTSTRAP_REQUIRES_CLOSED_CONTRIBUTIONS');
-  for(const key of ['OIDC_ISSUER','OIDC_CLIENT_ID','GITHUB_APP_ID','GITHUB_INSTALLATION_ID','GITHUB_OAUTH_CLIENT_ID']){const value=values[key];if(value)production.vars[key]=value;}
+  for(const key of ['MAIL_PROVIDER','MAIL_FROM','OIDC_ISSUER','OIDC_CLIENT_ID','GITHUB_APP_ID','GITHUB_INSTALLATION_ID','GITHUB_OAUTH_CLIENT_ID']){const value=values[key];if(value)production.vars[key]=value;}
+  if(production.vars.AUTH_MODE!=='password'||production.vars.EMAIL_VERIFICATION_REQUIRED!=='true')throw Error('PASSWORD_AUTH_CONFIGURATION_MISMATCH');
+  if(!['disabled','resend','brevo'].includes(production.vars.MAIL_PROVIDER))throw Error('INVALID_MAIL_PROVIDER');
+  if(production.vars.MAIL_PROVIDER!=='disabled'&&!z.string().email().safeParse(production.vars.MAIL_FROM).success)throw Error('INVALID_MAIL_FROM');
   production.vars.API_SOURCE_COMMIT_SHA=sourceSha;
   production.routes=[];
   production.d1_databases[0]={...production.d1_databases[0],database_id:databaseId,migrations_dir:path.join(root,'database/migrations')};
@@ -66,6 +69,17 @@ export async function verifyApiRelease(sourceSha:string,http:Http=fetch,wait=pau
     if(attempt+1<attempts)await wait(3000);
   }
   throw Error(`PUBLIC_API_VERIFICATION_FAILED (${reason})`);
+}
+
+export async function verifyPasswordRuntime(http:Http=fetch){
+  // Longer than the allowed username and contains no @: cannot identify a real account.
+  const identifier=`runtime-check-${crypto.randomUUID()}`;
+  for(let attempt=0;attempt<3;attempt++){
+    const response=await http('https://api.wiki.rocoai.app/auth/login',{method:'POST',headers:{Origin:'https://wiki.rocoai.app','X-Roco-Request':'1','Content-Type':'application/json'},body:JSON.stringify({identifier,password:'Synthetic runtime validation; no account exists'}),redirect:'error',signal:AbortSignal.timeout(15000)});
+    if(response.status!==401)throw Error(`PASSWORD_RUNTIME_CHECK_FAILED (HTTP_${response.status}): inspect Workers errors and CPU limits before enabling registration`);
+    const value=await response.json() as {error?:{code?:string}};
+    if(value.error?.code!=='INVALID_CREDENTIALS')throw Error('PASSWORD_RUNTIME_CHECK_INVALID_RESPONSE');
+  }
 }
 
 async function main(){
@@ -89,7 +103,7 @@ async function main(){
   try{
     const file=path.join(temporary,'wrangler.json'),secretFile=path.join(temporary,'secrets.json');
     await writeFile(file,JSON.stringify(config));
-    const names=['OIDC_CLIENT_SECRET','GITHUB_APP_PRIVATE_KEY','GITHUB_OAUTH_CLIENT_SECRET','GITHUB_WEBHOOK_SECRET','DEPLOY_WEBHOOK_SECRET'];
+    const names=['BREVO_API_KEY','RESEND_API_KEY','OIDC_CLIENT_SECRET','GITHUB_APP_PRIVATE_KEY','GITHUB_OAUTH_CLIENT_SECRET','GITHUB_WEBHOOK_SECRET','DEPLOY_WEBHOOK_SECRET'];
     await writeFile(secretFile,JSON.stringify(Object.fromEntries(names.filter(name=>env[name]?.trim()).map(name=>[name,env[name]]))),{mode:0o600});
     const run=(args:string[])=>execFileSync(process.execPath,['node_modules/wrangler/bin/wrangler.js',...args,'--config',file,'--env','production'],{stdio:'inherit',env:{...env,CI:'true',WRANGLER_SEND_METRICS:'false'}});
     run(['d1','migrations','apply',databaseName,'--remote']);
@@ -103,6 +117,8 @@ async function main(){
   if(!response.ok||!domain.success)throw Error(`API_DOMAIN_BINDING_FAILED (${response.status})`);
   if(domain.result?.hostname!=='api.wiki.rocoai.app'||domain.result.service!=='rocowiki-api-production'||domain.result.zone_id!==zoneId||!domain.result.enabled)throw Error('API_DOMAIN_RESPONSE_MISMATCH');
   await verifyApiRelease(sourceSha);
+  await verifyPasswordRuntime();
+  console.log('Verified native password hashing on Workers without creating an account');
   console.log(`Verified public API release: ${sourceSha}; contributions remain closed`);
 }
 if(process.argv[1]&&import.meta.url===pathToFileURL(process.argv[1]).href)await main();

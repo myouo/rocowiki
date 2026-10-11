@@ -5,11 +5,14 @@ export const source = z.object({title:z.string(),url:z.string(),level:z.enum(['o
 export type Source = z.infer<typeof source>;
 export const freshSource=():Source=>({title:'',url:'',level:'unverified'});
 export const me = z.object({
-  user:z.object({uid:z.string().min(1),display_name:z.string(),role:z.enum(['viewer','contributor','reviewer','admin'])}),
+  user:z.object({uid:z.string().min(1),username:z.string().min(1),display_name:z.string(),role:z.enum(['viewer','contributor','reviewer','admin'])}),
+  account:z.object({email:z.string().email(),email_verified:z.boolean()}).nullable().optional(),
   csrf_token:z.string().min(1),consent_version:z.string(),
   github:z.object({login:z.string(),coauthor_email:z.string().nullable(),enabled:z.number()}).nullable(),
 });
 export type Me = z.infer<typeof me>;
+export const authStatus=z.object({registration:z.string(),registration_enabled:z.boolean(),email_verification_required:z.boolean(),password_reset_available:z.boolean()});
+export type AuthStatus=z.infer<typeof authStatus>;
 export const base = z.object({page:z.object({id:z.string(),kind:z.enum(editorKinds),title:z.string()}),commit_sha:z.string().regex(/^[a-f0-9]{40}$/),blob_sha:z.string().regex(/^[a-f0-9]{40}$/),content:z.string(),base_data_revision:z.number().nullable()});
 export type Base = z.infer<typeof base>;
 export const submissionRow = z.object({revision_id:z.string(),page_id:z.string(),status:z.enum(states),edit_summary:z.string()});

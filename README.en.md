@@ -1,7 +1,7 @@
 # RocoWiki
 
 [中文](README.md) · [Contributing](CONTRIBUTING.en.md) · [Copyright](COPYRIGHT.en.md)
-<!-- rocowiki-policy: overview; version: 5; lang: en -->
+<!-- rocowiki-policy: overview; version: 6; lang: en -->
 
 <a id="about"></a>
 ## About RocoWiki
@@ -26,7 +26,7 @@ Check sources, update dates and verification status as you read. Tests and infer
 
 Submit [content corrections and suggestions](https://github.com/myouo/rocowiki/issues/new/choose) with the affected entry, a reason and verifiable sources. Preserve attribution when quoting others, and keep passwords and private information out of reports.
 
-When formal submissions open, registration and login will be required; GitHub binding is optional. Changes are reviewed before publication. Current local points, likes and demo actions are stored on your device and do not represent public community records. See [contributing](CONTRIBUTING.en.md) for content and code contribution requirements.
+When formal submissions open, registration and login will be required. Verify your email, then sign in with your email or username and password. Usernames are immutable; display names can change. GitHub binding is optional. Changes are reviewed before publication. Current local points, likes and demo actions are stored on your device and do not represent public community records. See [contributing](CONTRIBUTING.en.md) for content and code contribution requirements.
 
 <a id="community"></a>
 ## Community and feedback

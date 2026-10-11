@@ -1,0 +1,17 @@
+import React,{useState} from 'react';
+import {passwordSchema,displayNameSchema} from '../../../../../packages/wiki-schema/src/account';
+import {RequestError} from '../../components/api';
+import type {Me} from './contracts';
+import type {WorkspaceService} from './service';
+
+export function AccountSettings({me,service,busy,action,refresh,notice}:{me:Me;service:WorkspaceService;busy:boolean;action:(fn:()=>Promise<void>)=>Promise<void>;refresh:()=>Promise<void>;notice:(value:string)=>void}){
+  const [nickname,setNickname]=useState(me.user.display_name),[password,setPassword]=useState(''),[nextPassword,setNextPassword]=useState(''),[confirmation,setConfirmation]=useState(''),[reauth,setReauth]=useState(false),[reauthPassword,setReauthPassword]=useState('');
+  return <div className="account-settings"><p>用户名：<b>{me.user.username}</b>（不可更改，可用于登录）</p>{me.account&&<p>邮箱：{me.account.email} · {me.account.email_verified?'已验证':'尚未验证'}</p>}
+    <form onSubmit={event=>{event.preventDefault();void action(async()=>{if(!displayNameSchema.safeParse(nickname).success)throw new RequestError('INVALID_DISPLAY_NAME');await service.updateProfile(nickname);await refresh();notice('昵称已更新，用户名保持不变。');});}}><label className="field">昵称<input name="display_name" autoComplete="nickname" required maxLength={80} value={nickname} onChange={e=>setNickname(e.target.value)} /></label><button className="button button--secondary" type="submit" disabled={busy}>保存昵称</button></form>
+    {me.account&&<><h3>账号密码</h3><form onSubmit={event=>{event.preventDefault();void action(async()=>{try{if(nextPassword!==confirmation)throw new RequestError('PASSWORD_CONFIRMATION_MISMATCH');if(!passwordSchema.safeParse(nextPassword).success)throw new RequestError('INVALID_PASSWORD');await service.changePassword(password,nextPassword);await refresh();notice('密码已更新，其他登录会话已退出。');}finally{setPassword('');setNextPassword('');setConfirmation('');}});}}>
+      <label className="field">当前密码<input name="current_password" type="password" autoComplete="current-password" required maxLength={128} value={password} onChange={e=>setPassword(e.target.value)} /></label>
+      <label className="field">新密码<input name="new_password" type="password" autoComplete="new-password" required minLength={15} maxLength={128} value={nextPassword} onChange={e=>setNextPassword(e.target.value)} /><small>15–128 个字符。</small></label>
+      <label className="field">再次输入新密码<input name="new_password_confirmation" type="password" autoComplete="new-password" required minLength={15} maxLength={128} value={confirmation} onChange={e=>setConfirmation(e.target.value)} /></label><button className="button button--secondary" type="submit" disabled={busy}>修改密码</button></form>
+      <button type="button" className="text-button" disabled={busy} onClick={()=>setReauth(!reauth)}>重新验证身份</button>{reauth&&<form onSubmit={event=>{event.preventDefault();void action(async()=>{try{await service.reauthenticate({identifier:me.user.username,password:reauthPassword});await refresh();setReauth(false);notice('身份已重新验证，可以继续账号绑定等操作。');}finally{setReauthPassword('');}});}}><label className="field">输入当前密码<input name="reauth_password" type="password" autoComplete="current-password" required maxLength={128} value={reauthPassword} onChange={e=>setReauthPassword(e.target.value)} /></label><button className="button button--secondary" type="submit" disabled={busy}>确认身份</button></form>}</>}
+  </div>;
+}

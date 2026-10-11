@@ -7,6 +7,8 @@ import { getSession, sessionCsrf, verifyCsrf, hash, now, newId, cookie, beginOid
 import { GitHub, GitError, type Coauthor } from '../../../packages/git-wrapper/src/index';
 import { Coordinator, validManifest } from '../../../packages/publish-coordinator/src/index';
 import { startGithub, finishGithub, requireRecent, consentVersion } from './github-binding';
+import {AccountError,passwordLogin,passwordReauthenticate,registerPassword,changePassword,mailConfigured,requestAccountEmail,consumeAccountToken} from '../../../packages/auth/src/password';
+import {profileSchema} from '../../../packages/wiki-schema/src/account';
 import type { ApiEnv, Bindings, AuthSession } from './types';
 
 export class ApiError extends Error {constructor(public code:string,public status=400){super(code);}}
@@ -53,23 +55,39 @@ app.use('*',async(c,next)=>{
   if(isMutation&&(c.req.header('Origin')!==c.env.WEB_ORIGIN||c.req.header('X-Roco-Request')!=='1'))throw new ApiError('ORIGIN_REJECTED',403);
   const s=await getSession(c.req.raw,c.env);
   if(s)c.set('session',s);
-  const publicRoute=path==='/health'||path==='/pages'||path.startsWith('/users/')||path==='/mirror'||path==='/auth/login'||path==='/auth/register'||path==='/auth/callback'||path==='/auth/github/callback';
+  const publicAuth=['/auth/login','/auth/register','/auth/email/resend','/auth/email/verify','/auth/password/request-reset','/auth/password/reset'];
+  const publicRoute=path==='/health'||path==='/pages'||path.startsWith('/users/')||path==='/mirror'||publicAuth.includes(path)||path==='/auth/callback'||path==='/auth/github/callback';
   if(!publicRoute&&!s)throw new ApiError('UNAUTHORIZED',401);
-  if(isMutation&&s&&!['/auth/login','/auth/register'].includes(path)) {
+  if(isMutation&&s&&!publicAuth.includes(path)) {
     if(!await verifyCsrf(c.req.raw,c.env,s))throw new ApiError('CSRF_REJECTED',403);
   }
   await next();
 });
-app.get('/health',c=>c.json({status:'ok',schema:1,registration:'oidc',
-  authentication_configured:Boolean(c.env.OIDC_ISSUER&&c.env.OIDC_CLIENT_ID&&c.env.OIDC_CLIENT_SECRET),
+app.get('/health',c=>c.json({status:'ok',schema:1,registration:c.env.AUTH_MODE,
+  authentication_configured:c.env.AUTH_MODE==='password'||Boolean(c.env.OIDC_ISSUER&&c.env.OIDC_CLIENT_ID&&c.env.OIDC_CLIENT_SECRET),
+  registration_enabled:c.env.REGISTRATION_ENABLED==='true'&&(c.env.EMAIL_VERIFICATION_REQUIRED!=='true'||mailConfigured(c.env)),
+  email_verification_required:c.env.EMAIL_VERIFICATION_REQUIRED==='true',password_reset_available:mailConfigured(c.env),
   submissions:c.env.SUBMISSIONS_ENABLED==='true',publishing:c.env.PUBLISH_ENABLED==='true',
   source_commit_sha:c.env.API_SOURCE_COMMIT_SHA||null,
 }));
 app.get('/pages',c=>c.json({pages:catalog}));
 app.get('/mirror',async c=>c.json(await c.env.DB.prepare('SELECT source_sha,mirror_sha,status,checked_at FROM mirror_observations ORDER BY checked_at DESC LIMIT 1').first()??{status:'unknown'}));
-app.post('/auth/register',async c=>{const start=await beginOidc(c.env,c.get('session')??null);c.header('Set-Cookie',cookie(c.env,'oidc',start.browser,600));return c.json({redirect_url:start.url});});
-app.post('/auth/login',async c=>{const start=await beginOidc(c.env,c.get('session')??null);c.header('Set-Cookie',cookie(c.env,'oidc',start.browser,600));return c.json({redirect_url:start.url});});
+app.post('/auth/register',async c=>{
+  if(c.env.AUTH_MODE==='password')return c.json(await registerPassword(c.env,await jsonBody(c.req.raw,8192)),201);
+  const start=await beginOidc(c.env,c.get('session')??null);c.header('Set-Cookie',cookie(c.env,'oidc',start.browser,600));return c.json({redirect_url:start.url});
+});
+app.post('/auth/login',async c=>{
+  if(c.env.AUTH_MODE==='password'){const session=await passwordLogin(c.env,await jsonBody(c.req.raw,8192));c.header('Set-Cookie',cookie(c.env,'session',session.token,604800));return c.json({ok:true});}
+  const start=await beginOidc(c.env,c.get('session')??null);c.header('Set-Cookie',cookie(c.env,'oidc',start.browser,600));return c.json({redirect_url:start.url});
+});
+app.post('/auth/reauthenticate',async c=>{const session=await passwordReauthenticate(c.env,c.get('session'),await jsonBody(c.req.raw,8192));c.header('Set-Cookie',cookie(c.env,'session',session.token,604800));return c.json({ok:true});});
+app.post('/auth/password/change',async c=>{const session=await changePassword(c.env,c.get('session'),await jsonBody(c.req.raw,8192));c.header('Set-Cookie',cookie(c.env,'session',session.token,604800));return c.json({ok:true});});
+app.post('/auth/email/resend',async c=>c.json(await requestAccountEmail(c.env,await jsonBody(c.req.raw,4096),'verify_email')));
+app.post('/auth/password/request-reset',async c=>c.json(await requestAccountEmail(c.env,await jsonBody(c.req.raw,4096),'reset_password')));
+app.post('/auth/email/verify',async c=>{const input=z.object({token:z.string(),password:z.string().min(1).max(128)}).strict().parse(await jsonBody(c.req.raw,8192));return c.json(await consumeAccountToken(c.env,input.token,'verify_email',input.password));});
+app.post('/auth/password/reset',async c=>{const input=z.object({token:z.string(),password:z.string()}).strict().parse(await jsonBody(c.req.raw,8192));return c.json(await consumeAccountToken(c.env,input.token,'reset_password',input.password));});
 app.get('/auth/callback',async c=>{
+  if(c.env.AUTH_MODE==='password')throw new ApiError('OIDC_DISABLED',410);
   const state=await consumeState(c.env,c.req.raw,'oidc'),session=await finishOidc(c.env,c.req.raw,state);
   c.header('Set-Cookie',cookie(c.env,'session',session.token,604800));c.header('Set-Cookie',cookie(c.env,'oidc','',0),{append:true});
   return c.redirect(`${c.env.WEB_ORIGIN}/workbench`);
@@ -77,8 +95,10 @@ app.get('/auth/callback',async c=>{
 app.post('/auth/logout',async c=>{await c.env.DB.prepare('UPDATE sessions SET revoked_at=? WHERE id_hash=?').bind(now(),c.get('session').id_hash).run();c.header('Set-Cookie',cookie(c.env,'session','',0));return c.json({ok:true});});
 app.get('/me',async c=>{
   const s=c.get('session'),github=await c.env.DB.prepare('SELECT login,github_numeric_id,coauthor_email,enabled,consent_version FROM github_identities WHERE uid=?').bind(s.uid).first();
-  return c.json({user:{uid:s.uid,username:s.username,display_name:s.display_name,role:s.role},csrf_token:await sessionCsrf(c.req.raw,c.env),github,consent_version:consentVersion});
+  const credential=await c.env.DB.prepare('SELECT email,email_verified_at FROM password_credentials WHERE uid=?').bind(s.uid).first<{email:string;email_verified_at:number|null}>();
+  return c.json({user:{uid:s.uid,username:s.username,display_name:s.display_name,role:s.role},account:credential?{email:credential.email,email_verified:credential.email_verified_at!==null}:null,csrf_token:await sessionCsrf(c.req.raw,c.env),github,consent_version:consentVersion});
 });
+app.patch('/me',async c=>{const input=profileSchema.parse(await jsonBody(c.req.raw,4096));await c.env.DB.prepare('UPDATE users SET display_name=? WHERE uid=?').bind(input.display_name,c.get('session').uid).run();return c.json({ok:true});});
 app.post('/auth/github/start',async c=>{const start=await startGithub(c.env,c.get('session'));c.header('Set-Cookie',cookie(c.env,'github',start.browser,600));return c.json({redirect_url:start.url});});
 app.get('/auth/github/callback',async c=>{await finishGithub(c.env,c.req.raw);c.header('Set-Cookie',cookie(c.env,'github','',0));return c.redirect(`${c.env.WEB_ORIGIN}/workbench?github=bound`);});
 app.post('/me/github/consent',async c=>{
@@ -201,8 +221,8 @@ app.post('/webhooks/mirror',async c=>{
 app.notFound(c=>c.json({error:{code:'NOT_FOUND',correlation_id:c.get('correlationId')}},404));
 app.onError((error,c)=>{
   const invalid=error instanceof Error&&/^(UNSAFE_|MDX_|FRONT_MATTER_|TOO_MANY_|DUPLICATE_REFERENCE_DEFINITION|ENTITY_ID_|UNKNOWN_SKILL|KIND_MISMATCH|INVALID_CONTENT)/.test(error.message);
-  const code=error instanceof ApiError?error.code:error instanceof GitError?error.code:error instanceof ZodError||invalid?'INVALID_CONTENT':error instanceof Error&&/^[A-Z_]+$/.test(error.message)?error.message:'INTERNAL_ERROR';
-  const status=error instanceof ApiError?error.status:error instanceof GitError?error.status===409?409:503:error instanceof ZodError||invalid?400:code.endsWith('NOT_CONFIGURED')?503:code==='REAUTH_REQUIRED'||code==='INVALID_OIDC_TOKEN'?401:code.includes('OAUTH')||code.includes('IDENTITY')?401:500;
+  const code=error instanceof ApiError||error instanceof AccountError?error.code:error instanceof GitError?error.code:error instanceof ZodError||invalid?'INVALID_CONTENT':error instanceof Error&&/^[A-Z_]+$/.test(error.message)?error.message:'INTERNAL_ERROR';
+  const status=error instanceof ApiError||error instanceof AccountError?error.status:error instanceof GitError?error.status===409?409:503:error instanceof ZodError||invalid?400:code==='CREDENTIALS_CHANGED'?409:code.endsWith('NOT_CONFIGURED')?503:code==='REAUTH_REQUIRED'||code==='INVALID_OIDC_TOKEN'?401:code.includes('OAUTH')||code.includes('IDENTITY')?401:500;
   if(status>=500)console.error(JSON.stringify({event:'api_error',code,correlation_id:c.get('correlationId')}));
   return c.json({error:{code,correlation_id:c.get('correlationId')}},status as 400);
 });
@@ -211,6 +231,8 @@ export default {
   async scheduled(_controller:ScheduledController,env:ApiEnv,ctx:ExecutionContext) {
     ctx.waitUntil((async()=>{
       await env.DB.batch([env.DB.prepare('DELETE FROM oauth_states WHERE expires_at<?').bind(now()),env.DB.prepare('DELETE FROM rate_limits WHERE expires_at<?').bind(now()-3600),env.DB.prepare('DELETE FROM sessions WHERE expires_at<?').bind(now()-86400)]);
+      await env.DB.prepare('DELETE FROM account_tokens WHERE expires_at<?').bind(now()).run();
+      await env.DB.prepare('DELETE FROM pending_registrations WHERE expires_at<?').bind(now()).run();
       const worker=coordinator(env);await worker.run();
       try{await worker.reconcilePublished();}catch{console.warn(JSON.stringify({event:'reconcile_waiting',code:'UPSTREAM_RETRYING'}));}
     })());

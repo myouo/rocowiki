@@ -1,6 +1,6 @@
 # Contributing
 [中文](CONTRIBUTING.md) · [Code of conduct](CODE_OF_CONDUCT.en.md) · [Security](SECURITY.en.md)
-<!-- rocowiki-policy: contributing; version: 4; lang: en -->
+<!-- rocowiki-policy: contributing; version: 5; lang: en -->
 
 <a id="entry"></a>
 ## Choose an entry point
@@ -10,7 +10,7 @@ Use issue templates for ordinary bugs, features and content corrections; report 
 <a id="wiki"></a>
 ## Wiki contributions
 
-Use /workbench/ with a verified-email OIDC account and contribution permission. GitHub binding is optional. Edit a registered page from its real baseline, explain the change and provide verifiable sources. Distinguish official evidence, tests, inference and unverified information. Samples, demo publication and local points are not public records.
+Use /workbench/ with a verified-email site account and contribution permission. GitHub binding is optional. Edit a registered page from its real baseline, explain the change and provide verifiable sources. Distinguish official evidence, tests, inference and unverified information. Samples, demo publication and local points are not public records.
 
 Submissions lock their snapshots; self-review is forbidden and critical pages require two distinct reviewers. Changed baselines require a new reviewed candidate. GitHub email attribution requires binding, explicit consent and opt-in for that submission; this is separate from code or content licensing.
 
@@ -19,9 +19,20 @@ Submit only original material you can provide or material with appropriate permi
 <a id="setup"></a>
 ## Local development
 
-Use Node.js 24.15.0+, npm ci for locked dependencies, and npm run db:migrate for the local database. Run npm run dev:api and npm run dev:web separately. Use localhost:3000 and localhost:8787 consistently, without mixing 127.0.0.1. Configure public development values and the untracked apps/api/.dev.vars. Configure public API values in apps/api/wrangler.jsonc and use apps/api/.dev.vars.example for private settings. OIDC requires verified email, PKCE and auth_time; the development callback is http://localhost:8787/auth/callback. GitHub binding uses a separate OAuth app with callback http://localhost:8787/auth/github/callback. Install the publisher App only on the Wiki repository with Contents write and Pull requests write permissions. Set production secrets through interactive Wrangler prompts, never source files or command arguments.
+Use Node.js 24.15.0+, npm ci for locked dependencies, and npm run db:migrate for the local database. Run npm run dev:api and npm run dev:web separately. Use localhost:3000 and localhost:8787 consistently, without mixing 127.0.0.1. Configure public development values and the untracked apps/api/.dev.vars. Configure public API values in apps/api/wrangler.jsonc and use apps/api/.dev.vars.example for private settings. Current authentication uses site email/password credentials. GitHub binding uses a separate OAuth app with callback http://localhost:8787/auth/github/callback. Install the publisher App only on the Wiki repository with Contents write and Pull requests write permissions. Store production secrets in the repository production environment for API workflow deployment, never source files or command arguments.
 
 Offline/browser demos provide neither authentication bypass nor production publishing. Regenerate outputs from their sources; do not patch build, dist, docs-generated, or src/generated to fix current behavior.
+
+### Email/password and delivery setup
+
+The active flow uses site email/password credentials; production OIDC callbacks are disabled. Email and username both work for login. Usernames are stored in lowercase, contain 3–24 letters, digits, underscores or hyphens, start with a letter and cannot change after registration. Display names can change separately. Passwords contain 15–128 characters and are independently salted with scrypt. Email addresses are private; delivery providers never receive passwords.
+
+1. Authenticate a dedicated sending subdomain you control in Brevo or Resend, such as mail.wiki.rocoai.app, with a sender such as accounts@mail.wiki.rocoai.app. Use the provider's actual DNS records; never invent DKIM/SPF values or overwrite root-domain mail records.
+2. In repository Settings → Environments → production, add MAIL_PROVIDER (brevo or resend) and MAIL_FROM (a plain email address), with the corresponding Key in BREVO_API_KEY or RESEND_API_KEY Secret. Keep EMAIL_VERIFICATION_REQUIRED=true. Do not disclose credentials.
+3. Run Deploy Wiki API. It migrates D1, securely uploads Secrets and verifies actual Worker password execution using an anonymous incorrect-password request without creating test users. Workers Free has a small CPU allowance; investigate resource limits if this check fails. Do not weaken hashing or bypass checks to launch.
+4. Use QQ, 163, Gmail and Outlook mailboxes you control to test registration, resending, recovery and password changes. Record inbox/spam placement, latency and original authentication results; check whether click tracking rewrites or breaks verification links. API acceptance, Delivered metrics and historical benchmarks do not verify this site.
+
+Email verification also requires the registration password. Permanent accounts are created only after verification; pending registrations expire after 24 hours and do not reserve permanent usernames. Password changes/resets revoke old sessions; recent authentication rechecks the same account password. Registration is closed without configured delivery. Delivery is not configured or accepted yet, so formal registration, submissions and publishing remain closed. Store production Secrets in the repository production environment for workflow deployment.
 
 ### GitHub integration setup
 
@@ -31,7 +42,7 @@ Set the webhook URL to https://api.wiki.rocoai.app/webhooks/github and subscribe
 
 User binding uses a separate OAuth App under Developer settings → OAuth Apps. Set its homepage to https://wiki.rocoai.app and Authorization callback URL to https://api.wiki.rocoai.app/auth/github/callback. Store Client ID as the GITHUB_OAUTH_CLIENT_ID production variable and Client Secret as the GITHUB_OAUTH_CLIENT_SECRET secret. Binding requests read:user and user:email, with no repository-write scope.
 
-Run Deploy Wiki API after configuration changes. Keep submissions and publishing closed until real login, callback and webhook verification completes. GitHub binding does not replace Wiki OIDC registration and login. See [GitHub App registration](https://docs.github.com/en/apps/sharing-github-apps/registering-a-github-app-using-url-parameters) and [OAuth App registration](https://docs.github.com/en/apps/oauth-apps/building-oauth-apps/creating-an-oauth-app).
+Run Deploy Wiki API after configuration changes. Keep submissions and publishing closed until real login, callback and webhook verification completes. GitHub binding does not replace Wiki email/password registration and login. See [GitHub App registration](https://docs.github.com/en/apps/sharing-github-apps/registering-a-github-app-using-url-parameters) and [OAuth App registration](https://docs.github.com/en/apps/oauth-apps/building-oauth-apps/creating-an-oauth-app).
 
 <a id="change"></a>
 ## Code and documentation

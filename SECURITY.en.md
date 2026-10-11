@@ -1,6 +1,6 @@
 # Security policy
 [中文](SECURITY.md) · [Contributing](CONTRIBUTING.en.md)
-<!-- rocowiki-policy: security; version: 3; lang: en -->
+<!-- rocowiki-policy: security; version: 4; lang: en -->
 
 <a id="reporting"></a>
 ## Private reporting
@@ -12,7 +12,7 @@ If the entry is unavailable, open a public issue only to request a private secur
 <a id="versions"></a>
 ## Supported scope
 
-The static reading site is deployed. Account, submission and publishing services have not completed production acceptance, and there is no formal release yet. Maintainers target the currently maintained main development version; older prototypes, offline demos and historical builds have no separate security support commitment. Future releases must document their support periods here. OIDC, GitHub App, D1 and mirror services have not completed production security acceptance.
+The static reading site, API and D1 are deployed. Account, submission and publishing services have not completed production acceptance, and there is no formal release yet. Maintainers target the currently maintained main development version; older prototypes, offline demos and historical builds have no separate security support commitment. Future releases must document their support periods here. OIDC is currently disabled; delivery, GitHub App and mirror services have not completed production security acceptance.
 
 <a id="report"></a>
 ## Report contents
@@ -30,7 +30,8 @@ For credential exposure, restrict affected writes and revoke or rotate credentia
 ## Required security boundaries
 
 - The server determines identity, permissions and UID; localStorage, demo points and nicknames are not authentication.
-- Mutations validate session, Origin, CSRF and role; recent authentication uses validated OIDC auth_time.
+- Mutations validate session, Origin, CSRF and role; recent authentication rechecks the current account password. Usernames and UIDs are immutable; display names are not credentials.
+- Store only salted scrypt password hashes. Verification/recovery tokens are hashed, time-limited and single-use; email verification also requires the registration password. Password changes/resets revoke old sessions, and unverified registrations do not reserve permanent usernames.
 - Submitted content is immutable, self-review is forbidden, critical pages require distinct reviewers, and stale baselines require conflict review.
 - Public users cannot choose repository paths, execute MDX/HTML, bypass image policy, or edit workflows and build code.
 - Binding OAuth, publisher App and deployment credentials stay separate; the publisher never bypasses protection or merges main directly.

@@ -5,7 +5,7 @@
   "documents": [
     {
       "id": "overview",
-      "version": 5,
+      "version": 6,
       "zh": "README.md",
       "en": "README.en.md",
       "sections": [
@@ -18,7 +18,7 @@
     },
     {
       "id": "security",
-      "version": 3,
+      "version": 4,
       "zh": "SECURITY.md",
       "en": "SECURITY.en.md",
       "sections": [
@@ -31,7 +31,7 @@
     },
     {
       "id": "contributing",
-      "version": 4,
+      "version": 5,
       "zh": "CONTRIBUTING.md",
       "en": "CONTRIBUTING.en.md",
       "sections": [

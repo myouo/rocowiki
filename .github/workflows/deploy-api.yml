@@ -33,6 +33,10 @@ jobs:
           CLOUDFLARE_ACCOUNT_ID: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}
           CLOUDFLARE_ZONE_ID: ${{ vars.CLOUDFLARE_ZONE_ID }}
           D1_DATABASE_ID: ${{ vars.D1_DATABASE_ID }}
+          MAIL_PROVIDER: ${{ vars.MAIL_PROVIDER }}
+          MAIL_FROM: ${{ vars.MAIL_FROM }}
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+          BREVO_API_KEY: ${{ secrets.BREVO_API_KEY }}
           OIDC_ISSUER: ${{ vars.OIDC_ISSUER }}
           OIDC_CLIENT_ID: ${{ vars.OIDC_CLIENT_ID }}
           OIDC_CLIENT_SECRET: ${{ secrets.OIDC_CLIENT_SECRET }}
