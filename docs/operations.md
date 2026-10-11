@@ -42,13 +42,13 @@ npm run deploy
 
 公开站点目标为 `https://wiki.rocoai.app`，仓库为 `myouo/rocowiki`。Web 使用 `apps/web/wrangler.jsonc` 直接部署静态制品；API 继续独立运行于 Workers/D1，预留地址 `https://api.rocoai.app`，当前尚未部署后台。配置与实际上线验收见 [部署记录](deployment.md)。
 
-GitHub production environment Secret：`CLOUDFLARE_API_TOKEN`，API 开启发布回执后另配置 `DEPLOY_WEBHOOK_SECRET`。Variables：`SITE_URL`、`API_ORIGIN`、可选 `CLOUDFLARE_ACCOUNT_ID` 和 `DEPLOY_RECEIPTS_ENABLED`；mirror 另配置 `GITCODE_REMOTE_URL`。Token 需要实际账号的 Workers 部署、目标区域读取及绑定自定义域所需权限，不将其写入 Git。CI 从 `rocoai.app` 的活动 zone 校验账号，并拒绝不匹配的账号 ID。
+GitHub production environment Secrets：`CLOUDFLARE_API_TOKEN`（Worker/路由操作）、`CLOUDFLARE_ZONE_API_TOKEN`（区域/DNS 操作），API 开启发布回执后另配置 `DEPLOY_WEBHOOK_SECRET`。Variables：`SITE_URL`、`API_ORIGIN`、`CLOUDFLARE_ZONE_ID`、`CLOUDFLARE_ACCOUNT_ID` 和 `DEPLOY_RECEIPTS_ENABLED`；mirror 另配置 `GITCODE_REMOTE_URL`。两组 Token 分别具有所操作资源的必要权限，不将其写入 Git。CI 使用区域 Token 从 `rocoai.app` 的活动 zone 校验账号，并拒绝不匹配的账号 ID。
 
 首次只读资料站上线显式使用 `DEPLOY_RECEIPTS_ENABLED=false`，仅校验公网版本，不把任何投稿记成 published。后台及发布协议验收完成后改为 true，提供签名密钥；true 为脚本默认值，缺少回执配置在上传前失败。API 的投稿/发布开关保持受独立上线条件控制。
 
 采用可信 GitHub Actions 制品上传，关闭平台重复自动构建。`/version.json` 配置 no-store，哈希资源长缓存；未知路径返回真正的 404，正文路径使用尾斜杠。[静态资源说明](https://developers.cloudflare.com/workers/static-assets/get-started/)、[自定义域名](https://developers.cloudflare.com/workers/configuration/routing/custom-domains/)。
 
-优选目标为 `rocowiki.cf.090227.xyz`，实际 DNS 切换须先证明正确 Host/SNI 下的 HTTPS、Worker 路由及版本匹配。Custom Domain 不能在已有 CNAME 的同名主机上直接建立，不能把优选 CNAME 与官方域名绑定混为同一步。测速比较相同 URL 的官方解析与指定优选解析；分别记录大陆电信/联通/移动的成功率、连接耗时和首字节耗时，不将平台示例或境外测试当作国内实测。
+优选目标为 `rocowiki.cf.090227.xyz`，主站使用 DNS-only CNAME 与 `wiki.rocoai.app/*` Workers Route，正常解析对照入口 `wiki-direct.rocoai.app` 使用 Custom Domain 并标记 noindex。先上传并核验对照入口版本，再建立精确主站路由及优选 DNS，最后核验主站 TLS 与版本。Custom Domain 不能在已有 CNAME 的同名主机上直接建立，因此两种入口使用不同主机名。测速比较相同 URL 的官方解析与指定优选解析；分别记录大陆电信/联通/移动的成功率、连接耗时和首字节耗时，不将平台示例或境外测试当作国内实测。
 
 `deploy.yml` 的 build 与 deploy 均引用 `production` 环境，分别在执行步骤中读取该环境的 `vars`。正式构建先检查 `SITE_URL` / `API_ORIGIN`，要求 HTTPS Origin、无凭据/路径/查询/片段；空值或错误值直接失败，不再产出含空 API 地址或回退示例站点地址的制品。两者可带一个根路径尾斜杠，构建时归一化。两项值应分别与 Worker 的 `WEB_ORIGIN` / `API_ORIGIN` 一致。[GitHub 环境变量作用域](https://github.com/github/docs/blob/main/content/actions/reference/workflows-and-actions/deployments-and-environments.md)
 

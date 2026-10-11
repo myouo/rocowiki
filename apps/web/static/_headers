@@ -7,3 +7,5 @@
   Cache-Control: public, max-age=31536000, immutable
 /pagefind/*
   Cache-Control: public, max-age=0, must-revalidate
+https://wiki-direct.rocoai.app/*
+  X-Robots-Tag: noindex, nofollow

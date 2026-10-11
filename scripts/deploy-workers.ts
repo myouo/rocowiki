@@ -1,7 +1,10 @@
 import {execFileSync} from 'node:child_process';
-import {readFile} from 'node:fs/promises';
+import {readFile,writeFile,mkdtemp,rm} from 'node:fs/promises';
 import {createHmac} from 'node:crypto';
 import {pathToFileURL} from 'node:url';
+import path from 'node:path';
+import {tmpdir} from 'node:os';
+import ts from 'typescript';
 import {artifactDigest} from './version-manifest.mjs';
 
 export type Release = {release_id:string;source_commit_sha:string;artifact_digest:string;built_at:string};
@@ -39,16 +42,63 @@ export async function sendReceipt(version:Release,origin:string,secret:string,ht
   }
   throw Error('RECEIPT_DELIVERY_FAILED: replay the receipt from this immutable artifact');
 }
+export async function bindWorkerDomain(accountId:string,zoneId:string,token:string,http:Http=fetch):Promise<void> {
+  if(!/^[a-f0-9]{32}$/.test(accountId)||!/^[a-f0-9]{32}$/.test(zoneId)||!token)throw Error('INVALID_DOMAIN_CONFIGURATION');
+  const response=await http(`https://api.cloudflare.com/client/v4/accounts/${accountId}/workers/domains`,{
+    method:'PUT',headers:{Authorization:`Bearer ${token}`,'Content-Type':'application/json'},
+    body:JSON.stringify({hostname:'wiki-direct.rocoai.app',service:'rocowiki-web',zone_id:zoneId,zone_name:'rocoai.app',enabled:true}),
+    redirect:'error',signal:AbortSignal.timeout(15000),
+  });
+  const data=await response.json() as {success:boolean;errors?:{code:number}[];result?:{hostname:string;service:string;zone_id:string;enabled:boolean}};
+  if(!response.ok||!data.success)throw Error(`DOMAIN_BINDING_FAILED (${response.status}; codes: ${(data.errors??[]).map(error=>error.code).join(',')})`);
+  if(data.result?.hostname!=='wiki-direct.rocoai.app'||data.result.service!=='rocowiki-web'||data.result.zone_id!==zoneId||!data.result.enabled)throw Error('DOMAIN_BINDING_RESPONSE_MISMATCH');
+}
+export async function configurePreferredRoute(zoneId:string,accountToken:string,dnsToken:string,http:Http=fetch):Promise<void> {
+  if(!/^[a-f0-9]{32}$/.test(zoneId)||!accountToken||!dnsToken)throw Error('INVALID_PREFERRED_ROUTE_CONFIGURATION');
+  const call=async(resource:string,token:string,method='GET',body?:unknown)=>{
+    const response=await http(`https://api.cloudflare.com/client/v4/zones/${zoneId}/${resource}`,{
+      method,headers:{Authorization:`Bearer ${token}`,'Content-Type':'application/json'},
+      ...(body?{body:JSON.stringify(body)}:{}),signal:AbortSignal.timeout(15000),redirect:'error',
+    });
+    const data=await response.json() as {success:boolean;result?:unknown;errors?:{code:number}[]};
+    if(!response.ok||!data.success)throw Error(`PREFERRED_ROUTE_API_FAILED (${response.status}; codes: ${(data.errors??[]).map(error=>error.code).join(',')})`);
+    return data.result;
+  };
+  const routes=await call('workers/routes',accountToken) as {id:string;pattern:string;script:string}[];
+  const records=await call('dns_records?name=wiki.rocoai.app',dnsToken) as {id:string;type:string;content:string;proxied:boolean}[];
+  if(!Array.isArray(routes)||!Array.isArray(records))throw Error('INVALID_PREFERRED_ROUTE_RESPONSE');
+  const addresses=records.filter(record=>['A','AAAA','CNAME'].includes(record.type));
+  if(addresses.length>1||addresses.some(record=>record.type!=='CNAME'))throw Error('PREFERRED_DNS_CONFLICT: existing records require review');
+  const existing=routes.find(route=>route.pattern==='wiki.rocoai.app/*');
+  // Install only this exact hostname's route before changing its DNS.
+  if(existing?.script!=='rocowiki-web')await call(`workers/routes${existing?`/${existing.id}`:''}`,accountToken,existing?'PUT':'POST',{pattern:'wiki.rocoai.app/*',script:'rocowiki-web'});
+  const record=addresses[0],content='rocowiki.cf.090227.xyz';
+  if(record?.content!==content||record.proxied)await call(`dns_records${record?`/${record.id}`:''}`,dnsToken,record?'PUT':'POST',{type:'CNAME',name:'wiki.rocoai.app',content,proxied:false,ttl:300});
+}
 async function main(){
   const env=process.env;
-  for(const key of ['CLOUDFLARE_API_TOKEN','CLOUDFLARE_ACCOUNT_ID','SITE_URL'])if(!env[key])throw Error(`Missing ${key}`);
+  for(const key of ['CLOUDFLARE_API_TOKEN','CLOUDFLARE_ACCOUNT_ID','CLOUDFLARE_ZONE_ID','SITE_URL'])if(!env[key])throw Error(`Missing ${key}`);
   if(env.SITE_URL!=='https://wiki.rocoai.app')throw Error('SITE_URL_DOES_NOT_MATCH_WORKER_DOMAIN');
   const enabled=env.DEPLOY_RECEIPTS_ENABLED??'true';
   if(!['true','false'].includes(enabled))throw Error('INVALID_RECEIPT_MODE');
   if(enabled==='true'&&(!env.API_ORIGIN||!env.DEPLOY_WEBHOOK_SECRET))throw Error('MISSING_RECEIPT_CONFIGURATION');
   const sha=env.GITHUB_SHA||execFileSync('git',['rev-parse','HEAD'],{encoding:'utf8'}).trim();
   const version=await inspectArtifact('apps/web/build',sha);
-  execFileSync(process.execPath,['node_modules/wrangler/bin/wrangler.js','deploy','--config','apps/web/wrangler.jsonc'],{stdio:'inherit',env:{...env,CI:'true'}});
+  // Account and DNS credentials may have deliberately separate permissions.
+  // Upload with the account token; bind the verified zone through its explicit ID.
+  const parsed=ts.parseConfigFileTextToJson('wrangler.jsonc',await readFile('apps/web/wrangler.jsonc','utf8'));
+  if(parsed.error)throw Error('INVALID_WORKER_CONFIG');
+  const config=parsed.config;
+  if(config.name!=='rocowiki-web'||config.routes?.[0]?.pattern!=='wiki.rocoai.app/*')throw Error('WORKER_CONFIG_MISMATCH');
+  const temporary=await mkdtemp(path.join(tmpdir(),'rocowiki-worker-config-'));
+  try{
+    const file=path.join(temporary,'wrangler.json');
+    await writeFile(file,JSON.stringify({...config,routes:[],assets:{...config.assets,directory:path.resolve('apps/web/build')}}));
+    execFileSync(process.execPath,['node_modules/wrangler/bin/wrangler.js','deploy','--config',file],{stdio:'inherit',env:{...env,CI:'true'}});
+  }finally{await rm(temporary,{recursive:true,force:true});}
+  await bindWorkerDomain(env.CLOUDFLARE_ACCOUNT_ID!,env.CLOUDFLARE_ZONE_ID!,env.CLOUDFLARE_API_TOKEN!);
+  await verifyPublicRelease(version,'https://wiki-direct.rocoai.app');
+  await configurePreferredRoute(env.CLOUDFLARE_ZONE_ID!,env.CLOUDFLARE_API_TOKEN!,env.CLOUDFLARE_ZONE_API_TOKEN||env.CLOUDFLARE_API_TOKEN!);
   await verifyPublicRelease(version,env.SITE_URL!);
   console.log(`Verified public release: ${version.release_id}`);
   if(enabled==='true'){await sendReceipt(version,env.API_ORIGIN!,env.DEPLOY_WEBHOOK_SECRET!);console.log('Release receipt accepted');}

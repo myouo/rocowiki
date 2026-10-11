@@ -9,5 +9,8 @@
     "html_handling": "force-trailing-slash",
     "not_found_handling": "404-page"
   },
-  "routes": [{"pattern": "wiki.rocoai.app", "custom_domain": true}]
+  "routes": [
+    {"pattern": "wiki.rocoai.app/*", "zone_name": "rocoai.app"},
+    {"pattern": "wiki-direct.rocoai.app", "custom_domain": true}
+  ]
 }

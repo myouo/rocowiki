@@ -4,7 +4,8 @@ type Envelope = {success:boolean;result?:unknown;errors?:{code:number}[];result_
 const token=process.env.CLOUDFLARE_API_TOKEN;
 if(!token)throw Error('Missing CLOUDFLARE_API_TOKEN');
 async function api(resource:string){
-  const response=await fetch(`https://api.cloudflare.com/client/v4/${resource}`,{headers:{Authorization:`Bearer ${token}`},signal:AbortSignal.timeout(15000)});
+  const selectedToken=resource.startsWith('zones')?(process.env.CLOUDFLARE_ZONE_API_TOKEN||token):token;
+  const response=await fetch(`https://api.cloudflare.com/client/v4/${resource}`,{headers:{Authorization:`Bearer ${selectedToken}`},signal:AbortSignal.timeout(15000)});
   const data=await response.json() as Envelope;
   return {status:response.status,success:data.success,codes:(data.errors??[]).map(error=>error.code),result:data.result,resultInfo:data.result_info};
 }

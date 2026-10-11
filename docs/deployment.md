@@ -8,15 +8,15 @@
 
 ## 配置
 
-GitHub `production` 环境仅允许 main。`SITE_URL=https://wiki.rocoai.app`，`API_ORIGIN=https://api.rocoai.app`。Cloudflare Token 以加密 Secret 保存，不进入仓库、源码、命令参数或测试报告。部署账号由活动 `rocoai.app` zone 校验；若 Token 无必要权限，CI 明确失败，不记为完成。
+GitHub `production` 环境仅允许 main。`SITE_URL=https://wiki.rocoai.app`，`API_ORIGIN=https://api.rocoai.app`。Worker Token 与区域/DNS Token 分别以加密 Secret 保存，不进入仓库、源码、命令参数或测试报告。部署账号由活动 `rocoai.app` zone 校验；若 Token 无必要权限，CI 明确失败，不记为完成。
 
-`apps/web/wrangler.jsonc` 定义 `rocowiki-web`，从经过校验的 `apps/web/build` 上传静态资源，绑定正式域名。路径按 Docusaurus 的尾斜杠规则处理，未知路径返回 404；版本文件 no-store，哈希资源长期缓存。上传前核验 digest 和当前 Git SHA，上传后核验正式 URL 的 release、SHA 和 digest。
+`apps/web/wrangler.jsonc` 定义 `rocowiki-web`，从经过校验的 `apps/web/build` 上传静态资源。正常解析对照入口 `wiki-direct.rocoai.app` 使用 Custom Domain，正式入口 `wiki.rocoai.app` 使用优选 CNAME 和精确 Workers Route。路径按 Docusaurus 的尾斜杠规则处理，未知路径返回 404；版本文件 no-store，哈希资源长期缓存。上传前核验 digest 和当前 Git SHA，上传后核验正式 URL 的 release、SHA 和 digest。
 
 ## 优选与国内测速
 
 指定优选目标：`rocowiki.cf.090227.xyz`。先建立可工作的 Worker 服务，再以 `https://wiki.rocoai.app/` 和 `/version.json` 为相同测试目标，分别使用默认解析和指定优选解析。保留 `wiki.rocoai.app` 的 Host/SNI，验证证书、200 响应及版本内容；不因优选别名自己的 HTTPS 失败而断言目标站点失败。
 
-实际 DNS 切换前确认该优选方式与 Workers 自定义域/路由兼容。优选目标的解析地址可能变化，不硬编码未经测试的第三方 IP。测试应覆盖大陆电信、联通、移动，记录地区、时间、成功率、连接和首字节耗时，并至少重复取样；测速平台示例、境外 runner 或仅 TCP 数字不能称为本站国内 HTTPS 延迟。
+部署复用既有 Roco 服务的优选路由方式：`wiki.rocoai.app/*` 路由到 `rocowiki-web`，DNS-only CNAME 指向 `rocowiki.cf.090227.xyz`。正常解析对照入口另用 `wiki-direct.rocoai.app`；上传后先核验对照入口，再配置精确主站路由、DNS 并核验主站。优选目标的解析地址可能变化，不硬编码未经测试的第三方 IP。测试应覆盖大陆电信、联通、移动，记录地区、时间、成功率、连接和首字节耗时，并至少重复取样；测速平台示例、境外 runner 或仅 TCP 数字不能称为本站国内 HTTPS 延迟。
 
 ## 当前状态
 
