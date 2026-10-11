@@ -1,0 +1,125 @@
+{
+  "font": "Roco Wiki Serif",
+  "upstreamFamily": "Noto Serif SC",
+  "weight": 600,
+  "format": "WOFF2",
+  "license": "OFL-1.1",
+  "copyright": "(c) 2017-2024 Adobe; Copyright 2012 Google Inc. See the original OFL notice.",
+  "sourcePackage": "@fontsource/noto-serif-sc@5.3.0",
+  "sourceArchive": "https://registry.npmjs.org/@fontsource/noto-serif-sc/-/fontsource-noto-serif-sc-5.3.0.tgz",
+  "sourceArchiveSha256": "e46d02fdaba2e816c8cdbc38188c80830b5f6af75fff207d0204e25d23d48fd4",
+  "officialSources": [
+    "https://fontsource.org/fonts/noto-serif-sc/about",
+    "https://github.com/google/fonts/blob/main/ofl/notoserifsc/METADATA.pb",
+    "https://github.com/google/fonts/blob/main/ofl/notoserifsc/OFL.txt"
+  ],
+  "sourceSubsets": [
+    {
+      "name": "chinese-simplified",
+      "characters": 1525,
+      "sha256": "510f6000da6f04a1ef48b0e6339c540c603c371f1b415829ff58ad98499717f0"
+    },
+    {
+      "name": "[34]",
+      "characters": 1,
+      "sha256": "1929961d6031fa1176a005cbc573ef16ce9855afd761126fe2404506143b520b"
+    },
+    {
+      "name": "[38]",
+      "characters": 1,
+      "sha256": "13b1d45feb94c60beb0f3b7ebb2d4f4a89640e8d9b5260ed1953e7dada6f39a7"
+    },
+    {
+      "name": "[90]",
+      "characters": 3,
+      "sha256": "f56f3d2ae62a89b11c313029f264838aa3f26dce39aacf196af2d851c16adedf"
+    },
+    {
+      "name": "[100]",
+      "characters": 1,
+      "sha256": "eb6af6dc00145072781fbb47869a5ddf507c2ddfbdb491e09f761a996f52597e"
+    },
+    {
+      "name": "[102]",
+      "characters": 1,
+      "sha256": "c6b1d3ef96b1ee698217d79b4df2e80762e053c94672a547e48ca15c8987cdb2"
+    },
+    {
+      "name": "[105]",
+      "characters": 1,
+      "sha256": "312ee5b0ed4f818e10f3f1bc665dd677983f42474bff7fb915d9fd175907779d"
+    },
+    {
+      "name": "[109]",
+      "characters": 1,
+      "sha256": "0ac54db05e7582f3a8209c3f49c101246e284c814a45df2d343f41b735679be8"
+    }
+  ],
+  "outputSha256": "59c4e77b998c0cf321e6fef05696945fa9073bc5b9f30eabcfc9ab2013d14543",
+  "outputBytes": 255584,
+  "coveredCharacters": 1534,
+  "glyphCount": 1566,
+  "coverageTextSha256": "b81a0455a5c46f256105bcacbadcada47570641c075b2c4fd12cf1c49a6621be",
+  "coverageFiles": [
+    "content/asset-sources.json",
+    "content/battle-relations-v5.json",
+    "content/calculator-sources-v6.json",
+    "content/pet-metadata-v6.json",
+    "content/pet-sources.json",
+    "content/pve-v6.json",
+    "content/routes.json",
+    "content/weekly-v5.json",
+    "docs/guides/pve.md",
+    "docs/guides/returning.md",
+    "docs/guides/training.md",
+    "docs/help/contributing.md",
+    "docs/help/sources.md",
+    "docs/mechanics/accuracy.md",
+    "docs/mechanics/attributes.md",
+    "docs/mechanics/damage.md",
+    "docs/mechanics/effects/pressure.md",
+    "docs/mechanics/effects.md",
+    "docs/mechanics/environments/mirage.md",
+    "docs/mechanics/evidence.md",
+    "docs/mechanics/glossary.md",
+    "docs/mechanics/healing.md",
+    "docs/mechanics/interactions.md",
+    "docs/mechanics/overview.md",
+    "docs/mechanics/passive.md",
+    "docs/mechanics/pp.md",
+    "docs/mechanics/priority.md",
+    "docs/mechanics/shield.md",
+    "docs/mechanics/stages.md",
+    "docs/mechanics/status.md",
+    "docs/mechanics/switching.md",
+    "docs/mechanics/timing.md",
+    "docs/mechanics/weather.md",
+    "src/wiki/CatalogPages.jsx",
+    "src/wiki/CommunityPages.jsx",
+    "src/wiki/EntityTextarea.jsx",
+    "src/wiki/Feedback.jsx",
+    "src/wiki/HomePage.jsx",
+    "src/wiki/MechanicsPages.jsx",
+    "src/wiki/PvePages.jsx",
+    "src/wiki/Select.jsx",
+    "src/wiki/StatsRadar.jsx",
+    "src/wiki/ToolsPages.jsx",
+    "src/wiki/WikiPage.jsx",
+    "src/wiki/WorldPages.jsx",
+    "src/wiki/core.jsx",
+    "src/wiki/data.js",
+    "src/wiki/rocoCalculations.js"
+  ],
+  "excludedTextFiles": [
+    "content/design-v5.json",
+    "content/design-v6.json"
+  ],
+  "fonttoolsVersion": "4.61.1",
+  "modifications": [
+    "Single static weight 600; no hinting; horizontal Latin/CJK shaping retained.",
+    "Subsets merged for all authored text, Latin-1 and common Chinese punctuation.",
+    "Family renamed to Roco Wiki Serif; original copyright and full OFL embedded in font metadata."
+  ],
+  "verification": "Every requested Unicode character retains its source outline and horizontal metrics.",
+  "fallback": "Characters introduced by future user content fall back to installed Noto Serif SC, Songti SC or SimSun. Rebuild after adding site text."
+}

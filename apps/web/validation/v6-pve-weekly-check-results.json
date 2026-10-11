@@ -1,0 +1,561 @@
+{
+  "status": "PASS",
+  "scope": "jsdom PVE/World/weekly-activity DOM and deterministic Shanghai-date integration; not browser rendering, layout, visual QA or animation-performance validation",
+  "checkCount": 46,
+  "checks": [
+    {
+      "name": "All five PVE guides keep traceable rule, entrance and reward references",
+      "pass": true,
+      "details": {
+        "guides": 5,
+        "danglingSources": []
+      }
+    },
+    {
+      "name": "Official source keeps a durable URL, section locators and client-verification limit",
+      "pass": true
+    },
+    {
+      "name": "Three genuinely earlier activities end on October 15 with date-only precision",
+      "pass": true,
+      "details": [
+        {
+          "name": "测量专家",
+          "startDate": "2026-09-04",
+          "endDate": "2026-10-15"
+        },
+        {
+          "name": "采蜜归巢",
+          "startDate": "2026-09-04",
+          "endDate": "2026-10-15"
+        },
+        {
+          "name": "米粒小铺",
+          "startDate": "2026-09-04",
+          "endDate": "2026-10-15"
+        }
+      ]
+    },
+    {
+      "name": "PVE hub displays five independent challenge guides",
+      "pass": true
+    },
+    {
+      "name": "PVE appears as a first-level header destination",
+      "pass": true
+    },
+    {
+      "name": "Spoken sentry alias finds the formally named guide",
+      "pass": true
+    },
+    {
+      "name": "PVE search clear restores all five guides and removes its query",
+      "pass": true
+    },
+    {
+      "name": "Spoken training-hall alias finds the formal name",
+      "pass": true
+    },
+    {
+      "name": "PVE reward-target select filters three cultivation modes and persists its query",
+      "pass": true
+    },
+    {
+      "name": "Equipment target leaves only the star tower",
+      "pass": true
+    },
+    {
+      "name": "Unknown goal falls back safely and unknown search has an actionable empty state",
+      "pass": true
+    },
+    {
+      "name": "Tower selector switches to eighth-floor conditions and retains URL context",
+      "pass": true
+    },
+    {
+      "name": "Current-rule guide links separately labelled historical Boss records",
+      "pass": true
+    },
+    {
+      "name": "Source-jump anchor preserves the preview route and requests the correct section",
+      "pass": true
+    },
+    {
+      "name": "PVE definition-list terms retain valid immediate grouping",
+      "pass": true
+    },
+    {
+      "name": "Invalid tower level falls back to the first floor",
+      "pass": true
+    },
+    {
+      "name": "Sentry contract branch stays separate from bounty exchange",
+      "pass": true
+    },
+    {
+      "name": "Training-hall selector opens the ultimate-hall branch",
+      "pass": true
+    },
+    {
+      "name": "Unknown PVE slug never impersonates another guide",
+      "pass": true
+    },
+    {
+      "name": "NPC custom Select preserves its working area filter",
+      "pass": true
+    },
+    {
+      "name": "Legacy tower Boss selector still filters its historical record",
+      "pass": true
+    },
+    {
+      "name": "Legacy challenge ownership links back to the PVE chapter",
+      "pass": true
+    },
+    {
+      "name": "Adventure provides a direct PVE cross-link",
+      "pass": true
+    },
+    {
+      "name": "Activity index contains all ten reviewed events",
+      "pass": true
+    },
+    {
+      "name": "Activity new filter includes three new and one new permanent event",
+      "pass": true
+    },
+    {
+      "name": "Activity continuing filter remains three entries",
+      "pass": true
+    },
+    {
+      "name": "Activity expiry filter now contains three genuine October 15 deadlines",
+      "pass": true
+    },
+    {
+      "name": "Ending detail identifies the September opening batch and its October reminder context",
+      "pass": true
+    },
+    {
+      "name": "Unresolved pet-versus-evolution reward mapping is explicitly preserved",
+      "pass": true
+    },
+    {
+      "name": "Uncatalogued ending rewards remain text rather than fabricated pet links",
+      "pass": true
+    },
+    {
+      "name": "Ending details cite the September source edition instead of October sources",
+      "pass": true
+    },
+    {
+      "name": "Homepage shows new / continuing / ending categories simultaneously as 4 / 3 / 3",
+      "pass": true
+    },
+    {
+      "name": "Homepage preserves the honey activity evolution-qualification summary",
+      "pass": true
+    },
+    {
+      "name": "Every homepage activity opens a registered detail route",
+      "pass": true
+    },
+    {
+      "name": "All registered PVE and legacy World routes render a titled page with one feedback entry",
+      "pass": true,
+      "details": {
+        "routeCount": 37,
+        "failures": []
+      }
+    },
+    {
+      "name": "All rendered World / PVE internal links resolve to registered routes",
+      "pass": true,
+      "details": []
+    },
+    {
+      "name": "Shanghai October 14 homepage warns about the next-day activity deadlines",
+      "pass": true
+    },
+    {
+      "name": "Shanghai October 14 activity rows show tomorrow rather than today",
+      "pass": true
+    },
+    {
+      "name": "Activity rows refresh to today when the visible Shanghai date crosses midnight",
+      "pass": true
+    },
+    {
+      "name": "Shanghai October 15 homepage shows the concrete three-event Thursday reminder",
+      "pass": true
+    },
+    {
+      "name": "Kept-open homepage becomes historical after October 16 Shanghai refocus",
+      "pass": true
+    },
+    {
+      "name": "Historical continuation group no longer claims the events are currently available",
+      "pass": true
+    },
+    {
+      "name": "Outdated October 9 snapshot stops emitting future-expiry rows",
+      "pass": true
+    },
+    {
+      "name": "Expired activity detail remains accessible and labels the activity ended",
+      "pass": true
+    },
+    {
+      "name": "World weekly pages refresh automatically at Shanghai midnight without a navigation",
+      "pass": true
+    },
+    {
+      "name": "No JavaScript runtime or console errors occurred",
+      "pass": true,
+      "details": []
+    }
+  ],
+  "preview": "RocoWiki_UI_V6.html",
+  "previewSha256": "f64e60c2d4b96df62015ecc78713f3809857ef3f34f1a5c96afc172a1adb6c54",
+  "ranAt": "2026-10-10T11:27:14.248Z",
+  "routeCount": 37,
+  "registeredRouteCount": 109,
+  "pageResults": [
+    {
+      "route": "/events/",
+      "h1Count": 1,
+      "title": "活动与获取",
+      "textLength": 1133,
+      "feedbackCount": 1,
+      "nativeSelectCount": 0,
+      "pass": true
+    },
+    {
+      "route": "/battle/",
+      "h1Count": 1,
+      "title": "对战与禁赛",
+      "textLength": 676,
+      "feedbackCount": 1,
+      "nativeSelectCount": 0,
+      "pass": true
+    },
+    {
+      "route": "/adventure/",
+      "h1Count": 1,
+      "title": "冒险资料",
+      "textLength": 459,
+      "feedbackCount": 1,
+      "nativeSelectCount": 0,
+      "pass": true
+    },
+    {
+      "route": "/places/",
+      "h1Count": 1,
+      "title": "地图与地区",
+      "textLength": 365,
+      "feedbackCount": 1,
+      "nativeSelectCount": 0,
+      "pass": true
+    },
+    {
+      "route": "/npcs/",
+      "h1Count": 1,
+      "title": "人物与NPC",
+      "textLength": 252,
+      "feedbackCount": 1,
+      "nativeSelectCount": 0,
+      "pass": true
+    },
+    {
+      "route": "/items/",
+      "h1Count": 1,
+      "title": "道具与物品",
+      "textLength": 263,
+      "feedbackCount": 1,
+      "nativeSelectCount": 0,
+      "pass": true
+    },
+    {
+      "route": "/challenges/",
+      "h1Count": 1,
+      "title": "历史挑战资料",
+      "textLength": 421,
+      "feedbackCount": 1,
+      "nativeSelectCount": 0,
+      "pass": true
+    },
+    {
+      "route": "/tasks/",
+      "h1Count": 1,
+      "title": "任务与剧情",
+      "textLength": 238,
+      "feedbackCount": 1,
+      "nativeSelectCount": 0,
+      "pass": true
+    },
+    {
+      "route": "/places/castle/",
+      "h1Count": 1,
+      "title": "王国城堡",
+      "textLength": 440,
+      "feedbackCount": 1,
+      "nativeSelectCount": 0,
+      "pass": true
+    },
+    {
+      "route": "/places/academy/",
+      "h1Count": 1,
+      "title": "魔法学院",
+      "textLength": 475,
+      "feedbackCount": 1,
+      "nativeSelectCount": 0,
+      "pass": true
+    },
+    {
+      "route": "/places/mermaid-bay/",
+      "h1Count": 1,
+      "title": "人鱼湾",
+      "textLength": 537,
+      "feedbackCount": 1,
+      "nativeSelectCount": 0,
+      "pass": true
+    },
+    {
+      "route": "/places/snow-valley/",
+      "h1Count": 1,
+      "title": "雪人谷",
+      "textLength": 440,
+      "feedbackCount": 1,
+      "nativeSelectCount": 0,
+      "pass": true
+    },
+    {
+      "route": "/places/xuan-yu/",
+      "h1Count": 1,
+      "title": "玄玉岛",
+      "textLength": 407,
+      "feedbackCount": 1,
+      "nativeSelectCount": 0,
+      "pass": true
+    },
+    {
+      "route": "/places/sky/",
+      "h1Count": 1,
+      "title": "天空城",
+      "textLength": 488,
+      "feedbackCount": 1,
+      "nativeSelectCount": 0,
+      "pass": true
+    },
+    {
+      "route": "/npcs/griffin/",
+      "h1Count": 1,
+      "title": "格里芬院长",
+      "textLength": 378,
+      "feedbackCount": 1,
+      "nativeSelectCount": 0,
+      "pass": true
+    },
+    {
+      "route": "/npcs/lancelot/",
+      "h1Count": 1,
+      "title": "兰斯洛",
+      "textLength": 371,
+      "feedbackCount": 1,
+      "nativeSelectCount": 0,
+      "pass": true
+    },
+    {
+      "route": "/events/fun-chess-20251128/",
+      "h1Count": 1,
+      "title": "趣味对弈",
+      "textLength": 675,
+      "feedbackCount": 1,
+      "nativeSelectCount": 0,
+      "pass": true
+    },
+    {
+      "route": "/challenges/star-tower/",
+      "h1Count": 1,
+      "title": "星辰之塔 · 历史 Boss 目录",
+      "textLength": 743,
+      "feedbackCount": 1,
+      "nativeSelectCount": 0,
+      "pass": true
+    },
+    {
+      "route": "/items/potion/",
+      "h1Count": 1,
+      "title": "HP药剂",
+      "textLength": 446,
+      "feedbackCount": 1,
+      "nativeSelectCount": 0,
+      "pass": true
+    },
+    {
+      "route": "/tasks/badges/",
+      "h1Count": 1,
+      "title": "徽章任务",
+      "textLength": 316,
+      "feedbackCount": 1,
+      "nativeSelectCount": 0,
+      "pass": true
+    },
+    {
+      "route": "/battle/rules/",
+      "h1Count": 1,
+      "title": "系别排位赛参赛规则",
+      "textLength": 759,
+      "feedbackCount": 1,
+      "nativeSelectCount": 0,
+      "pass": true
+    },
+    {
+      "route": "/events/harvest-fruit-line-20261009/",
+      "h1Count": 1,
+      "title": "丰收水果连线",
+      "textLength": 643,
+      "feedbackCount": 1,
+      "nativeSelectCount": 0,
+      "pass": true
+    },
+    {
+      "route": "/events/ifrit-challenge-20261009/",
+      "h1Count": 1,
+      "title": "伊芙利特的挑战",
+      "textLength": 699,
+      "feedbackCount": 1,
+      "nativeSelectCount": 0,
+      "pass": true
+    },
+    {
+      "route": "/events/soul-helmets-20261009/",
+      "h1Count": 1,
+      "title": "千盔铸魂",
+      "textLength": 596,
+      "feedbackCount": 1,
+      "nativeSelectCount": 0,
+      "pass": true
+    },
+    {
+      "route": "/events/energy-array-20261009/",
+      "h1Count": 1,
+      "title": "能量调和之阵",
+      "textLength": 634,
+      "feedbackCount": 1,
+      "nativeSelectCount": 0,
+      "pass": true
+    },
+    {
+      "route": "/events/collect-colors-20261002/",
+      "h1Count": 1,
+      "title": "采集颜色",
+      "textLength": 547,
+      "feedbackCount": 1,
+      "nativeSelectCount": 0,
+      "pass": true
+    },
+    {
+      "route": "/events/fruit-market-20261002/",
+      "h1Count": 1,
+      "title": "瓜果集市",
+      "textLength": 630,
+      "feedbackCount": 1,
+      "nativeSelectCount": 0,
+      "pass": true
+    },
+    {
+      "route": "/events/duck-challenge-20261002/",
+      "h1Count": 1,
+      "title": "难不倒鸭",
+      "textLength": 561,
+      "feedbackCount": 1,
+      "nativeSelectCount": 0,
+      "pass": true
+    },
+    {
+      "route": "/pve/",
+      "h1Count": 1,
+      "title": "PVE 副本与挑战",
+      "textLength": 981,
+      "feedbackCount": 1,
+      "nativeSelectCount": 0,
+      "pass": true
+    },
+    {
+      "route": "/pve/star-tower/",
+      "h1Count": 1,
+      "title": "星辰之塔",
+      "textLength": 1511,
+      "feedbackCount": 1,
+      "nativeSelectCount": 0,
+      "pass": true
+    },
+    {
+      "route": "/pve/shanhai/",
+      "h1Count": 1,
+      "title": "山海秘境",
+      "textLength": 1344,
+      "feedbackCount": 1,
+      "nativeSelectCount": 0,
+      "pass": true
+    },
+    {
+      "route": "/pve/sentry-intelligence/",
+      "h1Count": 1,
+      "title": "哨兵因因的情报",
+      "textLength": 1381,
+      "feedbackCount": 1,
+      "nativeSelectCount": 0,
+      "pass": true
+    },
+    {
+      "route": "/pve/training-hall/",
+      "h1Count": 1,
+      "title": "勇者训练馆",
+      "textLength": 1298,
+      "feedbackCount": 1,
+      "nativeSelectCount": 0,
+      "pass": true
+    },
+    {
+      "route": "/pve/seven-sanctuaries/",
+      "h1Count": 1,
+      "title": "七曜圣地",
+      "textLength": 1225,
+      "feedbackCount": 1,
+      "nativeSelectCount": 0,
+      "pass": true
+    },
+    {
+      "route": "/events/measurement-expert-20260904/",
+      "h1Count": 1,
+      "title": "测量专家",
+      "textLength": 684,
+      "feedbackCount": 1,
+      "nativeSelectCount": 0,
+      "pass": true
+    },
+    {
+      "route": "/events/honey-homecoming-20260904/",
+      "h1Count": 1,
+      "title": "采蜜归巢",
+      "textLength": 803,
+      "feedbackCount": 1,
+      "nativeSelectCount": 0,
+      "pass": true
+    },
+    {
+      "route": "/events/rice-shop-20260904/",
+      "h1Count": 1,
+      "title": "米粒小铺",
+      "textLength": 689,
+      "feedbackCount": 1,
+      "nativeSelectCount": 0,
+      "pass": true
+    }
+  ],
+  "badLinks": [],
+  "runtimeErrors": [],
+  "jsdomLimitations": []
+}

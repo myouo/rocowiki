@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "target": "ES2022", "module": "ESNext", "moduleResolution": "Bundler", "strict": true,
+    "jsx": "react-jsx", "esModuleInterop": true, "resolveJsonModule": true, "skipLibCheck": true,
+    "allowSyntheticDefaultImports": true, "lib": ["ES2022", "DOM"],
+    "types": ["node", "@cloudflare/workers-types"],
+    "baseUrl": ".", "paths": {"@site/*": ["apps/web/*"]}
+  },
+  "include": ["apps/**/*.ts", "apps/**/*.tsx", "packages/**/*.ts", "scripts/**/*.ts", "tests/**/*.ts", "vitest.config.ts"]
+}

@@ -1,0 +1,204 @@
+{
+  "version": 7,
+  "scope": "official-forum numerical outputs and local DOM interaction; no visual/game-client verification",
+  "generatedAt": "2026-10-10T15:42:22.626Z",
+  "sourceHashes": {
+    "src/wiki/ToolsPages.jsx": "04a7994728c257734cb0fea7a602e0ae5d37060159aecb7ef350bea5bac40ddc",
+    "src/wiki/rocoCalculations.js": "80de98f86662cb31a7d8bc1c7eee4b0cd5d53d00101cd895caec9ea8878921b7",
+    "src/wiki/ToolsV7.css": "20788a0f7c614c9d725b14b7e4f20c6fd1b87fdecc433c107aba33bc1f726a2f",
+    "content/calculator-sources-v7.json": "c57b0bb56d07b305d215018c906662891053f1cf1e87d8e0cab868319598eb1d",
+    "validation/fixtures/v7-forum-calculator-cases.json": "ad7a7db9643a7ecbbc24c9595a159ad4258044b8d14ae78071876ece9ed17ed8"
+  },
+  "checks": [
+    {
+      "name": "Official forum outputs: default (all 21 rolls)",
+      "passed": true
+    },
+    {
+      "name": "Official forum outputs: level-50 (all 21 rolls)",
+      "passed": true
+    },
+    {
+      "name": "Official forum outputs: attack-plus-6 (all 21 rolls)",
+      "passed": true
+    },
+    {
+      "name": "Official forum outputs: attack-minus-6 (all 21 rolls)",
+      "passed": true
+    },
+    {
+      "name": "Official forum outputs: defense-plus-6 (all 21 rolls)",
+      "passed": true
+    },
+    {
+      "name": "Official forum outputs: defense-minus-6 (all 21 rolls)",
+      "passed": true
+    },
+    {
+      "name": "Official forum outputs: equal-stages (all 21 rolls)",
+      "passed": true
+    },
+    {
+      "name": "Official forum outputs: fractional-stage (all 21 rolls)",
+      "passed": true
+    },
+    {
+      "name": "Official forum outputs: double-effective (all 21 rolls)",
+      "passed": true
+    },
+    {
+      "name": "Official forum outputs: effective (all 21 rolls)",
+      "passed": true
+    },
+    {
+      "name": "Official forum outputs: resisted (all 21 rolls)",
+      "passed": true
+    },
+    {
+      "name": "Official forum outputs: strong-resistance (all 21 rolls)",
+      "passed": true
+    },
+    {
+      "name": "Official forum outputs: boost-and-reduce (all 21 rolls)",
+      "passed": true
+    },
+    {
+      "name": "Official forum outputs: complete-reduction (all 21 rolls)",
+      "passed": true
+    },
+    {
+      "name": "Official forum outputs: floor-minimum (all 21 rolls)",
+      "passed": true
+    },
+    {
+      "name": "Official forum outputs: different-power (all 21 rolls)",
+      "passed": true
+    },
+    {
+      "name": "Official forum outputs: mixed-conditions (all 21 rolls)",
+      "passed": true
+    },
+    {
+      "name": "Official forum outputs: large-safe-input (all 21 rolls)",
+      "passed": true
+    },
+    {
+      "name": "Validation rejects negative defense",
+      "passed": true
+    },
+    {
+      "name": "Validation rejects blank power",
+      "passed": true
+    },
+    {
+      "name": "Validation rejects fractional stage",
+      "passed": true
+    },
+    {
+      "name": "Validation rejects out-of-range stage",
+      "passed": true
+    },
+    {
+      "name": "Validation rejects reduction beyond 100%",
+      "passed": true
+    },
+    {
+      "name": "Validation rejects negative boost",
+      "passed": true
+    },
+    {
+      "name": "Validation rejects unknown type relation",
+      "passed": true
+    },
+    {
+      "name": "Special damage does not receive an ordinary-power result",
+      "passed": true
+    },
+    {
+      "name": "Shield/limit/conversion conditions do not receive a misleading result",
+      "passed": true
+    },
+    {
+      "name": "13 stage choices and five sourced type relations",
+      "passed": true
+    },
+    {
+      "name": "Capability formula remains available with 25 natures",
+      "passed": true
+    },
+    {
+      "name": "Correct official tool name and upper/lower outputs are prominent",
+      "passed": true
+    },
+    {
+      "name": "All 21 rows are in a collapsible result table",
+      "passed": true
+    },
+    {
+      "name": "Attacker, defender and modifiers have independent labelled sections",
+      "passed": true
+    },
+    {
+      "name": "All dropdowns use custom comboboxes; no native select",
+      "passed": true
+    },
+    {
+      "name": "No custom random interval is exposed",
+      "passed": true
+    },
+    {
+      "name": "Percent boost immediately changes the upper result",
+      "passed": true
+    },
+    {
+      "name": "Boost and reduction are separate multiplicative terms",
+      "passed": true
+    },
+    {
+      "name": "Stage selection updates both effective ability and damage",
+      "passed": true
+    },
+    {
+      "name": "Sourced double effectiveness uses x3",
+      "passed": true
+    },
+    {
+      "name": "Shareable parameters survive remount",
+      "passed": true
+    },
+    {
+      "name": "Incomplete numeric input clears result and shows correction message",
+      "passed": true
+    },
+    {
+      "name": "Reset restores the official default example",
+      "passed": true
+    },
+    {
+      "name": "Special mode gives a skill-specific explanation instead of a number",
+      "passed": true
+    },
+    {
+      "name": "Calculation rules have a dedicated contextual edit link",
+      "passed": true
+    },
+    {
+      "name": "Ability calculator retains six-stat inputs and results",
+      "passed": true
+    },
+    {
+      "name": "Pet comparison still provides a shared six-axis chart",
+      "passed": true
+    },
+    {
+      "name": "Toolkit entry uses verified name and three distinct tools",
+      "passed": true
+    },
+    {
+      "name": "Calculator renders without React runtime errors",
+      "passed": true
+    }
+  ],
+  "runtimeErrors": [],
+  "passed": true
+}

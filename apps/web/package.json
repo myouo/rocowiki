@@ -1,0 +1,57 @@
+{
+  "name": "@rocowiki/web",
+  "version": "7.3.1",
+  "private": true,
+  "description": "A Docusaurus interface system for the original web version of 洛克王国.",
+  "scripts": {
+    "test:runtime": "node validation/check-runtime-lifecycle.cjs",
+    "test:workbench": "node validation/check-workbench-interactions.cjs",
+    "start": "docusaurus start --host 127.0.0.1",
+    "build": "npm run build:baselines && DOCUSAURUS_GENERATED_FILES_DIR_NAME=.docusaurus-build docusaurus build",
+    "serve": "docusaurus serve --host 127.0.0.1",
+    "clear": "docusaurus clear",
+    "build:preview": "node scripts/build-preview.mjs",
+    "check:content": "node scripts/check-content.mjs",
+    "build:baselines": "node scripts/build-published-docs.mjs && node scripts/build-section-snapshots.cjs",
+    "check:v7": "node validation/check-v7-calculators.cjs && node validation/check-v7-catalog.cjs && node validation/check-v7-world.cjs && node validation/check-v7-editing.cjs && node validation/check-v7-shared-edit-audit.cjs && node validation/check-v7-integration.cjs",
+    "build:report": "node scripts/build-design-report-v731.mjs",
+    "check:v71": "node validation/check-v71-catalog.cjs && node validation/check-v71-editing.cjs && node validation/check-v71-world.cjs && node validation/check-v71-integration.cjs",
+    "check:v72": "node validation/check-v72-catalog.cjs && node validation/check-v72-community.cjs && node validation/check-v72-flow.cjs && node validation/check-v72-world.cjs && node validation/check-v72-integration.cjs",
+    "check:v73": "node validation/check-v73-community.cjs && node validation/check-v73-calculators.cjs && node validation/check-v73-learners.cjs && node validation/check-v73-interface.cjs && node validation/check-v731-flow.cjs && node validation/check-v731-catalog.cjs",
+    "check:v731": "node validation/check-v731-flow.cjs && node validation/check-v731-catalog.cjs && node validation/check-v731-delivery.cjs"
+  },
+  "dependencies": {
+    "@docusaurus/core": "3.10.2",
+    "@docusaurus/preset-classic": "3.10.2",
+    "@docusaurus/theme-common": "3.10.2",
+    "react": "19.3.0",
+    "react-dom": "19.3.0",
+    "clsx": "2.1.1",
+    "diff": "9.0.0",
+    "@mdx-js/react": "3.1.1",
+    "github-slugger": "1.5.0",
+    "lucide-react": "1.55.0"
+  },
+  "devDependencies": {
+    "@docusaurus/types": "3.10.2",
+    "esbuild": "0.28.2",
+    "jsdom": "30.1.2",
+    "marked": "18.1.0"
+  },
+  "engines": {
+    "node": "^22.22.2 || ^24.15.0 || >=26.0.0"
+  },
+  "browserslist": {
+    "production": [
+      ">0.5%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 3 chrome versions",
+      "last 3 firefox versions",
+      "last 5 safari versions"
+    ]
+  },
+  "license": "GPL-3.0-only"
+}

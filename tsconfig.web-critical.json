@@ -1,0 +1,12 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {"allowJs": true, "checkJs": false, "noEmit": true},
+  "include": [
+    "tests/web-critical-types.tsx",
+    "apps/web/src/docusaurus.d.ts",
+    "apps/web/src/wiki/auth/RequireRole.jsx",
+    "apps/web/src/wiki/BoundedTextarea.jsx",
+    "apps/web/src/wiki/community/profileModel.js",
+    "apps/web/src/wiki/community/workspaceRepository.js"
+  ]
+}

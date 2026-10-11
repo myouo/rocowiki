@@ -1,0 +1,16 @@
+// Bundled published inputs. Pages and snapshot readers share this adapter; replace inputs here during data migration.
+export { default as petSourceData } from "../../../content/pet-sources.json";
+export { default as petMetadata } from "../../../content/pet-metadata-v6.json";
+export { default as petAppearances } from "../../../content/pet-appearances-v72.json";
+export { default as eventData } from "../../../content/events-v7.json";
+export { default as weekly } from "../../../content/weekly-v5.json";
+export { default as battleRelations } from "../../../content/battle-relations-v5.json";
+export { default as calculatorMappings } from "../../../content/calculator-mappings-v73.json";
+export { default as calculatorData } from "../../../content/calculator-sources-v7.json";
+export { default as pveData } from "../../../content/pve-v6.json";
+export { default as pvePetRecords } from "../../../content/pve-pet-recommendations-v7.json";
+export { default as seven } from "../../../content/seven-sanctuaries-v72.json";
+export { default as publishedDocs } from "../../../content/published-docs-v7.json";
+export { default as publishedSections } from "../../../content/published-sections-v7.json";
+export { default as contentRoutes } from "../../../content/routes.json";
+export { default as publicSearchRecords } from "../../generated/search.json";

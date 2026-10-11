@@ -1,0 +1,518 @@
+{
+  "schemaVersion": 1,
+  "game": "roco-web",
+  "title": "效果关系样本",
+  "updatedAt": "2026-10-10",
+  "scopeNote": "本站效果 ID 只用于资料定位，并非游戏服务端编号。样本以历史玩家实测和技能资料建立可查询关系，不代表2026现行结算已验证。",
+  "defaultSelection": {
+    "existing": "pressure-chencai",
+    "incoming": "pressure-yanbo"
+  },
+  "relationLabels": {
+    "override": "覆盖",
+    "coexist": "共存",
+    "refresh": "刷新",
+    "stack": "叠层",
+    "mutual_clear": "有互相解除记录",
+    "blocked": "施加失败",
+    "unknown": "关系待核验"
+  },
+  "evidenceLabels": {
+    "source_text": "来源记载",
+    "historical_test": "历史实测 · 当前待复核",
+    "current_verified": "当前已复核",
+    "disputed": "存在争议",
+    "unverified": "尚未验证"
+  },
+  "queryRules": [
+    "existingEffectId 与 incomingEffectId 是有方向的查询键。",
+    "未收录配对返回未知，不代表共存或没有影响。",
+    "历史优先关系不能直接转换成施加覆盖结果。",
+    "相同 family 或 displayName 不代表内部效果身份相同。",
+    "适用条件不同的记录不得合并；跨版本记录并存。"
+  ],
+  "effects": [
+    {
+      "id": "pressure-chencai",
+      "name": "压迫 · 沉彩飞光",
+      "displayName": "压迫（双损）",
+      "family": "pressure",
+      "skill": "沉彩飞光",
+      "skillId": null,
+      "pet": "圣湮伊莱娜",
+      "pets": [
+        "圣湮伊莱娜"
+      ],
+      "source": "https://www.bilibili.com/opus/668235050899210276",
+      "sourceId": "weifeng-20220605",
+      "scope": "对方宠物；具体新目标判定见来源",
+      "summary": "历史报告记载其可施加额外 PP 消耗效果。",
+      "sourceDate": "2022-06-05",
+      "identityBasis": "来源技能中的压迫分支；不是服务端效果身份断言",
+      "petVariantsVerified": false
+    },
+    {
+      "id": "pressure-yanbo",
+      "name": "压迫 · 烟波长静",
+      "displayName": "压迫（双损）",
+      "family": "pressure",
+      "skill": "烟波长静",
+      "skillId": 2247,
+      "pet": "汐纱水王",
+      "pets": [
+        "汐纱水王"
+      ],
+      "source": "https://roco.dvg.cn/skill_info.php?id=2247",
+      "sourceId": "dvg-yanbo",
+      "scope": "对方场上宠物及下一只替换宠物的相关分支",
+      "summary": "技能的施加条件包含对方的特定异常抗性，需连同来源阅读。",
+      "sourceDate": null,
+      "identityBasis": "来源技能中的压迫分支；不是服务端效果身份断言",
+      "petVariantsVerified": false
+    },
+    {
+      "id": "pressure-taiyang",
+      "name": "压迫 · 太阳的守护",
+      "displayName": "压迫（双损）",
+      "family": "pressure",
+      "skill": "太阳的守护",
+      "skillId": 2307,
+      "pet": "可鲁贝洛斯等",
+      "pets": [
+        "可鲁贝洛斯",
+        "电玩小可",
+        "小可"
+      ],
+      "source": "https://roco.dvg.cn/skill_info.php?id=2307",
+      "sourceId": "dvg-taiyang",
+      "scope": "对方宠物；后手分支",
+      "summary": "技能资料将压迫列在后手分支，勿与先手闪避分支合并。",
+      "sourceDate": null,
+      "identityBasis": "来源技能中的压迫分支；不是服务端效果身份断言",
+      "petVariantsVerified": false
+    },
+    {
+      "id": "pressure-guhe",
+      "name": "压迫 · 孤壑分疆",
+      "displayName": "压迫（双损）",
+      "family": "pressure",
+      "skill": "孤壑分疆",
+      "skillId": 1842,
+      "pet": "混沌石王",
+      "pets": [
+        "混沌石王"
+      ],
+      "source": "https://roco.dvg.cn/skill_info.php?id=1842",
+      "sourceId": "dvg-guhe",
+      "scope": "碎岩空间中的双方宠物；非石属性技能",
+      "summary": "技能资料描述双方进入碎岩空间后，非石属性技能有额外 PP 消耗。",
+      "sourceDate": null,
+      "identityBasis": "来源技能中的压迫分支；不是服务端效果身份断言",
+      "petVariantsVerified": false
+    },
+    {
+      "id": "pressure-yongwei",
+      "name": "压迫 · 庸惟虚灭",
+      "displayName": "压迫（双损）",
+      "family": "pressure",
+      "skill": "庸惟虚灭",
+      "skillId": 2674,
+      "pet": "煌明火王等",
+      "pets": [
+        "煌明火王",
+        "煜晖君主"
+      ],
+      "source": "https://roco.dvg.cn/skill_info.php?id=2674",
+      "sourceId": "dvg-yongwei",
+      "scope": "场上非火属性技能；满足对应天气环境分支",
+      "summary": "技能资料将非火属性额外 PP 消耗与天气环境处理分支关联。",
+      "sourceDate": null,
+      "identityBasis": "来源技能中的压迫分支；不是服务端效果身份断言",
+      "petVariantsVerified": false
+    }
+  ],
+  "relations": [
+    {
+      "id": "pressure-chencai--pressure-yanbo",
+      "existingEffectId": "pressure-chencai",
+      "incomingEffectId": "pressure-yanbo",
+      "direction": "已有 沉彩飞光 → 新施加 烟波长静",
+      "relation": "mutual_clear",
+      "result": "历史资料记载可以互相解除；施加瞬间的保留或替换结果尚未复核。",
+      "scope": "对照两种来源影响同一承受者时的关系；具体队伍与场下适用范围待补",
+      "phase": "解除与持续效果处理，完整时序未给出",
+      "conditions": [
+        "各来源的施加条件需分别满足。",
+        "正反施加顺序、天气环境、所用技能属性及换宠条件需要单独复核。"
+      ],
+      "applicationStatus": "unknown",
+      "applicationResult": "本顺序下刚施加时谁保留、是否共存，尚待实测。",
+      "expiryStatus": "reported_mutual_clear",
+      "expiryResult": "来源报告相互解除，但没有给出这组正反顺序的完整清理时间线。",
+      "switchResult": "尚未收录本配对的独立换宠测试。",
+      "historicalPriority": null,
+      "sourceId": "weifeng-20220605",
+      "sourceDate": "2022-06-05",
+      "sourceUrl": "https://www.bilibili.com/opus/668235050899210276",
+      "locator": "沉彩飞光章节末段，含“互相解除”与“优先级”的段落",
+      "evidenceStatus": "historical_test",
+      "evidenceLabel": "历史实测 · 当前待复核",
+      "verifiedAt": null,
+      "gameVersion": null,
+      "limitations": [
+        "原文没有逐条给出这组配对在两种施加顺序下的录像与完整起始状态。",
+        "来源发布时间不能当作当前版本验证日期。",
+        "宠物技能学习列表仅说明来源归属，不证明所有宠物形态的效果实例相同。"
+      ],
+      "openQuestions": [
+        "已有和新施加两种顺序是否一致？",
+        "原效果到期的清理是否移除后施加效果？",
+        "换宠、属性条件及第三个来源介入后是否改变结果？"
+      ],
+      "petScope": "历史报告按技能描述，未分别复核每只可学习宠物或形态。"
+    },
+    {
+      "id": "pressure-yanbo--pressure-chencai",
+      "existingEffectId": "pressure-yanbo",
+      "incomingEffectId": "pressure-chencai",
+      "direction": "已有 烟波长静 → 新施加 沉彩飞光",
+      "relation": "mutual_clear",
+      "result": "历史资料记载可以互相解除；施加瞬间的保留或替换结果尚未复核。",
+      "scope": "对照两种来源影响同一承受者时的关系；具体队伍与场下适用范围待补",
+      "phase": "解除与持续效果处理，完整时序未给出",
+      "conditions": [
+        "各来源的施加条件需分别满足。",
+        "正反施加顺序、天气环境、所用技能属性及换宠条件需要单独复核。"
+      ],
+      "applicationStatus": "unknown",
+      "applicationResult": "本顺序下刚施加时谁保留、是否共存，尚待实测。",
+      "expiryStatus": "reported_mutual_clear",
+      "expiryResult": "来源报告相互解除，但没有给出这组正反顺序的完整清理时间线。",
+      "switchResult": "尚未收录本配对的独立换宠测试。",
+      "historicalPriority": null,
+      "sourceId": "weifeng-20220605",
+      "sourceDate": "2022-06-05",
+      "sourceUrl": "https://www.bilibili.com/opus/668235050899210276",
+      "locator": "沉彩飞光章节末段，含“互相解除”与“优先级”的段落",
+      "evidenceStatus": "historical_test",
+      "evidenceLabel": "历史实测 · 当前待复核",
+      "verifiedAt": null,
+      "gameVersion": null,
+      "limitations": [
+        "原文没有逐条给出这组配对在两种施加顺序下的录像与完整起始状态。",
+        "来源发布时间不能当作当前版本验证日期。",
+        "宠物技能学习列表仅说明来源归属，不证明所有宠物形态的效果实例相同。"
+      ],
+      "openQuestions": [
+        "已有和新施加两种顺序是否一致？",
+        "原效果到期的清理是否移除后施加效果？",
+        "换宠、属性条件及第三个来源介入后是否改变结果？"
+      ],
+      "petScope": "历史报告按技能描述，未分别复核每只可学习宠物或形态。"
+    },
+    {
+      "id": "pressure-chencai--pressure-taiyang",
+      "existingEffectId": "pressure-chencai",
+      "incomingEffectId": "pressure-taiyang",
+      "direction": "已有 沉彩飞光 → 新施加 太阳的守护",
+      "relation": "mutual_clear",
+      "result": "历史资料记载可以互相解除；施加瞬间的保留或替换结果尚未复核。",
+      "scope": "对照两种来源影响同一承受者时的关系；具体队伍与场下适用范围待补",
+      "phase": "解除与持续效果处理，完整时序未给出",
+      "conditions": [
+        "各来源的施加条件需分别满足。",
+        "正反施加顺序、天气环境、所用技能属性及换宠条件需要单独复核。"
+      ],
+      "applicationStatus": "unknown",
+      "applicationResult": "本顺序下刚施加时谁保留、是否共存，尚待实测。",
+      "expiryStatus": "reported_mutual_clear",
+      "expiryResult": "来源报告相互解除，但没有给出这组正反顺序的完整清理时间线。",
+      "switchResult": "尚未收录本配对的独立换宠测试。",
+      "historicalPriority": null,
+      "sourceId": "weifeng-20220605",
+      "sourceDate": "2022-06-05",
+      "sourceUrl": "https://www.bilibili.com/opus/668235050899210276",
+      "locator": "沉彩飞光章节末段，含“互相解除”与“优先级”的段落",
+      "evidenceStatus": "historical_test",
+      "evidenceLabel": "历史实测 · 当前待复核",
+      "verifiedAt": null,
+      "gameVersion": null,
+      "limitations": [
+        "原文没有逐条给出这组配对在两种施加顺序下的录像与完整起始状态。",
+        "来源发布时间不能当作当前版本验证日期。",
+        "宠物技能学习列表仅说明来源归属，不证明所有宠物形态的效果实例相同。"
+      ],
+      "openQuestions": [
+        "已有和新施加两种顺序是否一致？",
+        "原效果到期的清理是否移除后施加效果？",
+        "换宠、属性条件及第三个来源介入后是否改变结果？"
+      ],
+      "petScope": "历史报告按技能描述，未分别复核每只可学习宠物或形态。"
+    },
+    {
+      "id": "pressure-taiyang--pressure-chencai",
+      "existingEffectId": "pressure-taiyang",
+      "incomingEffectId": "pressure-chencai",
+      "direction": "已有 太阳的守护 → 新施加 沉彩飞光",
+      "relation": "mutual_clear",
+      "result": "历史资料记载可以互相解除；施加瞬间的保留或替换结果尚未复核。",
+      "scope": "对照两种来源影响同一承受者时的关系；具体队伍与场下适用范围待补",
+      "phase": "解除与持续效果处理，完整时序未给出",
+      "conditions": [
+        "各来源的施加条件需分别满足。",
+        "正反施加顺序、天气环境、所用技能属性及换宠条件需要单独复核。"
+      ],
+      "applicationStatus": "unknown",
+      "applicationResult": "本顺序下刚施加时谁保留、是否共存，尚待实测。",
+      "expiryStatus": "reported_mutual_clear",
+      "expiryResult": "来源报告相互解除，但没有给出这组正反顺序的完整清理时间线。",
+      "switchResult": "尚未收录本配对的独立换宠测试。",
+      "historicalPriority": null,
+      "sourceId": "weifeng-20220605",
+      "sourceDate": "2022-06-05",
+      "sourceUrl": "https://www.bilibili.com/opus/668235050899210276",
+      "locator": "沉彩飞光章节末段，含“互相解除”与“优先级”的段落",
+      "evidenceStatus": "historical_test",
+      "evidenceLabel": "历史实测 · 当前待复核",
+      "verifiedAt": null,
+      "gameVersion": null,
+      "limitations": [
+        "原文没有逐条给出这组配对在两种施加顺序下的录像与完整起始状态。",
+        "来源发布时间不能当作当前版本验证日期。",
+        "宠物技能学习列表仅说明来源归属，不证明所有宠物形态的效果实例相同。"
+      ],
+      "openQuestions": [
+        "已有和新施加两种顺序是否一致？",
+        "原效果到期的清理是否移除后施加效果？",
+        "换宠、属性条件及第三个来源介入后是否改变结果？"
+      ],
+      "petScope": "历史报告按技能描述，未分别复核每只可学习宠物或形态。"
+    },
+    {
+      "id": "pressure-chencai--pressure-guhe",
+      "existingEffectId": "pressure-chencai",
+      "incomingEffectId": "pressure-guhe",
+      "direction": "已有 沉彩飞光 → 新施加 孤壑分疆",
+      "relation": "unknown",
+      "result": "历史资料记载两者存在优先关系；不足以单独判定本顺序下谁覆盖谁。",
+      "scope": "对照两种来源影响同一承受者时的关系；具体队伍与场下适用范围待补",
+      "phase": "原文未给出优先关系的完整判定阶段",
+      "conditions": [
+        "各来源的施加条件需分别满足。",
+        "正反施加顺序、天气环境、所用技能属性及换宠条件需要单独复核。"
+      ],
+      "applicationStatus": "unknown",
+      "applicationResult": "本顺序下刚施加时谁保留、是否共存，尚待实测。",
+      "expiryStatus": "unknown",
+      "expiryResult": "旧效果到期是否影响新效果，尚待实测。",
+      "switchResult": "尚未收录本配对的独立换宠测试。",
+      "historicalPriority": {
+        "higherEffectId": "pressure-guhe",
+        "lowerEffectId": "pressure-chencai",
+        "scope": "来源描述的这对压迫效果",
+        "note": "不转换成全局数值，也不据此推演其他效果配对。"
+      },
+      "sourceId": "weifeng-20220605",
+      "sourceDate": "2022-06-05",
+      "sourceUrl": "https://www.bilibili.com/opus/668235050899210276",
+      "locator": "沉彩飞光章节末段，含“互相解除”与“优先级”的段落",
+      "evidenceStatus": "historical_test",
+      "evidenceLabel": "历史实测 · 当前待复核",
+      "verifiedAt": null,
+      "gameVersion": null,
+      "limitations": [
+        "原文没有逐条给出这组配对在两种施加顺序下的录像与完整起始状态。",
+        "来源发布时间不能当作当前版本验证日期。",
+        "宠物技能学习列表仅说明来源归属，不证明所有宠物形态的效果实例相同。"
+      ],
+      "openQuestions": [
+        "已有和新施加两种顺序是否一致？",
+        "原效果到期的清理是否移除后施加效果？",
+        "换宠、属性条件及第三个来源介入后是否改变结果？"
+      ],
+      "petScope": "历史报告按技能描述，未分别复核每只可学习宠物或形态。"
+    },
+    {
+      "id": "pressure-guhe--pressure-chencai",
+      "existingEffectId": "pressure-guhe",
+      "incomingEffectId": "pressure-chencai",
+      "direction": "已有 孤壑分疆 → 新施加 沉彩飞光",
+      "relation": "unknown",
+      "result": "历史资料记载两者存在优先关系；不足以单独判定本顺序下谁覆盖谁。",
+      "scope": "对照两种来源影响同一承受者时的关系；具体队伍与场下适用范围待补",
+      "phase": "原文未给出优先关系的完整判定阶段",
+      "conditions": [
+        "各来源的施加条件需分别满足。",
+        "正反施加顺序、天气环境、所用技能属性及换宠条件需要单独复核。"
+      ],
+      "applicationStatus": "unknown",
+      "applicationResult": "本顺序下刚施加时谁保留、是否共存，尚待实测。",
+      "expiryStatus": "unknown",
+      "expiryResult": "旧效果到期是否影响新效果，尚待实测。",
+      "switchResult": "尚未收录本配对的独立换宠测试。",
+      "historicalPriority": {
+        "higherEffectId": "pressure-guhe",
+        "lowerEffectId": "pressure-chencai",
+        "scope": "来源描述的这对压迫效果",
+        "note": "不转换成全局数值，也不据此推演其他效果配对。"
+      },
+      "sourceId": "weifeng-20220605",
+      "sourceDate": "2022-06-05",
+      "sourceUrl": "https://www.bilibili.com/opus/668235050899210276",
+      "locator": "沉彩飞光章节末段，含“互相解除”与“优先级”的段落",
+      "evidenceStatus": "historical_test",
+      "evidenceLabel": "历史实测 · 当前待复核",
+      "verifiedAt": null,
+      "gameVersion": null,
+      "limitations": [
+        "原文没有逐条给出这组配对在两种施加顺序下的录像与完整起始状态。",
+        "来源发布时间不能当作当前版本验证日期。",
+        "宠物技能学习列表仅说明来源归属，不证明所有宠物形态的效果实例相同。"
+      ],
+      "openQuestions": [
+        "已有和新施加两种顺序是否一致？",
+        "原效果到期的清理是否移除后施加效果？",
+        "换宠、属性条件及第三个来源介入后是否改变结果？"
+      ],
+      "petScope": "历史报告按技能描述，未分别复核每只可学习宠物或形态。"
+    },
+    {
+      "id": "pressure-chencai--pressure-yongwei",
+      "existingEffectId": "pressure-chencai",
+      "incomingEffectId": "pressure-yongwei",
+      "direction": "已有 沉彩飞光 → 新施加 庸惟虚灭",
+      "relation": "unknown",
+      "result": "历史资料记载两者存在优先关系；不足以单独判定本顺序下谁覆盖谁。",
+      "scope": "对照两种来源影响同一承受者时的关系；具体队伍与场下适用范围待补",
+      "phase": "原文未给出优先关系的完整判定阶段",
+      "conditions": [
+        "各来源的施加条件需分别满足。",
+        "正反施加顺序、天气环境、所用技能属性及换宠条件需要单独复核。"
+      ],
+      "applicationStatus": "unknown",
+      "applicationResult": "本顺序下刚施加时谁保留、是否共存，尚待实测。",
+      "expiryStatus": "unknown",
+      "expiryResult": "旧效果到期是否影响新效果，尚待实测。",
+      "switchResult": "尚未收录本配对的独立换宠测试。",
+      "historicalPriority": {
+        "higherEffectId": "pressure-yongwei",
+        "lowerEffectId": "pressure-chencai",
+        "scope": "来源描述的这对压迫效果",
+        "note": "不转换成全局数值，也不据此推演其他效果配对。"
+      },
+      "sourceId": "weifeng-20220605",
+      "sourceDate": "2022-06-05",
+      "sourceUrl": "https://www.bilibili.com/opus/668235050899210276",
+      "locator": "沉彩飞光章节末段，含“互相解除”与“优先级”的段落",
+      "evidenceStatus": "historical_test",
+      "evidenceLabel": "历史实测 · 当前待复核",
+      "verifiedAt": null,
+      "gameVersion": null,
+      "limitations": [
+        "原文没有逐条给出这组配对在两种施加顺序下的录像与完整起始状态。",
+        "来源发布时间不能当作当前版本验证日期。",
+        "宠物技能学习列表仅说明来源归属，不证明所有宠物形态的效果实例相同。"
+      ],
+      "openQuestions": [
+        "已有和新施加两种顺序是否一致？",
+        "原效果到期的清理是否移除后施加效果？",
+        "换宠、属性条件及第三个来源介入后是否改变结果？"
+      ],
+      "petScope": "历史报告按技能描述，未分别复核每只可学习宠物或形态。"
+    },
+    {
+      "id": "pressure-yongwei--pressure-chencai",
+      "existingEffectId": "pressure-yongwei",
+      "incomingEffectId": "pressure-chencai",
+      "direction": "已有 庸惟虚灭 → 新施加 沉彩飞光",
+      "relation": "unknown",
+      "result": "历史资料记载两者存在优先关系；不足以单独判定本顺序下谁覆盖谁。",
+      "scope": "对照两种来源影响同一承受者时的关系；具体队伍与场下适用范围待补",
+      "phase": "原文未给出优先关系的完整判定阶段",
+      "conditions": [
+        "各来源的施加条件需分别满足。",
+        "正反施加顺序、天气环境、所用技能属性及换宠条件需要单独复核。"
+      ],
+      "applicationStatus": "unknown",
+      "applicationResult": "本顺序下刚施加时谁保留、是否共存，尚待实测。",
+      "expiryStatus": "unknown",
+      "expiryResult": "旧效果到期是否影响新效果，尚待实测。",
+      "switchResult": "尚未收录本配对的独立换宠测试。",
+      "historicalPriority": {
+        "higherEffectId": "pressure-yongwei",
+        "lowerEffectId": "pressure-chencai",
+        "scope": "来源描述的这对压迫效果",
+        "note": "不转换成全局数值，也不据此推演其他效果配对。"
+      },
+      "sourceId": "weifeng-20220605",
+      "sourceDate": "2022-06-05",
+      "sourceUrl": "https://www.bilibili.com/opus/668235050899210276",
+      "locator": "沉彩飞光章节末段，含“互相解除”与“优先级”的段落",
+      "evidenceStatus": "historical_test",
+      "evidenceLabel": "历史实测 · 当前待复核",
+      "verifiedAt": null,
+      "gameVersion": null,
+      "limitations": [
+        "原文没有逐条给出这组配对在两种施加顺序下的录像与完整起始状态。",
+        "来源发布时间不能当作当前版本验证日期。",
+        "宠物技能学习列表仅说明来源归属，不证明所有宠物形态的效果实例相同。"
+      ],
+      "openQuestions": [
+        "已有和新施加两种顺序是否一致？",
+        "原效果到期的清理是否移除后施加效果？",
+        "换宠、属性条件及第三个来源介入后是否改变结果？"
+      ],
+      "petScope": "历史报告按技能描述，未分别复核每只可学习宠物或形态。"
+    }
+  ],
+  "sources": [
+    {
+      "id": "weifeng-20220605",
+      "title": "圣湮伊莱娜零件运转检测报告",
+      "author": "微风卟解意",
+      "url": "https://www.bilibili.com/opus/668235050899210276",
+      "type": "player_original_test_report",
+      "publishedDate": "2022-06-05",
+      "retrievedDate": "2026-10-10",
+      "locator": "沉彩飞光章节末段（原文含“优先级”与“互相解除”）；网页版该段位于补充章节之前",
+      "shortQuote": "可以互相解除",
+      "caveat": "原始玩家研究，未在当前版本独立复测；不是官方完整结算规范。"
+    },
+    {
+      "id": "dvg-yanbo",
+      "title": "烟波长静技能资料",
+      "url": "https://roco.dvg.cn/skill_info.php?id=2247",
+      "type": "community_skill_catalog",
+      "publishedDate": null,
+      "retrievedDate": "2026-10-10",
+      "locator": "技能效果与拥有该技能的宠物"
+    },
+    {
+      "id": "dvg-guhe",
+      "title": "孤壑分疆技能资料",
+      "url": "https://roco.dvg.cn/skill_info.php?id=1842",
+      "type": "community_skill_catalog",
+      "publishedDate": null,
+      "retrievedDate": "2026-10-10",
+      "locator": "技能效果与拥有该技能的宠物"
+    },
+    {
+      "id": "dvg-taiyang",
+      "title": "太阳的守护技能资料",
+      "url": "https://roco.dvg.cn/skill_info.php?id=2307",
+      "type": "community_skill_catalog",
+      "publishedDate": null,
+      "retrievedDate": "2026-10-10",
+      "locator": "技能效果与拥有该技能的宠物"
+    },
+    {
+      "id": "dvg-yongwei",
+      "title": "庸惟虚灭技能资料",
+      "url": "https://roco.dvg.cn/skill_info.php?id=2674",
+      "type": "community_skill_catalog",
+      "publishedDate": null,
+      "retrievedDate": "2026-10-10",
+      "locator": "技能效果与拥有该技能的宠物"
+    }
+  ]
+}

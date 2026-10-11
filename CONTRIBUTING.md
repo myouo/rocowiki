@@ -1,0 +1,53 @@
+# 贡献指南
+[English](CONTRIBUTING.en.md) · [行为准则](CODE_OF_CONDUCT.md) · [安全政策](SECURITY.md)
+<!-- rocowiki-policy: contributing; version: 2; lang: zh-CN -->
+
+<a id="entry"></a>
+## 选择入口
+
+普通缺陷、功能建议与资料纠错使用仓库 Issue 模板；漏洞走私密安全报告。说明问题和影响，不提交未经脱敏的日志或账号资料。代码贡献、Wiki 资料投稿与安全报告有不同入口，不需要把所有问题变成代码 PR。
+
+<a id="wiki"></a>
+## Wiki 资料贡献
+
+正式投稿从 /workbench/ 进入，需要已验证邮箱的 OIDC 账号及贡献权限，GitHub 绑定可选。以已登记页面的真实基线编辑，写明修改理由和可核验来源，区分官方、实测、推断和待验证信息。不要把样本、演示发布或本机积分冒充公共记录。
+
+投稿锁定快照，禁止自审；关键页需要两位不同审核员。基线变化后重新整理并审核新候选。GitHub 邮箱署名须绑定、明确授权且对该次投稿勾选；它与代码或内容许可不是同一项同意。
+
+只提交你有权提供的原创或已获授权资料，引用标明来源。新原创 Wiki 正文的项目许可为 **CC BY-SA 4.0**，作者保留版权；允许公众署名转载、改编和商业使用，分享改编内容须遵守相同方式共享要求。遵守 [版权声明](COPYRIGHT.md)，区分引用与原创部分，保留作者及许可依据；不能把游戏素材和无权许可的内容一并改为 CC。投稿不构成版权转让。开放正式投稿前须接入明确的许可确认与服务端同意记录，目前尚未实现；GitHub 邮箱署名同意不能替代内容授权。新许可不得无授权追溯覆盖已有作品。
+
+<a id="setup"></a>
+## 本地开发
+
+需要 Node.js 24.15.0+。使用 npm ci 安装锁定依赖；npm run db:migrate 迁移本地数据库。分别运行 npm run dev:api 和 npm run dev:web。网页/API 使用 localhost:3000 / localhost:8787，避免混用 127.0.0.1。配置公开开发参数与未入 Git 的 apps/api/.dev.vars；真实账号联调见 [README](README.md)。
+
+离线/浏览器演示不提供认证绕过或生产发布。生成文件从来源重建，不手工修改 build、dist、docs-generated、src/generated 或历史设计归档来修复当前业务。
+
+<a id="change"></a>
+## 代码与文档
+
+遵守 [项目规范](docs/standards.md) 和 [AGENTS.md](AGENTS.md)。每个 PR 聚焦一项可审阅改动；新业务代码使用 TypeScript，修改遗留 JS 时逐模块补类型覆盖。服务端契约、身份、正文、事务与生命周期问题须覆盖真实边界，不能只测试两个 mock 相互兼容。
+
+改变规范时同时更新中英文，保持同一政策版本和章节。引用第三方代码、字体或素材时保留许可与来源，登记 [第三方说明](THIRD_PARTY_NOTICES.md)。原创代码与仓库规范文档贡献按 GPL-3.0-only 提交；未要求 CLA、版权转让或 DCO sign-off。
+
+<a id="git"></a>
+## 分支、提交与 PR
+
+分支使用描述性名称，推荐 feat/、fix/、docs/、chore/、refactor/、test/；禁止名称任何位置出现 agent，不区分大小写。wiki/rev_UUID 保留给发布 App。提交说明实际变化，推荐 type(scope): summary。
+
+PR 说明问题、结果、验证和迁移/兼容性影响，采用模板。代码和资料通过各自的独立审核；不要绕过 main 保护、必需检查或生产环境审批。维护者合法 merge main into a Wiki PR 时必须保留原始贡献提交、正文和来源元数据；禁止 rebase/squash。
+
+<a id="verify"></a>
+## 验证
+
+```bash
+API_ORIGIN=https://api.rocowiki.test SITE_URL=https://wiki.rocowiki.test npm run check
+npm run api:dry-run
+```
+
+check 包括规范、内容、结构、类型、API/SQLite、生命周期、正式工作台与构建检查；.test 地址只用于本地制品，不连接真实服务。按改动补必要的故障复现或浏览器验证，不用空测试、无关快照或反复运行替代证据。尚未进行的外部验收必须明确写出，不能报告成通过。
+
+<a id="review"></a>
+## 审核与合并
+
+贡献者修复 CI 失败、解释取舍并响应复核。身份、权限、Git 包装器、发布协调器、迁移、policy、依赖和工作流变更需要具备相应能力的独立代码审核。迁移先应用到测试环境，升级前明确顺序与恢复方式；生产操作使用现有运维授权。维护者合并后更新相关验证和发行记录。

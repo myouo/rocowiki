@@ -1,0 +1,705 @@
+{
+  "schemaVersion": 6,
+  "game": "洛克王国页游",
+  "asOf": "2026-10-10",
+  "timeZone": "Asia/Shanghai",
+  "verification": {
+    "checkedAt": "2026-10-10",
+    "clientVerified": false,
+    "rulesSourceDate": "2025-09-10",
+    "label": "官方说明已核对",
+    "note": "基础规则以官方论坛 2025-09-10 LITE 版更新说明为主要依据；该公告明确 LITE 与原 Flash 端数据互通。当前账号进度、当日 BOSS 与临时调整未连接游戏读取。"
+  },
+  "sources": [
+    {
+      "id": "lite-pve-20250910",
+      "title": "洛克王国 LITE 版更新公告 · 副本",
+      "publisher": "洛克王国官方论坛 · 版主团",
+      "url": "https://17roco.gamebbs.qq.com/archiver/?tid-162819.html",
+      "canonicalUrl": "https://17roco.gamebbs.qq.com/forum.php?mod=viewthread&tid=162819",
+      "retrievedUrl": "https://17roco.gamebbs.qq.com/archiver/?tid-162819.html=",
+      "publishedAt": "2025-09-10",
+      "checkedAt": "2026-10-10",
+      "kind": "official_announcement",
+      "status": "read",
+      "scope": "LITE 副本入口、与 Flash 数据互通及五种副本的操作和奖励规则。",
+      "locator": "原帖作者巴甫洛夫的猫；2025-09-10 16:07 发布，16:19 编辑。正文“一、副本”下依次为星辰塔、七曜圣地、勇者训练馆、哨兵因因的情报、山海秘境。",
+      "searchQuery": "site:17roco.gamebbs.qq.com \"162819\" \"LITE\"",
+      "evidence": {
+        "retrievalMethod": "web.open 正文读取",
+        "retrievalRef": "turn80view0",
+        "clientVerified": false,
+        "excerpt": "每天有5次战斗机会",
+        "excerptLocator": "“（4）哨兵因因的情报”第2条“搜集情报”",
+        "sections": [
+          {
+            "heading": "开头：平台说明",
+            "readerLines": "18",
+            "supports": "LITE 与原 Flash 端数据互通。"
+          },
+          {
+            "heading": "一、副本",
+            "readerLines": "21—32",
+            "supports": "副本集合的五个正式玩法名称。"
+          },
+          {
+            "heading": "（1）星辰塔",
+            "readerLines": "34—55",
+            "supports": "八层及逐层解锁；扫荡、宠物碎片、装备、星辰之光与商店。"
+          },
+          {
+            "heading": "（2）七曜圣地",
+            "readerLines": "57—66",
+            "supports": "努力值果实、当日七曜秘赐、遗忘果实概率奖励与 VIP 快速挑战。"
+          },
+          {
+            "heading": "（3）勇者训练馆",
+            "readerLines": "68—77",
+            "supports": "四个普通训练馆；胜利解锁终极训练馆的机会、VIP 直达及天赋重置道具。"
+          },
+          {
+            "heading": "（4）哨兵因因的情报",
+            "readerLines": "79—94",
+            "supports": "每日五次战斗机会；刷新 Boss 与作战任务分开；赏金与飞鹰契约分开兑换。"
+          },
+          {
+            "heading": "（5）山海秘境",
+            "readerLines": "97—110",
+            "supports": "今日秘境、祥云印记、概率魂珠及山海召唤。"
+          }
+        ],
+        "limitation": "上述行号用于检索工具的正文定位，网站页面结构可能不同；来源不是当前游戏客户端快照。公告亦说明截图采用测试数据，本文未从截图补造数值。"
+      }
+    },
+    {
+      "id": "pve-update-20230901",
+      "title": "9月1日更新速递 · 星辰塔及培养玩法调整",
+      "publisher": "4399 · 公告转载",
+      "url": "https://news.4399.com/luoke/xinwengonggao/202308-30-985230.html",
+      "publishedAt": "2023-08-30",
+      "effectiveDate": "2023-09-01",
+      "checkedAt": "2026-10-10",
+      "kind": "announcement_reprint",
+      "status": "read",
+      "scope": "前七层体力取消、三星扫荡、星级奖励、星辰令和星辰之光；训练馆与七曜奖励调整。"
+    },
+    {
+      "id": "shanhai-launch-20220325",
+      "title": "2022年3月25日更新公告 · 山海秘境",
+      "publisher": "3DM · 公告转载",
+      "url": "https://shouyou.3dmgame.com/gl/384138.html",
+      "publishedAt": "2022-03-23",
+      "effectiveDate": "2022-03-25",
+      "checkedAt": "2026-10-10",
+      "kind": "announcement_reprint",
+      "status": "read",
+      "scope": "山海秘境上线批次、画中仙入口及奖励类型。该页被网站归入手游栏目，原文内容是页游公告。"
+    },
+    {
+      "id": "sentry-location-20200901",
+      "title": "哨兵因因的情报位置",
+      "publisher": "游侠网 · 场景资料",
+      "url": "https://gl.ali213.net/wenda/67227.html",
+      "publishedAt": "2020-09-01",
+      "checkedAt": "2026-10-10",
+      "kind": "community_guide",
+      "status": "read",
+      "scope": "传统页游场景入口飞鹰密林；当前 LITE 入口另以官方公告为准。"
+    },
+    {
+      "id": "seven-firsthand-20220607",
+      "title": "七曜圣地努力果获取说明",
+      "publisher": "哔哩哔哩 · 菜包狗会功夫（玩家原始记录）",
+      "url": "https://www.bilibili.com/video/BV1UY411M782/",
+      "publishedAt": "2022-06-07",
+      "checkedAt": "2026-10-10",
+      "kind": "firsthand_player_record",
+      "status": "description_read",
+      "scope": "曜日与果实对应、日曜开启前提；数值为历史参考，当前额外秘赐规则采用2025官方说明。"
+    }
+  ],
+  "guides": [
+    {
+      "slug": "star-tower",
+      "name": "星辰之塔",
+      "shortName": "星辰塔",
+      "aliases": [
+        "星辰塔",
+        "星辰之塔",
+        "打塔"
+      ],
+      "goals": [
+        "progress",
+        "equipment",
+        "pets"
+      ],
+      "focus": "闯关、装备与星辰之光",
+      "summary": "先推进前七层并完成星级条件，再单独核对第八层的星辰令与月度奖励。",
+      "cadence": "前七层闯关 / 第八层日常与月度进度",
+      "sourceIds": [
+        "lite-pve-20250910",
+        "pve-update-20230901"
+      ],
+      "entrances": [
+        {
+          "client": "LITE",
+          "path": "副本 → 星辰塔",
+          "sourceId": "lite-pve-20250910"
+        },
+        {
+          "client": "资料衔接",
+          "path": "前七层与第八层分开查；旧版 Boss 名录另行归档",
+          "sourceId": "pve-update-20230901"
+        }
+      ],
+      "facts": [
+        {
+          "label": "层数与解锁",
+          "value": "共八层；完成前一层后解锁后一层",
+          "sourceId": "lite-pve-20250910"
+        },
+        {
+          "label": "前七层体力",
+          "value": "2023年9月更新已取消原体力限制",
+          "sourceId": "pve-update-20230901"
+        },
+        {
+          "label": "星级与扫荡",
+          "value": "已三星通关层数可批量扫荡",
+          "sourceId": "pve-update-20230901"
+        },
+        {
+          "label": "第八层进度",
+          "value": "星辰令每日更新；星辰之光按月记录",
+          "sourceId": "pve-update-20230901"
+        }
+      ],
+      "rewards": [
+        {
+          "name": "首通与星级奖励",
+          "kind": "关卡奖励",
+          "how": "通关及首次达成关卡星级条件",
+          "note": "首通宝箱、星级奖励与扫荡分别领取；各档具体内容需核对本期面板。",
+          "sourceId": "pve-update-20230901"
+        },
+        {
+          "name": "宠物碎片、装备",
+          "kind": "扫荡产出",
+          "how": "选择已开放的扫荡层数",
+          "note": "碎片可在专属商店换宠，多余碎片可分解为星辰积分。",
+          "sourceId": "lite-pve-20250910"
+        },
+        {
+          "name": "星辰之光",
+          "kind": "第八层进度",
+          "how": "完成当日星辰令的胜利条件",
+          "note": "累计进度可领经验、培养资源等奖励；不能把打赢与满足全部条件混为一项。",
+          "sourceId": "pve-update-20230901"
+        },
+        {
+          "name": "星辰专属商店",
+          "kind": "兑换 / 积分抽奖",
+          "how": "宠物碎片兑换；星辰积分抽奖",
+          "note": "积分抽奖含随机奖励，具体概率未在本文来源中给出。",
+          "sourceId": "lite-pve-20250910"
+        }
+      ],
+      "steps": [
+        "先看尚未解锁的层数和未完成的星级条件，选择本次目标。",
+        "对照对应 Boss 的攻略配置与条件；第八层同时记录当日星辰令。",
+        "胜利后确认领取的是首通、星级还是星辰之光奖励；已达成三星的层数再处理扫荡。"
+      ],
+      "unknowns": [
+        "当前各层完整 Boss 表与第八层当月守护者",
+        "每个 Boss 的现行技能、参数及可复现队伍",
+        "各档奖励数量与重置后的领取情况"
+      ],
+      "sections": [
+        {
+          "value": "progress",
+          "label": "前七层 · 首通与星级",
+          "title": "先完成一层，再补齐星级",
+          "body": "把“解锁下一层”“首次达成星级”“扫荡取资源”分开记录。通关条件达到后，回到奖励面板核对可领取项目。",
+          "points": [
+            "层数选择只定位资料，不代表你的账号已解锁。",
+            "前七层已取消原体力限制；重复挑战掉落与扫荡的规则在2023年调整过。",
+            "旧版目录保留用于查证，不能作为当前对手轮换。"
+          ]
+        },
+        {
+          "value": "eighth",
+          "label": "第八层 · 星辰令",
+          "title": "按今天的星辰令核对队伍",
+          "body": "第八层使用星辰令和星辰之光体系。先阅读本日条件，再决定队伍；月度进度和首通奖励分别核对。",
+          "points": [
+            "记录本日守护者与星辰令原文。",
+            "胜利后检查实际获得的星辰之光。",
+            "需要打法时同时提交规则日期、队伍与出招过程。"
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "shanhai",
+      "name": "山海秘境",
+      "shortName": "山海秘境",
+      "aliases": [
+        "山海",
+        "山海秘境",
+        "山海召唤"
+      ],
+      "goals": [
+        "pets"
+      ],
+      "focus": "祥云印记、异兽魂珠",
+      "summary": "开启当天秘境，完成挑战积累祥云印记；将挑战掉落和后续召唤的随机奖励分开查。",
+      "cadence": "每日查看今日秘境",
+      "sourceIds": [
+        "lite-pve-20250910",
+        "shanhai-launch-20220325"
+      ],
+      "entrances": [
+        {
+          "client": "LITE",
+          "path": "副本 → 山海秘境 → 开启今日秘境挑战",
+          "sourceId": "lite-pve-20250910"
+        },
+        {
+          "client": "页游场景",
+          "path": "画中仙（上线公告记录）",
+          "sourceId": "shanhai-launch-20220325"
+        }
+      ],
+      "facts": [
+        {
+          "label": "挑战入口",
+          "value": "先开启今日秘境，再选择具体挑战",
+          "sourceId": "lite-pve-20250910"
+        },
+        {
+          "label": "通关产出",
+          "value": "祥云印记；魂珠为概率获得",
+          "sourceId": "lite-pve-20250910"
+        }
+      ],
+      "rewards": [
+        {
+          "name": "祥云印记",
+          "kind": "挑战资源",
+          "how": "完成秘境挑战",
+          "note": "用于山海召唤；当前账号数量不由 Wiki 读取。",
+          "sourceId": "lite-pve-20250910"
+        },
+        {
+          "name": "异兽魂珠",
+          "kind": "概率掉落",
+          "how": "挑战成功后概率获得",
+          "note": "在召唤界面投入，可提高相应召唤概率；不是直接领取宠物。",
+          "sourceId": "lite-pve-20250910"
+        },
+        {
+          "name": "山海异闻系列宠物、宠物蛋",
+          "kind": "随机召唤",
+          "how": "消耗祥云印记进行山海召唤",
+          "note": "具体奖池、概率与魂珠增幅须查看召唤面板。",
+          "sourceId": "lite-pve-20250910"
+        }
+      ],
+      "steps": [
+        "开启今日秘境，记录本次 Boss 与参战要求。",
+        "按关卡逐项确认队伍后挑战，把印记与魂珠的实际掉落分别记下。"
+      ],
+      "unknowns": [
+        "当天开放的秘境、Boss 与具体队伍限制",
+        "每次召唤的印记消耗和现行完整概率",
+        "当前魂珠的加成数值、奖池与保底规则"
+      ],
+      "sections": [
+        {
+          "value": "challenge",
+          "label": "秘境挑战",
+          "title": "先看今日条件，再查这个 Boss",
+          "body": "“今日秘境”才是本次配队的上下文。攻略应同时记下当天条件、队伍、Boss 名称和测试日期。",
+          "points": [
+            "当前轮换未由游戏实时导入，页面不会生成一份假定的今日名单。",
+            "查看攻略时保留限制原文，不能只留下宠物名字。",
+            "不确定的替代宠物需要独立验证后才能加入方案。"
+          ]
+        }
+      ],
+      "rewardActivities": [
+        {
+          "id": "shanhai-summon",
+          "name": "山海召唤",
+          "kind": "random-draw",
+          "anchor": "pve-rewards",
+          "sourceId": "lite-pve-20250910"
+        }
+      ]
+    },
+    {
+      "slug": "sentry-intelligence",
+      "name": "哨兵因因的情报",
+      "shortName": "哨兵情报",
+      "aliases": [
+        "哨兵因因",
+        "哨兵阴阴",
+        "哨兵因因的情报",
+        "飞鹰契约",
+        "赏金"
+      ],
+      "goals": [
+        "pets",
+        "training"
+      ],
+      "focus": "作战任务、赏金与飞鹰契约",
+      "summary": "BOSS 情报和作战任务一起核对，赏金兑换与飞鹰契约各走自己的奖励入口。",
+      "cadence": "官方说明：每日5次战斗机会",
+      "sourceIds": [
+        "lite-pve-20250910",
+        "sentry-location-20200901"
+      ],
+      "entrances": [
+        {
+          "client": "LITE",
+          "path": "副本 → 哨兵因因的情报",
+          "sourceId": "lite-pve-20250910"
+        },
+        {
+          "client": "页游场景",
+          "path": "飞鹰密林 → 哨兵因因（历史位置资料）",
+          "sourceId": "sentry-location-20200901"
+        }
+      ],
+      "facts": [
+        {
+          "label": "战斗机会",
+          "value": "每天5次；来源为2025年官方说明",
+          "sourceId": "lite-pve-20250910"
+        },
+        {
+          "label": "挑战收集",
+          "value": "胜利可获 BOSS 情报与飞鹰契约",
+          "sourceId": "lite-pve-20250910"
+        },
+        {
+          "label": "可刷新项目",
+          "value": "BOSS 与作战任务分别刷新",
+          "sourceId": "lite-pve-20250910"
+        },
+        {
+          "label": "奖励入口",
+          "value": "赏金兑换 / 飞鹰契约",
+          "sourceId": "lite-pve-20250910"
+        }
+      ],
+      "rewards": [
+        {
+          "name": "BOSS 情报",
+          "kind": "挑战记录",
+          "how": "搜集情报并获胜",
+          "note": "和作战任务要求一并记录，不能只凭 Boss 名称套用旧攻略。",
+          "sourceId": "lite-pve-20250910"
+        },
+        {
+          "name": "飞鹰契约",
+          "kind": "获取 / 进化资源",
+          "how": "战斗胜利后获得，在独立入口使用",
+          "note": "可获取的宠物与进化资格以当前契约页面为准。",
+          "sourceId": "lite-pve-20250910"
+        },
+        {
+          "name": "赏金兑换物品",
+          "kind": "兑换",
+          "how": "打开赏金兑换查看已有赏金和今日物品",
+          "note": "与飞鹰契约分属两个入口；具体兑换清单不在本页猜测。",
+          "sourceId": "lite-pve-20250910"
+        }
+      ],
+      "steps": [
+        "先查看今日 Boss 情报和作战任务的完整要求，再选择要复现的攻略。",
+        "需要调整时，区分“刷新 BOSS”与“刷新作战任务”，先确认消耗。",
+        "完成挑战后核对情报、飞鹰契约与赏金，分别到对应页面领取或兑换。"
+      ],
+      "unknowns": [
+        "当天 Boss、作战任务及限制组合",
+        "刷新费用、失败是否计次及临时调整",
+        "赏金今日兑换清单、契约所需数量与现行奖励池"
+      ],
+      "sections": [
+        {
+          "value": "intelligence",
+          "label": "情报与作战任务",
+          "title": "同一个 Boss，也要保留任务条件",
+          "body": "攻略的必要信息包括 Boss、作战任务原文、队伍限制、实际面板与胜利过程。更换任务后应重新核对，不能把旧结果直接判定为满足新任务。",
+          "points": [
+            "Boss 和作战任务有各自的刷新按钮。",
+            "请在刷新前确认界面显示的消耗。",
+            "五次战斗机会来自2025年官方说明，临时变动需额外复核。"
+          ]
+        },
+        {
+          "value": "bounty",
+          "label": "赏金兑换",
+          "title": "先核对今日兑换内容",
+          "body": "赏金兑换界面展示已有赏金及当日可兑换物品。兑换前比较奖励用途和消耗，避免与飞鹰契约混记。",
+          "points": [
+            "兑换前查看自己的赏金余额与当天可兑换次数。",
+            "若要补充兑换表，请附当天截图与数量。"
+          ]
+        },
+        {
+          "value": "contract",
+          "label": "飞鹰契约",
+          "title": "领取宠物与进化资格分开记录",
+          "body": "飞鹰契约入口列出可获取或可进化的宠物。记录时保留宠物名称、获得形式、前阶和消耗。",
+          "points": [
+            "直接获得宠物与解锁进化不是同一个结果。",
+            "先核对前阶要求，再安排契约用途。"
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "training-hall",
+      "name": "勇者训练馆",
+      "shortName": "勇者训练馆",
+      "aliases": [
+        "勇者挑战馆",
+        "勇者训练馆",
+        "勇者大挑战"
+      ],
+      "goals": [
+        "training"
+      ],
+      "focus": "普通馆解锁与天赋重置道具",
+      "summary": "从普通训练馆取得终极馆的解锁机会，再按需要取得重置宠物天赋的道具。",
+      "cadence": "普通馆 → 终极馆；VIP 可直达",
+      "sourceIds": [
+        "lite-pve-20250910",
+        "pve-update-20230901"
+      ],
+      "entrances": [
+        {
+          "client": "LITE",
+          "path": "副本 → 勇者训练馆",
+          "sourceId": "lite-pve-20250910"
+        }
+      ],
+      "facts": [
+        {
+          "label": "普通训练馆",
+          "value": "官方 LITE 说明列出左右共4馆",
+          "sourceId": "lite-pve-20250910"
+        },
+        {
+          "label": "解锁方式",
+          "value": "普通馆每次胜利可获得1次终极馆解锁机会",
+          "sourceId": "lite-pve-20250910"
+        },
+        {
+          "label": "VIP 权限",
+          "value": "可直接挑战终极训练馆",
+          "sourceId": "lite-pve-20250910"
+        },
+        {
+          "label": "核心用途",
+          "value": "终极馆产出宠物天赋重置道具",
+          "sourceId": "lite-pve-20250910"
+        }
+      ],
+      "rewards": [
+        {
+          "name": "终极训练馆解锁机会",
+          "kind": "进入资格",
+          "how": "普通训练馆挑战成功",
+          "note": "这是一项解锁机会，和终极馆的道具奖励分开计算。",
+          "sourceId": "lite-pve-20250910"
+        },
+        {
+          "name": "天赋重置道具",
+          "kind": "培养道具",
+          "how": "终极训练馆战斗成功",
+          "note": "2023年9月公告提升了奖励数量；当前具体数量仍以奖励面板为准。",
+          "sourceId": "pve-update-20230901"
+        }
+      ],
+      "steps": [
+        "确认自己需要的培养项目是天赋，再进入勇者训练馆。",
+        "普通用户先完成普通馆获取终极馆机会；VIP 用户可核对直达入口。",
+        "进入终极馆挑战，胜利后核对天赋道具的领取数量。"
+      ],
+      "unknowns": [
+        "当前各馆 Boss 的完整阵容与技能",
+        "每日可获奖励次数、上场限制及具体消耗",
+        "终极馆现行道具名称、数量与领取状态"
+      ],
+      "sections": [
+        {
+          "value": "ordinary",
+          "label": "普通训练馆",
+          "title": "先取得终极馆的解锁机会",
+          "body": "官方 LITE 说明列出四个普通馆。每次普通馆获胜后获得一次解锁终极馆的机会；按自己能稳定复现的配置选择挑战。",
+          "points": [
+            "先核对普通馆对手与自己的实际配置，再安排挑战。",
+            "“勇者大挑战”保留为历史检索词，旧版战斗规则不直接继承。",
+            "当前 Boss 名单和上场限制需补充对应版本的依据。"
+          ]
+        },
+        {
+          "value": "ultimate",
+          "label": "终极训练馆",
+          "title": "为天赋培养取得道具",
+          "body": "终极馆成功后获得重置天赋用的道具。VIP 可直接挑战终极馆，具体奖励和已领取次数仍需在游戏内确认。",
+          "points": [
+            "天赋和努力值是不同培养项目。",
+            "需要努力值果实时，可以转查七曜圣地。",
+            "确认道具说明与消耗后再调整宠物。"
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "seven-sanctuaries",
+      "name": "七曜圣地",
+      "shortName": "七曜圣地",
+      "aliases": [
+        "七曜",
+        "七曜圣地",
+        "七曜秘赐"
+      ],
+      "goals": [
+        "training"
+      ],
+      "focus": "努力值果实与七曜秘赐",
+      "summary": "按需要的努力值果实选择曜日，再核对当天的七曜秘赐与剩余奖励次数。",
+      "cadence": "每日查看加成曜日与剩余奖励",
+      "sourceIds": [
+        "lite-pve-20250910",
+        "pve-update-20230901",
+        "seven-firsthand-20220607"
+      ],
+      "entrances": [
+        {
+          "client": "LITE",
+          "path": "副本 → 七曜圣地 → 选择曜日关卡",
+          "sourceId": "lite-pve-20250910"
+        }
+      ],
+      "facts": [
+        {
+          "label": "主要奖励",
+          "value": "对应关卡的努力值果实",
+          "sourceId": "lite-pve-20250910"
+        },
+        {
+          "label": "当日加成",
+          "value": "对应曜日享有七曜秘赐",
+          "sourceId": "lite-pve-20250910"
+        },
+        {
+          "label": "秘赐内容",
+          "value": "额外努力果实，概率获得遗忘果实",
+          "sourceId": "pve-update-20230901"
+        },
+        {
+          "label": "VIP 快速挑战",
+          "value": "成功1次可领取今日剩余奖励",
+          "sourceId": "lite-pve-20250910"
+        }
+      ],
+      "rewards": [
+        {
+          "name": "努力值果实",
+          "kind": "培养资源",
+          "how": "关卡挑战成功",
+          "note": "逐曜日的基础数量见上方对照表，保留历史数值标签；本期数量仍待客户端复核。",
+          "sourceId": "lite-pve-20250910"
+        },
+        {
+          "name": "七曜秘赐",
+          "kind": "当日加成",
+          "how": "挑战当日对应曜日",
+          "note": "提供额外努力果实，并有概率获得遗忘果实。",
+          "sourceId": "pve-update-20230901"
+        }
+      ],
+      "steps": [
+        "先确认要培养的能力项和现有努力值，选择需要的果实。",
+        "核对当日加成曜日与挑战面板，选择自己能完成的难度。",
+        "领取后确认剩余次数；VIP 快速挑战会一次领取当日剩余奖励。"
+      ],
+      "unknowns": [
+        "2019改版后各曜日、难度的本期BOSS名称与配置",
+        "基础果实数量的本期客户端复核",
+        "今日加成与账号剩余奖励次数",
+        "遗忘果实的具体掉落概率"
+      ],
+      "sections": [
+        {
+          "value": "moon",
+          "label": "月曜日",
+          "title": "月曜守卫",
+          "body": "选择对应曜日与挑战难度，胜利后领取果实。",
+          "points": [],
+          "bosses": "",
+          "rewards": ""
+        },
+        {
+          "value": "fire",
+          "label": "火曜日",
+          "title": "火曜圣地",
+          "body": "选择对应曜日与挑战难度，胜利后领取果实。",
+          "points": [],
+          "bosses": "",
+          "rewards": ""
+        },
+        {
+          "value": "water",
+          "label": "水曜日",
+          "title": "水曜圣地",
+          "body": "选择对应曜日与挑战难度，胜利后领取果实。",
+          "points": [],
+          "bosses": "",
+          "rewards": ""
+        },
+        {
+          "value": "wood",
+          "label": "木曜日",
+          "title": "木曜圣地",
+          "body": "选择对应曜日与挑战难度，胜利后领取果实。",
+          "points": [],
+          "bosses": "",
+          "rewards": ""
+        },
+        {
+          "value": "metal",
+          "label": "金曜日",
+          "title": "金曜圣地",
+          "body": "选择对应曜日与挑战难度，胜利后领取果实。",
+          "points": [],
+          "bosses": "",
+          "rewards": ""
+        },
+        {
+          "value": "earth",
+          "label": "土曜日",
+          "title": "土曜圣地",
+          "body": "选择对应曜日与挑战难度，胜利后领取果实。",
+          "points": [],
+          "bosses": "",
+          "rewards": ""
+        },
+        {
+          "value": "sun",
+          "label": "日曜日",
+          "title": "日曜之地",
+          "body": "先激活其余六曜，再核对日曜开放状态。",
+          "points": [],
+          "bosses": "",
+          "rewards": ""
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,136 @@
+{
+  "version": "7.3.1",
+  "scope": "Adventure directory/search/clear/category/create/detail route clicks; primary-action CSS matching and declared colour contrast. JSDOM interactions and CSS contracts only, not browser geometry, screenshots, zoom, animation or lifecycle validation.",
+  "generatedAt": "2026-10-11T01:35:04.197Z",
+  "total": 29,
+  "passed": 29,
+  "checks": [
+    {
+      "name": "items: shared directory has an accessible title, coloured icon and one primary creation action",
+      "passed": true
+    },
+    {
+      "name": "items: creation click preserves the original typed editor and return destination",
+      "passed": true
+    },
+    {
+      "name": "tasks: shared directory has an accessible title, coloured icon and one primary creation action",
+      "passed": true
+    },
+    {
+      "name": "tasks: creation click preserves the original typed editor and return destination",
+      "passed": true
+    },
+    {
+      "name": "npcs: shared directory has an accessible title, coloured icon and one primary creation action",
+      "passed": true
+    },
+    {
+      "name": "npcs: creation click preserves the original typed editor and return destination",
+      "passed": true
+    },
+    {
+      "name": "places: shared directory has an accessible title, coloured icon and one primary creation action",
+      "passed": true
+    },
+    {
+      "name": "places: creation click preserves the original typed editor and return destination",
+      "passed": true
+    },
+    {
+      "name": "Item search trims input, updates its shareable URL and keeps the existing item route",
+      "passed": true
+    },
+    {
+      "name": "Item categories preserve search state and show an honest zero-result state",
+      "passed": true
+    },
+    {
+      "name": "Clearing item search retains the category and returns keyboard focus to the live input",
+      "passed": true
+    },
+    {
+      "name": "The reusable item entry opens its existing detail page",
+      "passed": true
+    },
+    {
+      "name": "NPC search filters existing rows and preserves individual character routes",
+      "passed": true
+    },
+    {
+      "name": "NPC area filtering combines with the current search instead of resetting it",
+      "passed": true
+    },
+    {
+      "name": "NPC clear restores the matching region results and input focus",
+      "passed": true
+    },
+    {
+      "name": "Place search includes child scenes and retains the canonical parent place route",
+      "passed": true
+    },
+    {
+      "name": "Map category links retain the search and correctly display no matching scenes",
+      "passed": true
+    },
+    {
+      "name": "Map reset restores all six original place destinations",
+      "passed": true
+    },
+    {
+      "name": "Tasks reuse the rounded entry, retain official type icons and do not add an unneeded search mode",
+      "passed": true
+    },
+    {
+      "name": "Task category empty state keeps a scoped add action with the current return filter",
+      "passed": true
+    },
+    {
+      "name": "The reusable task entry opens the original badge index",
+      "passed": true
+    },
+    {
+      "name": "PVE creation uses the same primary variant as the adventure directories",
+      "passed": true
+    },
+    {
+      "name": "Legacy important editing colours no longer match a primary create link",
+      "passed": true
+    },
+    {
+      "name": "Primary action declares white foreground in normal, link, visited, hover, focus and active states",
+      "passed": true
+    },
+    {
+      "name": "All primary-action backgrounds keep at least 4.5:1 contrast with their white label",
+      "passed": true
+    },
+    {
+      "name": "The PVE primary action remains a real link to the scoped add-playstyle editor",
+      "passed": true
+    },
+    {
+      "name": "Shared CSS declares rounded search/cards and bounded responsive tracks without page-specific important patches",
+      "passed": true
+    },
+    {
+      "name": "Both shared component styles are imported after the legacy V7.3 cascade",
+      "passed": true
+    },
+    {
+      "name": "Focused directory interactions complete without unrelated React/runtime errors",
+      "passed": true
+    }
+  ],
+  "errors": [],
+  "sourceHashes": {
+    "src/wiki/DirectoryPanel.jsx": "d2fe8641126b0328d0fbb35faed8458b86d76d21f72a3a7c60a8131854462b6f",
+    "src/wiki/DirectoryPanel.css": "dd8cb2adc7d4de30df3628c3e175c19233882814efaca028549e4b5a4aedbd88",
+    "src/wiki/WorldPages.jsx": "9c4ff943bd19d12569fc15501c94b0dacc793ff67b63c087c78ebe80ffab5f3c",
+    "src/wiki/editing/EditEntry.jsx": "fd2f01da503c920750a4bc9356f3ea3e5452eb3522fb92b9d9370d6e6f4756ee",
+    "src/wiki/editing/EditEntry.css": "a1cab2f5898946ba14eb14c8871c4b01ae5bdeca7c6451dc9ce3930bea1dae9d",
+    "src/wiki/EditingV7.css": "7ddccd422c73002eb53a91ce66da330239ab57d055ec799bb0980ba2777b1a7f",
+    "src/wiki/PvePages.jsx": "a34bc57c87921ff946cb7d16700693af5ad916ff067aefc373681323ffa4cc2c",
+    "src/css/custom.css": "766c7bea1e2d772d0378e912ac40f6398d20e5743f9530956f9b99b251c3fd8a"
+  }
+}

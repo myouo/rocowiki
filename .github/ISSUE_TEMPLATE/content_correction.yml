@@ -1,0 +1,33 @@
+name: 资料纠错 / Content correction
+description: 提供条目位置与可核验依据 / Provide the entry location and verifiable evidence
+title: "[Content] "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        正式修订可登录 /workbench/ 投稿。这里可报告错误；不要复制无权提供的全文或图片。
+        Submit formal revisions through /workbench/. Report errors here without copying text/images you cannot provide.
+  - type: input
+    id: page
+    attributes:
+      label: 页面或条目 / Page or entry
+    validations:
+      required: true
+  - type: textarea
+    id: correction
+    attributes:
+      label: 错误与建议修订 / Error and proposed correction
+    validations:
+      required: true
+  - type: textarea
+    id: sources
+    attributes:
+      label: 来源与证据 / Sources and evidence
+      description: URL、官方/实测/推断/待验证等级、测试条件及引用范围 / URLs, evidence level, test conditions and quotation scope
+    validations:
+      required: true
+  - type: textarea
+    id: rights
+    attributes:
+      label: 内容权利与不确定性 / Rights and uncertainty
+      description: 说明原创或授权依据，来源不等于再分发许可 / Identify original/permitted material; provenance is not redistribution permission

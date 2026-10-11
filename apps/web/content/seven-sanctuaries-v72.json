@@ -1,0 +1,162 @@
+{
+  "schemaVersion": 72,
+  "checkedAt": "2026-10-10",
+  "clientVerified": false,
+  "rewardMethod": "战斗胜利后领取，非代币兑换",
+  "quantityStatus": "历史资料数值，待本期客户端复核",
+  "bossStatus": "本期 BOSS 名称与配置待实测补齐，未沿用2017年旧版名单",
+  "sources": [
+    {
+      "id": "seven-firsthand-20220607",
+      "title": "七曜圣地努力果获取说明",
+      "author": "菜包狗会功夫",
+      "url": "https://www.bilibili.com/video/BV1UY411M782/",
+      "publishedAt": "2022-06-07",
+      "kind": "firsthand-player-record",
+      "supports": [
+        "六种曜日与果实对应",
+        "前六曜激活后开启日曜",
+        "日曜困难50颗历史数值"
+      ],
+      "limitation": "历史实测说明；2023奖励调整前，秘赐的旧额外数量不用于当前规则。"
+    },
+    {
+      "id": "seven-reference-table",
+      "title": "七曜圣地 · 挑战奖励表",
+      "url": "https://bkso.baidu.com/item/%E4%B8%83%E6%9B%9C%E5%9C%A3%E5%9C%B0/23653891?fromModule=lemma_inlink",
+      "kind": "secondary-reference",
+      "supports": [
+        "简单/普通/困难基础奖励数量"
+      ],
+      "limitation": "社区汇总二手参考，数值待当前客户端复核，不是当期实测。"
+    },
+    {
+      "id": "seven-official-20250910",
+      "title": "洛克王国LITE更新公告 · 七曜圣地",
+      "url": "https://17roco.gamebbs.qq.com/archiver/?tid-162819.html",
+      "publishedAt": "2025-09-10",
+      "kind": "official-announcement",
+      "supports": [
+        "挑战入口",
+        "挑战胜利领取果实",
+        "七曜秘赐额外果实与概率遗忘果实",
+        "VIP一次领取剩余奖励"
+      ],
+      "limitation": "公告示例截图使用测试数据，不能据此认定现行BOSS与奖品数量。"
+    }
+  ],
+  "stages": [
+    {
+      "id": "moon",
+      "name": "月曜守卫",
+      "label": "月曜日",
+      "bonusDay": "星期一",
+      "fruit": "速度之果",
+      "stat": "speed",
+      "tone": "violet",
+      "amounts": {
+        "easy": 10,
+        "normal": 15,
+        "hard": 20
+      },
+      "bosses": null,
+      "condition": "进入该曜日后选择简单、普通或困难难度。"
+    },
+    {
+      "id": "fire",
+      "name": "火曜圣地",
+      "label": "火曜日",
+      "bonusDay": "星期二",
+      "fruit": "防御之果",
+      "stat": "defense",
+      "tone": "coral",
+      "amounts": {
+        "easy": 10,
+        "normal": 15,
+        "hard": 20
+      },
+      "bosses": null,
+      "condition": "进入该曜日后选择简单、普通或困难难度。"
+    },
+    {
+      "id": "water",
+      "name": "水曜圣地",
+      "label": "水曜日",
+      "bonusDay": "星期三",
+      "fruit": "精力之果",
+      "stat": "hp",
+      "tone": "blue",
+      "amounts": {
+        "easy": 10,
+        "normal": 15,
+        "hard": 20
+      },
+      "bosses": null,
+      "condition": "进入该曜日后选择简单、普通或困难难度。"
+    },
+    {
+      "id": "wood",
+      "name": "木曜圣地",
+      "label": "木曜日",
+      "bonusDay": "星期四",
+      "fruit": "魔抗之果",
+      "stat": "magicDefense",
+      "tone": "teal",
+      "amounts": {
+        "easy": 10,
+        "normal": 15,
+        "hard": 20
+      },
+      "bosses": null,
+      "condition": "进入该曜日后选择简单、普通或困难难度。"
+    },
+    {
+      "id": "metal",
+      "name": "金曜圣地",
+      "label": "金曜日",
+      "bonusDay": "星期五",
+      "fruit": "攻击之果",
+      "stat": "attack",
+      "tone": "amber",
+      "amounts": {
+        "easy": 10,
+        "normal": 15,
+        "hard": 20
+      },
+      "bosses": null,
+      "condition": "进入该曜日后选择简单、普通或困难难度。"
+    },
+    {
+      "id": "earth",
+      "name": "土曜圣地",
+      "label": "土曜日",
+      "bonusDay": "星期六",
+      "fruit": "魔攻之果",
+      "stat": "magicAttack",
+      "tone": "rose",
+      "amounts": {
+        "easy": 10,
+        "normal": 15,
+        "hard": 20
+      },
+      "bosses": null,
+      "condition": "进入该曜日后选择简单、普通或困难难度。"
+    },
+    {
+      "id": "sun",
+      "name": "日曜之地",
+      "label": "日曜日",
+      "bonusDay": "星期日",
+      "fruit": "随机努力值果实",
+      "stat": "random",
+      "tone": "amber",
+      "amounts": {
+        "easy": 10,
+        "normal": 30,
+        "hard": 50
+      },
+      "bosses": null,
+      "condition": "先激活月、火、水、木、金、土六曜，开放状态以游戏界面为准。"
+    }
+  ]
+}

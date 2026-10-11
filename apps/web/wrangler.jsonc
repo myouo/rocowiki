@@ -1,0 +1,13 @@
+{
+  "$schema": "../../node_modules/wrangler/config-schema.json",
+  "name": "rocowiki-web",
+  "compatibility_date": "2026-10-11",
+  "workers_dev": true,
+  "preview_urls": false,
+  "assets": {
+    "directory": "./build",
+    "html_handling": "force-trailing-slash",
+    "not_found_handling": "404-page"
+  },
+  "routes": [{"pattern": "wiki.rocoai.app", "custom_domain": true}]
+}

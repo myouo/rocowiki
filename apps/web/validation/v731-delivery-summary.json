@@ -1,0 +1,42 @@
+{
+  "version": "7.3.1",
+  "generatedAt": "2026-10-10T16:30:55.370Z",
+  "routes": 121,
+  "customRoutes": 96,
+  "documents": 25,
+  "docHeadingEditors": 105,
+  "activities": 11,
+  "occurrences": 12,
+  "assertions": 127,
+  "passed": 127,
+  "failed": 0,
+  "staleSources": [],
+  "previewBytes": 16588804,
+  "previewSha256": "bbd24fedaf3b321824c0914b98172949c8e453f34f5ccae76b8f3a9e8ff0d8f0",
+  "suites": [
+    {
+      "file": "validation/v731-flow-check.json",
+      "passed": 79,
+      "failed": 0,
+      "stale": [],
+      "assertions": 79
+    },
+    {
+      "file": "validation/v731-catalog-check.json",
+      "scope": "Adventure directory/search/clear/category/create/detail route clicks; primary-action CSS matching and declared colour contrast. JSDOM interactions and CSS contracts only, not browser geometry, screenshots, zoom, animation or lifecycle validation.",
+      "passed": 29,
+      "failed": 0,
+      "stale": [],
+      "assertions": 29
+    },
+    {
+      "file": "validation/v731-delivery-check.json",
+      "scope": "Only the V7.3.1 welcome artwork and layer positioning, adventure directories/search/create entries, PVE CTA contrast, and horizontal skill relationships in native output and the exact preview. One 1100px flow width is mocked to select horizontal mode. No account, calculator, lifecycle, browser screenshot or device-layout regression suite.",
+      "passed": 19,
+      "failed": 0,
+      "stale": [],
+      "assertions": 19
+    }
+  ],
+  "limitations": "本轮未执行真实浏览器截图、实际缩放、设备绘制及帧率验收；已有生命周期代码保持原样，剩余生命周期问题由用户继续处理。"
+}

@@ -1,0 +1,236 @@
+{
+  "version": "7.1",
+  "checkedAt": "2026-10-10T13:43:42.211Z",
+  "scope": "JSDOM interaction and catalogue model checks; no browser layout or performance assertion",
+  "passed": 41,
+  "total": 41,
+  "checks": [
+    {
+      "label": "New published pet receives its own stable detail URL and catalogue metadata",
+      "pass": true
+    },
+    {
+      "label": "Six species stats are read back without changing the seeded data",
+      "pass": true
+    },
+    {
+      "label": "Unpublished pet submissions do not appear in the catalogue",
+      "pass": true
+    },
+    {
+      "label": "Renaming a local pet preserves identity and updates its stats",
+      "pass": true
+    },
+    {
+      "label": "A deletion proposal leaves the published pet available until reviewed",
+      "pass": true
+    },
+    {
+      "label": "Reviewed deletion retains a tombstone with its reason and redirection",
+      "pass": true
+    },
+    {
+      "label": "A new submission cannot overwrite an existing pet by reusing its slug",
+      "pass": true
+    },
+    {
+      "label": "Unknown species data does not become zero-filled radar values",
+      "pass": true
+    },
+    {
+      "label": "A published advanced branch survives nested and range data unchanged",
+      "pass": true
+    },
+    {
+      "label": "Historical display overrides cannot mask published skill changes",
+      "pass": true
+    },
+    {
+      "label": "Pet catalogue offers add-pet but no broad directory edit",
+      "pass": true
+    },
+    {
+      "label": "Pet cards and filter headings do not acquire injected edit buttons",
+      "pass": true
+    },
+    {
+      "label": "Skill overview retains description and effect filters without row editors",
+      "pass": true
+    },
+    {
+      "label": "Pet skill pool navigates to skill detail with the originating pet preserved",
+      "pass": true
+    },
+    {
+      "label": "Original Counter records explicitly show both bloodlines as unrecorded",
+      "pass": true
+    },
+    {
+      "label": "Pet maintenance offers an explicit deletion proposal rather than immediate deletion",
+      "pass": true
+    },
+    {
+      "label": "New and renamed pets appear immediately in the catalogue",
+      "pass": true
+    },
+    {
+      "label": "A local pet opens its own detail page, with the published name and species data",
+      "pass": true
+    },
+    {
+      "label": "Local detail editors preserve the stable identity and return URL",
+      "pass": true
+    },
+    {
+      "label": "A newly published pet can enter the same comparison tool",
+      "pass": true
+    },
+    {
+      "label": "Reviewed deleted pets leave the catalogue",
+      "pass": true
+    },
+    {
+      "label": "Old local references show the reviewed tombstone without destroying related records",
+      "pass": true
+    },
+    {
+      "label": "Public skill detail displays disjoint ranges and a nested any-condition group",
+      "pass": true
+    },
+    {
+      "label": "Public skill detail displays child branches and otherwise results",
+      "pass": true
+    },
+    {
+      "label": "Skill detail retains a focused entry editor and each branch editor",
+      "pass": true
+    },
+    {
+      "label": "Unknown bloodline and confirmed no-bloodline are distinct claims",
+      "pass": true
+    },
+    {
+      "label": "Changing either side's bloodline creates a separate support pool",
+      "pass": true
+    },
+    {
+      "label": "Dormant names under an unknown status do not create false equipped-bloodline claims",
+      "pass": true
+    },
+    {
+      "label": "A vote on unknown configurations is not counted for a specified configuration",
+      "pass": true
+    },
+    {
+      "label": "Published record projection preserves each side's selected or absent bloodline",
+      "pass": true
+    },
+    {
+      "label": "Changing only bloodlines revises the published Counter claim",
+      "pass": true
+    },
+    {
+      "label": "Public Counter reader shows the two published configurations with their notes",
+      "pass": true
+    },
+    {
+      "label": "Renaming a pet preserves its earlier published Counter records under the stable identity",
+      "pass": true
+    },
+    {
+      "label": "Visitor voting records support for the currently visible claim",
+      "pass": true
+    },
+    {
+      "label": "Rerendering a new bloodline configuration clears the previous vote state and announcement",
+      "pass": true
+    },
+    {
+      "label": "Automatic heading edits reject catalogue, filter and account screens",
+      "pass": true
+    },
+    {
+      "label": "Unmarked custom headings are not assumed to be editable documents",
+      "pass": true
+    },
+    {
+      "label": "Known knowledge articles and explicit article sections remain editable",
+      "pass": true
+    },
+    {
+      "label": "Real article headings receive one contextual edit while UI notices receive none",
+      "pass": true
+    },
+    {
+      "label": "Article heading edit preserves current query and stable anchor",
+      "pass": true
+    },
+    {
+      "label": "No native select or React DOM errors were introduced by these flows",
+      "pass": true
+    }
+  ],
+  "errors": [],
+  "sources": [
+    {
+      "path": "src/wiki/CatalogPages.jsx",
+      "sha256": "18407ab2e7f47899cd3b7c6ddb34d53d454a78f6da7dd2fbfb516c13f1680018"
+    },
+    {
+      "path": "src/wiki/CatalogV7.css",
+      "sha256": "3e83154cb0dbeb9bc6d9a6a7ce4d57468c93fa9fe37830bc5d74ed41a9e6c125"
+    },
+    {
+      "path": "src/wiki/catalogPublished.js",
+      "sha256": "6c848b79f01b287c82c7eb83b3e8c93e6980b0075ba563573a36498502029a8c"
+    },
+    {
+      "path": "src/wiki/CounterBloodlineSides.jsx",
+      "sha256": "e863204ec666500066fe1b5597ca52e3b4ce26ac5d826bf04c928ac2bdc8a34f"
+    },
+    {
+      "path": "src/wiki/CounterVotes.jsx",
+      "sha256": "596b824b23f15c7f50e5550e2df60dd4acefc8487e292d65a3aa0eddbd62c06d"
+    },
+    {
+      "path": "src/wiki/counterVoteState.js",
+      "sha256": "c4d3db430569ad8b0804c5310adf0626228eb6ab8bc47783467aa0a64978388f"
+    },
+    {
+      "path": "src/wiki/skillPresentation.js",
+      "sha256": "9e4facfd1abe76a8fedc27e354ef2410fb5e2c83d020fbc3eff936e5645d58c2"
+    },
+    {
+      "path": "src/wiki/SkillBranchView.jsx",
+      "sha256": "b9d57f4b37eeca3a0a7597583f92f6ccb47e433c1bf6555160f88205abe4eea6"
+    },
+    {
+      "path": "src/wiki/skillConditions.js",
+      "sha256": "0cabf2cb107a7e92fe63bbe7caaf5247b5d2f2e857fe126adc396a4cfe37c792"
+    },
+    {
+      "path": "src/wiki/matchupBloodlines.js",
+      "sha256": "304bf37fa1476446f2a6ec578c6cd3d3348761e86eb25c11aea239d6acb45d20"
+    },
+    {
+      "path": "src/wiki/editingContext.js",
+      "sha256": "d2cbe24a8ee0e995b7c05061d6a70e35d1c6ab656d5b9fc97d308a95db7a8a06"
+    },
+    {
+      "path": "src/wiki/InlineSectionEdits.jsx",
+      "sha256": "5635a997bbde50f9f6293ce13f31d39ca6e6cc859bd3c35eb2e98ef279f6449c"
+    },
+    {
+      "path": "src/wiki/ToolsPages.jsx",
+      "sha256": "65c4dd06c8d17b8926a91a51119414e23e2fe86d49b811bce18ce735072ceb5d"
+    },
+    {
+      "path": "src/wiki/core.jsx",
+      "sha256": "a458b43a2382d306d162641a6b4b6c2f4ab8b4e0140008869d14ab909d83e84a"
+    },
+    {
+      "path": "src/wiki/editing/publishedRecords.js",
+      "sha256": "c754aa0a7132c9a80a0f8085aac2240a65aad8e0fadd43afc75ec6e06538021f"
+    }
+  ]
+}

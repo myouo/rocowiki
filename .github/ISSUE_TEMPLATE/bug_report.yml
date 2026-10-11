@@ -1,0 +1,46 @@
+name: 缺陷报告 / Bug report
+description: 报告可复现的普通缺陷 / Report a reproducible ordinary defect
+title: "[Bug] "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        安全漏洞请使用 SECURITY.md 的私密渠道，不在公开 Issue 中发布细节或凭据。
+        For vulnerabilities, use SECURITY.en.md and do not post details or credentials publicly.
+  - type: input
+    id: version
+    attributes:
+      label: 版本或 commit / Version or commit
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: 环境 / Environment
+      description: 系统、浏览器、localhost/正式站/离线 HTML；URL 删除敏感参数 / OS, browser and entry point; redact URL parameters
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: 最小复现步骤 / Minimal reproduction
+    validations:
+      required: true
+  - type: textarea
+    id: behavior
+    attributes:
+      label: 预期与实际行为 / Expected and actual behavior
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: 脱敏证据 / Redacted evidence
+      description: 错误码、截图、最小样例；不附 Cookie、令牌、HAR 或私人草稿 / Error codes, screenshots or examples without credentials, HAR or private drafts
+  - type: checkboxes
+    id: privacy
+    attributes:
+      label: 公开报告确认 / Public report confirmation
+      options:
+        - label: 已移除凭据和私人资料；此报告不披露未修复漏洞 / Credentials and private data removed; no unfixed vulnerability disclosure
+          required: true

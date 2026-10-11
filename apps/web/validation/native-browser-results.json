@@ -1,0 +1,1109 @@
+{
+  "testedAt": "2026-10-10T22:59:19.062Z",
+  "origin": "http://localhost:3000",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/150.0.0.0 Safari/537.36",
+  "viewport": [
+    2048,
+    1112
+  ],
+  "routes": [
+    {
+      "path": "/",
+      "h1": "洛克王国页游百科",
+      "navbar": 136,
+      "main": true,
+      "crash": false
+    },
+    {
+      "path": "/pets/",
+      "h1": "宠物图鉴",
+      "navbar": 136,
+      "main": true,
+      "crash": false
+    },
+    {
+      "path": "/skills/",
+      "h1": "技能查询",
+      "navbar": 136,
+      "main": true,
+      "crash": false
+    },
+    {
+      "path": "/bloodlines/",
+      "h1": "血脉资料",
+      "navbar": 136,
+      "main": true,
+      "crash": false
+    },
+    {
+      "path": "/events/",
+      "h1": "活动与获取",
+      "navbar": 136,
+      "main": true,
+      "crash": false
+    },
+    {
+      "path": "/battle/",
+      "h1": "对战与禁赛",
+      "navbar": 136,
+      "main": true,
+      "crash": false
+    },
+    {
+      "path": "/adventure/",
+      "h1": "冒险资料",
+      "navbar": 136,
+      "main": true,
+      "crash": false
+    },
+    {
+      "path": "/places/",
+      "h1": "地图与地区",
+      "navbar": 136,
+      "main": true,
+      "crash": false
+    },
+    {
+      "path": "/npcs/",
+      "h1": "人物与NPC",
+      "navbar": 136,
+      "main": true,
+      "crash": false
+    },
+    {
+      "path": "/items/",
+      "h1": "道具与物品",
+      "navbar": 136,
+      "main": true,
+      "crash": false
+    },
+    {
+      "path": "/challenges/",
+      "h1": "历史挑战资料",
+      "navbar": 136,
+      "main": true,
+      "crash": false
+    },
+    {
+      "path": "/tools/",
+      "h1": "实用工具",
+      "navbar": 136,
+      "main": true,
+      "crash": false
+    },
+    {
+      "path": "/community/",
+      "h1": "贡献中心",
+      "navbar": 136,
+      "main": true,
+      "crash": false
+    },
+    {
+      "path": "/account/",
+      "h1": "个人中心",
+      "navbar": 136,
+      "main": true,
+      "crash": false
+    },
+    {
+      "path": "/edit/",
+      "h1": "海芙约忒 / 条目正文",
+      "navbar": 136,
+      "main": true,
+      "crash": false
+    },
+    {
+      "path": "/review/",
+      "h1": "审核工作台",
+      "navbar": 136,
+      "main": true,
+      "crash": false
+    },
+    {
+      "path": "/history/",
+      "h1": "修订记录 · 海芙约忒",
+      "navbar": 136,
+      "main": true,
+      "crash": false
+    },
+    {
+      "path": "/search/",
+      "h1": "全站搜索",
+      "navbar": 136,
+      "main": true,
+      "crash": false
+    },
+    {
+      "path": "/guides/",
+      "h1": "玩家指南",
+      "navbar": 136,
+      "main": true,
+      "crash": false
+    },
+    {
+      "path": "/help/",
+      "h1": "贡献帮助",
+      "navbar": 136,
+      "main": true,
+      "crash": false
+    },
+    {
+      "path": "/tasks/",
+      "h1": "任务与剧情",
+      "navbar": 136,
+      "main": true,
+      "crash": false
+    },
+    {
+      "path": "/not-found/",
+      "h1": "没有找到这份资料",
+      "navbar": 136,
+      "main": true,
+      "crash": false
+    },
+    {
+      "path": "/pets/haifu/",
+      "h1": "海芙约忒",
+      "navbar": 136,
+      "main": true,
+      "crash": false
+    },
+    {
+      "path": "/pets/bishui/",
+      "h1": "碧水灵兽",
+      "navbar": 136,
+      "main": true,
+      "crash": false
+    },
+    {
+      "path": "/pets/dimo/",
+      "h1": "迪莫",
+      "navbar": 136,
+      "main": true,
+      "crash": false
+    },
+    {
+      "path": "/pets/abu/",
+      "h1": "阿布",
+      "navbar": 136,
+      "main": true,
+      "crash": false
+    },
+    {
+      "path": "/pets/shuilanlan/",
+      "h1": "水蓝蓝",
+      "navbar": 136,
+      "main": true,
+      "crash": false
+    },
+    {
+      "path": "/pets/huohua/",
+      "h1": "火花",
+      "navbar": 136,
+      "main": true,
+      "crash": false
+    },
+    {
+      "path": "/pets/miaomiao/",
+      "h1": "喵喵",
+      "navbar": 136,
+      "main": true,
+      "crash": false
+    },
+    {
+      "path": "/pets/royal-dimo/",
+      "h1": "皇家圣光迪莫",
+      "navbar": 136,
+      "main": true,
+      "crash": false
+    },
+    {
+      "path": "/pets/moshen/",
+      "h1": "魔神武王",
+      "navbar": 136,
+      "main": true,
+      "crash": false
+    },
+    {
+      "path": "/pets/zhuque/",
+      "h1": "灵瑞朱雀",
+      "navbar": 136,
+      "main": true,
+      "crash": false
+    },
+    {
+      "path": "/pets/hapuluosi/",
+      "h1": "哈普洛斯",
+      "navbar": 136,
+      "main": true,
+      "crash": false
+    },
+    {
+      "path": "/pets/sailemu/",
+      "h1": "塞勒姆",
+      "navbar": 136,
+      "main": true,
+      "crash": false
+    },
+    {
+      "path": "/skills/xiazi/",
+      "h1": "霞姿月韵",
+      "navbar": 136,
+      "main": true,
+      "crash": false
+    },
+    {
+      "path": "/skills/yuanyun/",
+      "h1": "渊云点墨",
+      "navbar": 136,
+      "main": true,
+      "crash": false
+    },
+    {
+      "path": "/skills/diezhang/",
+      "h1": "叠嶂扶影",
+      "navbar": 136,
+      "main": true,
+      "crash": false
+    },
+    {
+      "path": "/skills/tianhe/",
+      "h1": "天河夜转",
+      "navbar": 136,
+      "main": true,
+      "crash": false
+    },
+    {
+      "path": "/skills/feixing/",
+      "h1": "飞星浮渡",
+      "navbar": 136,
+      "main": true,
+      "crash": false
+    },
+    {
+      "path": "/skills/linghuo/",
+      "h1": "灵火之杖",
+      "navbar": 136,
+      "main": true,
+      "crash": false
+    },
+    {
+      "path": "/skills/xiufu/",
+      "h1": "袖拂尘散",
+      "navbar": 136,
+      "main": true,
+      "crash": false
+    },
+    {
+      "path": "/skills/wufa/",
+      "h1": "巫法重击",
+      "navbar": 136,
+      "main": true,
+      "crash": false
+    },
+    {
+      "path": "/places/castle/",
+      "h1": "王国城堡",
+      "navbar": 136,
+      "main": true,
+      "crash": false
+    },
+    {
+      "path": "/places/academy/",
+      "h1": "魔法学院",
+      "navbar": 136,
+      "main": true,
+      "crash": false
+    },
+    {
+      "path": "/places/mermaid-bay/",
+      "h1": "人鱼湾",
+      "navbar": 136,
+      "main": true,
+      "crash": false
+    },
+    {
+      "path": "/places/snow-valley/",
+      "h1": "雪人谷",
+      "navbar": 136,
+      "main": true,
+      "crash": false
+    },
+    {
+      "path": "/places/xuan-yu/",
+      "h1": "玄玉岛",
+      "navbar": 136,
+      "main": true,
+      "crash": false
+    },
+    {
+      "path": "/places/sky/",
+      "h1": "天空城",
+      "navbar": 136,
+      "main": true,
+      "crash": false
+    },
+    {
+      "path": "/npcs/griffin/",
+      "h1": "格里芬院长",
+      "navbar": 136,
+      "main": true,
+      "crash": false
+    },
+    {
+      "path": "/npcs/lancelot/",
+      "h1": "兰斯洛",
+      "navbar": 136,
+      "main": true,
+      "crash": false
+    },
+    {
+      "path": "/bloodlines/haifu/",
+      "h1": "海芙约忒 · 血脉与专属资源",
+      "navbar": 136,
+      "main": true,
+      "crash": false
+    },
+    {
+      "path": "/events/fun-chess-20251128/",
+      "h1": "趣味对弈",
+      "navbar": 136,
+      "main": true,
+      "crash": false
+    },
+    {
+      "path": "/challenges/star-tower/",
+      "h1": "星辰之塔 · 历史 Boss 目录",
+      "navbar": 136,
+      "main": true,
+      "crash": false
+    },
+    {
+      "path": "/items/potion/",
+      "h1": "HP药剂",
+      "navbar": 136,
+      "main": true,
+      "crash": false
+    },
+    {
+      "path": "/tasks/badges/",
+      "h1": "徽章任务",
+      "navbar": 136,
+      "main": true,
+      "crash": false
+    },
+    {
+      "path": "/tools/compare/",
+      "h1": "宠物对比",
+      "navbar": 136,
+      "main": true,
+      "crash": false
+    },
+    {
+      "path": "/tools/pp/",
+      "h1": "工具已更新",
+      "navbar": 136,
+      "main": true,
+      "crash": false
+    },
+    {
+      "path": "/tools/range/",
+      "h1": "工具已更新",
+      "navbar": 136,
+      "main": true,
+      "crash": false
+    },
+    {
+      "path": "/skills/shuilingdong/",
+      "h1": "水灵动",
+      "navbar": 136,
+      "main": true,
+      "crash": false
+    },
+    {
+      "path": "/skills/yupiaoyao/",
+      "h1": "雨飘摇",
+      "navbar": 136,
+      "main": true,
+      "crash": false
+    },
+    {
+      "path": "/skills/chenshiji/",
+      "h1": "趁势击",
+      "navbar": 136,
+      "main": true,
+      "crash": false
+    },
+    {
+      "path": "/skills/feiyanlingbo/",
+      "h1": "飞燕凌波",
+      "navbar": 136,
+      "main": true,
+      "crash": false
+    },
+    {
+      "path": "/feedback/",
+      "h1": "我的反馈",
+      "navbar": 136,
+      "main": true,
+      "crash": false
+    },
+    {
+      "path": "/mechanics/",
+      "h1": "战斗机制",
+      "navbar": 136,
+      "main": true,
+      "crash": false
+    },
+    {
+      "path": "/mechanics/relations/",
+      "h1": "效果关系查询",
+      "navbar": 136,
+      "main": true,
+      "crash": false
+    },
+    {
+      "path": "/battle/rules/",
+      "h1": "天梯赛参赛规则",
+      "navbar": 136,
+      "main": true,
+      "crash": false
+    },
+    {
+      "path": "/events/harvest-fruit-line-20261009/",
+      "h1": "丰收水果连线",
+      "navbar": 136,
+      "main": true,
+      "crash": false
+    },
+    {
+      "path": "/events/ifrit-challenge-20261009/",
+      "h1": "伊芙利特的挑战",
+      "navbar": 136,
+      "main": true,
+      "crash": false
+    },
+    {
+      "path": "/events/soul-helmets-20261009/",
+      "h1": "千盔铸魂",
+      "navbar": 136,
+      "main": true,
+      "crash": false
+    },
+    {
+      "path": "/events/energy-array-20261009/",
+      "h1": "能量调和之阵",
+      "navbar": 136,
+      "main": true,
+      "crash": false
+    },
+    {
+      "path": "/events/collect-colors-20261002/",
+      "h1": "采集颜色",
+      "navbar": 136,
+      "main": true,
+      "crash": false
+    },
+    {
+      "path": "/events/fruit-market-20261002/",
+      "h1": "瓜果集市",
+      "navbar": 136,
+      "main": true,
+      "crash": false
+    },
+    {
+      "path": "/events/duck-challenge-20261002/",
+      "h1": "难不倒鸭",
+      "navbar": 136,
+      "main": true,
+      "crash": false
+    },
+    {
+      "path": "/pve/",
+      "h1": "PVE 副本与挑战",
+      "navbar": 136,
+      "main": true,
+      "crash": false
+    },
+    {
+      "path": "/pve/star-tower/",
+      "h1": "星辰之塔",
+      "navbar": 136,
+      "main": true,
+      "crash": false
+    },
+    {
+      "path": "/pve/shanhai/",
+      "h1": "山海秘境",
+      "navbar": 136,
+      "main": true,
+      "crash": false
+    },
+    {
+      "path": "/pve/sentry-intelligence/",
+      "h1": "哨兵因因的情报",
+      "navbar": 136,
+      "main": true,
+      "crash": false
+    },
+    {
+      "path": "/pve/training-hall/",
+      "h1": "勇者训练馆",
+      "navbar": 136,
+      "main": true,
+      "crash": false
+    },
+    {
+      "path": "/pve/seven-sanctuaries/",
+      "h1": "七曜圣地",
+      "navbar": 136,
+      "main": true,
+      "crash": false
+    },
+    {
+      "path": "/tools/damage/",
+      "h1": "威力伤害计算器",
+      "navbar": 136,
+      "main": true,
+      "crash": false
+    },
+    {
+      "path": "/tools/stats/",
+      "h1": "能力计算器",
+      "navbar": 136,
+      "main": true,
+      "crash": false
+    },
+    {
+      "path": "/events/measurement-expert-20260904/",
+      "h1": "测量专家",
+      "navbar": 136,
+      "main": true,
+      "crash": false
+    },
+    {
+      "path": "/events/honey-homecoming-20260904/",
+      "h1": "采蜜归巢",
+      "navbar": 136,
+      "main": true,
+      "crash": false
+    },
+    {
+      "path": "/events/rice-shop-20260904/",
+      "h1": "米粒小铺",
+      "navbar": 136,
+      "main": true,
+      "crash": false
+    },
+    {
+      "path": "/events/harvest-fruit-line/",
+      "h1": "丰收水果连线",
+      "navbar": 136,
+      "main": true,
+      "crash": false
+    },
+    {
+      "path": "/events/ifrit-challenge/",
+      "h1": "伊芙利特的挑战",
+      "navbar": 136,
+      "main": true,
+      "crash": false
+    },
+    {
+      "path": "/events/soul-helmets/",
+      "h1": "千盔铸魂",
+      "navbar": 136,
+      "main": true,
+      "crash": false
+    },
+    {
+      "path": "/events/energy-array/",
+      "h1": "能量调和之阵",
+      "navbar": 136,
+      "main": true,
+      "crash": false
+    },
+    {
+      "path": "/events/collect-colors/",
+      "h1": "采集颜色",
+      "navbar": 136,
+      "main": true,
+      "crash": false
+    },
+    {
+      "path": "/events/fruit-market/",
+      "h1": "瓜果集市",
+      "navbar": 136,
+      "main": true,
+      "crash": false
+    },
+    {
+      "path": "/events/duck-challenge/",
+      "h1": "难不倒鸭",
+      "navbar": 136,
+      "main": true,
+      "crash": false
+    },
+    {
+      "path": "/events/measurement-expert/",
+      "h1": "测量专家",
+      "navbar": 136,
+      "main": true,
+      "crash": false
+    },
+    {
+      "path": "/events/honey-homecoming/",
+      "h1": "采蜜归巢",
+      "navbar": 136,
+      "main": true,
+      "crash": false
+    },
+    {
+      "path": "/events/rice-shop/",
+      "h1": "米粒小铺",
+      "navbar": 136,
+      "main": true,
+      "crash": false
+    },
+    {
+      "path": "/events/fun-chess/",
+      "h1": "趣味对弈",
+      "navbar": 136,
+      "main": true,
+      "crash": false
+    },
+    {
+      "path": "/events/fun-chess-20250502/",
+      "h1": "趣味对弈",
+      "navbar": 136,
+      "main": true,
+      "crash": false
+    },
+    {
+      "path": "/workbench/",
+      "h1": "共建工作台",
+      "navbar": 136,
+      "main": true,
+      "crash": false
+    },
+    {
+      "path": "/contributors/",
+      "h1": "社区贡献者",
+      "navbar": 136,
+      "main": true,
+      "crash": false
+    },
+    {
+      "path": "/wiki/mechanics/research-method/",
+      "h1": "机制研究与来源规范",
+      "navbar": 136,
+      "main": true,
+      "crash": false
+    },
+    {
+      "path": "/wiki/guides/contributing/",
+      "h1": "参与共建",
+      "navbar": 136,
+      "main": true,
+      "crash": false
+    },
+    {
+      "path": "/account/?tab=overview",
+      "h1": "个人中心",
+      "navbar": 136,
+      "main": true,
+      "crash": false
+    },
+    {
+      "path": "/account/?tab=profile",
+      "h1": "个人中心",
+      "navbar": 136,
+      "main": true,
+      "crash": false
+    },
+    {
+      "path": "/account/?tab=security",
+      "h1": "个人中心",
+      "navbar": 136,
+      "main": true,
+      "crash": false
+    },
+    {
+      "path": "/account/?tab=honors",
+      "h1": "个人中心",
+      "navbar": 136,
+      "main": true,
+      "crash": false
+    },
+    {
+      "path": "/account/?tab=activity",
+      "h1": "个人中心",
+      "navbar": 136,
+      "main": true,
+      "crash": false
+    },
+    {
+      "path": "/account/?tab=drafts",
+      "h1": "个人中心",
+      "navbar": 136,
+      "main": true,
+      "crash": false
+    },
+    {
+      "path": "/account/?tab=submissions",
+      "h1": "个人中心",
+      "navbar": 136,
+      "main": true,
+      "crash": false
+    },
+    {
+      "path": "/account/?tab=bookmarks",
+      "h1": "个人中心",
+      "navbar": 136,
+      "main": true,
+      "crash": false
+    },
+    {
+      "path": "/guides/pve/",
+      "h1": "挑战攻略怎么查",
+      "navbar": 136,
+      "main": true,
+      "crash": false
+    },
+    {
+      "path": "/guides/returning/",
+      "h1": "回归先查什么",
+      "navbar": 136,
+      "main": true,
+      "crash": false
+    },
+    {
+      "path": "/guides/training/",
+      "h1": "宠物培养资料",
+      "navbar": 136,
+      "main": true,
+      "crash": false
+    },
+    {
+      "path": "/help/contributing/",
+      "h1": "参与编辑",
+      "navbar": 136,
+      "main": true,
+      "crash": false
+    },
+    {
+      "path": "/help/sources/",
+      "h1": "资料来源与验证",
+      "navbar": 136,
+      "main": true,
+      "crash": false
+    },
+    {
+      "path": "/mechanics/accuracy/",
+      "h1": "命中、必中与闪避",
+      "navbar": 136,
+      "main": true,
+      "crash": false
+    },
+    {
+      "path": "/mechanics/attributes/",
+      "h1": "属性、能力与克制",
+      "navbar": 136,
+      "main": true,
+      "crash": false
+    },
+    {
+      "path": "/mechanics/damage/",
+      "h1": "伤害类型与结算",
+      "navbar": 136,
+      "main": true,
+      "crash": false
+    },
+    {
+      "path": "/mechanics/effects/pressure/",
+      "h1": "压迫（双损）",
+      "navbar": 136,
+      "main": true,
+      "crash": false
+    },
+    {
+      "path": "/mechanics/effects/",
+      "h1": "效果档案与同名识别",
+      "navbar": 136,
+      "main": true,
+      "crash": false
+    },
+    {
+      "path": "/mechanics/environments/mirage/",
+      "h1": "海市蜃楼（环境）",
+      "navbar": 136,
+      "main": true,
+      "crash": false
+    },
+    {
+      "path": "/mechanics/evidence/",
+      "h1": "机制实测与争议记录",
+      "navbar": 136,
+      "main": true,
+      "crash": false
+    },
+    {
+      "path": "/mechanics/glossary/",
+      "h1": "战斗术语速查",
+      "navbar": 136,
+      "main": true,
+      "crash": false
+    },
+    {
+      "path": "/mechanics/healing/",
+      "h1": "治疗、禁疗与转化",
+      "navbar": 136,
+      "main": true,
+      "crash": false
+    },
+    {
+      "path": "/mechanics/interactions/",
+      "h1": "覆盖、共存与解除",
+      "navbar": 136,
+      "main": true,
+      "crash": false
+    },
+    {
+      "path": "/mechanics/overview/",
+      "h1": "战斗机制总目录",
+      "navbar": 136,
+      "main": true,
+      "crash": false
+    },
+    {
+      "path": "/mechanics/passive/",
+      "h1": "血脉与被动触发",
+      "navbar": 136,
+      "main": true,
+      "crash": false
+    },
+    {
+      "path": "/mechanics/pp/",
+      "h1": "PP 与技能限制",
+      "navbar": 136,
+      "main": true,
+      "crash": false
+    },
+    {
+      "path": "/mechanics/priority/",
+      "h1": "速度与先手",
+      "navbar": 136,
+      "main": true,
+      "crash": false
+    },
+    {
+      "path": "/mechanics/shield/",
+      "h1": "护盾与减伤",
+      "navbar": 136,
+      "main": true,
+      "crash": false
+    },
+    {
+      "path": "/mechanics/stages/",
+      "h1": "技能阶段与结算",
+      "navbar": 136,
+      "main": true,
+      "crash": false
+    },
+    {
+      "path": "/mechanics/status/",
+      "h1": "异常、强化与标记",
+      "navbar": 136,
+      "main": true,
+      "crash": false
+    },
+    {
+      "path": "/mechanics/switching/",
+      "h1": "换宠、驱逐与场下",
+      "navbar": 136,
+      "main": true,
+      "crash": false
+    },
+    {
+      "path": "/mechanics/timing/",
+      "h1": "触发顺序与结算时点",
+      "navbar": 136,
+      "main": true,
+      "crash": false
+    },
+    {
+      "path": "/mechanics/weather/",
+      "h1": "天气与环境",
+      "navbar": 136,
+      "main": true,
+      "crash": false
+    }
+  ],
+  "editors": [
+    {
+      "mode": "article",
+      "path": "/edit/?entity=%E5%8F%82%E4%B8%8E%E7%BC%96%E8%BE%91&section=%E6%9D%A1%E7%9B%AE%E6%AD%A3%E6%96%87&mode=article&returnTo=%2Fhelp%2Fcontributing%2F",
+      "preview": true,
+      "hosts": 1,
+      "body": "从需要修正的词条进入编辑，系统会保留当前对象。补充来源、纠正字段、完善文字都可以成为一次独立投稿。\n\n从具体资料开始\n想做什么\t推荐入口\n修正宠物或技能字段\t对应详情页的编辑入口\n补充当前获得方式\t宠",
+      "crash": false
+    },
+    {
+      "mode": "pet",
+      "path": "/edit/?entity=%E5%AE%A0%E7%89%A9%E5%9B%BE%E9%89%B4&section=%E6%96%B0%E5%A2%9E%E5%AE%A0%E7%89%A9&mode=pet&returnTo=%2Fpets%2F&intent=add",
+      "preview": true,
+      "hosts": 1,
+      "body": "图鉴编号 待补\n宠物名称待补\n种族值六维图\n统一刻度 0–180\n30\n60\n90\n120\n150\n180\n0\n精力—\n物攻—\n物防—\n魔攻—\n魔抗—\n速度—\n种族值待补充\n种族值精确数值；隐藏曲线时",
+      "crash": false
+    },
+    {
+      "mode": "skill",
+      "path": "/edit/?entity=%E6%8A%80%E8%83%BD%E6%9F%A5%E8%AF%A2&section=%E6%8A%80%E8%83%BD%E7%9B%AE%E5%BD%95&mode=skill&returnTo=%2Fskills%2F&intent=add",
+      "preview": true,
+      "hosts": 1,
+      "body": "技能资料\n技能名称待补\n类别\n变化\n效果与触发条件\n纵向\n横向\n复制为 Mermaid\n\n按连线阅读成立与否则分支。各组条件分别判断，可以同时成立；未记载的结算时序与反向结果不作推断。\n\n尚未收录结构",
+      "crash": false
+    },
+    {
+      "mode": "event",
+      "path": "/edit/?entity=%E6%B4%BB%E5%8A%A8%E4%B8%8E%E8%8E%B7%E5%8F%96&section=%E6%B4%BB%E5%8A%A8%E4%B8%8E%E5%BC%80%E6%94%BE%E6%89%B9%E6%AC%A1&mode=event&returnTo=%2Fevents%2F&intent=add",
+      "preview": true,
+      "hosts": 1,
+      "body": "活动资料\n活动名称待补\n\n这部分尚未填写。\n\n历次开放\n开始日期待补\n—\n截止日期未记录\n记录名称待补\n地点待补\n奖励待补\n\n来源：待补充",
+      "crash": false
+    },
+    {
+      "mode": "index",
+      "path": "/edit/?entity=%E5%9C%B0%E5%9B%BE%E4%B8%8E%E5%9C%B0%E5%8C%BA&section=%E5%9C%B0%E5%8C%BA%E7%9B%AE%E5%BD%95&mode=index&returnTo=%2Fplaces%2F&intent=add",
+      "preview": true,
+      "hosts": 1,
+      "body": "新增资料入口\n入口名称待补\n\n用途说明待补\n\n进入条目",
+      "crash": false
+    },
+    {
+      "mode": "npc",
+      "path": "/edit/?entity=%E4%BA%BA%E7%89%A9%E4%B8%8ENPC&section=%E4%BA%BA%E7%89%A9%E6%9D%A1%E7%9B%AE&mode=npc&returnTo=%2Fnpcs%2F&intent=add",
+      "preview": true,
+      "hosts": 1,
+      "body": "人物与 NPC\n人物名称待补\n\n人物介绍\n\n这部分尚未填写。\n\n提供的服务\n\n这部分尚未填写。\n\n相关任务与剧情\n\n这部分尚未填写。\n\n来源：待补充",
+      "crash": false
+    },
+    {
+      "mode": "matchup",
+      "path": "/edit/?entity=%E6%B5%B7%E8%8A%99%E7%BA%A6%E5%BF%92&section=%E5%AF%B9%E4%BD%8D+Counter&mode=matchup&returnTo=%2Fpets%2Fhaifu%2F%23matchups&record=haifu-stone-20240215",
+      "preview": true,
+      "hosts": 1,
+      "body": "先在场\n海芙约忒 对阵 混沌石王\n\n原作者记录了常规三威力海芙利用分段伤害处理后上石王的路线；优势依赖场上状态。\n\n我方血脉\n海芙约忒\n血脉未记录\n对手血脉\n混沌石王\n血脉未记录\n成立条件\n海芙先在场",
+      "crash": false
+    },
+    {
+      "mode": "acquisition",
+      "path": "/edit/?entity=%E6%B5%B7%E8%8A%99%E7%BA%A6%E5%BF%92&section=%E8%8E%B7%E5%8F%96%E6%97%B6%E9%97%B4%E7%BA%BF&mode=acquisition&returnTo=%2Fpets%2Fhaifu%2F%23acquire&record=haifu-20240705",
+      "preview": true,
+      "hosts": 1,
+      "body": "海芙约忒 · 获取时间线\n2024-07-05\n—\n2024-08-01\n福气一箩筐\nT纪元\n海芙约忒\n参与条件\n具体兑换与消耗条件待补。\n完成方式\n该期返场奖励列有海芙约忒。\n\n来源：4399 · ",
+      "crash": false
+    },
+    {
+      "mode": "pve-guide",
+      "path": "/edit/?entity=%E6%96%B0+PVE+%E7%8E%A9%E6%B3%95&section=%E7%8E%A9%E6%B3%95%E8%B5%84%E6%96%99&mode=pve-guide&returnTo=%2Fpve%2F&intent=add",
+      "preview": true,
+      "hosts": 1,
+      "body": "关卡挑战\n新玩法\n游戏内入口\n\n待补充\n\n开放安排\n\n待补充\n\n奖励目标\n\n详见分区奖励\n\n来源待补充\n核对于 待补充",
+      "crash": false
+    },
+    {
+      "mode": "pve",
+      "path": "/edit/?entity=%E6%98%9F%E8%BE%B0%E4%B9%8B%E5%A1%94&section=%E6%8C%91%E6%88%98%E6%96%B9%E6%A1%88&mode=pve&returnTo=%2Fpve%2Fstar-tower%2F%23pve-pets&intent=add",
+      "preview": true,
+      "hosts": 1,
+      "body": "星辰之塔\n\n星辰之塔\n\n挑战宠物\n挑战宠物待补充\n资料日期：待补充\n复测日期：待复现\n资料来源待补充",
+      "crash": false
+    },
+    {
+      "mode": "relationship",
+      "path": "/edit/?entity=%E6%95%88%E6%9E%9C%E5%85%B3%E7%B3%BB&section=%E6%95%88%E6%9E%9C%E5%85%B3%E7%B3%BB%E5%AE%9E%E6%B5%8B&mode=relationship&intent=add&returnTo=%2Fmechanics%2Frelations%2F",
+      "preview": true,
+      "hosts": 1,
+      "body": "效果关系实测\n已有来源 与 新施加来源\n原有状态来源\n待补充\n随后施加的来源\n待补充\n核验状态\n待验证\n成立条件\n\n这部分尚未填写。\n\n观察结果\n\n这部分尚未填写。\n\n复现步骤与对照\n\n这部分尚未填写",
+      "crash": false
+    }
+  ],
+  "accountTabs": [
+    {
+      "path": "/account/?tab=overview",
+      "h1": "个人中心",
+      "navbar": 136,
+      "main": true,
+      "crash": false
+    },
+    {
+      "path": "/account/?tab=profile",
+      "h1": "个人中心",
+      "navbar": 136,
+      "main": true,
+      "crash": false
+    },
+    {
+      "path": "/account/?tab=security",
+      "h1": "个人中心",
+      "navbar": 136,
+      "main": true,
+      "crash": false
+    },
+    {
+      "path": "/account/?tab=honors",
+      "h1": "个人中心",
+      "navbar": 136,
+      "main": true,
+      "crash": false
+    },
+    {
+      "path": "/account/?tab=activity",
+      "h1": "个人中心",
+      "navbar": 136,
+      "main": true,
+      "crash": false
+    },
+    {
+      "path": "/account/?tab=drafts",
+      "h1": "个人中心",
+      "navbar": 136,
+      "main": true,
+      "crash": false
+    },
+    {
+      "path": "/account/?tab=submissions",
+      "h1": "个人中心",
+      "navbar": 136,
+      "main": true,
+      "crash": false
+    },
+    {
+      "path": "/account/?tab=bookmarks",
+      "h1": "个人中心",
+      "navbar": 136,
+      "main": true,
+      "crash": false
+    }
+  ],
+  "errors": [],
+  "summary": {
+    "uniqueRoutes": 125,
+    "routeFailures": 0,
+    "editorModes": 11,
+    "editorFailures": 0,
+    "collectedEditorLinks": 461
+  },
+  "mobile": {
+    "viewport": [
+      390,
+      844
+    ],
+    "path": "/help/contributing/",
+    "h1": "参与编辑",
+    "navbarHeight": 113,
+    "menuClosed": true,
+    "crash": false
+  }
+}

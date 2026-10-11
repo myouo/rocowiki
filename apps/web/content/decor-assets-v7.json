@@ -1,0 +1,16 @@
+{
+  "version": "V7",
+  "assets": [
+    {
+      "path": "/img/decor/academy-v7.webp",
+      "width": 2172,
+      "height": 724,
+      "bytes": 132008,
+      "sha256": "d947e21be4f83266f06ee4ed46cf2cc034a3fe0cb603b3bbc57a367034a1ae2e",
+      "kind": "generated_decorative_illustration",
+      "purpose": "首页及文档页的轻量背景，不是游戏内地图或资料证据",
+      "generation": "Built-in ImageGen",
+      "prompt": "Wide 3:1 low-contrast hand-painted fantasy magic academy, right-side blue-lilac towers, pale ivory sky, gold stars, warm clouds, soft sage trees, watercolor/gouache, no text, no characters, no interface."
+    }
+  ]
+}

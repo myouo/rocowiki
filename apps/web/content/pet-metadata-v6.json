@@ -1,0 +1,853 @@
+{
+  "schemaVersion": 7,
+  "checkedAt": "2026-10-10",
+  "game": "洛克王国页游",
+  "scope": "12只已收录宠物的补充字段。未知使用null；不从空白推断没有血脉、零魔力或未所属系列。",
+  "fieldModel": {
+    "referenceScope": "公开可检索的同名洛克宝典App介绍面向洛克王国：世界，未实际访问其小程序；仅参照分类和查询思路，不复用世界版参数。",
+    "designReference": "https://apps.apple.com/gb/app/%E6%B4%9B%E5%85%8B%E5%AE%9D%E5%85%B8-%E7%B2%BE%E7%81%B5%E5%9B%BE%E9%89%B4%E6%B8%B8%E6%88%8F%E5%8A%A9%E6%89%8B/id6763314934",
+    "pageGameSource": "https://roco.dvg.cn/spirits.php?sx=21",
+    "groups": [
+      "植物组",
+      "动物组",
+      "不死组",
+      "守护组",
+      "天空组",
+      "大地组",
+      "力量组",
+      "怪怪组",
+      "精灵组"
+    ],
+    "attributeRule": "属性独立筛选，可选主属性或主副任意。",
+    "groupRule": "组别与系列分开；来源记为组别未知时保存null。",
+    "experienceTypeRule": "来源中的经验类型代码，不能当作升级所需经验的绝对值。",
+    "bloodlineRule": "保存已记录的名称；null不等于无血脉。",
+    "ladderMagicRule": "天梯组队魔力消耗，按有日期的来源记录；不是技能PP、能耗或宠物魔攻。",
+    "catchCategoryRule": "保留源表捕捉分类编号，不换算为捕获概率。",
+    "historyRule": "时间线按活动实际起止日期，不用采集日期填充；无截止记录不等于常驻。",
+    "matchupRule": "宠物对位只收录PVP。场景以当前宠物视角区分同起、后上拦截、先在场及未注明；结论版本与场景绑定独立意见票池。PVE推荐从攻略单向关联宠物。",
+    "counterVotingRule": "支持率仅反映投票意见，不等于胜率或已验证结论。结论、条件、场景或修订变化后重新统计；必须显示正反计数、样本量、资料日期及证据。"
+  },
+  "typeIcons": {
+    "普通": {
+      "id": 1,
+      "type": "普通",
+      "sourceUrl": "https://source2025.dvg.cn/source_roco/dbsource/property/1.png",
+      "observedOn": "https://roco.dvg.cn/spirits.php?sx=1",
+      "path": "/img/types/type-1.png",
+      "localFile": "static/img/types/type-1.png",
+      "bytes": 4906,
+      "dimensions": [38, 38],
+      "sha256": "8f71dff12d031b39c245c872e8362be59c1a6a092cb405b318719cc62762345b",
+      "assetKind": "existing-web-game-attribute-icon",
+      "ownership": "Existing game artwork; mirrored by 洛克小册子, not a Tencent CDN. Original bytes retained."
+    },
+    "火": {
+      "id": 2,
+      "type": "火",
+      "sourceUrl": "https://source2025.dvg.cn/source_roco/dbsource/property/2.png",
+      "observedOn": "https://roco.dvg.cn/spirits.php?sx=2",
+      "path": "/img/types/type-2.png",
+      "localFile": "static/img/types/type-2.png",
+      "bytes": 5192,
+      "dimensions": [38, 44],
+      "sha256": "512059afa7d7c21187c0c1c2ae76aa5385d0378ef3fc13b3c8f16c8eb78f9a2e",
+      "assetKind": "existing-web-game-attribute-icon",
+      "ownership": "Existing game artwork; mirrored by 洛克小册子, not a Tencent CDN. Original bytes retained."
+    },
+    "水": {
+      "id": 3,
+      "type": "水",
+      "sourceUrl": "https://source2025.dvg.cn/source_roco/dbsource/property/3.png",
+      "observedOn": "https://roco.dvg.cn/spirits.php?sx=3",
+      "path": "/img/types/type-3.png",
+      "localFile": "static/img/types/type-3.png",
+      "bytes": 4677,
+      "dimensions": [38, 44],
+      "sha256": "2b05c9f715efc8762fed2890bfca56259a8e5b7d43364dcefec3aa8d9adb9bef",
+      "assetKind": "existing-web-game-attribute-icon",
+      "ownership": "Existing game artwork; mirrored by 洛克小册子, not a Tencent CDN. Original bytes retained."
+    },
+    "电": {
+      "id": 4,
+      "type": "电",
+      "sourceUrl": "https://source2025.dvg.cn/source_roco/dbsource/property/4.png",
+      "observedOn": "https://roco.dvg.cn/spirits.php?sx=4",
+      "path": "/img/types/type-4.png",
+      "localFile": "static/img/types/type-4.png",
+      "bytes": 4562,
+      "dimensions": [38, 45],
+      "sha256": "e85aebc880da68f1bdd678a79edb969fb4bbcf295eac8d251658fea100d6c640",
+      "assetKind": "existing-web-game-attribute-icon",
+      "ownership": "Existing game artwork; mirrored by 洛克小册子, not a Tencent CDN. Original bytes retained."
+    },
+    "草": {
+      "id": 5,
+      "type": "草",
+      "sourceUrl": "https://source2025.dvg.cn/source_roco/dbsource/property/5.png",
+      "observedOn": "https://roco.dvg.cn/spirits.php?sx=5",
+      "path": "/img/types/type-5.png",
+      "localFile": "static/img/types/type-5.png",
+      "bytes": 4871,
+      "dimensions": [38, 37],
+      "sha256": "874262a3e4b683b2680bfebb6291ef2e72b7fd2c4edecc42d037778a6c61748c",
+      "assetKind": "existing-web-game-attribute-icon",
+      "ownership": "Existing game artwork; mirrored by 洛克小册子, not a Tencent CDN. Original bytes retained."
+    },
+    "冰": {
+      "id": 6,
+      "type": "冰",
+      "sourceUrl": "https://source2025.dvg.cn/source_roco/dbsource/property/6.png",
+      "observedOn": "https://roco.dvg.cn/spirits.php?sx=6",
+      "path": "/img/types/type-6.png",
+      "localFile": "static/img/types/type-6.png",
+      "bytes": 4554,
+      "dimensions": [38, 39],
+      "sha256": "835c5720686c2ffd61b213cc8cbcf07b46245ec24f3ab4d144fa4e3eb09ed83e",
+      "assetKind": "existing-web-game-attribute-icon",
+      "ownership": "Existing game artwork; mirrored by 洛克小册子, not a Tencent CDN. Original bytes retained."
+    },
+    "武": {
+      "id": 7,
+      "type": "武",
+      "sourceUrl": "https://source2025.dvg.cn/source_roco/dbsource/property/7.png",
+      "observedOn": "https://roco.dvg.cn/spirits.php?sx=7",
+      "path": "/img/types/type-7.png",
+      "localFile": "static/img/types/type-7.png",
+      "bytes": 5529,
+      "dimensions": [38, 41],
+      "sha256": "dd14ff40f10c1f96394606c0a1ba2d67aa6567867d2164847c5cb269029123df",
+      "assetKind": "existing-web-game-attribute-icon",
+      "ownership": "Existing game artwork; mirrored by 洛克小册子, not a Tencent CDN. Original bytes retained."
+    },
+    "毒": {
+      "id": 8,
+      "type": "毒",
+      "sourceUrl": "https://source2025.dvg.cn/source_roco/dbsource/property/8.png",
+      "observedOn": "https://roco.dvg.cn/spirits.php?sx=8",
+      "path": "/img/types/type-8.png",
+      "localFile": "static/img/types/type-8.png",
+      "bytes": 5949,
+      "dimensions": [39, 40],
+      "sha256": "a375bed1247d79c0ca8de508a97cbdf53c1d85aad46e71bc553fe96a08658d73",
+      "assetKind": "existing-web-game-attribute-icon",
+      "ownership": "Existing game artwork; mirrored by 洛克小册子, not a Tencent CDN. Original bytes retained."
+    },
+    "土": {
+      "id": 9,
+      "type": "土",
+      "sourceUrl": "https://source2025.dvg.cn/source_roco/dbsource/property/9.png",
+      "observedOn": "https://roco.dvg.cn/spirits.php?sx=9",
+      "path": "/img/types/type-9.png",
+      "localFile": "static/img/types/type-9.png",
+      "bytes": 4523,
+      "dimensions": [44, 38],
+      "sha256": "8e4b6e68762137e2e64908a6842ec1b464f2ca4df7b361cb0d0d7c4e59672455",
+      "assetKind": "existing-web-game-attribute-icon",
+      "ownership": "Existing game artwork; mirrored by 洛克小册子, not a Tencent CDN. Original bytes retained."
+    },
+    "翼": {
+      "id": 10,
+      "type": "翼",
+      "sourceUrl": "https://source2025.dvg.cn/source_roco/dbsource/property/10.png",
+      "observedOn": "https://roco.dvg.cn/spirits.php?sx=10",
+      "path": "/img/types/type-10.png",
+      "localFile": "static/img/types/type-10.png",
+      "bytes": 5773,
+      "dimensions": [41, 40],
+      "sha256": "e88d43fd4787730cb880f2c1c6d2aa418e73525687966893bfc9c8d919df44a6",
+      "assetKind": "existing-web-game-attribute-icon",
+      "ownership": "Existing game artwork; mirrored by 洛克小册子, not a Tencent CDN. Original bytes retained."
+    },
+    "萌": {
+      "id": 11,
+      "type": "萌",
+      "sourceUrl": "https://source2025.dvg.cn/source_roco/dbsource/property/11.png",
+      "observedOn": "https://roco.dvg.cn/spirits.php?sx=11",
+      "path": "/img/types/type-11.png",
+      "localFile": "static/img/types/type-11.png",
+      "bytes": 4694,
+      "dimensions": [38, 38],
+      "sha256": "c5aeee0a1cefd28134ee0fa70ad6130d9cb48fb8750659a5f1033ffb7a9c13f2",
+      "assetKind": "existing-web-game-attribute-icon",
+      "ownership": "Existing game artwork; mirrored by 洛克小册子, not a Tencent CDN. Original bytes retained."
+    },
+    "虫": {
+      "id": 12,
+      "type": "虫",
+      "sourceUrl": "https://source2025.dvg.cn/source_roco/dbsource/property/12.png",
+      "observedOn": "https://roco.dvg.cn/spirits.php?sx=12",
+      "path": "/img/types/type-12.png",
+      "localFile": "static/img/types/type-12.png",
+      "bytes": 4809,
+      "dimensions": [38, 38],
+      "sha256": "849ac902124c95317a08c480ad1abe2c6303993a03ac3775384fcbf88ed842c9",
+      "assetKind": "existing-web-game-attribute-icon",
+      "ownership": "Existing game artwork; mirrored by 洛克小册子, not a Tencent CDN. Original bytes retained."
+    },
+    "石": {
+      "id": 13,
+      "type": "石",
+      "sourceUrl": "https://source2025.dvg.cn/source_roco/dbsource/property/13.png",
+      "observedOn": "https://roco.dvg.cn/spirits.php?sx=13",
+      "path": "/img/types/type-13.png",
+      "localFile": "static/img/types/type-13.png",
+      "bytes": 4409,
+      "dimensions": [45, 38],
+      "sha256": "5d8cda47bd53bf36d7babf602880ab3de8524beee1a2be6de6c1db347aa77a6f",
+      "assetKind": "existing-web-game-attribute-icon",
+      "ownership": "Existing game artwork; mirrored by 洛克小册子, not a Tencent CDN. Original bytes retained."
+    },
+    "幽灵": {
+      "id": 14,
+      "type": "幽灵",
+      "sourceUrl": "https://source2025.dvg.cn/source_roco/dbsource/property/14.png",
+      "observedOn": "https://roco.dvg.cn/spirits.php?sx=14",
+      "path": "/img/types/type-14.png",
+      "localFile": "static/img/types/type-14.png",
+      "bytes": 4742,
+      "dimensions": [38, 38],
+      "sha256": "b0dce4b6dd6a529898d85c1ac1c262bb0f91c87b7d147e00b4b1c4f2f34f33c6",
+      "assetKind": "existing-web-game-attribute-icon",
+      "ownership": "Existing game artwork; mirrored by 洛克小册子, not a Tencent CDN. Original bytes retained."
+    },
+    "龙": {
+      "id": 15,
+      "type": "龙",
+      "sourceUrl": "https://source2025.dvg.cn/source_roco/dbsource/property/15.png",
+      "observedOn": "https://roco.dvg.cn/spirits.php?sx=15",
+      "path": "/img/types/type-15.png",
+      "localFile": "static/img/types/type-15.png",
+      "bytes": 6306,
+      "dimensions": [39, 41],
+      "sha256": "5bdad98d8756deb8c7ac87a3dc1d98850d54ba9f64eaf1c891aee55e7ff4b724",
+      "assetKind": "existing-web-game-attribute-icon",
+      "ownership": "Existing game artwork; mirrored by 洛克小册子, not a Tencent CDN. Original bytes retained."
+    },
+    "恶魔": {
+      "id": 16,
+      "type": "恶魔",
+      "sourceUrl": "https://source2025.dvg.cn/source_roco/dbsource/property/16.png",
+      "observedOn": "https://roco.dvg.cn/spirits.php?sx=16",
+      "path": "/img/types/type-16.png",
+      "localFile": "static/img/types/type-16.png",
+      "bytes": 5490,
+      "dimensions": [42, 38],
+      "sha256": "fd7798b53bed5adacd60b1634506eb3b79f9c3fd5b5003b0a668141c9b1ffa0c",
+      "assetKind": "existing-web-game-attribute-icon",
+      "ownership": "Existing game artwork; mirrored by 洛克小册子, not a Tencent CDN. Original bytes retained."
+    },
+    "机械": {
+      "id": 17,
+      "type": "机械",
+      "sourceUrl": "https://source2025.dvg.cn/source_roco/dbsource/property/17.png",
+      "observedOn": "https://roco.dvg.cn/spirits.php?sx=17",
+      "path": "/img/types/type-17.png",
+      "localFile": "static/img/types/type-17.png",
+      "bytes": 6030,
+      "dimensions": [38, 39],
+      "sha256": "642233c2cc6a1fd30e578cad4f23fe36c6cc1100d9087c15932def99af83115b",
+      "assetKind": "existing-web-game-attribute-icon",
+      "ownership": "Existing game artwork; mirrored by 洛克小册子, not a Tencent CDN. Original bytes retained."
+    },
+    "光": {
+      "id": 18,
+      "type": "光",
+      "sourceUrl": "https://source2025.dvg.cn/source_roco/dbsource/property/18.png",
+      "observedOn": "https://roco.dvg.cn/spirits.php?sx=18",
+      "path": "/img/types/type-18.png",
+      "localFile": "static/img/types/type-18.png",
+      "bytes": 5725,
+      "dimensions": [38, 38],
+      "sha256": "0829b16520213239906ae414710b9e4bf66c63da3b5729b113430e2e02994f62",
+      "assetKind": "existing-web-game-attribute-icon",
+      "ownership": "Existing game artwork; mirrored by 洛克小册子, not a Tencent CDN. Original bytes retained."
+    },
+    "神火": {
+      "id": 19,
+      "type": "神火",
+      "sourceUrl": "https://source2025.dvg.cn/source_roco/dbsource/property/19.png",
+      "observedOn": "https://roco.dvg.cn/spirits.php?sx=19",
+      "path": "/img/types/type-19.png",
+      "localFile": "static/img/types/type-19.png",
+      "bytes": 3383,
+      "dimensions": [40, 40],
+      "sha256": "128426360e4b8caab7f5a87e203ccfd66aedc8870f93c1b9dd3981b4cef42e0b",
+      "assetKind": "existing-web-game-attribute-icon",
+      "ownership": "Existing game artwork; mirrored by 洛克小册子, not a Tencent CDN. Original bytes retained."
+    },
+    "神草": {
+      "id": 20,
+      "type": "神草",
+      "sourceUrl": "https://source2025.dvg.cn/source_roco/dbsource/property/20.png",
+      "observedOn": "https://roco.dvg.cn/spirits.php?sx=20",
+      "path": "/img/types/type-20.png",
+      "localFile": "static/img/types/type-20.png",
+      "bytes": 6564,
+      "dimensions": [40, 40],
+      "sha256": "62ac05ed202353345a38f7168cf6fa3f6fe05c93a799cf40f33fd5f766ccd0a0",
+      "assetKind": "existing-web-game-attribute-icon",
+      "ownership": "Existing game artwork; mirrored by 洛克小册子, not a Tencent CDN. Original bytes retained."
+    },
+    "神水": {
+      "id": 21,
+      "type": "神水",
+      "sourceUrl": "https://source2025.dvg.cn/source_roco/dbsource/property/21.png",
+      "observedOn": "https://roco.dvg.cn/spirits.php?sx=21",
+      "path": "/img/types/type-21.png",
+      "localFile": "static/img/types/type-21.png",
+      "bytes": 6326,
+      "dimensions": [40, 40],
+      "sha256": "6b11500d3cb0cac71493c4602d6d4c40790a479fb4fee80669f1100cca46e650",
+      "assetKind": "existing-web-game-attribute-icon",
+      "ownership": "Existing game artwork; mirrored by 洛克小册子, not a Tencent CDN. Original bytes retained."
+    }
+  },
+  "pets": {
+    "haifu": {
+      "number": 3092,
+      "group": null,
+      "sourceGroupLabel": "组别未知",
+      "series": ["年费"],
+      "experienceType": 164,
+      "heightM": 1.73,
+      "weightKg": 49,
+      "color": "蓝白",
+      "catchCategory": 50,
+      "bloodlines": ["凌虚含烟", "碧水惊秋"],
+      "ladderMagic": {
+        "value": 5,
+        "effectiveFrom": "2024-07-05",
+        "sourceUrl": "https://news.4399.com/luoke/xinwengonggao/202407-03-994309.html",
+        "status": "dated-record",
+        "note": "最近收录的调整记录；后续是否调整需核对赛规。"
+      },
+      "undatedAcquisition": "神水古迹",
+      "acquisitionHistory": [
+        {
+          "id": "haifu-20240705",
+          "title": "福气一箩筐",
+          "kind": "限时返场",
+          "startDate": "2024-07-05",
+          "endDate": "2024-08-01",
+          "place": "T纪元",
+          "method": "该期返场奖励列有海芙约忒。",
+          "conditions": "具体兑换与消耗条件待补。",
+          "sourceUrl": "https://news.4399.com/luoke/xinwengonggao/202407-03-994309.html",
+          "sourceLabel": "4399 · 2024年7月5日更新速递",
+          "evidence": "更新公告转载",
+          "reward": "海芙约忒"
+        },
+        {
+          "id": "haifu-20230210",
+          "title": "神水古迹",
+          "kind": "限时活动",
+          "startDate": "2023-02-10",
+          "endDate": "2024-01-25",
+          "place": "VIP神殿",
+          "method": "收集古迹书，完成活动召唤海芙约忒。",
+          "conditions": "该记录属于历史活动，不代表当前开放。",
+          "sourceUrl": "https://www.te5.com/yxrb/866757.html",
+          "sourceLabel": "特玩 · 2023年2月10日活动记录",
+          "evidence": "历史攻略记录",
+          "reward": "海芙约忒"
+        }
+      ],
+      "matchups": {
+        "pvp": [
+          {
+            "id": "haifu-mirror",
+            "opponent": "海芙约忒（内战）",
+            "opponentSlug": "haifu",
+            "direction": "对局条件",
+            "conclusion": "社区评述将先进入乘胜列为内战优势因素；现有材料不足以给出必胜路线。",
+            "conditions": [
+              "双方都是海芙约忒。",
+              "需要分别记录血脉、配招、速度与当前乘胜状态。"
+            ],
+            "limitations": "原文未附可复核的单局配置和完整逐回合录像，不能据此推导固定胜率。",
+            "evidenceLabel": "社区评述 · 待复现",
+            "sourceLabel": "百度百科 · 海芙约忒「实战表现」",
+            "sourceUrl": "https://bkso.baidu.com/item/%E6%B5%B7%E8%8A%99%E7%BA%A6%E5%BF%92/62593915?fromModule=lemma_inlink",
+            "recordedAt": null,
+            "testedAt": null,
+            "relatedSkills": ["yuanyun", "feixing"],
+            "scene": "unspecified",
+            "sceneDirection": "原记录未说明双方出场顺序；同起、后上拦截与先在场尚不能互相套用。",
+            "claimRevision": "r1"
+          },
+          {
+            "id": "haifu-stone-20240215",
+            "opponent": "混沌石王",
+            "opponentSlug": null,
+            "direction": "条件优势 · 2024 历史分析",
+            "conclusion": "原作者记录了常规三威力海芙利用分段伤害处理后上石王的路线；优势依赖场上状态。",
+            "conditions": [
+              "海芙先在场，石王随后登场。",
+              "采用含霞姿月韵的常规三威力配招，并维持海市蜃楼及防控状态。",
+              "输出依赖叠嶂扶影的多段联动；不能套用于不带霞姿月韵的配招。"
+            ],
+            "limitations": "依据 2024 年攻略的对位分析。原段落没有完整列出双方能力与精力，当前版本及斩杀线均需复核，不推导固定胜率。",
+            "evidenceLabel": "作者攻略 · 历史条件待复现",
+            "sourceLabel": "辉月土王的男人 · 海芙约忒解析完结篇",
+            "sourceUrl": "https://www.bilibili.com/opus/874251910344867894",
+            "recordedAt": "2024-02-15",
+            "testedAt": null,
+            "relatedSkills": ["xiazi", "diezhang", "feixing", "tianhe"],
+            "scene": "already-active",
+            "sceneDirection": "海芙约忒先在场，对方混沌石王后上。",
+            "claimRevision": "r1"
+          }
+        ]
+      },
+      "fieldSources": {
+        "group": "https://roco.dvg.cn/spirit_info.php?id=3092",
+        "experienceType": "https://roco.dvg.cn/spirit_info.php?id=3092",
+        "heightM": "https://roco.dvg.cn/spirit_info.php?id=3092",
+        "weightKg": "https://roco.dvg.cn/spirit_info.php?id=3092",
+        "color": "https://roco.dvg.cn/spirit_info.php?id=3092",
+        "catchCategory": "https://roco.dvg.cn/spirit_info.php?id=3092",
+        "undatedAcquisition": "https://roco.dvg.cn/spirit_info.php?id=3092",
+        "series": "https://bkso.baidu.com/item/%E6%B5%B7%E8%8A%99%E7%BA%A6%E5%BF%92/62593915?fromModule=lemma_inlink",
+        "bloodlines": "https://bkso.baidu.com/item/%E6%B5%B7%E8%8A%99%E7%BA%A6%E5%BF%92/62593915?fromModule=lemma_inlink"
+      },
+      "bloodlineSources": [
+        {
+          "name": "凌虚含烟",
+          "url": "https://roco.dvg.cn/talent_info.php?id=48"
+        },
+        {
+          "name": "碧水惊秋",
+          "url": "https://roco.dvg.cn/talent_info.php?id=46"
+        }
+      ]
+    },
+    "bishui": {
+      "number": 2552,
+      "group": null,
+      "sourceGroupLabel": "组别未知",
+      "series": ["魔法先锋队"],
+      "experienceType": 125,
+      "heightM": 1.5,
+      "weightKg": 34.9,
+      "color": "蓝",
+      "catchCategory": 50,
+      "bloodlines": null,
+      "ladderMagic": {
+        "value": null,
+        "effectiveFrom": null,
+        "sourceUrl": null,
+        "status": "unknown"
+      },
+      "undatedAcquisition": "破茧重生",
+      "acquisitionHistory": [
+        {
+          "id": "bishui-20191004",
+          "title": "破茧重生新增水灵兽",
+          "kind": "系统开放记录",
+          "startDate": "2019-10-04",
+          "endDate": null,
+          "place": "皇家研究院 · 实验工坊",
+          "method": "满级水灵兽通过破茧重生获得碧水灵兽。",
+          "conditions": "起始日期已见历史记录；未记录截止日期，不据此认定永久开放。",
+          "sourceUrl": "https://bkso.baidu.com/item/%E7%A2%A7%E6%B0%B4%E7%81%B5%E5%85%BD/23750635?fromModule=lemma_inlink",
+          "sourceLabel": "百度百科 · 碧水灵兽获取记录",
+          "evidence": "历史资料记录",
+          "reward": "碧水灵兽（由水灵兽破茧重生）"
+        }
+      ],
+      "matchups": {
+        "pvp": []
+      },
+      "fieldSources": {
+        "group": "https://roco.dvg.cn/spirit_info.php?id=2552",
+        "experienceType": "https://roco.dvg.cn/spirit_info.php?id=2552",
+        "heightM": "https://roco.dvg.cn/spirit_info.php?id=2552",
+        "weightKg": "https://roco.dvg.cn/spirit_info.php?id=2552",
+        "color": "https://roco.dvg.cn/spirit_info.php?id=2552",
+        "catchCategory": "https://roco.dvg.cn/spirit_info.php?id=2552",
+        "undatedAcquisition": "https://roco.dvg.cn/spirit_info.php?id=2552",
+        "series": "https://bkso.baidu.com/item/%E7%A2%A7%E6%B0%B4%E7%81%B5%E5%85%BD/23750635?fromModule=lemma_inlink"
+      }
+    },
+    "dimo": {
+      "number": 137,
+      "group": null,
+      "sourceGroupLabel": "组别未知",
+      "series": null,
+      "experienceType": 100,
+      "heightM": 1.5,
+      "weightKg": 26.8,
+      "color": "蓝",
+      "catchCategory": 50,
+      "bloodlines": null,
+      "ladderMagic": {
+        "value": null,
+        "effectiveFrom": null,
+        "sourceUrl": null,
+        "status": "unknown"
+      },
+      "undatedAcquisition": null,
+      "acquisitionHistory": [],
+      "matchups": {
+        "pvp": []
+      },
+      "fieldSources": {
+        "group": "https://roco.dvg.cn/spirit_info.php?id=137",
+        "experienceType": "https://roco.dvg.cn/spirit_info.php?id=137",
+        "heightM": "https://roco.dvg.cn/spirit_info.php?id=137",
+        "weightKg": "https://roco.dvg.cn/spirit_info.php?id=137",
+        "color": "https://roco.dvg.cn/spirit_info.php?id=137",
+        "catchCategory": "https://roco.dvg.cn/spirit_info.php?id=137",
+        "undatedAcquisition": "https://roco.dvg.cn/spirit_info.php?id=137"
+      }
+    },
+    "abu": {
+      "number": 630,
+      "group": null,
+      "sourceGroupLabel": "组别未知",
+      "series": null,
+      "experienceType": 100,
+      "heightM": 1.2,
+      "weightKg": 18.6,
+      "color": "白",
+      "catchCategory": 80,
+      "bloodlines": null,
+      "ladderMagic": {
+        "value": null,
+        "effectiveFrom": null,
+        "sourceUrl": null,
+        "status": "unknown"
+      },
+      "undatedAcquisition": "阿布的观光列车",
+      "acquisitionHistory": [],
+      "matchups": {
+        "pvp": []
+      },
+      "fieldSources": {
+        "group": "https://roco.dvg.cn/spirit_info.php?id=630",
+        "experienceType": "https://roco.dvg.cn/spirit_info.php?id=630",
+        "heightM": "https://roco.dvg.cn/spirit_info.php?id=630",
+        "weightKg": "https://roco.dvg.cn/spirit_info.php?id=630",
+        "color": "https://roco.dvg.cn/spirit_info.php?id=630",
+        "catchCategory": "https://roco.dvg.cn/spirit_info.php?id=630",
+        "undatedAcquisition": "https://roco.dvg.cn/spirit_info.php?id=630"
+      }
+    },
+    "shuilanlan": {
+      "number": 7,
+      "group": "精灵组",
+      "sourceGroupLabel": "精灵组",
+      "series": null,
+      "experienceType": 105,
+      "heightM": 0.5,
+      "weightKg": 9,
+      "color": "蓝",
+      "catchCategory": 250,
+      "bloodlines": null,
+      "ladderMagic": {
+        "value": null,
+        "effectiveFrom": null,
+        "sourceUrl": null,
+        "status": "unknown"
+      },
+      "undatedAcquisition": "梦起之地",
+      "acquisitionHistory": [],
+      "matchups": {
+        "pvp": []
+      },
+      "fieldSources": {
+        "group": "https://roco.dvg.cn/spirit_info.php?id=7",
+        "experienceType": "https://roco.dvg.cn/spirit_info.php?id=7",
+        "heightM": "https://roco.dvg.cn/spirit_info.php?id=7",
+        "weightKg": "https://roco.dvg.cn/spirit_info.php?id=7",
+        "color": "https://roco.dvg.cn/spirit_info.php?id=7",
+        "catchCategory": "https://roco.dvg.cn/spirit_info.php?id=7",
+        "undatedAcquisition": "https://roco.dvg.cn/spirit_info.php?id=7"
+      }
+    },
+    "huohua": {
+      "number": 4,
+      "group": "精灵组",
+      "sourceGroupLabel": "精灵组",
+      "series": null,
+      "experienceType": 105,
+      "heightM": 0.6,
+      "weightKg": 8.5,
+      "color": "红",
+      "catchCategory": 250,
+      "bloodlines": null,
+      "ladderMagic": {
+        "value": null,
+        "effectiveFrom": null,
+        "sourceUrl": null,
+        "status": "unknown"
+      },
+      "undatedAcquisition": "梦起之地",
+      "acquisitionHistory": [],
+      "matchups": {
+        "pvp": []
+      },
+      "fieldSources": {
+        "group": "https://roco.dvg.cn/spirit_info.php?id=4",
+        "experienceType": "https://roco.dvg.cn/spirit_info.php?id=4",
+        "heightM": "https://roco.dvg.cn/spirit_info.php?id=4",
+        "weightKg": "https://roco.dvg.cn/spirit_info.php?id=4",
+        "color": "https://roco.dvg.cn/spirit_info.php?id=4",
+        "catchCategory": "https://roco.dvg.cn/spirit_info.php?id=4",
+        "undatedAcquisition": "https://roco.dvg.cn/spirit_info.php?id=4"
+      }
+    },
+    "miaomiao": {
+      "number": 1,
+      "group": "精灵组",
+      "sourceGroupLabel": "精灵组",
+      "series": null,
+      "experienceType": 105,
+      "heightM": 0.7,
+      "weightKg": 6.9,
+      "color": "绿",
+      "catchCategory": 250,
+      "bloodlines": null,
+      "ladderMagic": {
+        "value": null,
+        "effectiveFrom": null,
+        "sourceUrl": null,
+        "status": "unknown"
+      },
+      "undatedAcquisition": "梦起之地",
+      "acquisitionHistory": [],
+      "matchups": {
+        "pvp": []
+      },
+      "fieldSources": {
+        "group": "https://roco.dvg.cn/spirit_info.php?id=1",
+        "experienceType": "https://roco.dvg.cn/spirit_info.php?id=1",
+        "heightM": "https://roco.dvg.cn/spirit_info.php?id=1",
+        "weightKg": "https://roco.dvg.cn/spirit_info.php?id=1",
+        "color": "https://roco.dvg.cn/spirit_info.php?id=1",
+        "catchCategory": "https://roco.dvg.cn/spirit_info.php?id=1",
+        "undatedAcquisition": "https://roco.dvg.cn/spirit_info.php?id=1"
+      }
+    },
+    "royal-dimo": {
+      "number": 1888,
+      "group": null,
+      "sourceGroupLabel": "组别未知",
+      "series": null,
+      "experienceType": 100,
+      "heightM": 1.7,
+      "weightKg": 29.9,
+      "color": "蓝",
+      "catchCategory": 100,
+      "bloodlines": null,
+      "ladderMagic": {
+        "value": null,
+        "effectiveFrom": null,
+        "sourceUrl": null,
+        "status": "unknown"
+      },
+      "undatedAcquisition": "圣光迪莫超进化",
+      "acquisitionHistory": [],
+      "matchups": {
+        "pvp": []
+      },
+      "fieldSources": {
+        "group": "https://roco.dvg.cn/spirit_info.php?id=1888",
+        "experienceType": "https://roco.dvg.cn/spirit_info.php?id=1888",
+        "heightM": "https://roco.dvg.cn/spirit_info.php?id=1888",
+        "weightKg": "https://roco.dvg.cn/spirit_info.php?id=1888",
+        "color": "https://roco.dvg.cn/spirit_info.php?id=1888",
+        "catchCategory": "https://roco.dvg.cn/spirit_info.php?id=1888",
+        "undatedAcquisition": "https://roco.dvg.cn/spirit_info.php?id=1888"
+      }
+    },
+    "moshen": {
+      "number": 2531,
+      "group": null,
+      "sourceGroupLabel": "组别未知",
+      "series": null,
+      "experienceType": 164,
+      "heightM": 2.2,
+      "weightKg": 128,
+      "color": "黑红",
+      "catchCategory": 50,
+      "bloodlines": null,
+      "ladderMagic": {
+        "value": null,
+        "effectiveFrom": null,
+        "sourceUrl": null,
+        "status": "unknown"
+      },
+      "undatedAcquisition": "星辰之塔奖励",
+      "acquisitionHistory": [
+        {
+          "id": "moshen-20190830",
+          "title": "星辰之塔奖励更新",
+          "kind": "系统奖励记录",
+          "startDate": "2019-08-30",
+          "endDate": null,
+          "place": "星辰之塔 · 第七层",
+          "method": "历史资料记载，首次通关第七层可获得魔神武王。",
+          "conditions": "首次通关条件属于该期记录；当前奖励是否一致需核对。",
+          "sourceUrl": "https://bkso.baidu.com/item/%E9%AD%94%E7%A5%9E%E6%AD%A6%E7%8E%8B/23677496?fromModule=lemma_inlink",
+          "sourceLabel": "百度百科 · 魔神武王获取记录",
+          "evidence": "历史资料记录",
+          "reward": "魔神武王"
+        }
+      ],
+      "matchups": {
+        "pvp": []
+      },
+      "fieldSources": {
+        "group": "https://roco.dvg.cn/spirit_info.php?id=2531",
+        "experienceType": "https://roco.dvg.cn/spirit_info.php?id=2531",
+        "heightM": "https://roco.dvg.cn/spirit_info.php?id=2531",
+        "weightKg": "https://roco.dvg.cn/spirit_info.php?id=2531",
+        "color": "https://roco.dvg.cn/spirit_info.php?id=2531",
+        "catchCategory": "https://roco.dvg.cn/spirit_info.php?id=2531",
+        "undatedAcquisition": "https://roco.dvg.cn/spirit_info.php?id=2531"
+      }
+    },
+    "zhuque": {
+      "number": 3031,
+      "group": null,
+      "sourceGroupLabel": "组别未知",
+      "series": null,
+      "experienceType": 164,
+      "heightM": 2.6,
+      "weightKg": 157,
+      "color": "黄",
+      "catchCategory": 150,
+      "bloodlines": null,
+      "ladderMagic": {
+        "value": null,
+        "effectiveFrom": null,
+        "sourceUrl": null,
+        "status": "unknown"
+      },
+      "undatedAcquisition": "佑福兆吉",
+      "acquisitionHistory": [
+        {
+          "id": "zhuque-20220715",
+          "title": "佑福兆吉",
+          "kind": "限时活动",
+          "startDate": "2022-07-15",
+          "endDate": "2022-08-11",
+          "place": "商店街",
+          "method": "完成活动后获得灵瑞朱雀的进化资格。",
+          "conditions": "需满级菲尼克斯；该期活动记录已结束。",
+          "sourceUrl": "https://www.9game.cn/news/6868299.html",
+          "sourceLabel": "九游 · 2022年7月14日获取攻略",
+          "evidence": "历史攻略转载",
+          "reward": "灵瑞朱雀进化资格"
+        }
+      ],
+      "matchups": {
+        "pvp": []
+      },
+      "fieldSources": {
+        "group": "https://roco.dvg.cn/spirit_info.php?id=3031",
+        "experienceType": "https://roco.dvg.cn/spirit_info.php?id=3031",
+        "heightM": "https://roco.dvg.cn/spirit_info.php?id=3031",
+        "weightKg": "https://roco.dvg.cn/spirit_info.php?id=3031",
+        "color": "https://roco.dvg.cn/spirit_info.php?id=3031",
+        "catchCategory": "https://roco.dvg.cn/spirit_info.php?id=3031",
+        "undatedAcquisition": "https://roco.dvg.cn/spirit_info.php?id=3031"
+      }
+    },
+    "hapuluosi": {
+      "number": 2316,
+      "group": null,
+      "sourceGroupLabel": "组别未知",
+      "series": ["年费"],
+      "experienceType": 164,
+      "heightM": 5.4,
+      "weightKg": 612,
+      "color": "蓝紫",
+      "catchCategory": 100,
+      "bloodlines": null,
+      "ladderMagic": {
+        "value": null,
+        "effectiveFrom": null,
+        "sourceUrl": null,
+        "status": "unknown"
+      },
+      "undatedAcquisition": "2018年费活动",
+      "acquisitionHistory": [],
+      "matchups": {
+        "pvp": []
+      },
+      "fieldSources": {
+        "group": "https://roco.dvg.cn/spirit_info.php?id=2316",
+        "experienceType": "https://roco.dvg.cn/spirit_info.php?id=2316",
+        "heightM": "https://roco.dvg.cn/spirit_info.php?id=2316",
+        "weightKg": "https://roco.dvg.cn/spirit_info.php?id=2316",
+        "color": "https://roco.dvg.cn/spirit_info.php?id=2316",
+        "catchCategory": "https://roco.dvg.cn/spirit_info.php?id=2316",
+        "undatedAcquisition": "https://roco.dvg.cn/spirit_info.php?id=2316",
+        "series": "https://roco.dvg.cn/spirit_info.php?id=2316"
+      }
+    },
+    "sailemu": {
+      "number": 3362,
+      "group": null,
+      "sourceGroupLabel": "组别未知",
+      "series": ["年费"],
+      "experienceType": 164,
+      "heightM": 1.67,
+      "weightKg": 52,
+      "color": "蓝白",
+      "catchCategory": 100,
+      "bloodlines": ["咏叹调", "宣叙调"],
+      "ladderMagic": {
+        "value": 4,
+        "effectiveFrom": "2026-02-13",
+        "sourceUrl": "https://news.4399.com/luoke/xinwengonggao/202602-11-1010599.html",
+        "status": "dated-record",
+        "note": "最近收录的调整记录；后续是否调整需核对赛规。"
+      },
+      "undatedAcquisition": "新启颂声",
+      "acquisitionHistory": [
+        {
+          "id": "sailemu-20260213",
+          "title": "新启颂声",
+          "kind": "限时活动",
+          "startDate": "2026-02-13",
+          "endDate": "2027-02-04",
+          "place": "VIP神殿",
+          "method": "在该期活动中召唤塞勒姆。",
+          "conditions": "公告列明开放区间；具体材料与当前开放情况以游戏内为准。",
+          "sourceUrl": "https://news.4399.com/luoke/xinwengonggao/202602-11-1010599.html",
+          "sourceLabel": "4399 · 2026年2月13日更新速递",
+          "evidence": "更新公告转载",
+          "reward": "塞勒姆"
+        }
+      ],
+      "matchups": {
+        "pvp": []
+      },
+      "fieldSources": {
+        "group": "https://roco.dvg.cn/spirit_info.php?id=3362",
+        "experienceType": "https://roco.dvg.cn/spirit_info.php?id=3362",
+        "heightM": "https://roco.dvg.cn/spirit_info.php?id=3362",
+        "weightKg": "https://roco.dvg.cn/spirit_info.php?id=3362",
+        "color": "https://roco.dvg.cn/spirit_info.php?id=3362",
+        "catchCategory": "https://roco.dvg.cn/spirit_info.php?id=3362",
+        "undatedAcquisition": "https://roco.dvg.cn/spirit_info.php?id=3362",
+        "series": "https://news.4399.com/luoke/xinwengonggao/202602-11-1010599.html",
+        "bloodlines": "https://roco.dvg.cn/spirit_info.php?id=3362"
+      },
+      "bloodlineSources": [
+        {
+          "name": "咏叹调",
+          "url": "https://roco.dvg.cn/talent_info.php?id=118&order=1"
+        },
+        {
+          "name": "宣叙调",
+          "url": "https://ol.3dmgame.com/gl/331685.html"
+        }
+      ]
+    }
+  }
+}

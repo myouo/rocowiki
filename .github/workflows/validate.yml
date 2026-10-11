@@ -1,0 +1,54 @@
+name: Validate
+on:
+  pull_request:
+  push:
+    branches: [main]
+permissions:
+  contents: read
+jobs:
+  content-boundary:
+    name: content-boundary
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        if: startsWith(github.head_ref, 'wiki/')
+        with:
+          ref: ${{ github.event.pull_request.base.sha }}
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        if: startsWith(github.head_ref, 'wiki/')
+        with:
+          node-version: 24
+      - name: Read candidate with protected base tooling
+        if: startsWith(github.head_ref, 'wiki/')
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+        run: |
+          git fetch origin "$HEAD_SHA"
+          node scripts/check-content-pr.mjs
+          npm ci --ignore-scripts
+          npm run check:content
+      - name: Developer changes require independent code review
+        if: ${{ !startsWith(github.head_ref, 'wiki/') }}
+        run: echo 'Repository branch protection must require independent code review.'
+  validate:
+    name: validate
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: npm run check
+        env:
+          # Public test origins: PR verification never reads production configuration.
+          API_ORIGIN: https://api.rocowiki.test
+          SITE_URL: https://wiki.rocowiki.test
+          WIKI_WORKSPACE_MODE: server
+      - run: npm run api:dry-run

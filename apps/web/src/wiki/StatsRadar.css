@@ -1,0 +1,357 @@
+.rw-stats-radar {
+  --radar-ink: #293a51;
+  --radar-muted: #666d76;
+  --radar-line: #e0e2e5;
+  --radar-paper: #fffefa;
+  margin: 0;
+  min-width: 0;
+  color: var(--radar-ink);
+  font-variant-numeric: tabular-nums;
+}
+
+.rw-stats-radar-heading {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 6px 16px;
+  margin-bottom: 11px;
+  font-size: 14px;
+  font-weight: 650;
+  line-height: 1.5;
+}
+
+.rw-stats-radar-scale {
+  color: var(--radar-muted);
+  font-size: 11px;
+  font-weight: 400;
+}
+
+.rw-stats-radar-legend {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px 9px;
+  padding: 0;
+  margin: 0 0 8px;
+}
+
+.rw-stats-radar .rw-stats-radar-legend button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 6px;
+  min-height: 34px;
+  max-width: 100%;
+  padding: 5px 9px;
+  border: 1px solid var(--radar-line);
+  border-radius: 6px;
+  color: var(--radar-ink);
+  background: var(--radar-paper);
+  font: inherit;
+  font-size: 12px;
+  line-height: 1.6;
+  text-align: left;
+  cursor: pointer;
+  transition:
+    background-color 140ms ease,
+    border-color 140ms ease,
+    opacity 140ms ease;
+}
+
+.rw-stats-radar-legend button svg {
+  flex: 0 0 auto;
+}
+
+.rw-stats-radar .rw-stats-radar-legend button:hover:not(:disabled) {
+  border-color: #a6b4c5;
+  background: #f0f3f7;
+}
+
+.rw-stats-radar .rw-stats-radar-legend button:focus-visible {
+  outline: 2px solid #426fa4;
+  outline-offset: 3px;
+}
+
+.rw-stats-radar .rw-stats-radar-legend button.is-hidden {
+  color: #68707b;
+  background: #f5f5f2;
+}
+
+.rw-stats-radar-legend button.is-hidden svg {
+  opacity: 0.28;
+}
+
+.rw-stats-radar-legend button.is-hidden > span {
+  text-decoration: line-through;
+  text-decoration-thickness: 1px;
+}
+
+.rw-stats-radar .rw-stats-radar-legend button:disabled {
+  cursor: default;
+  border-style: dashed;
+  color: var(--radar-muted);
+}
+
+.rw-stats-radar-legend small {
+  font-size: 10px;
+  font-weight: 400;
+}
+
+.rw-stats-radar-body {
+  display: grid;
+  grid-template-columns: minmax(220px, 0.9fr) minmax(200px, 1.1fr);
+  align-items: center;
+  gap: 12px 22px;
+  min-width: 0;
+}
+
+.rw-stats-radar-body:has(> :only-child) {
+  display: block;
+}
+
+.rw-stats-radar-plot {
+  width: 100%;
+  max-width: 440px;
+  min-width: 0;
+  margin-inline: auto;
+  aspect-ratio: 340 / 322;
+}
+
+.rw-stats-radar-plot > svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.rw-stats-radar-grid polygon {
+  fill: none;
+  stroke: #e0e2e5;
+  stroke-width: 0.7px;
+}
+
+.rw-stats-radar-grid polygon.is-outer {
+  fill: #f5f6f8;
+  fill-opacity: 0.24;
+  stroke: #b9c1cb;
+  stroke-width: 0.9px;
+}
+
+.rw-stats-radar-grid line {
+  stroke: #cdd2d9;
+  stroke-width: 0.7px;
+}
+
+.rw-stats-radar-grid text {
+  fill: #687381;
+  stroke: var(--radar-paper);
+  stroke-width: 2.4px;
+  stroke-linejoin: round;
+  paint-order: stroke;
+  font-size: 9px;
+  font-family: inherit;
+}
+
+.rw-stats-radar-series {
+  pointer-events: none;
+  transition: opacity 180ms ease;
+}
+
+.rw-stats-radar-labels text {
+  fill: var(--radar-ink);
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 550;
+}
+
+.rw-stats-radar-labels .rw-stats-radar-axis-value {
+  fill: #426fa4;
+  font-size: 14px;
+  font-weight: 650;
+}
+
+.rw-stats-radar-no-series {
+  fill: #606b7b;
+  stroke: var(--radar-paper);
+  stroke-width: 5px;
+  stroke-linejoin: round;
+  paint-order: stroke;
+  font: 12px sans-serif;
+}
+
+.rw-stats-radar-values {
+  min-width: 0;
+  max-width: 100%;
+  overflow-x: auto;
+  scrollbar-width: thin;
+}
+
+.rw-stats-radar .rw-stats-radar-values table {
+  display: table;
+  width: 100%;
+  margin: 0;
+  border: 0;
+  border-collapse: collapse;
+  table-layout: fixed;
+  font-size: 12px;
+  line-height: 1.55;
+}
+
+.rw-stats-radar .rw-stats-radar-values th,
+.rw-stats-radar .rw-stats-radar-values td {
+  padding: 7px 9px;
+  border: 0;
+  border-bottom: 1px solid var(--radar-line);
+  color: var(--radar-ink);
+  background: transparent;
+  text-align: right;
+  vertical-align: middle;
+}
+
+.rw-stats-radar .rw-stats-radar-values tr {
+  border: 0;
+  background: transparent;
+}
+
+.rw-stats-radar .rw-stats-radar-values tr:hover {
+  background: #f4f6f8;
+}
+
+.rw-stats-radar .rw-stats-radar-values th:first-child {
+  width: 83px;
+  padding-left: 0;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.rw-stats-radar .rw-stats-radar-values th:last-child,
+.rw-stats-radar .rw-stats-radar-values td:last-child {
+  padding-right: 0;
+}
+
+.rw-stats-radar .rw-stats-radar-values thead th {
+  padding-top: 0;
+  padding-bottom: 9px;
+  color: var(--radar-muted);
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 1.65;
+}
+
+.rw-stats-radar-table-pet {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+}
+
+.rw-stats-radar .rw-stats-radar-values thead th.is-hidden {
+  color: #848b94;
+}
+
+.rw-stats-radar .rw-stats-radar-values thead th.is-hidden svg {
+  opacity: 0.3;
+}
+
+.rw-stats-radar .rw-stats-radar-values tbody th {
+  font-weight: 450;
+}
+
+.rw-stats-radar-values tbody th small {
+  margin-left: 5px;
+  color: var(--radar-muted);
+  font-size: 9px;
+  font-weight: 400;
+}
+
+.rw-stats-radar .rw-stats-radar-values td.is-leading {
+  font-weight: 750;
+}
+
+.rw-stats-radar .rw-stats-radar-values tfoot th,
+.rw-stats-radar .rw-stats-radar-values tfoot td {
+  padding-top: 9px;
+  border-bottom: 0;
+  font-weight: 650;
+}
+
+.rw-stats-radar .rw-stats-radar-note,
+.rw-stats-radar .rw-stats-radar-incomplete {
+  margin: 12px 0 0;
+  color: var(--radar-muted);
+  font-size: 11px;
+  line-height: 1.8;
+}
+
+.rw-stats-radar .rw-stats-radar-incomplete {
+  color: #946139;
+}
+
+.rw-stats-radar-empty {
+  margin: 0;
+  color: #666d76;
+  font-size: 13px;
+}
+
+.rw-stats-radar-sr-only {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+.rw-stats-radar--compact .rw-stats-radar-body {
+  display: block;
+}
+
+.rw-stats-radar--compact .rw-stats-radar-heading {
+  font-size: 13px;
+}
+
+.rw-stats-radar--compact .rw-stats-radar-plot {
+  max-width: 340px;
+}
+
+.rw-stats-radar--compact .rw-stats-radar-values {
+  margin-top: 3px;
+}
+
+.rw-stats-radar--compact .rw-stats-radar-values th,
+.rw-stats-radar--compact .rw-stats-radar-values td {
+  padding-block: 5px;
+}
+
+@media (max-width: 760px) {
+  .rw-stats-radar-body {
+    grid-template-columns: 1fr;
+    gap: 4px;
+  }
+
+  .rw-stats-radar-plot {
+    max-width: 360px;
+  }
+
+  .rw-stats-radar--compare .rw-stats-radar-values table {
+    min-width: 295px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rw-stats-radar .rw-stats-radar-legend button,
+  .rw-stats-radar .rw-stats-radar-series {
+    transition: none;
+    animation: none;
+  }
+}
+
+@media (pointer: coarse) {
+  .rw-stats-radar .rw-stats-radar-legend button {
+    min-height: 44px;
+  }
+}

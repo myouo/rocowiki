@@ -1,0 +1,1068 @@
+{
+  "status": "PASS",
+  "scope": "jsdom DOM/data integration and deterministic clock tests; not browser rendering, visual QA or animation performance validation",
+  "preview": "RocoWiki_UI_V6.html",
+  "previewSha256": "f64e60c2d4b96df62015ecc78713f3809857ef3f34f1a5c96afc172a1adb6c54",
+  "ranAt": "2026-10-10T11:26:38.802Z",
+  "routeCount": 109,
+  "checkCount": 45,
+  "checks": [
+    {
+      "name": "RocoWiki wordmark retains the approved lettering",
+      "pass": true
+    },
+    {
+      "name": "Account and contribution guide remain direct labelled header links",
+      "pass": true
+    },
+    {
+      "name": "PVE has a first-level header link and homepage entry",
+      "pass": true
+    },
+    {
+      "name": "Source module entry removed from global navigation without deleting its route",
+      "pass": true
+    },
+    {
+      "name": "Homepage renders ladder first and type tournament second as two simultaneous tables",
+      "pass": true
+    },
+    {
+      "name": "No homepage mode or activity tab hides the weekly summaries",
+      "pass": true
+    },
+    {
+      "name": "Both type periods and all 12 ladder bans are initially readable",
+      "pass": true
+    },
+    {
+      "name": "Activity columns contain four new, three continuing, and three expiring activities",
+      "pass": true
+    },
+    {
+      "name": "Date-only activity deadlines do not invent a countdown time",
+      "pass": true
+    },
+    {
+      "name": "Official-game type images are embedded in the single-file preview",
+      "pass": true
+    },
+    {
+      "name": "Structured editor exposes entity linking in all three content fields",
+      "pass": true
+    },
+    {
+      "name": "Slash after Chinese prose finds the environment entity",
+      "pass": true
+    },
+    {
+      "name": "Entity selection inserts a portable canonical internal Markdown link",
+      "pass": true
+    },
+    {
+      "name": "After entity insertion, caret returns to the end of the inserted link",
+      "pass": true
+    },
+    {
+      "name": "Structured reading preview resolves quick-inserted entity links",
+      "pass": true
+    },
+    {
+      "name": "Typing a URL slash does not open the entity menu",
+      "pass": true
+    },
+    {
+      "name": "Entity lookup recognizes the supplied speech alias and proposes canonical pet name",
+      "pass": true
+    },
+    {
+      "name": "Escape dismisses autocomplete without changing authored text",
+      "pass": true
+    },
+    {
+      "name": "Visible insert-entity button opens the same searchable entry list",
+      "pass": true
+    },
+    {
+      "name": "IME composition temporarily suppresses autocomplete navigation",
+      "pass": true
+    },
+    {
+      "name": "Markdown preview renders inserted internal links as working Wiki links",
+      "pass": true
+    },
+    {
+      "name": "Markdown internal-link preview leaves backslash-normalized external paths unlinked",
+      "pass": true
+    },
+    {
+      "name": "Review role control is a custom combobox, not a native select",
+      "pass": true
+    },
+    {
+      "name": "Arrow key opens custom role list with selection state",
+      "pass": true
+    },
+    {
+      "name": "Keyboard selection changes role and returns focus to the trigger",
+      "pass": true
+    },
+    {
+      "name": "Escape closes a custom dropdown without changing selection",
+      "pass": true
+    },
+    {
+      "name": "Clicking outside dismisses a custom dropdown",
+      "pass": true
+    },
+    {
+      "name": "Custom dropdown placement logic keeps a simulated narrow-viewport popup inside the right edge",
+      "pass": true
+    },
+    {
+      "name": "Custom dropdown placement logic opens above when the simulated space below is insufficient",
+      "pass": true
+    },
+    {
+      "name": "Searchable custom dropdown associates focused search input with its list and active option",
+      "pass": true
+    },
+    {
+      "name": "Article chapter dropdown supports searching grouped choices",
+      "pass": true
+    },
+    {
+      "name": "Committing Chinese input in a searchable dropdown does not prematurely choose an option",
+      "pass": true
+    },
+    {
+      "name": "Choosing a chapter navigates to its stable document route",
+      "pass": true
+    },
+    {
+      "name": "Pet skill pool links to canonical skill with entering-pet context",
+      "pass": true
+    },
+    {
+      "name": "Skill page keeps its entering pet and explicit return-to-pool link",
+      "pass": true
+    },
+    {
+      "name": "Pet skill-pool anchor returns to the pet rather than becoming a broken preview route",
+      "pass": true
+    },
+    {
+      "name": "Global feedback uses the shared custom dropdown and retains the chosen issue type",
+      "pass": true
+    },
+    {
+      "name": "All registered content routes render one readable page and one feedback entry, with zero native selects",
+      "pass": true
+    },
+    {
+      "name": "All rendered internal entity, navigation, and document links resolve",
+      "pass": true
+    },
+    {
+      "name": "The sources module remains accessible through its existing route",
+      "pass": true
+    },
+    {
+      "name": "Thursday visitor sees the three verified activities expiring today",
+      "pass": true
+    },
+    {
+      "name": "Jump-to-expiring-activities stays on homepage in the hash-routed preview",
+      "pass": true
+    },
+    {
+      "name": "An open homepage refreshes to historical context after the edition expires",
+      "pass": true
+    },
+    {
+      "name": "Shanghai-midnight refresh activates Thursday reminder without reload",
+      "pass": true
+    },
+    {
+      "name": "No JavaScript runtime or console errors occurred",
+      "pass": true
+    }
+  ],
+  "pageResults": [
+    {
+      "route": "/",
+      "title": "洛克王国页游百科",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1,
+      "nativeSelects": 0
+    },
+    {
+      "route": "/pets/",
+      "title": "宠物图鉴",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1,
+      "nativeSelects": 0
+    },
+    {
+      "route": "/skills/",
+      "title": "技能查询",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1,
+      "nativeSelects": 0
+    },
+    {
+      "route": "/bloodlines/",
+      "title": "血脉资料",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1,
+      "nativeSelects": 0
+    },
+    {
+      "route": "/events/",
+      "title": "活动与获取",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1,
+      "nativeSelects": 0
+    },
+    {
+      "route": "/battle/",
+      "title": "对战与禁赛",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1,
+      "nativeSelects": 0
+    },
+    {
+      "route": "/adventure/",
+      "title": "冒险资料",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1,
+      "nativeSelects": 0
+    },
+    {
+      "route": "/places/",
+      "title": "地图与地区",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1,
+      "nativeSelects": 0
+    },
+    {
+      "route": "/npcs/",
+      "title": "人物与NPC",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1,
+      "nativeSelects": 0
+    },
+    {
+      "route": "/items/",
+      "title": "道具与物品",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1,
+      "nativeSelects": 0
+    },
+    {
+      "route": "/challenges/",
+      "title": "历史挑战资料",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1,
+      "nativeSelects": 0
+    },
+    {
+      "route": "/tools/",
+      "title": "实用工具",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1,
+      "nativeSelects": 0
+    },
+    {
+      "route": "/community/",
+      "title": "贡献中心",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1,
+      "nativeSelects": 0
+    },
+    {
+      "route": "/account/",
+      "title": "个人中心",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1,
+      "nativeSelects": 0
+    },
+    {
+      "route": "/edit/",
+      "title": "编辑 · 海芙约忒",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1,
+      "nativeSelects": 0
+    },
+    {
+      "route": "/review/",
+      "title": "审核工作台",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1,
+      "nativeSelects": 0
+    },
+    {
+      "route": "/history/",
+      "title": "修订记录 · 海芙约忒",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1,
+      "nativeSelects": 0
+    },
+    {
+      "route": "/search/",
+      "title": "全站搜索",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1,
+      "nativeSelects": 0
+    },
+    {
+      "route": "/guides/",
+      "title": "玩家指南",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1,
+      "nativeSelects": 0
+    },
+    {
+      "route": "/help/",
+      "title": "贡献帮助",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1,
+      "nativeSelects": 0
+    },
+    {
+      "route": "/tasks/",
+      "title": "任务与剧情",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1,
+      "nativeSelects": 0
+    },
+    {
+      "route": "/not-found/",
+      "title": "没有找到这份资料",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1,
+      "nativeSelects": 0
+    },
+    {
+      "route": "/pets/haifu/",
+      "title": "海芙约忒",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1,
+      "nativeSelects": 0
+    },
+    {
+      "route": "/pets/bishui/",
+      "title": "碧水灵兽",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1,
+      "nativeSelects": 0
+    },
+    {
+      "route": "/pets/dimo/",
+      "title": "迪莫",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1,
+      "nativeSelects": 0
+    },
+    {
+      "route": "/pets/abu/",
+      "title": "阿布",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1,
+      "nativeSelects": 0
+    },
+    {
+      "route": "/pets/shuilanlan/",
+      "title": "水蓝蓝",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1,
+      "nativeSelects": 0
+    },
+    {
+      "route": "/pets/huohua/",
+      "title": "火花",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1,
+      "nativeSelects": 0
+    },
+    {
+      "route": "/pets/miaomiao/",
+      "title": "喵喵",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1,
+      "nativeSelects": 0
+    },
+    {
+      "route": "/pets/royal-dimo/",
+      "title": "皇家圣光迪莫",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1,
+      "nativeSelects": 0
+    },
+    {
+      "route": "/pets/moshen/",
+      "title": "魔神武王",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1,
+      "nativeSelects": 0
+    },
+    {
+      "route": "/pets/zhuque/",
+      "title": "灵瑞朱雀",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1,
+      "nativeSelects": 0
+    },
+    {
+      "route": "/pets/hapuluosi/",
+      "title": "哈普洛斯",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1,
+      "nativeSelects": 0
+    },
+    {
+      "route": "/pets/sailemu/",
+      "title": "塞勒姆",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1,
+      "nativeSelects": 0
+    },
+    {
+      "route": "/skills/xiazi/",
+      "title": "霞姿月韵",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1,
+      "nativeSelects": 0
+    },
+    {
+      "route": "/skills/yuanyun/",
+      "title": "渊云点墨",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1,
+      "nativeSelects": 0
+    },
+    {
+      "route": "/skills/diezhang/",
+      "title": "叠嶂扶影",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1,
+      "nativeSelects": 0
+    },
+    {
+      "route": "/skills/tianhe/",
+      "title": "天河夜转",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1,
+      "nativeSelects": 0
+    },
+    {
+      "route": "/skills/feixing/",
+      "title": "飞星浮渡",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1,
+      "nativeSelects": 0
+    },
+    {
+      "route": "/skills/linghuo/",
+      "title": "灵火之杖",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1,
+      "nativeSelects": 0
+    },
+    {
+      "route": "/skills/xiufu/",
+      "title": "袖拂尘散",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1,
+      "nativeSelects": 0
+    },
+    {
+      "route": "/skills/wufa/",
+      "title": "巫法重击",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1,
+      "nativeSelects": 0
+    },
+    {
+      "route": "/places/castle/",
+      "title": "王国城堡",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1,
+      "nativeSelects": 0
+    },
+    {
+      "route": "/places/academy/",
+      "title": "魔法学院",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1,
+      "nativeSelects": 0
+    },
+    {
+      "route": "/places/mermaid-bay/",
+      "title": "人鱼湾",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1,
+      "nativeSelects": 0
+    },
+    {
+      "route": "/places/snow-valley/",
+      "title": "雪人谷",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1,
+      "nativeSelects": 0
+    },
+    {
+      "route": "/places/xuan-yu/",
+      "title": "玄玉岛",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1,
+      "nativeSelects": 0
+    },
+    {
+      "route": "/places/sky/",
+      "title": "天空城",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1,
+      "nativeSelects": 0
+    },
+    {
+      "route": "/npcs/griffin/",
+      "title": "格里芬院长",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1,
+      "nativeSelects": 0
+    },
+    {
+      "route": "/npcs/lancelot/",
+      "title": "兰斯洛",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1,
+      "nativeSelects": 0
+    },
+    {
+      "route": "/bloodlines/haifu/",
+      "title": "海芙约忒 · 血脉与专属资源",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1,
+      "nativeSelects": 0
+    },
+    {
+      "route": "/events/fun-chess-20251128/",
+      "title": "趣味对弈",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1,
+      "nativeSelects": 0
+    },
+    {
+      "route": "/challenges/star-tower/",
+      "title": "星辰之塔 · 历史 Boss 目录",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1,
+      "nativeSelects": 0
+    },
+    {
+      "route": "/items/potion/",
+      "title": "HP药剂",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1,
+      "nativeSelects": 0
+    },
+    {
+      "route": "/tasks/badges/",
+      "title": "徽章任务",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1,
+      "nativeSelects": 0
+    },
+    {
+      "route": "/tools/compare/",
+      "title": "宠物对比",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1,
+      "nativeSelects": 0
+    },
+    {
+      "route": "/tools/pp/",
+      "title": "工具已更新",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1,
+      "nativeSelects": 0
+    },
+    {
+      "route": "/tools/range/",
+      "title": "工具已更新",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1,
+      "nativeSelects": 0
+    },
+    {
+      "route": "/skills/shuilingdong/",
+      "title": "水灵动",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1,
+      "nativeSelects": 0
+    },
+    {
+      "route": "/skills/yupiaoyao/",
+      "title": "雨飘摇",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1,
+      "nativeSelects": 0
+    },
+    {
+      "route": "/skills/chenshiji/",
+      "title": "趁势击",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1,
+      "nativeSelects": 0
+    },
+    {
+      "route": "/skills/feiyanlingbo/",
+      "title": "飞燕凌波",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1,
+      "nativeSelects": 0
+    },
+    {
+      "route": "/feedback/",
+      "title": "我的反馈",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1,
+      "nativeSelects": 0
+    },
+    {
+      "route": "/mechanics/",
+      "title": "战斗机制",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1,
+      "nativeSelects": 0
+    },
+    {
+      "route": "/mechanics/relations/",
+      "title": "效果关系查询",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1,
+      "nativeSelects": 0
+    },
+    {
+      "route": "/battle/rules/",
+      "title": "系别排位赛参赛规则",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1,
+      "nativeSelects": 0
+    },
+    {
+      "route": "/events/harvest-fruit-line-20261009/",
+      "title": "丰收水果连线",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1,
+      "nativeSelects": 0
+    },
+    {
+      "route": "/events/ifrit-challenge-20261009/",
+      "title": "伊芙利特的挑战",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1,
+      "nativeSelects": 0
+    },
+    {
+      "route": "/events/soul-helmets-20261009/",
+      "title": "千盔铸魂",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1,
+      "nativeSelects": 0
+    },
+    {
+      "route": "/events/energy-array-20261009/",
+      "title": "能量调和之阵",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1,
+      "nativeSelects": 0
+    },
+    {
+      "route": "/events/collect-colors-20261002/",
+      "title": "采集颜色",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1,
+      "nativeSelects": 0
+    },
+    {
+      "route": "/events/fruit-market-20261002/",
+      "title": "瓜果集市",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1,
+      "nativeSelects": 0
+    },
+    {
+      "route": "/events/duck-challenge-20261002/",
+      "title": "难不倒鸭",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1,
+      "nativeSelects": 0
+    },
+    {
+      "route": "/pve/",
+      "title": "PVE 副本与挑战",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1,
+      "nativeSelects": 0
+    },
+    {
+      "route": "/pve/star-tower/",
+      "title": "星辰之塔",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1,
+      "nativeSelects": 0
+    },
+    {
+      "route": "/pve/shanhai/",
+      "title": "山海秘境",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1,
+      "nativeSelects": 0
+    },
+    {
+      "route": "/pve/sentry-intelligence/",
+      "title": "哨兵因因的情报",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1,
+      "nativeSelects": 0
+    },
+    {
+      "route": "/pve/training-hall/",
+      "title": "勇者训练馆",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1,
+      "nativeSelects": 0
+    },
+    {
+      "route": "/pve/seven-sanctuaries/",
+      "title": "七曜圣地",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1,
+      "nativeSelects": 0
+    },
+    {
+      "route": "/tools/damage/",
+      "title": "伤害计算器",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1,
+      "nativeSelects": 0
+    },
+    {
+      "route": "/tools/stats/",
+      "title": "能力计算器",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1,
+      "nativeSelects": 0
+    },
+    {
+      "route": "/events/measurement-expert-20260904/",
+      "title": "测量专家",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1,
+      "nativeSelects": 0
+    },
+    {
+      "route": "/events/honey-homecoming-20260904/",
+      "title": "采蜜归巢",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1,
+      "nativeSelects": 0
+    },
+    {
+      "route": "/events/rice-shop-20260904/",
+      "title": "米粒小铺",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1,
+      "nativeSelects": 0
+    },
+    {
+      "route": "/guides/pve/",
+      "title": "挑战攻略怎么查",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1,
+      "nativeSelects": 0
+    },
+    {
+      "route": "/guides/returning/",
+      "title": "回归先查什么",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1,
+      "nativeSelects": 0
+    },
+    {
+      "route": "/guides/training/",
+      "title": "宠物培养资料",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1,
+      "nativeSelects": 0
+    },
+    {
+      "route": "/help/contributing/",
+      "title": "参与编辑",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1,
+      "nativeSelects": 0
+    },
+    {
+      "route": "/help/sources/",
+      "title": "资料来源与验证",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1,
+      "nativeSelects": 0
+    },
+    {
+      "route": "/mechanics/accuracy/",
+      "title": "命中、必中与闪避",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1,
+      "nativeSelects": 0
+    },
+    {
+      "route": "/mechanics/attributes/",
+      "title": "属性、能力与克制",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1,
+      "nativeSelects": 0
+    },
+    {
+      "route": "/mechanics/damage/",
+      "title": "伤害类型与结算",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1,
+      "nativeSelects": 0
+    },
+    {
+      "route": "/mechanics/effects/pressure/",
+      "title": "压迫（双损）",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1,
+      "nativeSelects": 0
+    },
+    {
+      "route": "/mechanics/effects/",
+      "title": "效果档案与同名识别",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1,
+      "nativeSelects": 0
+    },
+    {
+      "route": "/mechanics/environments/mirage/",
+      "title": "海市蜃楼（环境）",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1,
+      "nativeSelects": 0
+    },
+    {
+      "route": "/mechanics/evidence/",
+      "title": "机制实测与争议记录",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1,
+      "nativeSelects": 0
+    },
+    {
+      "route": "/mechanics/glossary/",
+      "title": "战斗术语速查",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1,
+      "nativeSelects": 0
+    },
+    {
+      "route": "/mechanics/healing/",
+      "title": "治疗、禁疗与转化",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1,
+      "nativeSelects": 0
+    },
+    {
+      "route": "/mechanics/interactions/",
+      "title": "覆盖、共存与解除",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1,
+      "nativeSelects": 0
+    },
+    {
+      "route": "/mechanics/overview/",
+      "title": "战斗机制总目录",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1,
+      "nativeSelects": 0
+    },
+    {
+      "route": "/mechanics/passive/",
+      "title": "血脉与被动触发",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1,
+      "nativeSelects": 0
+    },
+    {
+      "route": "/mechanics/pp/",
+      "title": "PP 与技能限制",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1,
+      "nativeSelects": 0
+    },
+    {
+      "route": "/mechanics/priority/",
+      "title": "速度与先手",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1,
+      "nativeSelects": 0
+    },
+    {
+      "route": "/mechanics/shield/",
+      "title": "护盾与减伤",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1,
+      "nativeSelects": 0
+    },
+    {
+      "route": "/mechanics/stages/",
+      "title": "技能阶段与结算",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1,
+      "nativeSelects": 0
+    },
+    {
+      "route": "/mechanics/status/",
+      "title": "异常、强化与标记",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1,
+      "nativeSelects": 0
+    },
+    {
+      "route": "/mechanics/switching/",
+      "title": "换宠、驱逐与场下",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1,
+      "nativeSelects": 0
+    },
+    {
+      "route": "/mechanics/timing/",
+      "title": "触发顺序与结算时点",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1,
+      "nativeSelects": 0
+    },
+    {
+      "route": "/mechanics/weather/",
+      "title": "天气与环境",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1,
+      "nativeSelects": 0
+    }
+  ],
+  "badLinks": [],
+  "runtimeErrors": [],
+  "jsdomLimitations": []
+}

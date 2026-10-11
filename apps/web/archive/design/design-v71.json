@@ -1,0 +1,346 @@
+{
+  "version": "7.1",
+  "title": "延续 V7，把页面观感与贡献体验统一起来",
+  "subtitle": "收紧编辑范围，补足灵活分支与真实阅读预览，统一 PVE、冒险和个人中心。保留 Docusaurus 与已认可的首页设计。",
+  "sections": [
+    {
+      "id": "visual",
+      "title": "01 · 保持 V7 的风格，统一全站的边界与层级",
+      "paragraphs": [
+        "这一版沿用已认可的首页、暖白底色、圆角内容面板与低饱和彩色图标。左上角的 Georgia 英文字标保持原样；中文正文、按钮、表格和表单继续使用本地 Roco Wiki Sans。没有重新换一套视觉主题。",
+        "一级导航只保留浅蓝色选中底，移除同时出现的底线和阴影。键盘焦点仍有独立轮廓，焦点状态不等于当前页面状态。冒险概览、常用地区、PVE 导航与副本卡片采用与首页相同的圆角、间距、文字层级和图标容器。",
+        "页脚改成明确的品牌、链接、版权三个网格区域，窄屏按顺序叠放；内容列使用 minmax(0,1fr)，长名称可换行。修复针对的是布局约束和继承冲突，尚未声称经过每台设备的截图验收。"
+      ],
+      "reviewRoutes": [
+        "/",
+        "/adventure/",
+        "/places/",
+        "/pve/"
+      ],
+      "implementationEvidence": [
+        "src/css/v71.css",
+        "src/wiki/PveV71.css",
+        "src/wiki/WorldV7.css",
+        "src/wiki/core.jsx"
+      ]
+    },
+    {
+      "id": "official-art",
+      "title": "02 · 首页改用官方页游原图",
+      "paragraphs": [
+        "首页背景替换为洛克王国页游官方网站正在使用的原始 PNG。素材链条为官网页面、官网样式文件和图片资源；工程保留未重绘的下载原件、尺寸、字节数及 SHA-256。背景通过 CSS 取右侧云间城堡的区域，并叠加阅读渐变，不使用生成式图片。",
+        "图像权益归原权利人所有。首页有“页游官网原图”链接；宠物图片、属性图标和既有来源元数据继续保留。原图为 2000×2070、752565 bytes，透明区域由页面底色承接。"
+      ],
+      "sourceIds": [
+        "official-home",
+        "official-style",
+        "official-bg"
+      ],
+      "implementationEvidence": [
+        "content/decor-assets-v71.json",
+        "static/img/decor/official-roco-login-bg.png",
+        "src/wiki/HomePage.jsx"
+      ]
+    },
+    {
+      "id": "scope",
+      "title": "03 · 编辑入口与真实内容对象一一对应",
+      "paragraphs": [
+        "把目录、筛选、提示和导航当作可编辑条目，会扩大操作范围，也会令新用户误解贡献对象。V7.1 只在明确的内容对象或已知知识文章上开放编辑；保留编辑能力的地方必须能说明正在修改哪一个对象。",
+        "宠物改名保持稳定身份，新宠物通过稳定本机地址进入详情和比较工具。删除作为单只宠物的提议提交，审核发布前不影响阅读；发布后保留原地址的移除说明和历史引用。不会连带删除技能、获取历史或其他宠物。"
+      ],
+      "table": {
+        "headers": [
+          "位置",
+          "本版入口",
+          "作用范围"
+        ],
+        "rows": [
+          [
+            "宠物图鉴列表",
+            "新增宠物",
+            "新增一只宠物；没有编辑目录"
+          ],
+          [
+            "宠物详情",
+            "编辑条目；独立删除提议",
+            "当前宠物，不改变目录和其他条目"
+          ],
+          [
+            "技能概览、宠物技能池",
+            "点击技能进入详情",
+            "列表行不再附带编辑按钮"
+          ],
+          [
+            "技能详情",
+            "条目／基础效果／分支编辑",
+            "当前技能或指定内容段"
+          ],
+          [
+            "获取记录、Counter、PVE 方案",
+            "新增或编辑指定记录",
+            "稳定记录 ID 对应的一条资料"
+          ],
+          [
+            "地区目录",
+            "补充地点快捷入口",
+            "每次一条，必须指向已存在的地区地址"
+          ],
+          [
+            "工具、导航、筛选、门户页脚",
+            "反馈此页问题",
+            "打开带当前页面上下文的反馈框"
+          ],
+          [
+            "知识文章小标题",
+            "编辑本节",
+            "本节正文，保留返回锚点"
+          ]
+        ]
+      },
+      "reviewRoutes": [
+        "/pets/",
+        "/pets/haifu/",
+        "/skills/",
+        "/skills/xiazi/",
+        "/places/"
+      ],
+      "implementationEvidence": [
+        "src/wiki/editingContext.js",
+        "src/wiki/catalogPublished.js",
+        "src/wiki/InlineSectionEdits.jsx"
+      ]
+    },
+    {
+      "id": "branches",
+      "title": "04 · 技能分支可以表达多种回合组合",
+      "paragraphs": [
+        "编辑器的分支不再限制为首回合和后续回合。可以直接输入一个回合、一个连续范围或多个离散范围；模板支持 1／2／3、1／2–5／6、1–2／3／4，以及按首、中、末等阶段组织。模板只追加结构，不覆盖已有技能效果。",
+        "计数依据独立于数字范围：连续技能内的第几回合、整场战斗回合、使用次数、效果持续回合或自定义口径必须分别写清楚。来源没有说明的内容保留原文字条件，不自动猜测。",
+        "条件支持全部满足、任一满足、嵌套条件组；条件成立后可以继续分支，也可以填写有独立条件的否则分支。通用条件最多嵌套六层、效果分支最多五层，避免无限嵌套令编辑界面难以维护。",
+        "表单拒绝非正整数、反向范围和明确重复的区间。同一分段模板中的纯回合范围重叠会阻止提交；一般复合条件可能同时成立，界面要求核对，不能自动证明游戏机制是否互斥或完备。阅读与预览复用同一个技能分支组件。"
+      ],
+      "table": {
+        "headers": [
+          "要表达的规则",
+          "编辑结构"
+        ],
+        "rows": [
+          [
+            "第一回合；第二到第五回合；第六回合",
+            "同一计数依据，范围 [1,1]／[2,5]／[6,6]"
+          ],
+          [
+            "第一到第二回合；第三回合；第四回合",
+            "范围 [1,2]／[3,3]／[4,4]"
+          ],
+          [
+            "第 1、3、5 回合出现同一种效果",
+            "一个分支中保留三个离散范围"
+          ],
+          [
+            "处于指定范围，并且满足任一状态条件",
+            "全部条件组内放回合范围与任一条件组"
+          ],
+          [
+            "条件成立后再判断；不成立时另有结果",
+            "成立子分支与否则分支分别填写"
+          ]
+        ]
+      },
+      "reviewRoutes": [
+        "/skills/xiazi/?pet=haifu"
+      ],
+      "implementationEvidence": [
+        "src/wiki/skillConditions.js",
+        "src/wiki/SkillBranchView.jsx",
+        "src/wiki/editing/SkillBranchEditor.jsx"
+      ]
+    },
+    {
+      "id": "counter",
+      "title": "05 · Counter 记录双方血脉，统计跟随具体结论",
+      "paragraphs": [
+        "PVP 对位继续区分同起、后上拦截、先在场，并从当前宠物的视角描述。新增双方本场血脉：未记录、确认未携带、已指定。指定时支持血脉名称和配置备注；不能用这只宠物可拥有的全部血脉替代该场实际配置。",
+        "结论、条件、出场情形以及任一方血脉变化，都进入新的命题版本。旧版本的支持票和不支持票不转移到新的对局条件。仅改变血脉名称输入顺序不产生新票池。",
+        "支持率仍表示社区对这条有条件结论的判断，不等同于胜率，也不能代替资料来源、实测日期和失败例外。预览不提供投票操作，也不会把旧支持率假设成修改后的支持率。宠物 Counter 只包含 PVP；PVE 仍从副本页单向查阅挑战宠物。"
+      ],
+      "reviewRoutes": [
+        "/pets/haifu/"
+      ],
+      "implementationEvidence": [
+        "src/wiki/matchupBloodlines.js",
+        "src/wiki/CounterBloodlineSides.jsx",
+        "src/wiki/counterVoteState.js",
+        "src/wiki/CounterVotes.jsx"
+      ]
+    },
+    {
+      "id": "preview",
+      "title": "06 · 页面预览与修改对比分开",
+      "paragraphs": [
+        "编辑器提供填写与修改、预览效果、对照差异三个清楚的视图。页面预览显示修改后的条目或小节呈现：时间线、技能条件、双方血脉、PVE 方案、人物资料、宠物六维图等有对应阅读布局，不再把字段差异称作预览。",
+        "十种内容模式均有只读预览，审核页和旧编辑入口也接入同一组件。知识正文复用安全 Markdown 阅读器，技能与 PVE 直接复用阅读页组件；页面预览不执行用户脚本。",
+        "预览可选择桌面或 390px 手机内容宽度。实现使用同源空白 iframe 中的只读 React 内容，让媒体查询使用预览自身宽度，而非只压缩外面的卡片。预览范围为当前内容，完整网站导航和页脚不复制到编辑区。",
+        "点击预览里的关联链接会显示去向并留在当前草稿。只切换预览与差异不会修改草稿或提交投票。发布以后返回正文，再次编辑时会读到已发布的数据；预览和真实发布仍是两个独立动作。"
+      ],
+      "reviewRoutes": [
+        "/edit/?entity=霞姿月韵&section=技能效果&mode=skill&returnTo=/skills/xiazi/",
+        "/review/"
+      ],
+      "implementationEvidence": [
+        "src/wiki/editing/PreviewContent.jsx",
+        "src/wiki/editing/SectionEditor.jsx",
+        "src/wiki/CommunityPages.jsx",
+        "src/wiki/EditingV7.css"
+      ]
+    },
+    {
+      "id": "pve",
+      "title": "07 · PVE 先选择副本和关卡，再进入挑战方案",
+      "paragraphs": [
+        "PVE 首页保留五个副本入口，使用图标、用途说明和明确的快捷按钮。奖励目标是直接可见的筛选项；搜索和筛选能写入 URL，并提供清除操作。文字对比度提高，选中态不再依赖灰色小字或下划线。",
+        "星辰塔提供 1–8 层的直接选择和历史 Boss 入口；山海秘境提供秘境挑战、山海召唤等环节入口。副本详情将关卡与条件移到前面，选择内容可分享，并带到新增挑战方案的上下文。",
+        "尚未收录的当前 Boss、完整队伍或概率会明确提示待补充。历史攻略保留年份、对象和适用范围，不会随着上方层数选择被改写成该层通用阵容。",
+        "新增方案发布后显示为该副本的新卡片，修改按记录 ID 覆盖自身，再次编辑预填当前资料；待审记录和其他副本的记录不混入。正文与预览共享挑战对象、宠物、配置、操作、替代方案、日期与来源布局。"
+      ],
+      "reviewRoutes": [
+        "/pve/",
+        "/pve/star-tower/?level=8",
+        "/pve/shanhai/?view=challenge"
+      ],
+      "implementationEvidence": [
+        "src/wiki/PvePages.jsx",
+        "src/wiki/PvePlanCard.jsx",
+        "src/wiki/PveV71.css"
+      ]
+    },
+    {
+      "id": "navigation-account",
+      "title": "08 · 直接阅读全部机制，个人中心建立清楚的身份区域",
+      "paragraphs": [
+        "战斗机制首页增加明显的全部机制按钮，直达既有 /mechanics/overview/。打开即为左侧文章目录、中间正文、右侧本页目录，不再要求先打开一个子条目再绕回总览。",
+        "个人中心顶部增加宠物头像、昵称、简介和关联平台图标。头像与资料修改后，顶部个人中心入口的小头像同步更新；头像选择支持方向键、Home 和 End。账号页面仍按我的首页、我的投稿、我的收藏、个人资料、账号与安全分区，选中分区保存到 URL。",
+        "GitHub 状态明确显示未绑定并直达账号与安全。本机保存资料不会冒充完成线上登录，也不增加尚未接入的平台。全站右下角保留反馈按钮；工具和门户页脚的反馈打开同一对话框，带入原页面，关闭后恢复触发按钮的焦点。"
+      ],
+      "reviewRoutes": [
+        "/mechanics/",
+        "/mechanics/overview/",
+        "/account/",
+        "/account/?tab=profile"
+      ],
+      "implementationEvidence": [
+        "src/wiki/MechanicsPages.jsx",
+        "src/wiki/AccountIdentity.jsx",
+        "src/wiki/CommunityPages.jsx",
+        "src/wiki/Feedback.jsx"
+      ]
+    },
+    {
+      "id": "architecture",
+      "title": "09 · 保留 Docusaurus 和既定贡献架构",
+      "paragraphs": [
+        "此次交付包括原生 Docusaurus 工程、构建后的静态站点及独立 HTML 交互预览。原生内容路由与文档归属保持不变；本机新增宠物和 NPC 使用稳定查询地址显示，正式新增静态路由仍由发布服务生成。",
+        "账号、投稿审核、公开投票、远端仓库和部署服务尚未连接。本机模拟审核、合并、构建、发布的状态可用于检验流程，但不能解释为远端生产部署完成。复杂技能分支是资料表达模型，不是完整游戏战斗模拟器。",
+        "一般知识正文、获取记录、活动批次、技能资料、宠物、NPC、Counter 和 PVE 的已接入内容有具体读回；地区目录只支持一条已存在地点的快捷入口。关系实测等模式具备表单、预览、草稿及审核流程，正式全站结构化投影仍需发布服务接入。"
+      ],
+      "table": {
+        "headers": [
+          "层",
+          "保持的职责"
+        ],
+        "rows": [
+          [
+            "Docusaurus",
+            "静态资料、稳定地址、搜索与阅读"
+          ],
+          [
+            "独立 Wiki 账号",
+            "阅读及贡献身份；GitHub OAuth 可选"
+          ],
+          [
+            "Workers / Hono 与 D1",
+            "认证、草稿、审核、公开投票与发布状态"
+          ],
+          [
+            "GitHub App / GitHub",
+            "每次投稿独立提交；普通合并，保留历史，不 squash"
+          ],
+          [
+            "GitCode",
+            "单向国内镜像"
+          ],
+          [
+            "EdgeOne",
+            "静态内容分发"
+          ]
+        ]
+      },
+      "implementationEvidence": [
+        "docusaurus.config.js",
+        "src/wiki/editing/README.md",
+        "content/editing-contract-v7.json"
+      ]
+    },
+    {
+      "id": "review-and-next-steps",
+      "title": "10 · 建议体验路线与验收边界",
+      "paragraphs": [
+        "先打开首页看导航选中态和官方背景，再进入冒险、PVE 与个人中心对照圆角、图标和文字层级。随后从宠物技能池进入一个技能，打开条件分支编辑，试用 1／2–5／6 模板并切换页面预览和修改对比。",
+        "继续查看宠物 PVP Counter，修改双方血脉并预览，再到 PVE 的星辰塔选层、进入挑战方案。最后从战斗机制首页直接打开全部机制，在个人资料中修改头像昵称，确认顶部入口同步。",
+        "本次检查以 V7.1 四组新套件为准，旧版要求目录编辑或技能逐行编辑的断言不继续沿用。结果来自当前源文件、React/JSDOM 交互、最终独立 HTML 与原生静态页面；报告校验源码哈希和预览哈希，避免旧结果被当作本次验收。",
+        "已做 DOM 行为、CSS 语法和布局约束、内容读回、资源及路由检查；尚未完成真实浏览器逐屏截图、多设备视觉和帧率验收，也未验证当前游戏客户端的全部特殊结算。界面模型中的历史资料仍带原日期，不能当成实时游戏配置。"
+      ],
+      "reviewRoutes": [
+        "/",
+        "/adventure/",
+        "/pve/star-tower/",
+        "/account/",
+        "/skills/xiazi/?pet=haifu",
+        "/pets/haifu/",
+        "/mechanics/"
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "id": "official-home",
+      "title": "洛克王国页游官方网站",
+      "url": "https://17roco.qq.com/",
+      "role": "本次首页背景的原始页面出处。"
+    },
+    {
+      "id": "official-style",
+      "title": "官网背景样式文件",
+      "url": "https://res.17roco.qq.com/style/newstyle.css",
+      "role": "原页背景资源引用，可核对图片路径。"
+    },
+    {
+      "id": "official-bg",
+      "title": "官网原始背景 PNG",
+      "url": "https://res.17roco.qq.com/images/bg.png",
+      "role": "未重绘原图；尺寸、摘要和权属说明见工程元数据。"
+    },
+    {
+      "id": "font-source",
+      "title": "Google Fonts · Noto Sans SC 原始字体",
+      "url": "https://raw.githubusercontent.com/google/fonts/main/ofl/notosanssc/NotoSansSC%5Bwght%5D.ttf",
+      "role": "本地无衬线字体子集的源文件；许可证与摘要见字体元数据。"
+    },
+    {
+      "id": "pve-official",
+      "title": "官方论坛版主团 · 2025-09-10 LITE 玩法说明",
+      "url": "https://17roco.gamebbs.qq.com/archiver/?tid-162819.html=",
+      "role": "PVE 入口与规则资料；动态 Boss 和当期实战仍需对应记录。"
+    }
+  ],
+  "validation": {
+    "browserVisualQa": "未完成真实浏览器截图、多设备视觉和帧率验收。源码、DOM 与静态构建验证不等同于浏览器视觉验收。",
+    "reportFiles": [
+      "validation/v71-catalog-check-results.json",
+      "validation/v71-editing-check-results.json",
+      "validation/v71-world-check-results.json",
+      "validation/v71-integration-check-results.json"
+    ]
+  }
+}

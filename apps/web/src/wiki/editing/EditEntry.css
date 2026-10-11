@@ -1,0 +1,42 @@
+/* Intent controls the editor destination. This shared variant controls primary-action appearance. */
+.rw-edit-entry.rw-edit-entry-primary,
+.rw-edit-entry.rw-edit-entry-primary:link,
+.rw-edit-entry.rw-edit-entry-primary:visited {
+  gap: 7px;
+  min-height: 44px;
+  max-width: 100%;
+  box-sizing: border-box;
+  padding: 11px 17px;
+  border: 1px solid #4c6f9e;
+  border-radius: 13px;
+  background: #4c6f9e;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 600;
+  white-space: normal;
+  text-align: center;
+  overflow-wrap: anywhere;
+  box-shadow: 0 3px 9px #34507119;
+}
+.rw-edit-entry.rw-edit-entry-primary:hover {
+  background: #40618d;
+  border-color: #40618d;
+  color: #fff;
+  transform: translateY(-1px);
+}
+.rw-edit-entry.rw-edit-entry-primary:focus-visible {
+  outline: 3px solid #31577f;
+  outline-offset: 3px;
+  color: #fff;
+}
+.rw-edit-entry.rw-edit-entry-primary:active {
+  background: #355379;
+  border-color: #355379;
+  color: #fff;
+  transform: translateY(0);
+}
+.rw-edit-entry.rw-edit-entry-primary svg { width: 16px; height: 16px; }
+@media (prefers-reduced-motion: reduce) {
+  .rw-edit-entry.rw-edit-entry-primary { transition: none; }
+  .rw-edit-entry.rw-edit-entry-primary:hover { transform: none; }
+}

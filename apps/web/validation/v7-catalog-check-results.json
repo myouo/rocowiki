@@ -1,0 +1,343 @@
+{
+  "status": "PASS",
+  "checkCount": 81,
+  "checks": [
+    {
+      "label": "12 catalog samples render and no native select remains",
+      "pass": true
+    },
+    {
+      "label": "Attribute, five metadata facets, and sorting have named custom comboboxes",
+      "pass": true
+    },
+    {
+      "label": "Cards do not show stat totals",
+      "pass": true
+    },
+    {
+      "label": "All attribute assets have local image paths and alt labels",
+      "pass": true
+    },
+    {
+      "label": "Verified group filter selects only the three known starters",
+      "pass": true
+    },
+    {
+      "label": "Independent attribute filter intersects group without clearing it",
+      "pass": true
+    },
+    {
+      "label": "Experience type filter uses real recorded codes",
+      "pass": true
+    },
+    {
+      "label": "Series intersects experience type and retains 3 recorded annual pets",
+      "pass": true
+    },
+    {
+      "label": "Specific bloodline name selects the known holder",
+      "pass": true
+    },
+    {
+      "label": "Magic filter selects the dated 4-point record",
+      "pass": true
+    },
+    {
+      "label": "Unknown magic remains unknown instead of zero",
+      "pass": true
+    },
+    {
+      "label": "Magic ascending puts 4 then 5 before unknowns",
+      "pass": true
+    },
+    {
+      "label": "Magic descending reverses known values while unknowns remain last",
+      "pass": true
+    },
+    {
+      "label": "Six-stat sorting uses stable speed position",
+      "pass": true
+    },
+    {
+      "label": "All six fields map to exact axis values",
+      "pass": true
+    },
+    {
+      "label": "Exact totals and dimensions are not inferred from absent data",
+      "pass": true
+    },
+    {
+      "label": "Magic badge is numeric and exposes date and meaning on click",
+      "pass": true
+    },
+    {
+      "label": "Magic badge stays focused after pointer activation",
+      "pass": true
+    },
+    {
+      "label": "Magic tooltip can close with Escape",
+      "pass": true
+    },
+    {
+      "label": "Pet skill links use canonical skill route with explicit pet context",
+      "pass": true
+    },
+    {
+      "label": "Editing a skill from a pet pool returns to that same pool",
+      "pass": true
+    },
+    {
+      "label": "Haifu acquisition timeline uses two real activity periods",
+      "pass": true
+    },
+    {
+      "label": "Pet Counter is PVP only with explicit dates and evidence",
+      "pass": true
+    },
+    {
+      "label": "Both known and unspecified entry scenes are honestly identified",
+      "pass": true
+    },
+    {
+      "label": "The three scene definitions use the current pet's point of view",
+      "pass": true
+    },
+    {
+      "label": "Fresh Counter cards display zero-sample text instead of a fabricated percentage",
+      "pass": true
+    },
+    {
+      "label": "Acquisition rows expose prefilled edit links and add another period action",
+      "pass": true
+    },
+    {
+      "label": "Visitor support vote is counted and marked pressed",
+      "pass": true
+    },
+    {
+      "label": "A vote on one matchup cannot change another matchup's totals",
+      "pass": true
+    },
+    {
+      "label": "Switching support to opposition keeps one vote and shows 0 percent",
+      "pass": true
+    },
+    {
+      "label": "Repeating the selected vote withdraws it and restores the empty sample state",
+      "pass": true
+    },
+    {
+      "label": "Visitor identity and vote survive a component remount",
+      "pass": true
+    },
+    {
+      "label": "Scene filtering shows only the sourced already-active matchup",
+      "pass": true
+    },
+    {
+      "label": "A missing scene gets an actionable empty state without inventing records",
+      "pass": true
+    },
+    {
+      "label": "Bishui Counter has no PVE record or reverse PVE guide link",
+      "pass": true
+    },
+    {
+      "label": "All pet metadata removes the old PVE Counter field and migrated history is preserved",
+      "pass": true
+    },
+    {
+      "label": "A changed scene starts an independent vote pool",
+      "pass": true
+    },
+    {
+      "label": "Changing conclusion or revision cannot inherit votes for the old statement",
+      "pass": true
+    },
+    {
+      "label": "A stable unchanged claim produces the same vote key",
+      "pass": true
+    },
+    {
+      "label": "Explicit account IDs are distinct from display nicknames and guest identity",
+      "pass": true
+    },
+    {
+      "label": "Signing in can adopt a guest ballot exactly once",
+      "pass": true
+    },
+    {
+      "label": "Existing account ballot wins over guest ballot without double counting",
+      "pass": true
+    },
+    {
+      "label": "Malformed saved vote choices and identities are discarded",
+      "pass": true
+    },
+    {
+      "label": "Prototype-like keys cannot create a valid ballot target",
+      "pass": true
+    },
+    {
+      "label": "Corrupt local JSON degrades to an operable empty vote card",
+      "pass": true
+    },
+    {
+      "label": "A new vote repairs a corrupt store without a runtime error",
+      "pass": true
+    },
+    {
+      "label": "Blocked storage keeps voting functional and explains session-only persistence",
+      "pass": true
+    },
+    {
+      "label": "Canonical skill page retains a verified return-to-pet context",
+      "pass": true
+    },
+    {
+      "label": "Skill conditions replace the misleading common-effect heading",
+      "pass": true
+    },
+    {
+      "label": "Every displayed skill condition has a dedicated branch editor",
+      "pass": true
+    },
+    {
+      "label": "Skill-specific mechanism references remain available",
+      "pass": true
+    },
+    {
+      "label": "Condition fold control has correct ARIA and hides only conditional content",
+      "pass": true
+    },
+    {
+      "label": "Unverified pet query never creates a false learning relationship",
+      "pass": true
+    },
+    {
+      "label": "Non-complementary conditional alternative explicitly names its own condition",
+      "pass": true
+    },
+    {
+      "label": "Formerly undifferentiated skill summary now has weather branch",
+      "pass": true
+    },
+    {
+      "label": "Skills table ends with description and does not append hit-rule badges",
+      "pass": true
+    },
+    {
+      "label": "Skill rows and the catalog expose direct edit and add actions",
+      "pass": true
+    },
+    {
+      "label": "Skills category bar has skill and bloodline entries only",
+      "pass": true
+    },
+    {
+      "label": "Bloodline category bar uses the same two entries without nesting battle mechanics",
+      "pass": true
+    },
+    {
+      "label": "Bloodline index uses the verified names instead of a missing-name placeholder",
+      "pass": true
+    },
+    {
+      "label": "Bloodline detail retains a source for the names and marks rules separately",
+      "pass": true
+    },
+    {
+      "label": "21 downloaded type icons match manifest byte counts and hashes",
+      "pass": true
+    },
+    {
+      "label": "Malformed saved record fields normalize before rendering",
+      "pass": true
+    },
+    {
+      "label": "Publishing a single acquisition edits only that record",
+      "pass": true
+    },
+    {
+      "label": "Adding another occurrence of the same activity preserves previous openings and row edits",
+      "pass": true
+    },
+    {
+      "label": "Pending and unrelated publications never leak into another pet's records",
+      "pass": true
+    },
+    {
+      "label": "A later whole-section replacement is applied after earlier row additions",
+      "pass": true
+    },
+    {
+      "label": "An explicit empty row publication removes only its addressed record",
+      "pass": true
+    },
+    {
+      "label": "A published changed Counter claim receives a new revision while other claims retain their votes",
+      "pass": true
+    },
+    {
+      "label": "String and array representations of unchanged conditions keep the same claim revision",
+      "pass": true
+    },
+    {
+      "label": "Bundled explicit scene wording remains bound to the original entry scenario",
+      "pass": true
+    },
+    {
+      "label": "Changing a scene clears its stale hidden direction wording and advances the claim revision",
+      "pass": true
+    },
+    {
+      "label": "Publishing an unchanged scenario retains its explicit wording and existing vote revision",
+      "pass": true
+    },
+    {
+      "label": "New rows without IDs receive deterministic local IDs",
+      "pass": true
+    },
+    {
+      "label": "Published acquisitions appear in the reading timeline immediately on remount",
+      "pass": true
+    },
+    {
+      "label": "Published Counter text is actually rendered and starts its own zero-vote pool",
+      "pass": true
+    },
+    {
+      "label": "Publication events refresh the reading view without a full reload",
+      "pass": true
+    },
+    {
+      "label": "A published scene switch renders the matching badge and current-pet direction without stale wording",
+      "pass": true
+    },
+    {
+      "label": "The scene revision starts a fresh rendered vote pool while preserving the visitor identity",
+      "pass": true
+    },
+    {
+      "label": "Publishing a different scenario clears the previous claim's support confirmation",
+      "pass": true
+    },
+    {
+      "label": "No React DOM console errors during bounded workflows",
+      "pass": true
+    }
+  ],
+  "scope": "Independent JSDOM functional harness using bundled source. Docusaurus routing is stubbed; CSS and image loading are not executed. Not preview HTML, browser screenshots, layout, performance, or real-server navigation validation.",
+  "sourceSha256": {
+    "src/wiki/CatalogPages.jsx": "3f24b3cd85e897965a28da4a09232df0673508cc02f617d9c7ca3d1be1f70522",
+    "src/wiki/CatalogV6.css": "38eb8bad430476fa051d1bd838fc33a79252b4a362e128782042bf6c9c8ae595",
+    "src/wiki/CatalogV7.css": "3d64d906040daf04ef9c86af24e25a0f89e30768b63504fb703fdbeb6653018f",
+    "src/wiki/CounterVotes.jsx": "d8cdfedead8293d402b6ba35d3e0440b690954d584d7626a2a895c1c5d5576a7",
+    "src/wiki/counterVoteState.js": "f44d9908ac7304d7fad82072a156c374146d2ac15a18ce3bc23378b057a9083f",
+    "src/wiki/skillPresentation.js": "56612482545aa5eb7404f989fee333ccc2d097d57236a4df41d69dca395ddd30",
+    "src/wiki/editing/publishedRecords.js": "6a5ce4820724d0c3a972d8bd760ace3a9cc5603c7474bb08c392ee733a7a6250",
+    "content/pet-metadata-v6.json": "f8d4bfc7d1ee95bb1dc4b69546fca154404ac9016743959f1b6047e7838cc05a",
+    "src/wiki/Select.jsx": "493d8e97767e589ed5c524b5c685c1ee5c14181832587d5b31ccfb7a64c73ee0"
+  },
+  "ranAt": "2026-10-10T12:33:20.304Z"
+}

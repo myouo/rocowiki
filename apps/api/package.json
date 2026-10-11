@@ -1,0 +1,13 @@
+{
+  "name": "@rocowiki/api",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev --port 8787",
+    "db:migrate": "wrangler d1 migrations apply rocowiki --local",
+    "types": "wrangler types src/worker-configuration.d.ts --include-runtime=false --strict-vars=false",
+    "dry-run": "wrangler deploy --dry-run --env=",
+    "deploy": "wrangler deploy --env production"
+  },
+  "license": "GPL-3.0-only"
+}

@@ -1,0 +1,23 @@
+name: 使用帮助 / Support
+description: 安装、界面或使用问题 / Setup, interface or usage questions
+title: "[Help] "
+body:
+  - type: markdown
+    attributes:
+      value: 请阅读 SUPPORT.md / SUPPORT.en.md；不要提供密码、令牌、Cookie、未脱敏 HAR 或数据库 / Read support guidance; do not supply passwords, credentials, unredacted HAR or databases
+  - type: textarea
+    id: question
+    attributes:
+      label: 问题与目标 / Question and goal
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: 版本、系统与入口 / Version, system and entry point
+    validations:
+      required: true
+  - type: textarea
+    id: attempted
+    attributes:
+      label: 已尝试的方法与脱敏结果 / Attempts and redacted results

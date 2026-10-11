@@ -1,0 +1,339 @@
+{
+  "suite": "V7.3.1 horizontal graph node and edge correspondence",
+  "checkedAt": "2026-10-11T01:35:02.475Z",
+  "passed": 79,
+  "total": 79,
+  "failed": 0,
+  "checks": [
+    {
+      "name": "nested round / otherwise / independent / else-if: layout preserves every node once",
+      "pass": true
+    },
+    {
+      "name": "nested round / otherwise / independent / else-if: layout preserves every from/to/label edge",
+      "pass": true
+    },
+    {
+      "name": "nested round / otherwise / independent / else-if: vertical and horizontal export differ only by direction",
+      "pass": true
+    },
+    {
+      "name": "nested round / otherwise / independent / else-if: input is unchanged and graph has one parent per non-root",
+      "pass": true
+    },
+    {
+      "name": "same labels are distinct occurrences: layout preserves every node once",
+      "pass": true
+    },
+    {
+      "name": "same labels are distinct occurrences: layout preserves every from/to/label edge",
+      "pass": true
+    },
+    {
+      "name": "same labels are distinct occurrences: vertical and horizontal export differ only by direction",
+      "pass": true
+    },
+    {
+      "name": "same labels are distinct occurrences: input is unchanged and graph has one parent per non-root",
+      "pass": true
+    },
+    {
+      "name": "long effects remain complete: layout preserves every node once",
+      "pass": true
+    },
+    {
+      "name": "long effects remain complete: layout preserves every from/to/label edge",
+      "pass": true
+    },
+    {
+      "name": "long effects remain complete: vertical and horizontal export differ only by direction",
+      "pass": true
+    },
+    {
+      "name": "long effects remain complete: input is unchanged and graph has one parent per non-root",
+      "pass": true
+    },
+    {
+      "name": "only unconditioned effects: layout preserves every node once",
+      "pass": true
+    },
+    {
+      "name": "only unconditioned effects: layout preserves every from/to/label edge",
+      "pass": true
+    },
+    {
+      "name": "only unconditioned effects: vertical and horizontal export differ only by direction",
+      "pass": true
+    },
+    {
+      "name": "only unconditioned effects: input is unchanged and graph has one parent per non-root",
+      "pass": true
+    },
+    {
+      "name": "an unrecorded reverse result has no invented edge: layout preserves every node once",
+      "pass": true
+    },
+    {
+      "name": "an unrecorded reverse result has no invented edge: layout preserves every from/to/label edge",
+      "pass": true
+    },
+    {
+      "name": "an unrecorded reverse result has no invented edge: vertical and horizontal export differ only by direction",
+      "pass": true
+    },
+    {
+      "name": "an unrecorded reverse result has no invented edge: input is unchanged and graph has one parent per non-root",
+      "pass": true
+    },
+    {
+      "name": "empty graph is one root: layout preserves every node once",
+      "pass": true
+    },
+    {
+      "name": "empty graph is one root: layout preserves every from/to/label edge",
+      "pass": true
+    },
+    {
+      "name": "empty graph is one root: vertical and horizontal export differ only by direction",
+      "pass": true
+    },
+    {
+      "name": "empty graph is one root: input is unchanged and graph has one parent per non-root",
+      "pass": true
+    },
+    {
+      "name": "True and false outcomes both originate in their actual first-round decision",
+      "pass": true
+    },
+    {
+      "name": "Ordered effects retain their subsequent edge before nested rounds",
+      "pass": true
+    },
+    {
+      "name": "Independent conditions share a hub and are not attached to the first condition false path",
+      "pass": true
+    },
+    {
+      "name": "Else-if is reached only by the original condition not being satisfied",
+      "pass": true
+    },
+    {
+      "name": "Empty effects connect straight to separate true/false child contexts",
+      "pass": true
+    },
+    {
+      "name": "A missing reverse effect does not create an unrecorded not-satisfied path",
+      "pass": true
+    },
+    {
+      "name": "DAG merges are rejected rather than dropped or duplicated",
+      "pass": true
+    },
+    {
+      "name": "Cycles are rejected rather than recursively duplicated",
+      "pass": true
+    },
+    {
+      "name": "Disconnected cyclic components cannot disappear",
+      "pass": true
+    },
+    {
+      "name": "Dangling edge targets cannot disappear",
+      "pass": true
+    },
+    {
+      "name": "Duplicate node IDs cannot overwrite another node",
+      "pass": true
+    },
+    {
+      "name": "Horizontal selection swaps the body into the real graph reader",
+      "pass": true
+    },
+    {
+      "name": "Selecting one flow leaves the other flow vertical",
+      "pass": true
+    },
+    {
+      "name": "Complex branching UI: every actual node ID appears once",
+      "pass": true
+    },
+    {
+      "name": "Complex branching UI: every rendered edge matches a Mermaid graph edge exactly",
+      "pass": true
+    },
+    {
+      "name": "Complex branching UI: each edge belongs to the actual source subtree and destination child",
+      "pass": true
+    },
+    {
+      "name": "Complex branching UI: branch labels are attached to the same incoming edge",
+      "pass": true
+    },
+    {
+      "name": "Complex branching UI: text and structured conditions remain attached to their node",
+      "pass": true
+    },
+    {
+      "name": "The graph region has its own keyboard-accessible scroll and explanation",
+      "pass": true
+    },
+    {
+      "name": "Only the graph expands in width; its outer region stays contained",
+      "pass": true
+    },
+    {
+      "name": "Every subtree and node align by natural centre rather than a fixed height",
+      "pass": true
+    },
+    {
+      "name": "Incoming edges anchor to the centre of their own subtree",
+      "pass": true
+    },
+    {
+      "name": "All top-level branch actions remain unique and retain their original branch index",
+      "pass": true
+    },
+    {
+      "name": "Horizontal edit actions still target the correct branch and base",
+      "pass": true
+    },
+    {
+      "name": "Copied horizontal Mermaid contains exactly the graph displayed",
+      "pass": true
+    },
+    {
+      "name": "Two copies of the same graph use distinct document IDs",
+      "pass": true
+    },
+    {
+      "name": "Returning to vertical preserves the original rich cards and all actions",
+      "pass": true
+    },
+    {
+      "name": "Copied vertical Mermaid changes direction only",
+      "pass": true
+    },
+    {
+      "name": "same labels are distinct occurrences: every actual node ID appears once",
+      "pass": true
+    },
+    {
+      "name": "same labels are distinct occurrences: every rendered edge matches a Mermaid graph edge exactly",
+      "pass": true
+    },
+    {
+      "name": "same labels are distinct occurrences: each edge belongs to the actual source subtree and destination child",
+      "pass": true
+    },
+    {
+      "name": "same labels are distinct occurrences: branch labels are attached to the same incoming edge",
+      "pass": true
+    },
+    {
+      "name": "same labels are distinct occurrences: text and structured conditions remain attached to their node",
+      "pass": true
+    },
+    {
+      "name": "long effects remain complete: every actual node ID appears once",
+      "pass": true
+    },
+    {
+      "name": "long effects remain complete: every rendered edge matches a Mermaid graph edge exactly",
+      "pass": true
+    },
+    {
+      "name": "long effects remain complete: each edge belongs to the actual source subtree and destination child",
+      "pass": true
+    },
+    {
+      "name": "long effects remain complete: branch labels are attached to the same incoming edge",
+      "pass": true
+    },
+    {
+      "name": "long effects remain complete: text and structured conditions remain attached to their node",
+      "pass": true
+    },
+    {
+      "name": "only unconditioned effects: every actual node ID appears once",
+      "pass": true
+    },
+    {
+      "name": "only unconditioned effects: every rendered edge matches a Mermaid graph edge exactly",
+      "pass": true
+    },
+    {
+      "name": "only unconditioned effects: each edge belongs to the actual source subtree and destination child",
+      "pass": true
+    },
+    {
+      "name": "only unconditioned effects: branch labels are attached to the same incoming edge",
+      "pass": true
+    },
+    {
+      "name": "only unconditioned effects: text and structured conditions remain attached to their node",
+      "pass": true
+    },
+    {
+      "name": "an unrecorded reverse result has no invented edge: every actual node ID appears once",
+      "pass": true
+    },
+    {
+      "name": "an unrecorded reverse result has no invented edge: every rendered edge matches a Mermaid graph edge exactly",
+      "pass": true
+    },
+    {
+      "name": "an unrecorded reverse result has no invented edge: each edge belongs to the actual source subtree and destination child",
+      "pass": true
+    },
+    {
+      "name": "an unrecorded reverse result has no invented edge: branch labels are attached to the same incoming edge",
+      "pass": true
+    },
+    {
+      "name": "an unrecorded reverse result has no invented edge: text and structured conditions remain attached to their node",
+      "pass": true
+    },
+    {
+      "name": "Long content is allowed to wrap and no graph node has overflow clipping or line clamps",
+      "pass": true
+    },
+    {
+      "name": "The obsolete sticky decision and fixed left-37px arrows are removed",
+      "pass": true
+    },
+    {
+      "name": "The shared connector trunk stops at the first and last actual child centres",
+      "pass": true
+    },
+    {
+      "name": "Single-child chains do not accumulate empty vertical padding",
+      "pass": true
+    },
+    {
+      "name": "Horizontal nodes and graph region keep rounded card styling",
+      "pass": true
+    },
+    {
+      "name": "Graph text and Mermaid labels continue to escape syntax delimiters",
+      "pass": true
+    },
+    {
+      "name": "Targeted interactions produce no React runtime errors",
+      "pass": true
+    }
+  ],
+  "sourceHashes": {
+    "src/wiki/SkillBranchView.jsx": "e9a3eeaa0d59e8ef82568da1803ced40b8771f4fb4c365e611ff32497044d9bc",
+    "src/wiki/SkillBranchView.css": "c901272f717d4dee4b7a5a93daa400477449afb50d3f5d7c16bcc4aa7b5f0941",
+    "src/wiki/skillFlow.js": "81a3d7db65b9a2c5b51222dadfebb471694a0183c7fef21c0e4ac23bb0303e6a",
+    "src/wiki/skillConditions.js": "8d7f1fde59c91834c3208aa5ad86e6a86bca278f9568313b2f12eb424b103e0a",
+    "validation/check-v731-flow.cjs": "f87bf03619789651d36bd2857dbef067259271f08a4568b0e974358e9cfb18a7"
+  },
+  "graphModel": "Rooted tree: each authored occurrence has one unique node; all non-root nodes have one incoming edge. Unsupported merges, cycles and dangling references are rejected explicitly.",
+  "fixtures": "Synthetic data covers nested round ranges, true/false branches, independent conditions, else-if, empty intermediate effects, duplicate labels, long text and ordered chains.",
+  "verified": "Shared graph/DOM from-to-label equality; actual DOM ancestry of every edge; scoped IDs, structured condition text, existing vertical output, edit-action targets, Mermaid direction, and CSS layout/overflow declarations.",
+  "browserVisualQA": false,
+  "lifecycleScope": "No iframe, preview lifecycle or black-screen diagnosis/testing was performed in V7.3.1.",
+  "limitations": "JSDOM has no real layout engine. Pixel connector endpoints, scroll extent, text painting, zoomed screen appearance and device performance were not visually verified. The width mock only enables the existing direction toggle.",
+  "runtimeErrors": []
+}

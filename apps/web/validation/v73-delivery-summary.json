@@ -1,0 +1,65 @@
+{
+  "version": "7.3",
+  "generatedAt": "2026-10-10T16:03:28.180Z",
+  "routes": 121,
+  "customRoutes": 96,
+  "documents": 25,
+  "docHeadingEditors": 105,
+  "activities": 11,
+  "occurrences": 12,
+  "assertions": 366,
+  "passed": 366,
+  "failed": 0,
+  "staleSources": [],
+  "previewBytes": 16573203,
+  "previewSha256": "ef3ad0f646bd3e77cd7ab74d8a3fc157f6408b26352c4709146e98f3a7ac9bed",
+  "suites": [
+    {
+      "file": "validation/v73-community-check-results.json",
+      "scope": "UID/UUID separation, uniform daily reward and durable accounting, real calendars, direct social activity records, cosmetic presentation, and actual React account interactions (no browser visual QA)",
+      "passed": 111,
+      "failed": 0,
+      "stale": [],
+      "assertions": 111
+    },
+    {
+      "file": "validation/v73-calculators-check-results.json",
+      "scope": "Official forum numerical regression, explicit level mappings, immutable local calculation records, mounted DOM interactions and responsive CSS contracts. Not browser visual/layout/gameplay verification.",
+      "passed": 58,
+      "failed": 0,
+      "stale": [],
+      "assertions": 58
+    },
+    {
+      "file": "validation/v73-flow-check.json",
+      "passed": 55,
+      "failed": 0,
+      "stale": [],
+      "assertions": 55
+    },
+    {
+      "file": "validation/v73-learners-check-results.json",
+      "passed": 44,
+      "failed": 0,
+      "stale": [],
+      "assertions": 44
+    },
+    {
+      "file": "validation/v73-interface-check-results.json",
+      "scope": "React interaction checks for iframe-owned input/select lifecycle, IME and entity selection, recoverable render failures, discussion deep links, footer/navigation actions; mocked geometry and CSS contracts are not browser visual QA",
+      "passed": 42,
+      "failed": 0,
+      "stale": [],
+      "assertions": 42
+    },
+    {
+      "file": "validation/v73-integration-check-results.json",
+      "scope": "Actual native HTML routes, static anchors and referenced assets; byte-level official scene/font integrity and compiled CSS mapping; exact self-contained preview executed in JSDOM. Query-specific activity links and saved-comment anchors are exercised interactively. No browser geometry, screenshots, frame rate, current game client or remote-service validation. Iframe lifecycle fault injection is in the focused V7.3 suites.",
+      "passed": 56,
+      "failed": 0,
+      "stale": [],
+      "assertions": 56
+    }
+  ],
+  "limitations": "未进行真实浏览器截图、多设备、非16:9绘制、浏览器缩放或GPU帧率验收；已执行源码/CSS契约、React/JSDOM交互、故障复现及Docusaurus原生构建检查。"
+}

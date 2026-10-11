@@ -1,0 +1,36 @@
+name: Observe GitCode pull mirror
+on:
+  schedule:
+    - cron: '17 * * * *'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  observe:
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - name: Check mirror configuration after environment activation
+        id: mirror-config
+        env:
+          GITCODE_REMOTE_URL: ${{ vars.GITCODE_REMOTE_URL }}
+        run: |
+          if [ -n "$GITCODE_REMOTE_URL" ]; then
+            echo 'enabled=true' >> "$GITHUB_OUTPUT"
+          else
+            echo 'enabled=false' >> "$GITHUB_OUTPUT"
+            echo 'GitCode mirror is not configured; observation skipped.'
+          fi
+      - run: node scripts/check-mirror.mjs
+        if: steps.mirror-config.outputs.enabled == 'true'
+        env:
+          GITCODE_REMOTE_URL: ${{ vars.GITCODE_REMOTE_URL }}
+          API_ORIGIN: ${{ vars.API_ORIGIN }}
+          DEPLOY_WEBHOOK_SECRET: ${{ secrets.DEPLOY_WEBHOOK_SECRET }}

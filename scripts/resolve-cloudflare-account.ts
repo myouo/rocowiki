@@ -1,0 +1,13 @@
+import {appendFile} from 'node:fs/promises';
+const token=process.env.CLOUDFLARE_API_TOKEN;
+if(!token)throw Error('Missing CLOUDFLARE_API_TOKEN');
+const response=await fetch('https://api.cloudflare.com/client/v4/zones?name=rocoai.app',{headers:{Authorization:`Bearer ${token}`},signal:AbortSignal.timeout(15000)});
+const data=await response.json() as {success:boolean;result?:{id:string;name:string;status:string;account:{id:string}}[];errors?:{code:number}[]};
+if(!response.ok||!data.success)throw Error(`Cloudflare zone lookup failed (${response.status}; codes: ${(data.errors??[]).map(error=>error.code).join(',')})`);
+const zones=(data.result??[]).filter(zone=>zone.name==='rocoai.app'&&zone.status==='active');
+if(zones.length!==1||!/^[a-f0-9]{32}$/.test(zones[0].account.id))throw Error('Expected one active rocoai.app zone with an account ID');
+const id=zones[0].account.id;
+if(process.env.CLOUDFLARE_ACCOUNT_ID&&process.env.CLOUDFLARE_ACCOUNT_ID!==id)throw Error('Configured account does not own rocoai.app');
+if(!process.env.GITHUB_OUTPUT)throw Error('Missing GITHUB_OUTPUT');
+await appendFile(process.env.GITHUB_OUTPUT,`account_id=${id}\n`);
+console.log('Cloudflare account verified against the active rocoai.app zone.');

@@ -1,0 +1,35 @@
+{
+  "version": "7.2",
+  "verifiedAt": "2026-10-10",
+  "scope": "已收录原始外观图片，仅切换展示图；不改变种族值、血脉或获取记录。",
+  "pets": {
+    "haifu": [
+      {
+        "id": "xianqing",
+        "name": "闲情·海芙约忒",
+        "label": "闲情",
+        "image": "/img/pets/haifu-xianqing.png",
+        "sourceUrl": "https://ol.3dmgame.com/gl/301614_29.html",
+        "imageSourceUrl": "https://olimg.3dmgame.com/uploads/images/raiders/20250403/1743668227_363750.jpg",
+        "relationSourceUrl": "https://roco.dvg.cn/spirit_info.php?id=3092",
+        "sha256": "1a226432cb393c740014c61890b2a5c21551577fbee9a828d73b0e7b9431772c",
+        "bytes": 841186,
+        "format": "PNG",
+        "rights": "原图与角色权益归原权利人所有；保留原始文件，未重绘。"
+      },
+      {
+        "id": "yuchan",
+        "name": "玉蟾·海芙约忒",
+        "label": "玉蟾",
+        "image": "/img/pets/haifu-yuchan.jpg",
+        "sourceUrl": "https://ol.3dmgame.com/gl/301614_29.html",
+        "imageSourceUrl": "https://olimg.3dmgame.com/uploads/images/raiders/20250403/1743668253_689907.jpg",
+        "relationSourceUrl": "https://roco.dvg.cn/spirit_info.php?id=3092",
+        "sha256": "95572b2d383d4316f550c21adaf0b8caf2346e4a5f44889752af6c0ba7561ade",
+        "bytes": 367395,
+        "format": "JPEG",
+        "rights": "原图与角色权益归原权利人所有；完整保留原图的 ©2024 HMLT 标记。"
+      }
+    ]
+  }
+}

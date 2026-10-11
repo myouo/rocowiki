@@ -1,0 +1,48 @@
+/* One page frame for native routes, document layouts and the HTML preview. */
+:root {
+  --rw-page-width: 1432px;
+  --rw-page-gutter: 34px;
+}
+
+.rw,
+.rw-preview-doc-layout,
+.theme-layout-main > div:has(.rw-doc-sheet),
+main.workspace,
+.rw-masthead,
+.rw-primary-navigation > div {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: var(--rw-page-width);
+  margin-inline: auto;
+  padding-inline: var(--rw-page-gutter);
+  min-width: 0;
+}
+
+.rw > .cm-root {
+  max-width: none;
+}
+
+/* Select the native docs wrapper through our content marker, not a CSS-module hash. */
+.theme-layout-main > div:has(.rw-doc-sheet) > div {
+  width: 100%;
+  min-width: 0;
+}
+
+.rw-footer.rw-footer-v71,
+.rw-page-community-v72 {
+  width: calc(100% - 2 * var(--rw-page-gutter));
+  max-width: calc(var(--rw-page-width) - 2 * var(--rw-page-gutter));
+  margin-inline: auto;
+}
+
+@media (max-width: 996px) {
+  :root {
+    --rw-page-gutter: 23px;
+  }
+}
+
+@media (max-width: 600px) {
+  :root {
+    --rw-page-gutter: 16px;
+  }
+}

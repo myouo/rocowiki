@@ -1,0 +1,51 @@
+{
+  "schemaVersion": 7,
+  "purpose": "从宠物Counter迁出的历史PVE记录，由PVE攻略单向引用推荐宠物；不构成当期通关保证。",
+  "records": [
+    {
+      "petSlug": "bishui",
+      "guideSlug": "star-tower",
+      "record": {
+        "id": "bishui-ice-dragon",
+        "opponent": "星辰之塔 · 傲凌冰龙王",
+        "opponentSlug": null,
+        "direction": "需防范的反制",
+        "conclusion": "开出水灵动仍可能在净化之后、免疫生效之前被凝霜附加冰冻。",
+        "conditions": [
+          "对方已经发动凝霜，水灵动的伤害触发受击判定。",
+          "若下一回合对方先手，已存在的冰冻可能限制碧水行动。"
+        ],
+        "limitations": "这是资料页记录的特定结算案例。Boss层数、当时版本与完整配置待补，本站未复现。",
+        "evidenceLabel": "社区记录 · 待复现",
+        "sourceLabel": "百度百科 · 异常状态「主动免疫」",
+        "sourceUrl": "https://bkso.baidu.com/item/%E5%BC%82%E5%B8%B8%E7%8A%B6%E6%80%81/23677183?fromModule=lemma_inlink",
+        "recordedAt": null,
+        "testedAt": null,
+        "relatedSkills": ["shuilingdong"]
+      }
+    },
+    {
+      "petSlug": "bishui",
+      "guideSlug": "star-tower",
+      "record": {
+        "id": "bishui-sacred-wu-20200511",
+        "opponent": "星辰之塔 · 圣尊武王（历史第七层）",
+        "opponentSlug": null,
+        "direction": "条件适用 · 2020 历史攻略",
+        "conclusion": "原作者记录了碧水用固伤与续航挑战该 Boss 的路线，需根据 Boss 对强化的限制调整配招。",
+        "conditions": [
+          "以水灵动承担防控与续航，使用源头活水补充精力。",
+          "按该历史关卡规则避免自身强化，不照搬逍遥游的强化续航路线。",
+          "对照当期 Boss 规则及自身生存配置；这不是可直接套用的逐回合通关表。"
+        ],
+        "limitations": "文章发表于 2020 年。Boss 名录、当前关卡规则、完整能力和回合记录待核对；此条只保留历史配招思路。",
+        "evidenceLabel": "作者攻略 · 历史条件待复现",
+        "sourceLabel": "柠檬花少年 · 回归号宠物详解：碧水",
+        "sourceUrl": "https://www.sohu.com/a/394472186_120099891",
+        "recordedAt": "2020-05-11",
+        "testedAt": null,
+        "relatedSkills": ["shuilingdong"]
+      }
+    }
+  ]
+}

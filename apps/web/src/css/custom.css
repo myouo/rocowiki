@@ -1,0 +1,36 @@
+@import "./layout.css";
+@import "../wiki/CommunityPages.css";
+@import "../wiki/WorldPages.css";
+@import "../wiki/StatsRadar.css";
+@import "./v5.css";
+@import "../wiki/PveV6.css";
+@import "../wiki/WorldV6.css";
+@import "../wiki/CatalogV6.css";
+@import "../wiki/ToolsV6.css";
+@import "./v6.css";
+@import "../wiki/Select.css";
+@import "../wiki/EntityTextarea.css";
+
+@import "./font-sans-v7.css";
+@import "../wiki/EditingV7.css";
+@import "../wiki/CatalogV7.css";
+@import "../wiki/ToolsV7.css";
+@import "../wiki/WorldV7.css";
+@import "./v7.css";
+@import "../wiki/PveV71.css";
+@import "../wiki/SkillBranchView.css";
+@import "./v71.css";
+
+@import "../wiki/CommunityHonors.css";
+@import "../wiki/CatalogV72.css";
+@import "../wiki/PveV72.css";
+@import "./v72.css";
+@import "../wiki/BoundedTextarea.css";
+@import "../wiki/CalculatorsV73.css";
+@import "../wiki/SkillLearners.css";
+@import "./v73.css";
+@import "../wiki/WelcomeBackdrop.css";
+@import "../wiki/DirectoryPanel.css";
+@import "../wiki/editing/EditEntry.css";
+@import "./page-layout.css";
+@import "./reader-polish.css";

@@ -1,0 +1,158 @@
+{
+  "status": "PASS",
+  "checkCount": 36,
+  "checks": [
+    {
+      "label": "12 catalog samples render and no native select remains",
+      "pass": true
+    },
+    {
+      "label": "Attribute, five metadata facets, and sorting have named custom comboboxes",
+      "pass": true
+    },
+    {
+      "label": "Cards do not show stat totals",
+      "pass": true
+    },
+    {
+      "label": "All attribute assets have local image paths and alt labels",
+      "pass": true
+    },
+    {
+      "label": "Verified group filter selects only the three known starters",
+      "pass": true
+    },
+    {
+      "label": "Independent attribute filter intersects group without clearing it",
+      "pass": true
+    },
+    {
+      "label": "Experience type filter uses real recorded codes",
+      "pass": true
+    },
+    {
+      "label": "Series intersects experience type and retains 3 recorded annual pets",
+      "pass": true
+    },
+    {
+      "label": "Specific bloodline name selects the known holder",
+      "pass": true
+    },
+    {
+      "label": "Magic filter selects the dated 4-point record",
+      "pass": true
+    },
+    {
+      "label": "Unknown magic remains unknown instead of zero",
+      "pass": true
+    },
+    {
+      "label": "Magic ascending puts 4 then 5 before unknowns",
+      "pass": true
+    },
+    {
+      "label": "Magic descending reverses known values while unknowns remain last",
+      "pass": true
+    },
+    {
+      "label": "Six-stat sorting uses stable speed position",
+      "pass": true
+    },
+    {
+      "label": "All six fields map to exact axis values",
+      "pass": true
+    },
+    {
+      "label": "Exact totals and dimensions are not inferred from absent data",
+      "pass": true
+    },
+    {
+      "label": "Magic badge is numeric and exposes date and meaning on click",
+      "pass": true
+    },
+    {
+      "label": "Magic badge stays focused after pointer activation",
+      "pass": true
+    },
+    {
+      "label": "Magic tooltip can close with Escape",
+      "pass": true
+    },
+    {
+      "label": "Pet skill links use canonical skill route with explicit pet context",
+      "pass": true
+    },
+    {
+      "label": "Haifu acquisition timeline uses two real activity periods",
+      "pass": true
+    },
+    {
+      "label": "PVE/PVP sections separately expose records and their evidence",
+      "pass": true
+    },
+    {
+      "label": "Bishui counter record states exact boss and conditional failure",
+      "pass": true
+    },
+    {
+      "label": "Canonical skill page retains a verified return-to-pet context",
+      "pass": true
+    },
+    {
+      "label": "Skill conditions replace the misleading common-effect heading",
+      "pass": true
+    },
+    {
+      "label": "Skill-specific mechanism references remain available",
+      "pass": true
+    },
+    {
+      "label": "Condition fold control has correct ARIA and hides only conditional content",
+      "pass": true
+    },
+    {
+      "label": "Unverified pet query never creates a false learning relationship",
+      "pass": true
+    },
+    {
+      "label": "Non-complementary conditional alternative explicitly names its own condition",
+      "pass": true
+    },
+    {
+      "label": "Formerly undifferentiated skill summary now has weather branch",
+      "pass": true
+    },
+    {
+      "label": "Skills category bar has skill and bloodline entries only",
+      "pass": true
+    },
+    {
+      "label": "Bloodline category bar uses the same two entries without nesting battle mechanics",
+      "pass": true
+    },
+    {
+      "label": "Bloodline index uses the verified names instead of a missing-name placeholder",
+      "pass": true
+    },
+    {
+      "label": "Bloodline detail retains a source for the names and marks rules separately",
+      "pass": true
+    },
+    {
+      "label": "21 downloaded type icons match manifest byte counts and hashes",
+      "pass": true
+    },
+    {
+      "label": "No React DOM console errors during bounded workflows",
+      "pass": true
+    }
+  ],
+  "scope": "Independent JSDOM functional harness using bundled source. Docusaurus routing is stubbed; CSS and image loading are not executed. Not preview HTML, browser screenshots, layout, performance, or real-server navigation validation.",
+  "sourceSha256": {
+    "src/wiki/CatalogPages.jsx": "d55445975fad981579a9752160a3f9593d41c6051534df8cc977565b7f3fe395",
+    "src/wiki/CatalogV6.css": "38eb8bad430476fa051d1bd838fc33a79252b4a362e128782042bf6c9c8ae595",
+    "content/pet-metadata-v6.json": "f978c3571efbdf6af4d11a10ab73734aefe617645cbe9c947a2af42b239c228e",
+    "src/wiki/Select.jsx": "493d8e97767e589ed5c524b5c685c1ee5c14181832587d5b31ccfb7a64c73ee0"
+  },
+  "ranAt": "2026-10-10T11:26:23.155Z"
+}

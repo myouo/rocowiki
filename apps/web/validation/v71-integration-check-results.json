@@ -1,0 +1,1552 @@
+{
+  "version": "7.1",
+  "scope": "Native static HTML + delivered single-file HTML executed in JSDOM. Not a browser screenshot, layout, frame-rate, real-service or game-client test.",
+  "checkedAt": "2026-10-10T13:43:57.006Z",
+  "passed": 63,
+  "failed": 0,
+  "routeCount": 121,
+  "documentCount": 25,
+  "checks": [
+    {
+      "name": "All 121 registered article/directory routes are emitted as readable native HTML",
+      "pass": true
+    },
+    {
+      "name": "Every registered route retains the common header, main landmark and floating feedback entry",
+      "pass": true
+    },
+    {
+      "name": "No native select elements return in the full static site",
+      "pass": true
+    },
+    {
+      "name": "All native internal navigation links resolve to an emitted page or static asset",
+      "pass": true
+    },
+    {
+      "name": "PVE links retain query context and resolve to real destination anchors",
+      "pass": true
+    },
+    {
+      "name": "All locally served pet and type images exist",
+      "pass": true
+    },
+    {
+      "name": "All 105 native documentation subheadings have a correct contextual editor and return anchor",
+      "pass": true
+    },
+    {
+      "name": "Native Docusaurus footer editors use the same real article identity as page editors",
+      "pass": true
+    },
+    {
+      "name": "Guide pages use an article sheet with internally scrollable data tables",
+      "pass": true
+    },
+    {
+      "name": "Native font copies and hashed font assets match the final subset exactly",
+      "pass": true
+    },
+    {
+      "name": "Only the retained wordmark uses its original Georgia face; the serif body font is no longer imported",
+      "pass": true
+    },
+    {
+      "name": "Guide grid areas are explicit and collapse to a single minmax(0,1fr) article column",
+      "pass": true
+    },
+    {
+      "name": "Custom dropdown panels are not clipped by a containing community paper",
+      "pass": true
+    },
+    {
+      "name": "Reduced-motion disables the decorative motion and all animation durations are short",
+      "pass": true
+    },
+    {
+      "name": "Homepage uses the original official web-game background with a checked origin and byte hash",
+      "pass": true
+    },
+    {
+      "name": "Primary navigation has one selected pill without a competing underline; keyboard focus is retained",
+      "pass": true
+    },
+    {
+      "name": "Footer has an explicit centered width, intrinsic-safe grid and a narrow-screen stacking contract",
+      "pass": true
+    },
+    {
+      "name": "Footer side gutters switch at the same 996px and 600px breakpoints as article content",
+      "pass": true
+    },
+    {
+      "name": "Delivered HTML includes both new PVE and flexible skill branch styles, not only their markup",
+      "pass": true
+    },
+    {
+      "name": "Shipped single-file preview starts without a server and mounts the new illustrated homepage",
+      "pass": true
+    },
+    {
+      "name": "Homepage preserves simultaneous ladder-left and type-tournament-right tables",
+      "pass": true
+    },
+    {
+      "name": "Homepage shows three activity columns including expiring activities",
+      "pass": true
+    },
+    {
+      "name": "Homepage credits the original official background without changing the retained wordmark",
+      "pass": true
+    },
+    {
+      "name": "Pet directory exposes add-pet only, without directory or filter editors",
+      "pass": true
+    },
+    {
+      "name": "Mobile navigation closes when returning from a filtered catalog on the same pathname",
+      "pass": true
+    },
+    {
+      "name": "Pet header has one dedicated edit action and the Counter contains no PVE content",
+      "pass": true
+    },
+    {
+      "name": "Each acquisition and Counter record retains a dedicated typed editor",
+      "pass": true
+    },
+    {
+      "name": "Skill list rows and overview headings have no inline editors; adding one skill remains available",
+      "pass": true
+    },
+    {
+      "name": "Skills overview ends in 技能描述 and retains effect filtering",
+      "pass": true
+    },
+    {
+      "name": "Skill paragraph editor preserves its originating pet context",
+      "pass": true
+    },
+    {
+      "name": "NPC directory offers one clearly labeled add-entry action",
+      "pass": true
+    },
+    {
+      "name": "Adventure secondary navigation no longer jumps to the PVE primary route",
+      "pass": true
+    },
+    {
+      "name": "Adventure child pages keep their primary navigation attribution",
+      "pass": true
+    },
+    {
+      "name": "Mechanics overview directly opens the complete Docusaurus reading index",
+      "pass": true
+    },
+    {
+      "name": "All-mechanisms view presents reading body with left navigation and right outline",
+      "pass": true
+    },
+    {
+      "name": "One recurring activity page displays both independent opening periods",
+      "pass": true
+    },
+    {
+      "name": "Power damage calculator has one rule editor and visibly emphasizes upper damage",
+      "pass": true
+    },
+    {
+      "name": "Tool footer offers contextual feedback rather than a broad article editor",
+      "pass": true
+    },
+    {
+      "name": "Footer feedback opens on the current page and returns keyboard focus to its invoker",
+      "pass": true
+    },
+    {
+      "name": "Closing contextual feedback restores the invoking control",
+      "pass": true
+    },
+    {
+      "name": "Personal center has five clear primary categories rather than mixed profile/binding entries",
+      "pass": true
+    },
+    {
+      "name": "Account overview displays avatar, name and an honestly unbound GitHub platform chip",
+      "pass": true
+    },
+    {
+      "name": "Account tab selection has a stable, directly addressable URL",
+      "pass": true
+    },
+    {
+      "name": "Avatar picker supports arrow navigation, checked state and roving keyboard focus",
+      "pass": true
+    },
+    {
+      "name": "Selected avatar and nickname are stored together without fabricating online identity",
+      "pass": true
+    },
+    {
+      "name": "Storage failure never shows a false success and keeps the session avatar consistent",
+      "pass": true
+    },
+    {
+      "name": "Profile save can recover after storage becomes available",
+      "pass": true
+    },
+    {
+      "name": "Account identity and persistent header avatar both read back the saved profile",
+      "pass": true
+    },
+    {
+      "name": "Platform association status leads directly to Account and Security",
+      "pass": true
+    },
+    {
+      "name": "Return guide mounts the explicit article/sidebar layout with four subsection editors",
+      "pass": true
+    },
+    {
+      "name": "Published subsection content actually replaces the old body in the delivered preview",
+      "pass": true
+    },
+    {
+      "name": "Other guide sections remain after a subsection publication",
+      "pass": true
+    },
+    {
+      "name": "Published prose renders tables and sibling Markdown links correctly",
+      "pass": true
+    },
+    {
+      "name": "Published document retains both preview anchors and native Docusaurus TOC aliases",
+      "pass": true
+    },
+    {
+      "name": "Opening the revised subsection again preloads its latest published Markdown",
+      "pass": true
+    },
+    {
+      "name": "Editor preview renders the revised article body, table and links inside a reading viewport",
+      "pass": true
+    },
+    {
+      "name": "Reading preview is separate from the editor and contains no edit or vote controls",
+      "pass": true
+    },
+    {
+      "name": "Preview changes its actual frame container to the 390px mobile viewport contract",
+      "pass": true
+    },
+    {
+      "name": "Following a preview link shows its destination without leaving or mutating the draft",
+      "pass": true
+    },
+    {
+      "name": "Diff is a separate mode, rather than the only preview",
+      "pass": true
+    },
+    {
+      "name": "Review opens the same rendered article preview as editing, including revised content",
+      "pass": true
+    },
+    {
+      "name": "Review also offers a distinct diff view",
+      "pass": true
+    },
+    {
+      "name": "Delivered preview has no React or uncaught JavaScript errors",
+      "pass": true
+    }
+  ],
+  "pageResults": [
+    {
+      "route": "/",
+      "exists": true,
+      "h1": "洛克王国页游百科",
+      "header": true,
+      "feedback": true,
+      "hasMain": true,
+      "footerCount": 1,
+      "nativeSelectCount": 0
+    },
+    {
+      "route": "/pets/",
+      "exists": true,
+      "h1": "宠物图鉴",
+      "header": true,
+      "feedback": true,
+      "hasMain": true,
+      "footerCount": 1,
+      "nativeSelectCount": 0
+    },
+    {
+      "route": "/skills/",
+      "exists": true,
+      "h1": "技能查询",
+      "header": true,
+      "feedback": true,
+      "hasMain": true,
+      "footerCount": 1,
+      "nativeSelectCount": 0
+    },
+    {
+      "route": "/bloodlines/",
+      "exists": true,
+      "h1": "血脉资料",
+      "header": true,
+      "feedback": true,
+      "hasMain": true,
+      "footerCount": 1,
+      "nativeSelectCount": 0
+    },
+    {
+      "route": "/events/",
+      "exists": true,
+      "h1": "活动与获取",
+      "header": true,
+      "feedback": true,
+      "hasMain": true,
+      "footerCount": 1,
+      "nativeSelectCount": 0
+    },
+    {
+      "route": "/battle/",
+      "exists": true,
+      "h1": "对战与禁赛",
+      "header": true,
+      "feedback": true,
+      "hasMain": true,
+      "footerCount": 1,
+      "nativeSelectCount": 0
+    },
+    {
+      "route": "/adventure/",
+      "exists": true,
+      "h1": "冒险资料",
+      "header": true,
+      "feedback": true,
+      "hasMain": true,
+      "footerCount": 1,
+      "nativeSelectCount": 0
+    },
+    {
+      "route": "/places/",
+      "exists": true,
+      "h1": "地图与地区",
+      "header": true,
+      "feedback": true,
+      "hasMain": true,
+      "footerCount": 1,
+      "nativeSelectCount": 0
+    },
+    {
+      "route": "/npcs/",
+      "exists": true,
+      "h1": "人物与NPC",
+      "header": true,
+      "feedback": true,
+      "hasMain": true,
+      "footerCount": 1,
+      "nativeSelectCount": 0
+    },
+    {
+      "route": "/items/",
+      "exists": true,
+      "h1": "道具与物品",
+      "header": true,
+      "feedback": true,
+      "hasMain": true,
+      "footerCount": 1,
+      "nativeSelectCount": 0
+    },
+    {
+      "route": "/challenges/",
+      "exists": true,
+      "h1": "历史挑战资料",
+      "header": true,
+      "feedback": true,
+      "hasMain": true,
+      "footerCount": 1,
+      "nativeSelectCount": 0
+    },
+    {
+      "route": "/tools/",
+      "exists": true,
+      "h1": "实用工具",
+      "header": true,
+      "feedback": true,
+      "hasMain": true,
+      "footerCount": 1,
+      "nativeSelectCount": 0
+    },
+    {
+      "route": "/community/",
+      "exists": true,
+      "h1": "贡献中心",
+      "header": true,
+      "feedback": true,
+      "hasMain": true,
+      "footerCount": 1,
+      "nativeSelectCount": 0
+    },
+    {
+      "route": "/account/",
+      "exists": true,
+      "h1": "个人中心",
+      "header": true,
+      "feedback": true,
+      "hasMain": true,
+      "footerCount": 1,
+      "nativeSelectCount": 0
+    },
+    {
+      "route": "/edit/",
+      "exists": true,
+      "h1": "海芙约忒 / 条目正文",
+      "header": true,
+      "feedback": true,
+      "hasMain": true,
+      "footerCount": 1,
+      "nativeSelectCount": 0
+    },
+    {
+      "route": "/review/",
+      "exists": true,
+      "h1": "审核工作台",
+      "header": true,
+      "feedback": true,
+      "hasMain": true,
+      "footerCount": 1,
+      "nativeSelectCount": 0
+    },
+    {
+      "route": "/history/",
+      "exists": true,
+      "h1": "修订记录 · 海芙约忒",
+      "header": true,
+      "feedback": true,
+      "hasMain": true,
+      "footerCount": 1,
+      "nativeSelectCount": 0
+    },
+    {
+      "route": "/search/",
+      "exists": true,
+      "h1": "全站搜索",
+      "header": true,
+      "feedback": true,
+      "hasMain": true,
+      "footerCount": 1,
+      "nativeSelectCount": 0
+    },
+    {
+      "route": "/guides/",
+      "exists": true,
+      "h1": "玩家指南",
+      "header": true,
+      "feedback": true,
+      "hasMain": true,
+      "footerCount": 1,
+      "nativeSelectCount": 0
+    },
+    {
+      "route": "/help/",
+      "exists": true,
+      "h1": "贡献帮助",
+      "header": true,
+      "feedback": true,
+      "hasMain": true,
+      "footerCount": 1,
+      "nativeSelectCount": 0
+    },
+    {
+      "route": "/tasks/",
+      "exists": true,
+      "h1": "任务与剧情",
+      "header": true,
+      "feedback": true,
+      "hasMain": true,
+      "footerCount": 1,
+      "nativeSelectCount": 0
+    },
+    {
+      "route": "/not-found/",
+      "exists": true,
+      "h1": "没有找到这份资料",
+      "header": true,
+      "feedback": true,
+      "hasMain": true,
+      "footerCount": 1,
+      "nativeSelectCount": 0
+    },
+    {
+      "route": "/pets/haifu/",
+      "exists": true,
+      "h1": "海芙约忒",
+      "header": true,
+      "feedback": true,
+      "hasMain": true,
+      "footerCount": 1,
+      "nativeSelectCount": 0
+    },
+    {
+      "route": "/pets/bishui/",
+      "exists": true,
+      "h1": "碧水灵兽",
+      "header": true,
+      "feedback": true,
+      "hasMain": true,
+      "footerCount": 1,
+      "nativeSelectCount": 0
+    },
+    {
+      "route": "/pets/dimo/",
+      "exists": true,
+      "h1": "迪莫",
+      "header": true,
+      "feedback": true,
+      "hasMain": true,
+      "footerCount": 1,
+      "nativeSelectCount": 0
+    },
+    {
+      "route": "/pets/abu/",
+      "exists": true,
+      "h1": "阿布",
+      "header": true,
+      "feedback": true,
+      "hasMain": true,
+      "footerCount": 1,
+      "nativeSelectCount": 0
+    },
+    {
+      "route": "/pets/shuilanlan/",
+      "exists": true,
+      "h1": "水蓝蓝",
+      "header": true,
+      "feedback": true,
+      "hasMain": true,
+      "footerCount": 1,
+      "nativeSelectCount": 0
+    },
+    {
+      "route": "/pets/huohua/",
+      "exists": true,
+      "h1": "火花",
+      "header": true,
+      "feedback": true,
+      "hasMain": true,
+      "footerCount": 1,
+      "nativeSelectCount": 0
+    },
+    {
+      "route": "/pets/miaomiao/",
+      "exists": true,
+      "h1": "喵喵",
+      "header": true,
+      "feedback": true,
+      "hasMain": true,
+      "footerCount": 1,
+      "nativeSelectCount": 0
+    },
+    {
+      "route": "/pets/royal-dimo/",
+      "exists": true,
+      "h1": "皇家圣光迪莫",
+      "header": true,
+      "feedback": true,
+      "hasMain": true,
+      "footerCount": 1,
+      "nativeSelectCount": 0
+    },
+    {
+      "route": "/pets/moshen/",
+      "exists": true,
+      "h1": "魔神武王",
+      "header": true,
+      "feedback": true,
+      "hasMain": true,
+      "footerCount": 1,
+      "nativeSelectCount": 0
+    },
+    {
+      "route": "/pets/zhuque/",
+      "exists": true,
+      "h1": "灵瑞朱雀",
+      "header": true,
+      "feedback": true,
+      "hasMain": true,
+      "footerCount": 1,
+      "nativeSelectCount": 0
+    },
+    {
+      "route": "/pets/hapuluosi/",
+      "exists": true,
+      "h1": "哈普洛斯",
+      "header": true,
+      "feedback": true,
+      "hasMain": true,
+      "footerCount": 1,
+      "nativeSelectCount": 0
+    },
+    {
+      "route": "/pets/sailemu/",
+      "exists": true,
+      "h1": "塞勒姆",
+      "header": true,
+      "feedback": true,
+      "hasMain": true,
+      "footerCount": 1,
+      "nativeSelectCount": 0
+    },
+    {
+      "route": "/skills/xiazi/",
+      "exists": true,
+      "h1": "霞姿月韵",
+      "header": true,
+      "feedback": true,
+      "hasMain": true,
+      "footerCount": 1,
+      "nativeSelectCount": 0
+    },
+    {
+      "route": "/skills/yuanyun/",
+      "exists": true,
+      "h1": "渊云点墨",
+      "header": true,
+      "feedback": true,
+      "hasMain": true,
+      "footerCount": 1,
+      "nativeSelectCount": 0
+    },
+    {
+      "route": "/skills/diezhang/",
+      "exists": true,
+      "h1": "叠嶂扶影",
+      "header": true,
+      "feedback": true,
+      "hasMain": true,
+      "footerCount": 1,
+      "nativeSelectCount": 0
+    },
+    {
+      "route": "/skills/tianhe/",
+      "exists": true,
+      "h1": "天河夜转",
+      "header": true,
+      "feedback": true,
+      "hasMain": true,
+      "footerCount": 1,
+      "nativeSelectCount": 0
+    },
+    {
+      "route": "/skills/feixing/",
+      "exists": true,
+      "h1": "飞星浮渡",
+      "header": true,
+      "feedback": true,
+      "hasMain": true,
+      "footerCount": 1,
+      "nativeSelectCount": 0
+    },
+    {
+      "route": "/skills/linghuo/",
+      "exists": true,
+      "h1": "灵火之杖",
+      "header": true,
+      "feedback": true,
+      "hasMain": true,
+      "footerCount": 1,
+      "nativeSelectCount": 0
+    },
+    {
+      "route": "/skills/xiufu/",
+      "exists": true,
+      "h1": "袖拂尘散",
+      "header": true,
+      "feedback": true,
+      "hasMain": true,
+      "footerCount": 1,
+      "nativeSelectCount": 0
+    },
+    {
+      "route": "/skills/wufa/",
+      "exists": true,
+      "h1": "巫法重击",
+      "header": true,
+      "feedback": true,
+      "hasMain": true,
+      "footerCount": 1,
+      "nativeSelectCount": 0
+    },
+    {
+      "route": "/places/castle/",
+      "exists": true,
+      "h1": "王国城堡",
+      "header": true,
+      "feedback": true,
+      "hasMain": true,
+      "footerCount": 1,
+      "nativeSelectCount": 0
+    },
+    {
+      "route": "/places/academy/",
+      "exists": true,
+      "h1": "魔法学院",
+      "header": true,
+      "feedback": true,
+      "hasMain": true,
+      "footerCount": 1,
+      "nativeSelectCount": 0
+    },
+    {
+      "route": "/places/mermaid-bay/",
+      "exists": true,
+      "h1": "人鱼湾",
+      "header": true,
+      "feedback": true,
+      "hasMain": true,
+      "footerCount": 1,
+      "nativeSelectCount": 0
+    },
+    {
+      "route": "/places/snow-valley/",
+      "exists": true,
+      "h1": "雪人谷",
+      "header": true,
+      "feedback": true,
+      "hasMain": true,
+      "footerCount": 1,
+      "nativeSelectCount": 0
+    },
+    {
+      "route": "/places/xuan-yu/",
+      "exists": true,
+      "h1": "玄玉岛",
+      "header": true,
+      "feedback": true,
+      "hasMain": true,
+      "footerCount": 1,
+      "nativeSelectCount": 0
+    },
+    {
+      "route": "/places/sky/",
+      "exists": true,
+      "h1": "天空城",
+      "header": true,
+      "feedback": true,
+      "hasMain": true,
+      "footerCount": 1,
+      "nativeSelectCount": 0
+    },
+    {
+      "route": "/npcs/griffin/",
+      "exists": true,
+      "h1": "格里芬院长",
+      "header": true,
+      "feedback": true,
+      "hasMain": true,
+      "footerCount": 1,
+      "nativeSelectCount": 0
+    },
+    {
+      "route": "/npcs/lancelot/",
+      "exists": true,
+      "h1": "兰斯洛",
+      "header": true,
+      "feedback": true,
+      "hasMain": true,
+      "footerCount": 1,
+      "nativeSelectCount": 0
+    },
+    {
+      "route": "/bloodlines/haifu/",
+      "exists": true,
+      "h1": "海芙约忒 · 血脉与专属资源",
+      "header": true,
+      "feedback": true,
+      "hasMain": true,
+      "footerCount": 1,
+      "nativeSelectCount": 0
+    },
+    {
+      "route": "/events/fun-chess-20251128/",
+      "exists": true,
+      "h1": "趣味对弈",
+      "header": true,
+      "feedback": true,
+      "hasMain": true,
+      "footerCount": 1,
+      "nativeSelectCount": 0
+    },
+    {
+      "route": "/challenges/star-tower/",
+      "exists": true,
+      "h1": "星辰之塔 · 历史 Boss 目录",
+      "header": true,
+      "feedback": true,
+      "hasMain": true,
+      "footerCount": 1,
+      "nativeSelectCount": 0
+    },
+    {
+      "route": "/items/potion/",
+      "exists": true,
+      "h1": "HP药剂",
+      "header": true,
+      "feedback": true,
+      "hasMain": true,
+      "footerCount": 1,
+      "nativeSelectCount": 0
+    },
+    {
+      "route": "/tasks/badges/",
+      "exists": true,
+      "h1": "徽章任务",
+      "header": true,
+      "feedback": true,
+      "hasMain": true,
+      "footerCount": 1,
+      "nativeSelectCount": 0
+    },
+    {
+      "route": "/tools/compare/",
+      "exists": true,
+      "h1": "宠物对比",
+      "header": true,
+      "feedback": true,
+      "hasMain": true,
+      "footerCount": 1,
+      "nativeSelectCount": 0
+    },
+    {
+      "route": "/tools/pp/",
+      "exists": true,
+      "h1": "工具已更新",
+      "header": true,
+      "feedback": true,
+      "hasMain": true,
+      "footerCount": 1,
+      "nativeSelectCount": 0
+    },
+    {
+      "route": "/tools/range/",
+      "exists": true,
+      "h1": "工具已更新",
+      "header": true,
+      "feedback": true,
+      "hasMain": true,
+      "footerCount": 1,
+      "nativeSelectCount": 0
+    },
+    {
+      "route": "/skills/shuilingdong/",
+      "exists": true,
+      "h1": "水灵动",
+      "header": true,
+      "feedback": true,
+      "hasMain": true,
+      "footerCount": 1,
+      "nativeSelectCount": 0
+    },
+    {
+      "route": "/skills/yupiaoyao/",
+      "exists": true,
+      "h1": "雨飘摇",
+      "header": true,
+      "feedback": true,
+      "hasMain": true,
+      "footerCount": 1,
+      "nativeSelectCount": 0
+    },
+    {
+      "route": "/skills/chenshiji/",
+      "exists": true,
+      "h1": "趁势击",
+      "header": true,
+      "feedback": true,
+      "hasMain": true,
+      "footerCount": 1,
+      "nativeSelectCount": 0
+    },
+    {
+      "route": "/skills/feiyanlingbo/",
+      "exists": true,
+      "h1": "飞燕凌波",
+      "header": true,
+      "feedback": true,
+      "hasMain": true,
+      "footerCount": 1,
+      "nativeSelectCount": 0
+    },
+    {
+      "route": "/feedback/",
+      "exists": true,
+      "h1": "我的反馈",
+      "header": true,
+      "feedback": true,
+      "hasMain": true,
+      "footerCount": 1,
+      "nativeSelectCount": 0
+    },
+    {
+      "route": "/mechanics/",
+      "exists": true,
+      "h1": "战斗机制",
+      "header": true,
+      "feedback": true,
+      "hasMain": true,
+      "footerCount": 1,
+      "nativeSelectCount": 0
+    },
+    {
+      "route": "/mechanics/relations/",
+      "exists": true,
+      "h1": "效果关系查询",
+      "header": true,
+      "feedback": true,
+      "hasMain": true,
+      "footerCount": 1,
+      "nativeSelectCount": 0
+    },
+    {
+      "route": "/battle/rules/",
+      "exists": true,
+      "h1": "系别排位赛参赛规则",
+      "header": true,
+      "feedback": true,
+      "hasMain": true,
+      "footerCount": 1,
+      "nativeSelectCount": 0
+    },
+    {
+      "route": "/events/harvest-fruit-line-20261009/",
+      "exists": true,
+      "h1": "丰收水果连线",
+      "header": true,
+      "feedback": true,
+      "hasMain": true,
+      "footerCount": 1,
+      "nativeSelectCount": 0
+    },
+    {
+      "route": "/events/ifrit-challenge-20261009/",
+      "exists": true,
+      "h1": "伊芙利特的挑战",
+      "header": true,
+      "feedback": true,
+      "hasMain": true,
+      "footerCount": 1,
+      "nativeSelectCount": 0
+    },
+    {
+      "route": "/events/soul-helmets-20261009/",
+      "exists": true,
+      "h1": "千盔铸魂",
+      "header": true,
+      "feedback": true,
+      "hasMain": true,
+      "footerCount": 1,
+      "nativeSelectCount": 0
+    },
+    {
+      "route": "/events/energy-array-20261009/",
+      "exists": true,
+      "h1": "能量调和之阵",
+      "header": true,
+      "feedback": true,
+      "hasMain": true,
+      "footerCount": 1,
+      "nativeSelectCount": 0
+    },
+    {
+      "route": "/events/collect-colors-20261002/",
+      "exists": true,
+      "h1": "采集颜色",
+      "header": true,
+      "feedback": true,
+      "hasMain": true,
+      "footerCount": 1,
+      "nativeSelectCount": 0
+    },
+    {
+      "route": "/events/fruit-market-20261002/",
+      "exists": true,
+      "h1": "瓜果集市",
+      "header": true,
+      "feedback": true,
+      "hasMain": true,
+      "footerCount": 1,
+      "nativeSelectCount": 0
+    },
+    {
+      "route": "/events/duck-challenge-20261002/",
+      "exists": true,
+      "h1": "难不倒鸭",
+      "header": true,
+      "feedback": true,
+      "hasMain": true,
+      "footerCount": 1,
+      "nativeSelectCount": 0
+    },
+    {
+      "route": "/pve/",
+      "exists": true,
+      "h1": "PVE 副本与挑战",
+      "header": true,
+      "feedback": true,
+      "hasMain": true,
+      "footerCount": 1,
+      "nativeSelectCount": 0
+    },
+    {
+      "route": "/pve/star-tower/",
+      "exists": true,
+      "h1": "星辰之塔",
+      "header": true,
+      "feedback": true,
+      "hasMain": true,
+      "footerCount": 1,
+      "nativeSelectCount": 0
+    },
+    {
+      "route": "/pve/shanhai/",
+      "exists": true,
+      "h1": "山海秘境",
+      "header": true,
+      "feedback": true,
+      "hasMain": true,
+      "footerCount": 1,
+      "nativeSelectCount": 0
+    },
+    {
+      "route": "/pve/sentry-intelligence/",
+      "exists": true,
+      "h1": "哨兵因因的情报",
+      "header": true,
+      "feedback": true,
+      "hasMain": true,
+      "footerCount": 1,
+      "nativeSelectCount": 0
+    },
+    {
+      "route": "/pve/training-hall/",
+      "exists": true,
+      "h1": "勇者训练馆",
+      "header": true,
+      "feedback": true,
+      "hasMain": true,
+      "footerCount": 1,
+      "nativeSelectCount": 0
+    },
+    {
+      "route": "/pve/seven-sanctuaries/",
+      "exists": true,
+      "h1": "七曜圣地",
+      "header": true,
+      "feedback": true,
+      "hasMain": true,
+      "footerCount": 1,
+      "nativeSelectCount": 0
+    },
+    {
+      "route": "/tools/damage/",
+      "exists": true,
+      "h1": "威力伤害计算器",
+      "header": true,
+      "feedback": true,
+      "hasMain": true,
+      "footerCount": 1,
+      "nativeSelectCount": 0
+    },
+    {
+      "route": "/tools/stats/",
+      "exists": true,
+      "h1": "能力计算器",
+      "header": true,
+      "feedback": true,
+      "hasMain": true,
+      "footerCount": 1,
+      "nativeSelectCount": 0
+    },
+    {
+      "route": "/events/measurement-expert-20260904/",
+      "exists": true,
+      "h1": "测量专家",
+      "header": true,
+      "feedback": true,
+      "hasMain": true,
+      "footerCount": 1,
+      "nativeSelectCount": 0
+    },
+    {
+      "route": "/events/honey-homecoming-20260904/",
+      "exists": true,
+      "h1": "采蜜归巢",
+      "header": true,
+      "feedback": true,
+      "hasMain": true,
+      "footerCount": 1,
+      "nativeSelectCount": 0
+    },
+    {
+      "route": "/events/rice-shop-20260904/",
+      "exists": true,
+      "h1": "米粒小铺",
+      "header": true,
+      "feedback": true,
+      "hasMain": true,
+      "footerCount": 1,
+      "nativeSelectCount": 0
+    },
+    {
+      "route": "/events/harvest-fruit-line/",
+      "exists": true,
+      "h1": "丰收水果连线",
+      "header": true,
+      "feedback": true,
+      "hasMain": true,
+      "footerCount": 1,
+      "nativeSelectCount": 0
+    },
+    {
+      "route": "/events/ifrit-challenge/",
+      "exists": true,
+      "h1": "伊芙利特的挑战",
+      "header": true,
+      "feedback": true,
+      "hasMain": true,
+      "footerCount": 1,
+      "nativeSelectCount": 0
+    },
+    {
+      "route": "/events/soul-helmets/",
+      "exists": true,
+      "h1": "千盔铸魂",
+      "header": true,
+      "feedback": true,
+      "hasMain": true,
+      "footerCount": 1,
+      "nativeSelectCount": 0
+    },
+    {
+      "route": "/events/energy-array/",
+      "exists": true,
+      "h1": "能量调和之阵",
+      "header": true,
+      "feedback": true,
+      "hasMain": true,
+      "footerCount": 1,
+      "nativeSelectCount": 0
+    },
+    {
+      "route": "/events/collect-colors/",
+      "exists": true,
+      "h1": "采集颜色",
+      "header": true,
+      "feedback": true,
+      "hasMain": true,
+      "footerCount": 1,
+      "nativeSelectCount": 0
+    },
+    {
+      "route": "/events/fruit-market/",
+      "exists": true,
+      "h1": "瓜果集市",
+      "header": true,
+      "feedback": true,
+      "hasMain": true,
+      "footerCount": 1,
+      "nativeSelectCount": 0
+    },
+    {
+      "route": "/events/duck-challenge/",
+      "exists": true,
+      "h1": "难不倒鸭",
+      "header": true,
+      "feedback": true,
+      "hasMain": true,
+      "footerCount": 1,
+      "nativeSelectCount": 0
+    },
+    {
+      "route": "/events/measurement-expert/",
+      "exists": true,
+      "h1": "测量专家",
+      "header": true,
+      "feedback": true,
+      "hasMain": true,
+      "footerCount": 1,
+      "nativeSelectCount": 0
+    },
+    {
+      "route": "/events/honey-homecoming/",
+      "exists": true,
+      "h1": "采蜜归巢",
+      "header": true,
+      "feedback": true,
+      "hasMain": true,
+      "footerCount": 1,
+      "nativeSelectCount": 0
+    },
+    {
+      "route": "/events/rice-shop/",
+      "exists": true,
+      "h1": "米粒小铺",
+      "header": true,
+      "feedback": true,
+      "hasMain": true,
+      "footerCount": 1,
+      "nativeSelectCount": 0
+    },
+    {
+      "route": "/events/fun-chess/",
+      "exists": true,
+      "h1": "趣味对弈",
+      "header": true,
+      "feedback": true,
+      "hasMain": true,
+      "footerCount": 1,
+      "nativeSelectCount": 0
+    },
+    {
+      "route": "/events/fun-chess-20250502/",
+      "exists": true,
+      "h1": "趣味对弈",
+      "header": true,
+      "feedback": true,
+      "hasMain": true,
+      "footerCount": 1,
+      "nativeSelectCount": 0
+    },
+    {
+      "route": "/guides/pve/",
+      "exists": true,
+      "h1": "挑战攻略怎么查",
+      "header": true,
+      "feedback": true,
+      "hasMain": true,
+      "footerCount": 1,
+      "nativeSelectCount": 0,
+      "footerEditor": true,
+      "docSheet": true
+    },
+    {
+      "route": "/guides/returning/",
+      "exists": true,
+      "h1": "回归先查什么",
+      "header": true,
+      "feedback": true,
+      "hasMain": true,
+      "footerCount": 1,
+      "nativeSelectCount": 0,
+      "footerEditor": true,
+      "docSheet": true
+    },
+    {
+      "route": "/guides/training/",
+      "exists": true,
+      "h1": "宠物培养资料",
+      "header": true,
+      "feedback": true,
+      "hasMain": true,
+      "footerCount": 1,
+      "nativeSelectCount": 0,
+      "footerEditor": true,
+      "docSheet": true
+    },
+    {
+      "route": "/help/contributing/",
+      "exists": true,
+      "h1": "参与编辑",
+      "header": true,
+      "feedback": true,
+      "hasMain": true,
+      "footerCount": 1,
+      "nativeSelectCount": 0,
+      "footerEditor": true,
+      "docSheet": true
+    },
+    {
+      "route": "/help/sources/",
+      "exists": true,
+      "h1": "资料来源与验证",
+      "header": true,
+      "feedback": true,
+      "hasMain": true,
+      "footerCount": 1,
+      "nativeSelectCount": 0,
+      "footerEditor": true,
+      "docSheet": true
+    },
+    {
+      "route": "/mechanics/accuracy/",
+      "exists": true,
+      "h1": "命中、必中与闪避",
+      "header": true,
+      "feedback": true,
+      "hasMain": true,
+      "footerCount": 1,
+      "nativeSelectCount": 0,
+      "footerEditor": true,
+      "docSheet": true
+    },
+    {
+      "route": "/mechanics/attributes/",
+      "exists": true,
+      "h1": "属性、能力与克制",
+      "header": true,
+      "feedback": true,
+      "hasMain": true,
+      "footerCount": 1,
+      "nativeSelectCount": 0,
+      "footerEditor": true,
+      "docSheet": true
+    },
+    {
+      "route": "/mechanics/damage/",
+      "exists": true,
+      "h1": "伤害类型与结算",
+      "header": true,
+      "feedback": true,
+      "hasMain": true,
+      "footerCount": 1,
+      "nativeSelectCount": 0,
+      "footerEditor": true,
+      "docSheet": true
+    },
+    {
+      "route": "/mechanics/effects/pressure/",
+      "exists": true,
+      "h1": "压迫（双损）",
+      "header": true,
+      "feedback": true,
+      "hasMain": true,
+      "footerCount": 1,
+      "nativeSelectCount": 0,
+      "footerEditor": true,
+      "docSheet": true
+    },
+    {
+      "route": "/mechanics/effects/",
+      "exists": true,
+      "h1": "效果档案与同名识别",
+      "header": true,
+      "feedback": true,
+      "hasMain": true,
+      "footerCount": 1,
+      "nativeSelectCount": 0,
+      "footerEditor": true,
+      "docSheet": true
+    },
+    {
+      "route": "/mechanics/environments/mirage/",
+      "exists": true,
+      "h1": "海市蜃楼（环境）",
+      "header": true,
+      "feedback": true,
+      "hasMain": true,
+      "footerCount": 1,
+      "nativeSelectCount": 0,
+      "footerEditor": true,
+      "docSheet": true
+    },
+    {
+      "route": "/mechanics/evidence/",
+      "exists": true,
+      "h1": "机制实测与争议记录",
+      "header": true,
+      "feedback": true,
+      "hasMain": true,
+      "footerCount": 1,
+      "nativeSelectCount": 0,
+      "footerEditor": true,
+      "docSheet": true
+    },
+    {
+      "route": "/mechanics/glossary/",
+      "exists": true,
+      "h1": "战斗术语速查",
+      "header": true,
+      "feedback": true,
+      "hasMain": true,
+      "footerCount": 1,
+      "nativeSelectCount": 0,
+      "footerEditor": true,
+      "docSheet": true
+    },
+    {
+      "route": "/mechanics/healing/",
+      "exists": true,
+      "h1": "治疗、禁疗与转化",
+      "header": true,
+      "feedback": true,
+      "hasMain": true,
+      "footerCount": 1,
+      "nativeSelectCount": 0,
+      "footerEditor": true,
+      "docSheet": true
+    },
+    {
+      "route": "/mechanics/interactions/",
+      "exists": true,
+      "h1": "覆盖、共存与解除",
+      "header": true,
+      "feedback": true,
+      "hasMain": true,
+      "footerCount": 1,
+      "nativeSelectCount": 0,
+      "footerEditor": true,
+      "docSheet": true
+    },
+    {
+      "route": "/mechanics/overview/",
+      "exists": true,
+      "h1": "战斗机制总目录",
+      "header": true,
+      "feedback": true,
+      "hasMain": true,
+      "footerCount": 1,
+      "nativeSelectCount": 0,
+      "footerEditor": true,
+      "docSheet": true
+    },
+    {
+      "route": "/mechanics/passive/",
+      "exists": true,
+      "h1": "血脉与被动触发",
+      "header": true,
+      "feedback": true,
+      "hasMain": true,
+      "footerCount": 1,
+      "nativeSelectCount": 0,
+      "footerEditor": true,
+      "docSheet": true
+    },
+    {
+      "route": "/mechanics/pp/",
+      "exists": true,
+      "h1": "PP 与技能限制",
+      "header": true,
+      "feedback": true,
+      "hasMain": true,
+      "footerCount": 1,
+      "nativeSelectCount": 0,
+      "footerEditor": true,
+      "docSheet": true
+    },
+    {
+      "route": "/mechanics/priority/",
+      "exists": true,
+      "h1": "速度与先手",
+      "header": true,
+      "feedback": true,
+      "hasMain": true,
+      "footerCount": 1,
+      "nativeSelectCount": 0,
+      "footerEditor": true,
+      "docSheet": true
+    },
+    {
+      "route": "/mechanics/shield/",
+      "exists": true,
+      "h1": "护盾与减伤",
+      "header": true,
+      "feedback": true,
+      "hasMain": true,
+      "footerCount": 1,
+      "nativeSelectCount": 0,
+      "footerEditor": true,
+      "docSheet": true
+    },
+    {
+      "route": "/mechanics/stages/",
+      "exists": true,
+      "h1": "技能阶段与结算",
+      "header": true,
+      "feedback": true,
+      "hasMain": true,
+      "footerCount": 1,
+      "nativeSelectCount": 0,
+      "footerEditor": true,
+      "docSheet": true
+    },
+    {
+      "route": "/mechanics/status/",
+      "exists": true,
+      "h1": "异常、强化与标记",
+      "header": true,
+      "feedback": true,
+      "hasMain": true,
+      "footerCount": 1,
+      "nativeSelectCount": 0,
+      "footerEditor": true,
+      "docSheet": true
+    },
+    {
+      "route": "/mechanics/switching/",
+      "exists": true,
+      "h1": "换宠、驱逐与场下",
+      "header": true,
+      "feedback": true,
+      "hasMain": true,
+      "footerCount": 1,
+      "nativeSelectCount": 0,
+      "footerEditor": true,
+      "docSheet": true
+    },
+    {
+      "route": "/mechanics/timing/",
+      "exists": true,
+      "h1": "触发顺序与结算时点",
+      "header": true,
+      "feedback": true,
+      "hasMain": true,
+      "footerCount": 1,
+      "nativeSelectCount": 0,
+      "footerEditor": true,
+      "docSheet": true
+    },
+    {
+      "route": "/mechanics/weather/",
+      "exists": true,
+      "h1": "天气与环境",
+      "header": true,
+      "feedback": true,
+      "hasMain": true,
+      "footerCount": 1,
+      "nativeSelectCount": 0,
+      "footerEditor": true,
+      "docSheet": true
+    }
+  ],
+  "runtimeErrors": [],
+  "previewSha256": "b4019a3c3cbddda0f9146773f29f4b7eac61094e41511ab2ab4f59650f02524c",
+  "sourceSha256": {
+    "src/css/v7.css": "c7595b61c4c77fd47c9f97bfd38a800abbdc1fca51dbc3c127f43decefc742dd",
+    "src/css/v71.css": "c2985750a5f5096fa8621a5e91d6db79a5206404c56b5e98347fa591f3cdf15a",
+    "src/wiki/AccountIdentity.jsx": "2daadf0f924a0c0ec25ff1060e77947277294bcc45eb337d0bb4e42ed692ac5d",
+    "src/wiki/CommunityPages.jsx": "8ac85f1b9ceddc3bd93ccbb9debe708d1c8bda157920b79ad615d54082e74782",
+    "src/wiki/Feedback.jsx": "c3a8eed2aa6b9361f9a9ae8a37bd44c5d91cd43902f6605dbb99780dff0f516d",
+    "src/wiki/HomePage.jsx": "70a62a7fbcd6e6a53ce1c8ac75617249e86f2a1bd7be17a219bf59bebdcbda13",
+    "src/wiki/editing/PreviewContent.jsx": "3ea2d971f9fa88ae4a10f79db94737f6a9f81cbb2ed3ad342386313cac27651d",
+    "src/wiki/core.jsx": "a458b43a2382d306d162641a6b4b6c2f4ab8b4e0140008869d14ab909d83e84a",
+    "src/wiki/InlineSectionEdits.jsx": "5635a997bbde50f9f6293ce13f31d39ca6e6cc859bd3c35eb2e98ef279f6449c",
+    "src/wiki/editing/ReadingMarkdown.jsx": "30f56bde4c4762f3622b7a18d87c69525f1ed1f8cc5089495b323fa79b3eb3c3",
+    "src/wiki/editing/PublishedDocument.jsx": "c653c84370d655be5dc77a6a15528631824fcf6b37a4299a33a5f8f92bd8417d",
+    "src/wiki/editing/documentComposition.js": "bc0db988cae3c2aeecab99a9debfc4647df9ca4408194f9652b7e37d0a9b0142",
+    "src/wiki/editing/registry.js": "24ce998d8448065d8442138273e006e4ed1d1cb416d661aeea3718e1b4a0e036",
+    "docusaurus.config.js": "a4ea0991d45ce052cc862a0868287bda3d0a86d1ec8c31432f0c713a8aefc1d9",
+    "src/wiki/EditingV7.css": "0da2a019ffe726db0d1837ef4e8a897f2b23e5cf9800b3e200d9a4b6f2cc596c",
+    "src/wiki/editingContext.js": "d2cbe24a8ee0e995b7c05061d6a70e35d1c6ab656d5b9fc97d308a95db7a8a06",
+    "src/wiki/PvePages.jsx": "f9577bf1a05f34ef85f8ce75c02f6b792c0a9ce803a0d43b91a19bc64e1fd878",
+    "src/wiki/WorldPages.jsx": "2320761c4994d48d018dab1020dc41a84334211cec5ef8cfb925d88b1595eb49",
+    "preview/main.jsx": "0e037fe1026073f4f13ccaee620993fd5375c28f3d9603f80bdfe837f4645afe",
+    "scripts/build-preview.mjs": "b750ca0cf858609b9edc08ba73891eea30079235e4096745bad9e0cbec831337",
+    "src/css/custom.css": "778cafb00bfd174c0403f9a473d3eaa0327654f7ed806ab6c7eadefefaa456bc",
+    "preview/broken-links.js": "6e386803a66a4b209f9b4742a7797558b76fe642dd8df19f6dba2db58efc3cd7",
+    "validation/check-v71-integration.cjs": "253ec09a03fd356d15cdae3014f6c5cf5f04b32fde8753b4003e7abe24455cca"
+  }
+}

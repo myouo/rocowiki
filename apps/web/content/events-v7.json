@@ -1,0 +1,715 @@
+{
+  "schemaVersion": 7,
+  "timeZone": "Asia/Shanghai",
+  "model": "活动条目 owns 多次开放记录；数据不足时保留待核实，不继承上一期条件",
+  "sources": [
+    {
+      "id": "weekly-4399-20261009",
+      "title": "洛克王国10月9日更新速递",
+      "url": "https://news.4399.com/luoke/xinwengonggao/202610-08-1016028.html",
+      "publisher": "4399",
+      "publishedAt": "2026-10-08",
+      "sourceType": "announcement_reprint",
+      "checkedAt": "2026-10-10",
+      "retrievalStatus": "read",
+      "note": "本期活动、系别赛和天梯名单均与另两份同期转载一致。"
+    },
+    {
+      "id": "weekly-17173-20261009",
+      "title": "《洛克王国》10月9日更新速递——皇冠菠萝狮",
+      "url": "https://news.17173.com/content/09302026/210344424.shtml",
+      "publisher": "17173",
+      "publishedAt": "2026-09-30",
+      "sourceType": "announcement_reprint",
+      "checkedAt": "2026-10-10",
+      "retrievalStatus": "search_index_full_text",
+      "note": "页面标注来源为公众号；发布时间早于更新生效日。"
+    },
+    {
+      "id": "weekly-3dm-20261009",
+      "title": "洛克王国10月9日更新内容公告",
+      "url": "https://ol.3dmgame.com/gl/355096.html",
+      "publisher": "3DM",
+      "publishedAt": "2026-10-08",
+      "sourceType": "announcement_reprint",
+      "checkedAt": "2026-10-10",
+      "retrievalStatus": "read",
+      "note": "页面标注来源为洛克王国论坛、作者为洛克王国官方；本站仍按转载来源记录。"
+    },
+    {
+      "id": "weekly-official-forum-20261009",
+      "title": "【版主团】洛克王国10月9日更新速递",
+      "url": "https://17roco.gamebbs.qq.com/forum.php?mod=viewthread&tid=165967",
+      "publisher": "《洛克王国》官方论坛",
+      "publishedAt": null,
+      "sourceType": "official_forum_announcement",
+      "checkedAt": "2026-10-10",
+      "retrievalStatus": "body_unavailable",
+      "note": "搜索结果确认同名公告存在，正文请求超时；未将未读正文计入交叉核对。"
+    },
+    {
+      "id": "pvp-guide-official-forum",
+      "title": "【PK入门·2】对战系统&PVP赛制介绍",
+      "url": "https://17roco.gamebbs.qq.com/forum.php?mod=viewthread&tid=157484",
+      "publisher": "《洛克王国》官方论坛版主团",
+      "sourceType": "first_party_community_guide",
+      "sectionUpdatedAt": "2026-06-16",
+      "checkedAt": "2026-10-10",
+      "retrievalStatus": "read",
+      "note": "PVP赛制段说明系别依据主属性、同主属性最多3只、周二周五各更新；巅峰赛与天梯共享禁宠。"
+    },
+    {
+      "id": "dvg-fuhuo-pets",
+      "title": "怪我咯技能信息及学习宠物",
+      "url": "https://roco.dvg.cn/skill_info.php?id=1369",
+      "publisher": "洛克小册子",
+      "sourceType": "community_database",
+      "checkedAt": "2026-10-10",
+      "retrievalStatus": "read_search",
+      "note": "仅用于柴可司机、普之舜舜、禁之舜舜编号。"
+    },
+    {
+      "id": "dvg-sainuolasi",
+      "title": "赛诺拉斯宠物图鉴 NO.3309",
+      "url": "https://roco.dvg.cn/spirit_info.php?id=3309",
+      "publisher": "洛克小册子",
+      "sourceType": "community_database",
+      "checkedAt": "2026-10-10",
+      "retrievalStatus": "read_search"
+    },
+    {
+      "id": "dvg-index",
+      "title": "洛克小册子宠物资料",
+      "url": "https://roco.dvg.cn/",
+      "publisher": "洛克小册子",
+      "sourceType": "community_database",
+      "checkedAt": "2026-10-10",
+      "retrievalStatus": "read",
+      "note": "仅用于拂影游侠3374、塞勒姆3362编号；该站数据库最新公告为2026-03-29，不能用作本周赛规来源。"
+    },
+    {
+      "id": "huiji-pets-20",
+      "title": "宠物列表（按图鉴编号）/20",
+      "url": "https://rocokingdom.huijiwiki.com/wiki/宠物列表（按图鉴编号）/20",
+      "publisher": "洛克王国中文维基",
+      "sourceType": "community_database",
+      "checkedAt": "2026-10-10",
+      "retrievalStatus": "read_search",
+      "note": "仅用于艾克斯菲特3409编号。"
+    },
+    {
+      "id": "weekly-4399-20260904",
+      "title": "洛克王国9月4日更新速递",
+      "url": "https://news.4399.com/luoke/xinwengonggao/202609-03-1015096.html",
+      "publisher": "4399",
+      "publishedAt": "2026-09-03",
+      "sourceType": "announcement_reprint",
+      "checkedAt": "2026-10-10",
+      "retrievalStatus": "read",
+      "note": "测量专家、采蜜归巢、米粒小铺的开放日期均为9月4日至10月15日，与17173公告正文一致。"
+    },
+    {
+      "id": "weekly-17173-20260904",
+      "title": "《洛克王国》9月4日更新速递——量角桃懒",
+      "url": "https://news.17173.com/content/09022026/172006110.shtml",
+      "publisher": "17173",
+      "publishedAt": "2026-09-02",
+      "sourceType": "announcement_reprint",
+      "checkedAt": "2026-10-10",
+      "retrievalStatus": "read",
+      "note": "本站按实际开放批次保存；不能将这三项写为10月9日新增。"
+    },
+    {
+      "id": "official-20251128",
+      "title": "腾讯页游官网 · 11月28日更新速递",
+      "url": "https://roco.qq.com/webplat/info/news_version3/397/838/839/840/m682/202511/978612.shtml",
+      "publishedAt": "2025-11-26",
+      "publisher": "腾讯"
+    },
+    {
+      "id": "weekly-4399-20250502",
+      "title": "洛克王国5月2日更新速递——华魇萌少",
+      "url": "https://news.4399.com/luoke/xinwengonggao/202504-30-1003356.html",
+      "publisher": "4399",
+      "publishedAt": "2025-04-30",
+      "checkedAt": "2026-10-10",
+      "sourceType": "announcement_reprint",
+      "retrievalStatus": "read",
+      "note": "正文“趣味对弈”明确2025年5月2日至6月12日、宠物园、华魇萌少进化资格；不沿用其他批次奖励。"
+    }
+  ],
+  "activities": [
+    {
+      "id": "harvest-fruit-line",
+      "slug": "harvest-fruit-line",
+      "name": "丰收水果连线",
+      "summary": "种植任务取得连线次数，积累活动积分兑换宠物。",
+      "occurrences": [
+        {
+          "slug": "harvest-fruit-line-20261009",
+          "name": "丰收水果连线",
+          "category": "new",
+          "startDate": "2026-10-09",
+          "endDate": "2026-11-19",
+          "datePrecision": "date",
+          "timeZone": "Asia/Shanghai",
+          "startTime": null,
+          "endTime": null,
+          "durationLabel": "10.09—11.19",
+          "map": "西域果林",
+          "rewards": [
+            {
+              "name": "皇冠菠萝狮",
+              "kind": "pet",
+              "number": null
+            }
+          ],
+          "summary": "种植任务取得连线次数，积累活动积分兑换宠物。",
+          "sourceIds": [
+            "weekly-4399-20261009",
+            "weekly-17173-20261009",
+            "weekly-3dm-20261009"
+          ],
+          "verification": "announcement_cross_checked",
+          "clientVerified": false,
+          "id": "harvest-fruit-line-20261009",
+          "legacySlug": "harvest-fruit-line-20261009",
+          "label": "2026 年 10 月开放",
+          "location": "西域果林",
+          "conditions": "种植任务取得连线次数，积累活动积分兑换宠物。",
+          "sourceUrl": "https://news.4399.com/luoke/xinwengonggao/202610-08-1016028.html",
+          "sourceTitle": "洛克王国10月9日更新速递",
+          "certainty": "公告交叉核对",
+          "claimDeadline": null,
+          "note": "公告仅精确到日期，单独领奖截止与结束时刻未公布。"
+        }
+      ]
+    },
+    {
+      "id": "ifrit-challenge",
+      "slug": "ifrit-challenge",
+      "name": "伊芙利特的挑战",
+      "summary": "携带迪莫完成恶魔系挑战；直接奖励与后续进化资格分别记录。",
+      "occurrences": [
+        {
+          "slug": "ifrit-challenge-20261009",
+          "name": "伊芙利特的挑战",
+          "category": "new_permanent",
+          "startDate": "2026-10-09",
+          "endDate": null,
+          "datePrecision": "date",
+          "timeZone": "Asia/Shanghai",
+          "startTime": null,
+          "endTime": null,
+          "durationLabel": "长期",
+          "map": "镇魂修道院",
+          "rewards": [
+            {
+              "name": "小夜",
+              "kind": "pet",
+              "number": null
+            },
+            {
+              "name": "紫夜",
+              "kind": "evolution_qualification",
+              "number": null
+            },
+            {
+              "name": "伊芙利特",
+              "kind": "evolution_qualification",
+              "number": null
+            },
+            {
+              "name": "摄魂堕天使",
+              "kind": "evolution_qualification",
+              "number": null
+            }
+          ],
+          "summary": "携带迪莫完成恶魔系挑战；直接奖励与后续进化资格分别记录。",
+          "sourceIds": [
+            "weekly-4399-20261009",
+            "weekly-17173-20261009",
+            "weekly-3dm-20261009"
+          ],
+          "verification": "announcement_cross_checked",
+          "clientVerified": false,
+          "id": "ifrit-challenge-20261009",
+          "legacySlug": "ifrit-challenge-20261009",
+          "label": "2026 年 10 月开放",
+          "location": "镇魂修道院",
+          "conditions": "携带迪莫完成恶魔系挑战；直接奖励与后续进化资格分别记录。",
+          "sourceUrl": "https://news.4399.com/luoke/xinwengonggao/202610-08-1016028.html",
+          "sourceTitle": "洛克王国10月9日更新速递",
+          "certainty": "公告交叉核对",
+          "claimDeadline": null,
+          "note": "公告仅精确到日期，单独领奖截止与结束时刻未公布。"
+        }
+      ]
+    },
+    {
+      "id": "soul-helmets",
+      "slug": "soul-helmets",
+      "name": "千盔铸魂",
+      "summary": "收集英魂灵气并完成活动任务。",
+      "occurrences": [
+        {
+          "slug": "soul-helmets-20261009",
+          "name": "千盔铸魂",
+          "category": "new",
+          "startDate": "2026-10-09",
+          "endDate": "2026-11-19",
+          "datePrecision": "date",
+          "timeZone": "Asia/Shanghai",
+          "startTime": null,
+          "endTime": null,
+          "durationLabel": "10.09—11.19",
+          "map": "上古幻壁",
+          "rewards": [
+            {
+              "name": "修罗紫阎",
+              "kind": "pet",
+              "number": null
+            }
+          ],
+          "summary": "收集英魂灵气并完成活动任务。",
+          "sourceIds": [
+            "weekly-4399-20261009",
+            "weekly-17173-20261009",
+            "weekly-3dm-20261009"
+          ],
+          "verification": "announcement_cross_checked",
+          "clientVerified": false,
+          "id": "soul-helmets-20261009",
+          "legacySlug": "soul-helmets-20261009",
+          "label": "2026 年 10 月开放",
+          "location": "上古幻壁",
+          "conditions": "收集英魂灵气并完成活动任务。",
+          "sourceUrl": "https://news.4399.com/luoke/xinwengonggao/202610-08-1016028.html",
+          "sourceTitle": "洛克王国10月9日更新速递",
+          "certainty": "公告交叉核对",
+          "claimDeadline": null,
+          "note": "公告仅精确到日期，单独领奖截止与结束时刻未公布。"
+        }
+      ]
+    },
+    {
+      "id": "energy-array",
+      "slug": "energy-array",
+      "name": "能量调和之阵",
+      "summary": "调整四圣兵的位置完成方阵，奖励为进化资格。",
+      "occurrences": [
+        {
+          "slug": "energy-array-20261009",
+          "name": "能量调和之阵",
+          "category": "new",
+          "startDate": "2026-10-09",
+          "endDate": "2026-11-19",
+          "datePrecision": "date",
+          "timeZone": "Asia/Shanghai",
+          "startTime": null,
+          "endTime": null,
+          "durationLabel": "10.09—11.19",
+          "map": "秘密隧道",
+          "rewards": [
+            {
+              "name": "四圣兵·修罗",
+              "kind": "evolution_qualification",
+              "number": null
+            }
+          ],
+          "summary": "调整四圣兵的位置完成方阵，奖励为进化资格。",
+          "sourceIds": [
+            "weekly-4399-20261009",
+            "weekly-17173-20261009",
+            "weekly-3dm-20261009"
+          ],
+          "verification": "announcement_cross_checked",
+          "clientVerified": false,
+          "id": "energy-array-20261009",
+          "legacySlug": "energy-array-20261009",
+          "label": "2026 年 10 月开放",
+          "location": "秘密隧道",
+          "conditions": "调整四圣兵的位置完成方阵，奖励为进化资格。",
+          "sourceUrl": "https://news.4399.com/luoke/xinwengonggao/202610-08-1016028.html",
+          "sourceTitle": "洛克王国10月9日更新速递",
+          "certainty": "公告交叉核对",
+          "claimDeadline": null,
+          "note": "公告仅精确到日期，单独领奖截止与结束时刻未公布。"
+        }
+      ]
+    },
+    {
+      "id": "collect-colors",
+      "slug": "collect-colors",
+      "name": "采集颜色",
+      "summary": "上期活动继续开放。",
+      "occurrences": [
+        {
+          "slug": "collect-colors-20261002",
+          "name": "采集颜色",
+          "category": "continuing",
+          "startDate": "2026-10-02",
+          "endDate": "2026-11-12",
+          "datePrecision": "date",
+          "timeZone": "Asia/Shanghai",
+          "startTime": null,
+          "endTime": null,
+          "durationLabel": "10.02—11.12",
+          "map": "魔法学院",
+          "rewards": [
+            {
+              "name": "调香彩彩",
+              "kind": "pet",
+              "number": null
+            }
+          ],
+          "summary": "上期活动继续开放。",
+          "sourceIds": [
+            "weekly-4399-20261009",
+            "weekly-17173-20261009",
+            "weekly-3dm-20261009"
+          ],
+          "verification": "announcement_cross_checked",
+          "clientVerified": false,
+          "id": "collect-colors-20261002",
+          "legacySlug": "collect-colors-20261002",
+          "label": "2026 年 10 月开放",
+          "location": "魔法学院",
+          "conditions": "上期活动继续开放。",
+          "sourceUrl": "https://news.4399.com/luoke/xinwengonggao/202610-08-1016028.html",
+          "sourceTitle": "洛克王国10月9日更新速递",
+          "certainty": "公告交叉核对",
+          "claimDeadline": null,
+          "note": "公告仅精确到日期，单独领奖截止与结束时刻未公布。"
+        }
+      ]
+    },
+    {
+      "id": "fruit-market",
+      "slug": "fruit-market",
+      "name": "瓜果集市",
+      "summary": "上期活动继续开放，可查看六只奖励宠物。",
+      "occurrences": [
+        {
+          "slug": "fruit-market-20261002",
+          "name": "瓜果集市",
+          "category": "continuing",
+          "startDate": "2026-10-02",
+          "endDate": "2026-11-12",
+          "datePrecision": "date",
+          "timeZone": "Asia/Shanghai",
+          "startTime": null,
+          "endTime": null,
+          "durationLabel": "10.02—11.12",
+          "map": "宠物岛",
+          "rewards": [
+            {
+              "name": "西瓜呱呱",
+              "kind": "pet",
+              "number": null
+            },
+            {
+              "name": "南瓜宅宅",
+              "kind": "pet",
+              "number": null
+            },
+            {
+              "name": "甜瓜扭扭",
+              "kind": "pet",
+              "number": null
+            },
+            {
+              "name": "蜜瓜啵啵",
+              "kind": "pet",
+              "number": null
+            },
+            {
+              "name": "冬瓜吨吨",
+              "kind": "pet",
+              "number": null
+            },
+            {
+              "name": "木瓜碗碗",
+              "kind": "pet",
+              "number": null
+            }
+          ],
+          "summary": "上期活动继续开放，可查看六只奖励宠物。",
+          "sourceIds": [
+            "weekly-4399-20261009",
+            "weekly-17173-20261009",
+            "weekly-3dm-20261009"
+          ],
+          "verification": "announcement_cross_checked",
+          "clientVerified": false,
+          "id": "fruit-market-20261002",
+          "legacySlug": "fruit-market-20261002",
+          "label": "2026 年 10 月开放",
+          "location": "宠物岛",
+          "conditions": "上期活动继续开放，可查看六只奖励宠物。",
+          "sourceUrl": "https://news.4399.com/luoke/xinwengonggao/202610-08-1016028.html",
+          "sourceTitle": "洛克王国10月9日更新速递",
+          "certainty": "公告交叉核对",
+          "claimDeadline": null,
+          "note": "公告仅精确到日期，单独领奖截止与结束时刻未公布。"
+        }
+      ]
+    },
+    {
+      "id": "duck-challenge",
+      "slug": "duck-challenge",
+      "name": "难不倒鸭",
+      "summary": "上期活动继续开放。",
+      "occurrences": [
+        {
+          "slug": "duck-challenge-20261002",
+          "name": "难不倒鸭",
+          "category": "continuing",
+          "startDate": "2026-10-02",
+          "endDate": "2026-11-12",
+          "datePrecision": "date",
+          "timeZone": "Asia/Shanghai",
+          "startTime": null,
+          "endTime": null,
+          "durationLabel": "10.02—11.12",
+          "map": "巨石阵",
+          "rewards": [
+            {
+              "name": "鸭吉吉",
+              "kind": "pet",
+              "number": null
+            },
+            {
+              "name": "好想你鸭吉吉",
+              "kind": "pet",
+              "number": null
+            }
+          ],
+          "summary": "上期活动继续开放。",
+          "sourceIds": [
+            "weekly-4399-20261009",
+            "weekly-17173-20261009",
+            "weekly-3dm-20261009"
+          ],
+          "verification": "announcement_cross_checked",
+          "clientVerified": false,
+          "id": "duck-challenge-20261002",
+          "legacySlug": "duck-challenge-20261002",
+          "label": "2026 年 10 月开放",
+          "location": "巨石阵",
+          "conditions": "上期活动继续开放。",
+          "sourceUrl": "https://news.4399.com/luoke/xinwengonggao/202610-08-1016028.html",
+          "sourceTitle": "洛克王国10月9日更新速递",
+          "certainty": "公告交叉核对",
+          "claimDeadline": null,
+          "note": "公告仅精确到日期，单独领奖截止与结束时刻未公布。"
+        }
+      ]
+    },
+    {
+      "id": "measurement-expert",
+      "slug": "measurement-expert",
+      "name": "测量专家",
+      "summary": "完成量角桃懒的测量考题，达成活动条件后获得宠物；本期于10月15日结束。",
+      "occurrences": [
+        {
+          "category": "ending",
+          "startDate": "2026-09-04",
+          "endDate": "2026-10-15",
+          "datePrecision": "date",
+          "timeZone": "Asia/Shanghai",
+          "startTime": null,
+          "endTime": null,
+          "durationLabel": "09.04—10.15",
+          "announcementEdition": "2026-09-04",
+          "sourceIds": ["weekly-4399-20260904", "weekly-17173-20260904"],
+          "verification": "announcement_cross_checked",
+          "clientVerified": false,
+          "deadlineNote": "公告只注明结束日期，未给出具体时刻和独立领奖截止。到期当日请以活动面板为准。",
+          "slug": "measurement-expert-20260904",
+          "name": "测量专家",
+          "map": "西域果林",
+          "rewards": [
+            {
+              "name": "量角桃懒",
+              "kind": "pet",
+              "number": null
+            }
+          ],
+          "summary": "完成量角桃懒的测量考题，达成活动条件后获得宠物；本期于10月15日结束。",
+          "id": "measurement-expert-20260904",
+          "legacySlug": "measurement-expert-20260904",
+          "label": "2026 年 9 月开放",
+          "location": "西域果林",
+          "conditions": "完成量角桃懒的测量考题，达成活动条件后获得宠物；本期于10月15日结束。",
+          "sourceUrl": "https://news.4399.com/luoke/xinwengonggao/202609-03-1015096.html",
+          "sourceTitle": "洛克王国9月4日更新速递",
+          "certainty": "公告交叉核对",
+          "claimDeadline": null,
+          "note": "公告只注明结束日期，未给出具体时刻和独立领奖截止。到期当日请以活动面板为准。"
+        }
+      ]
+    },
+    {
+      "id": "honey-homecoming",
+      "slug": "honey-homecoming",
+      "name": "采蜜归巢",
+      "summary": "帮助采蜜取得谢礼，兑换可爱蜂、晨兴蜜蜂相关奖励；公告包含进化资格，本期于10月15日结束。",
+      "occurrences": [
+        {
+          "category": "ending",
+          "startDate": "2026-09-04",
+          "endDate": "2026-10-15",
+          "datePrecision": "date",
+          "timeZone": "Asia/Shanghai",
+          "startTime": null,
+          "endTime": null,
+          "durationLabel": "09.04—10.15",
+          "announcementEdition": "2026-09-04",
+          "sourceIds": ["weekly-4399-20260904", "weekly-17173-20260904"],
+          "verification": "announcement_cross_checked",
+          "clientVerified": false,
+          "deadlineNote": "公告只注明结束日期，未给出具体时刻和独立领奖截止。到期当日请以活动面板为准。",
+          "slug": "honey-homecoming-20260904",
+          "name": "采蜜归巢",
+          "map": "艾美特山岭",
+          "rewards": [
+            {
+              "name": "可爱蜂",
+              "kind": "pet_or_evolution_qualification",
+              "kindLabel": "宠物或进化资格",
+              "number": null
+            },
+            {
+              "name": "晨兴蜜蜂",
+              "kind": "pet_or_evolution_qualification",
+              "kindLabel": "宠物或进化资格",
+              "number": null
+            }
+          ],
+          "rewardSummary": "可爱蜂、晨兴蜜蜂（含进化资格）",
+          "rewardNote": "公告明确包含宠物与进化资格，并列出两只奖励宠物，但未在文字中逐项对应获得形式。对应前阶与进化条件需以活动界面复核。",
+          "summary": "帮助采蜜取得谢礼，兑换可爱蜂、晨兴蜜蜂相关奖励；公告包含进化资格，本期于10月15日结束。",
+          "id": "honey-homecoming-20260904",
+          "legacySlug": "honey-homecoming-20260904",
+          "label": "2026 年 9 月开放",
+          "location": "艾美特山岭",
+          "conditions": "帮助采蜜取得谢礼，兑换可爱蜂、晨兴蜜蜂相关奖励；公告包含进化资格，本期于10月15日结束。",
+          "sourceUrl": "https://news.4399.com/luoke/xinwengonggao/202609-03-1015096.html",
+          "sourceTitle": "洛克王国9月4日更新速递",
+          "certainty": "公告交叉核对",
+          "claimDeadline": null,
+          "note": "公告只注明结束日期，未给出具体时刻和独立领奖截止。到期当日请以活动面板为准。"
+        }
+      ]
+    },
+    {
+      "id": "rice-shop",
+      "slug": "rice-shop",
+      "name": "米粒小铺",
+      "summary": "收集食材并提交订单取得粮票，兑换米粒蔡或小苞谷；本期于10月15日结束。",
+      "occurrences": [
+        {
+          "category": "ending",
+          "startDate": "2026-09-04",
+          "endDate": "2026-10-15",
+          "datePrecision": "date",
+          "timeZone": "Asia/Shanghai",
+          "startTime": null,
+          "endTime": null,
+          "durationLabel": "09.04—10.15",
+          "announcementEdition": "2026-09-04",
+          "sourceIds": ["weekly-4399-20260904", "weekly-17173-20260904"],
+          "verification": "announcement_cross_checked",
+          "clientVerified": false,
+          "deadlineNote": "公告只注明结束日期，未给出具体时刻和独立领奖截止。到期当日请以活动面板为准。",
+          "slug": "rice-shop-20260904",
+          "name": "米粒小铺",
+          "map": "真梦之园",
+          "rewards": [
+            {
+              "name": "米粒蔡",
+              "kind": "pet",
+              "number": null
+            },
+            {
+              "name": "小苞谷",
+              "kind": "pet",
+              "number": null
+            }
+          ],
+          "summary": "收集食材并提交订单取得粮票，兑换米粒蔡或小苞谷；本期于10月15日结束。",
+          "id": "rice-shop-20260904",
+          "legacySlug": "rice-shop-20260904",
+          "label": "2026 年 9 月开放",
+          "location": "真梦之园",
+          "conditions": "收集食材并提交订单取得粮票，兑换米粒蔡或小苞谷；本期于10月15日结束。",
+          "sourceUrl": "https://news.4399.com/luoke/xinwengonggao/202609-03-1015096.html",
+          "sourceTitle": "洛克王国9月4日更新速递",
+          "certainty": "公告交叉核对",
+          "claimDeadline": null,
+          "note": "公告只注明结束日期，未给出具体时刻和独立领奖截止。到期当日请以活动面板为准。"
+        }
+      ]
+    },
+    {
+      "id": "fun-chess",
+      "slug": "fun-chess",
+      "name": "趣味对弈",
+      "summary": "参加趣味对弈，达成当次活动要求后开启华魇萌少进化资格。各次开放的条件与奖励分别记录。",
+      "occurrences": [
+        {
+          "id": "fun-chess-20251128",
+          "legacySlug": "fun-chess-20251128",
+          "label": "2025 年 11 月开放",
+          "startDate": "2025-11-28",
+          "endDate": "2026-01-08",
+          "datePrecision": "date",
+          "timeZone": "Asia/Shanghai",
+          "location": "宠物园",
+          "conditions": "完成活动取得进化资格；公告提示可在圣湖捕捉前阶并提前准备性格。精确前阶名称与消耗条件待补充。",
+          "rewards": [
+            {
+              "name": "华魇萌少",
+              "kind": "evolution_qualification"
+            },
+            {
+              "name": "礼遇契约",
+              "kind": "item"
+            }
+          ],
+          "sourceUrl": "https://roco.qq.com/webplat/info/news_version3/397/838/839/840/m682/202511/978612.shtml",
+          "sourceTitle": "腾讯页游官网 · 11月28日更新速递",
+          "sourceIds": ["official-20251128"],
+          "certainty": "官方公告",
+          "note": "本次活动已结束，不作为当前可获取的依据。",
+          "clientVerified": false
+        },
+        {
+          "id": "fun-chess-20250502",
+          "legacySlug": "fun-chess-20250502",
+          "label": "2025 年 5 月开放",
+          "startDate": "2025-05-02",
+          "endDate": "2025-06-12",
+          "datePrecision": "date",
+          "timeZone": "Asia/Shanghai",
+          "location": "宠物园",
+          "conditions": "完成趣味对弈后开启华魇萌少进化资格。公告说明炫酷萌少由萌少自然进化而来，可在圣湖捕捉获得前阶；本期精确每日次数与消耗条件待补。",
+          "rewards": [
+            {
+              "name": "华魇萌少",
+              "kind": "evolution_qualification"
+            }
+          ],
+          "sourceUrl": "https://news.4399.com/luoke/xinwengonggao/202504-30-1003356.html",
+          "sourceTitle": "洛克王国5月2日更新速递——华魇萌少",
+          "sourceIds": ["weekly-4399-20250502"],
+          "certainty": "公告转载已核对",
+          "clientVerified": false,
+          "claimDeadline": null,
+          "note": "本次活动已结束。此期公告未列礼遇契约，不将其他开放期的奖励自动计入。"
+        }
+      ]
+    }
+  ]
+}

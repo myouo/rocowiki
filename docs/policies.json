@@ -1,0 +1,150 @@
+{
+  "schema": 1,
+  "projectLicense": "GPL-3.0-only",
+  "wikiContentLicense": "CC-BY-SA-4.0",
+  "documents": [
+    {
+      "id": "overview",
+      "version": 3,
+      "zh": "README.md",
+      "en": "README.en.md",
+      "sections": [
+        "status",
+        "setup",
+        "verify",
+        "workflow",
+        "community",
+        "license"
+      ]
+    },
+    {
+      "id": "security",
+      "version": 1,
+      "zh": "SECURITY.md",
+      "en": "SECURITY.en.md",
+      "sections": [
+        "reporting",
+        "versions",
+        "report",
+        "response",
+        "boundaries"
+      ]
+    },
+    {
+      "id": "contributing",
+      "version": 2,
+      "zh": "CONTRIBUTING.md",
+      "en": "CONTRIBUTING.en.md",
+      "sections": [
+        "entry",
+        "wiki",
+        "setup",
+        "change",
+        "git",
+        "verify",
+        "review"
+      ]
+    },
+    {
+      "id": "conduct",
+      "version": 1,
+      "zh": "CODE_OF_CONDUCT.md",
+      "en": "CODE_OF_CONDUCT.en.md",
+      "sections": [
+        "scope",
+        "behavior",
+        "reporting",
+        "handling"
+      ]
+    },
+    {
+      "id": "governance",
+      "version": 1,
+      "zh": "GOVERNANCE.md",
+      "en": "GOVERNANCE.en.md",
+      "sections": [
+        "roles",
+        "decisions",
+        "review",
+        "release",
+        "policy"
+      ]
+    },
+    {
+      "id": "support",
+      "version": 1,
+      "zh": "SUPPORT.md",
+      "en": "SUPPORT.en.md",
+      "sections": [
+        "route",
+        "details",
+        "expectations"
+      ]
+    },
+    {
+      "id": "standards",
+      "version": 1,
+      "zh": "docs/standards.md",
+      "en": "docs/standards.en.md",
+      "sections": [
+        "structure",
+        "code",
+        "security",
+        "changes",
+        "tests",
+        "docs",
+        "release"
+      ]
+    },
+    {
+      "id": "repository-instructions",
+      "version": 1,
+      "zh": "AGENTS.md",
+      "en": "AGENTS.en.md",
+      "sections": [
+        "scope",
+        "git",
+        "implementation",
+        "verification"
+      ]
+    },
+    {
+      "id": "rights",
+      "version": 2,
+      "zh": "THIRD_PARTY_NOTICES.md",
+      "en": "THIRD_PARTY_NOTICES.en.md",
+      "sections": [
+        "scope",
+        "inventory",
+        "changes"
+      ]
+    },
+    {
+      "id": "copyright",
+      "version": 1,
+      "zh": "COPYRIGHT.md",
+      "en": "COPYRIGHT.en.md",
+      "sections": [
+        "identity",
+        "ownership",
+        "reuse",
+        "contributions",
+        "rights-reports",
+        "maintenance"
+      ]
+    },
+    {
+      "id": "security-model",
+      "version": 2,
+      "zh": "docs/security-model.md",
+      "en": "docs/security-model.en.md",
+      "sections": [
+        "assets",
+        "boundaries",
+        "threats",
+        "limits",
+        "validation"
+      ]
+    }
+  ]
+}

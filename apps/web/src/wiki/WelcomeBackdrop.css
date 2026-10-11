@@ -1,0 +1,29 @@
+/* One image layer, anchored to the card's right edge at the V7.2 scale.
+ * 521 / 2000 = .2605 is the original image's painted right-hand strip.
+ * The fade is confined to that strip so its left edge really disappears.
+ */
+.rw-home-v6 .rw-v7-welcome {
+  --rw-welcome-image-width: 1700px;
+  background: #fff;
+}
+.rw-home-v6 .rw-v7-welcome::before {
+  content: none;
+  display: none;
+}
+.rw-home-v6 .rw-v7-welcome > .rw-welcome-scene {
+  position: absolute;
+  inset: 0 0 0 auto;
+  z-index: 0;
+  display: block;
+  width: min(100%, calc(var(--rw-welcome-image-width) * .2605));
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  pointer-events: none;
+  background: var(--rw-official-scene) right top / var(--rw-welcome-image-width) auto no-repeat;
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, rgba(0,0,0,.08) 15%, rgba(0,0,0,.38) 38%, rgba(0,0,0,.78) 64%, #000 88%);
+  mask-image: linear-gradient(to right, transparent 0%, rgba(0,0,0,.08) 15%, rgba(0,0,0,.38) 38%, rgba(0,0,0,.78) 64%, #000 88%);
+}
+@media(max-width:600px) {
+  .rw-home-v6 .rw-v7-welcome { --rw-welcome-image-width: 1150px; }
+}

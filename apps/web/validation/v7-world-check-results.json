@@ -1,0 +1,207 @@
+{
+  "version": 7,
+  "scope": "Activity recurrence, local NPC readback, PVE references and contextual editing; no visual or game-client verification",
+  "generatedAt": "2026-10-10T13:31:25.495Z",
+  "sourceHashes": {
+    "src/wiki/WorldPages.jsx": "2320761c4994d48d018dab1020dc41a84334211cec5ef8cfb925d88b1595eb49",
+    "src/wiki/EventPagesV7.jsx": "d78cb20f813483bb980a4af87412d49e736b3610d17d5757910cabfc397c6f4b",
+    "src/wiki/PvePages.jsx": "07d8f69cb4a825079a0234c3ae6c18ab13f08c99916512468812208a8fbcd40d",
+    "src/wiki/npcPresentation.js": "601c3d64e29719e0beb519dfe18790b3d944fbf98e99fe8d840ad9f7fc514ca0",
+    "src/wiki/WorldV7.css": "6d0148779f6ffc2d6f79e92b85f84a51c37e6cfc89db7a74b63c94b3af404c34",
+    "content/events-v7.json": "65cbbbe5926661ce62e82a8e8be89fd88c99c5707ecd716a1b571d397a39047a",
+    "content/routes.json": "92feb85da2a6e3274606057c33723bf912a869fbf6065b14cf9476f823b86e10",
+    "content/pve-pet-recommendations-v7.json": "774bf5121cee65c80b3a3132836435b48a222fd3744afbd22e22eeb0ac8250c7"
+  },
+  "checks": [
+    {
+      "name": "Eleven activities retain twelve independent periods",
+      "passed": true
+    },
+    {
+      "name": "Canonical and dated activity routes are registered",
+      "passed": true
+    },
+    {
+      "name": "May 2025 recurrence has its own dates and reward set",
+      "passed": true
+    },
+    {
+      "name": "Current edition renders ten master rows",
+      "passed": true
+    },
+    {
+      "name": "Weekly display respects the edition review deadline",
+      "passed": true
+    },
+    {
+      "name": "Activity tabs update directory without a reload",
+      "passed": true
+    },
+    {
+      "name": "Activity rows link to stable master addresses",
+      "passed": true
+    },
+    {
+      "name": "Activity archive displays both periods together",
+      "passed": true
+    },
+    {
+      "name": "Every occurrence has a record-aware editor",
+      "passed": true
+    },
+    {
+      "name": "Add-period action targets same master",
+      "passed": true
+    },
+    {
+      "name": "Legacy May URL retains all history and locates May",
+      "passed": true
+    },
+    {
+      "name": "Legacy November URL locates original period",
+      "passed": true
+    },
+    {
+      "name": "Local next opening appears without replacing history",
+      "passed": true
+    },
+    {
+      "name": "Unknown end date is not presented as permanent",
+      "passed": true
+    },
+    {
+      "name": "Add-next editor receives latest full master",
+      "passed": true
+    },
+    {
+      "name": "NPC list has two published rows with per-person editors",
+      "passed": true
+    },
+    {
+      "name": "One prominent typed add-person action exists",
+      "passed": true
+    },
+    {
+      "name": "Adventure navigation omits duplicate PVE entry",
+      "passed": true
+    },
+    {
+      "name": "Reviewed new NPC immediately appears in directory",
+      "passed": true
+    },
+    {
+      "name": "New NPC uses supported query URL and retains area",
+      "passed": true
+    },
+    {
+      "name": "Local NPC detail displays submitted content and scope",
+      "passed": true
+    },
+    {
+      "name": "Formal local NPC path is explanatory only",
+      "passed": true
+    },
+    {
+      "name": "Local editor resumes its baseline and stable identity",
+      "passed": true
+    },
+    {
+      "name": "Revising local NPC replaces current presentation",
+      "passed": true
+    },
+    {
+      "name": "Renaming local NPC does not duplicate it",
+      "passed": true
+    },
+    {
+      "name": "Known editor has exact role, scene and source baseline",
+      "passed": true
+    },
+    {
+      "name": "Existing NPC revision updates list without adding row",
+      "passed": true
+    },
+    {
+      "name": "Canonical NPC detail reads latest reviewed content",
+      "passed": true
+    },
+    {
+      "name": "Composite scene preserves region association",
+      "passed": true
+    },
+    {
+      "name": "Malformed JSON safely falls back to published NPC list",
+      "passed": true
+    },
+    {
+      "name": "Malformed records and unsafe sources create no active URL",
+      "passed": true
+    },
+    {
+      "name": "/places/ contextual directory add action",
+      "passed": true
+    },
+    {
+      "name": "/places/ no PVE duplicate in local navigation",
+      "passed": true
+    },
+    {
+      "name": "/items/ contextual directory add action",
+      "passed": true
+    },
+    {
+      "name": "/items/ no PVE duplicate in local navigation",
+      "passed": true
+    },
+    {
+      "name": "/tasks/ contextual directory add action",
+      "passed": true
+    },
+    {
+      "name": "/tasks/ no PVE duplicate in local navigation",
+      "passed": true
+    },
+    {
+      "name": "星辰之塔 has one-way pet section and typed add-plan",
+      "passed": true
+    },
+    {
+      "name": "山海秘境 has one-way pet section and typed add-plan",
+      "passed": true
+    },
+    {
+      "name": "哨兵因因的情报 has one-way pet section and typed add-plan",
+      "passed": true
+    },
+    {
+      "name": "勇者训练馆 has one-way pet section and typed add-plan",
+      "passed": true
+    },
+    {
+      "name": "七曜圣地 has one-way pet section and typed add-plan",
+      "passed": true
+    },
+    {
+      "name": "Star tower shows two records with one negative caution",
+      "passed": true
+    },
+    {
+      "name": "Negative record is a failure condition",
+      "passed": true
+    },
+    {
+      "name": "Historical plan keeps date, pet link and original source",
+      "passed": true
+    },
+    {
+      "name": "Each PVE record passes its ID to editor",
+      "passed": true
+    },
+    {
+      "name": "World/event/PVE render without React runtime errors",
+      "passed": true
+    }
+  ],
+  "runtimeErrors": [],
+  "passed": true
+}

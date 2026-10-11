@@ -1,0 +1,193 @@
+{
+  "version": "7.3",
+  "scope": "React interaction checks for iframe-owned input/select lifecycle, IME and entity selection, recoverable render failures, discussion deep links, footer/navigation actions; mocked geometry and CSS contracts are not browser visual QA",
+  "generatedAt": "2026-10-11T01:35:00.308Z",
+  "total": 42,
+  "passed": 42,
+  "checks": [
+    {
+      "name": "forwardRef is the actual iframe textarea and preserves the supplied accessible name",
+      "pass": true
+    },
+    {
+      "name": "Caller widths and native resize cannot escape the bounded-input contract",
+      "pass": true
+    },
+    {
+      "name": "Input height controls grow and shrink the textarea without changing its width",
+      "pass": true
+    },
+    {
+      "name": "Keyboard maximum uses the iframe viewport rather than the larger parent viewport",
+      "pass": true
+    },
+    {
+      "name": "A smaller visual viewport reclamps an existing input to the keyboard-visible height budget",
+      "pass": true
+    },
+    {
+      "name": "Keyboard minimum is bounded and exposes matching accessible limits",
+      "pass": true
+    },
+    {
+      "name": "Reset returns to measured content height and automatic mode",
+      "pass": true
+    },
+    {
+      "name": "Bounded input preserves ordinary change-event targets and composition callbacks",
+      "pass": true
+    },
+    {
+      "name": "A horizontal drag does not stretch the field or change its measured height",
+      "pass": true
+    },
+    {
+      "name": "A long vertical drag clamps to the field's maximum instead of overflowing its height budget",
+      "pass": true
+    },
+    {
+      "name": "Cancelling a drag removes document pointer listeners",
+      "pass": true
+    },
+    {
+      "name": "StrictMode/unmount cancels drag, observers, queued measurements and viewport listeners",
+      "pass": true
+    },
+    {
+      "name": "Iframe input lifecycle never installs size listeners on the parent window",
+      "pass": true
+    },
+    {
+      "name": "IME confirmation is not hijacked by entity autocomplete while composing",
+      "pass": true
+    },
+    {
+      "name": "Entity search resumes after composition ends inside the bounded textarea",
+      "pass": true
+    },
+    {
+      "name": "Selecting a slash result preserves the Markdown link and returns the caret to the iframe textarea",
+      "pass": true
+    },
+    {
+      "name": "The explicit insert-entry action remains available after textarea replacement",
+      "pass": true
+    },
+    {
+      "name": "Entity suggestions dismiss using the owning child document",
+      "pass": true
+    },
+    {
+      "name": "Select flips and offsets using the iframe viewport with mocked geometry",
+      "pass": true
+    },
+    {
+      "name": "A pointer event in the parent page does not dismiss an iframe selection popup",
+      "pass": true
+    },
+    {
+      "name": "Scroll targets from the iframe window and DOM do not throw cross-realm Node errors",
+      "pass": true
+    },
+    {
+      "name": "Iframe resize recomputes popup placement without remounting the field",
+      "pass": true
+    },
+    {
+      "name": "A visual-viewport scroll recomputes select horizontal bounds and space above the field",
+      "pass": true
+    },
+    {
+      "name": "The owning document's outside-pointer event closes the custom popup",
+      "pass": true
+    },
+    {
+      "name": "Custom selection ignores composition Enter and retains the open choice",
+      "pass": true
+    },
+    {
+      "name": "Keyboard choice skips disabled options and restores focus in the correct document",
+      "pass": true
+    },
+    {
+      "name": "Unmounting an open select removes child-document, scroll and viewport listeners",
+      "pass": true
+    },
+    {
+      "name": "A component failure renders actionable recovery controls instead of removing its sibling",
+      "pass": true
+    },
+    {
+      "name": "A repeated failure remains recoverable while an outside sibling keeps its state",
+      "pass": true
+    },
+    {
+      "name": "Retry renders recovered content without remounting the outside page state",
+      "pass": true
+    },
+    {
+      "name": "Changing the route reset key clears a previous rendering fault",
+      "pass": true
+    },
+    {
+      "name": "Opening #discussion expands the existing discussion panel",
+      "pass": true
+    },
+    {
+      "name": "An activity-record comment anchor matches the actual comment and receives focus scrolling",
+      "pass": true
+    },
+    {
+      "name": "A missing comment target falls back to its discussion panel instead of throwing",
+      "pass": true
+    },
+    {
+      "name": "Account and editor routes do not introduce a second discussion composer",
+      "pass": true
+    },
+    {
+      "name": "PVE creation is a prominent page-heading action connected to the correct typed editor",
+      "pass": true
+    },
+    {
+      "name": "Footer removes duplicate account/check-in destinations and preserves useful maintenance and official links",
+      "pass": true
+    },
+    {
+      "name": "Header and footer use the same player-built encyclopedia declaration",
+      "pass": true
+    },
+    {
+      "name": "Footer issue feedback triggers the existing contextual feedback action",
+      "pass": true
+    },
+    {
+      "name": "CSS contract keeps input containers bounded and provides a vertical-only custom grip",
+      "pass": true
+    },
+    {
+      "name": "CSS contract includes a narrow single-column footer and consistent Georgia wordmark",
+      "pass": true
+    },
+    {
+      "name": "Only deliberately thrown boundary faults were caught, with no unrelated React/runtime errors",
+      "pass": true
+    }
+  ],
+  "errors": [],
+  "controlledFaults": 3,
+  "sourceHashes": {
+    "src/wiki/BoundedTextarea.jsx": "7d0e2850b5d2402405d32f01dce23f952e2da9d9bfe40ab234695d9a07288687",
+    "src/wiki/BoundedTextarea.css": "39f1cfd60ccc36138a074c756e7d8aff50d287192e0f1562bbd5ebfc48acfcdc",
+    "src/wiki/EntityTextarea.jsx": "e9d7d3df1362894fc1c7a423c5bf7233456f81252f07628054b8cfc4980e4a35",
+    "src/wiki/Select.jsx": "9b2f2648f6ab0ef886506af470a034b1e156ddd034c3fd8bf748dae3677c26ae",
+    "src/wiki/WikiRecoveryBoundary.jsx": "bcd3daff7d6aee2aab1910b41eb3207c848636e498a35281eccc979ef43e4f52",
+    "src/wiki/PageCommunityFooter.jsx": "4354afa7d43ea5d9df4ab7a67264a1062931a65d9b65ba59fb3877679f2f665d",
+    "src/wiki/pageCommunityModel.js": "8d72e38c6bd1411211943ec3a41a021853f0f7869dc1292005867995713fa94a",
+    "src/wiki/core.jsx": "668b89a1fae3b7ec7ac99f231694f4b48deda945ce66e6cf5908206f3ff78770",
+    "src/wiki/PvePages.jsx": "a34bc57c87921ff946cb7d16700693af5ad916ff067aefc373681323ffa4cc2c",
+    "src/css/v73.css": "8edf9e9809af219517ae231a53ced952f7875006a74243a133a571abacd59890",
+    "src/css/v72.css": "ab7e140b71f32692a709ded824b99b98c226e48590ed0cddb772062f7c8e0403",
+    "src/css/v7.css": "4fabc81dcb9e053081dbf1ddc66207b817db6a562a022719bc4af11fe8ef2409"
+  }
+}

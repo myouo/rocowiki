@@ -1,0 +1,233 @@
+[
+  {
+    "slug": "haifu",
+    "name": "海芙约忒",
+    "number": 3092,
+    "type": ["神水"],
+    "image": "/img/pets/haifu.png",
+    "sourceUrl": "https://roco.dvg.cn/spirit_info.php?id=3092",
+    "imageSourceUrl": "https://roco.dvg.cn/dbsource/spirit/300/3092-.png",
+    "stats": [162, 105, 142, 146, 142, 132],
+    "skills": [
+      {
+        "name": "霞姿月韵",
+        "power": null,
+        "pp": 6,
+        "priority": 7,
+        "category": "变化",
+        "type": "神水",
+        "summary": "净化与回血；提供6回合异常免疫并召唤海市蜃楼。首回合与后续回合的回复PP条件不同。"
+      },
+      {
+        "name": "渊云点墨",
+        "power": null,
+        "pp": 8,
+        "priority": 4,
+        "category": "变化",
+        "type": "神水",
+        "summary": "消耗怒气形成持续回复与干扰；消耗量影响效果，并决定能否触发额外的PP处理。"
+      },
+      {
+        "name": "叠嶂扶影",
+        "power": 80,
+        "pp": 10,
+        "priority": 3,
+        "category": "魔法",
+        "type": "神水",
+        "summary": "冰冻对手；按免疫和天气条件召唤阴雨。格挡下次威力伤害，并影响下次使用的伤害；连续使用额外耗PP。"
+      },
+      {
+        "name": "天河夜转",
+        "power": 120,
+        "pp": 12,
+        "priority": 2,
+        "category": "魔法",
+        "type": "神水",
+        "summary": "按对手护盾提升威力。精力优势关系决定吸血或回复其他技能PP；另有删PP及精力不佳时的回复分支。"
+      },
+      {
+        "name": "飞星浮渡",
+        "power": 110,
+        "pp": 12,
+        "priority": 2,
+        "category": "魔法",
+        "type": "神水",
+        "summary": "召唤海市蜃楼并回复指定技能PP，召唤失败时加强回复、干扰耗PP；删除对手最近使用技能的PP。乘胜时必中。"
+      }
+    ],
+    "verifiedAt": "2026-10-10"
+  },
+  {
+    "slug": "bishui",
+    "name": "碧水灵兽",
+    "number": 2552,
+    "type": ["水"],
+    "image": "/img/pets/bishui.png",
+    "sourceUrl": "https://roco.dvg.cn/spirit_info.php?id=2552",
+    "imageSourceUrl": "https://roco.dvg.cn/dbsource/spirit/600/2552-.png",
+    "stats": [152, 140, 123, 101, 130, 109],
+    "skills": [
+      {
+        "name": "水灵动",
+        "power": null,
+        "pp": 4,
+        "priority": 4,
+        "category": "变化",
+        "type": "水",
+        "summary": "净化、回复并暂时免疫异常与负面；阴雨下获得护盾，对手受到持续固伤。",
+        "slug": "shuilingdong"
+      },
+      {
+        "name": "雨飘摇",
+        "power": null,
+        "pp": 8,
+        "priority": 1,
+        "category": "变化",
+        "type": "水",
+        "summary": "连续3回合赋予不同负面强化；首回合清除对手正面强化并召唤6回合阴雨。",
+        "slug": "yupiaoyao"
+      },
+      {
+        "name": "趁势击",
+        "power": 100,
+        "pp": 10,
+        "priority": 2,
+        "category": "物理",
+        "type": "水",
+        "summary": "对手负面强化的等级和种类影响威力；阴雨下先降低对手物防再造成伤害。",
+        "slug": "chenshiji"
+      },
+      {
+        "name": "飞燕凌波",
+        "power": null,
+        "pp": 3,
+        "priority": 4,
+        "category": "变化",
+        "type": "水",
+        "summary": "回复己方全体精力，并依据本技能剩余PP强化己方全体。",
+        "slug": "feiyanlingbo"
+      }
+    ],
+    "verifiedAt": "2026-10-10"
+  },
+  {
+    "slug": "dimo",
+    "name": "迪莫",
+    "number": 137,
+    "type": ["光"],
+    "image": "/img/pets/dimo.png",
+    "sourceUrl": "https://roco.dvg.cn/spirit_info.php?id=137",
+    "imageSourceUrl": "https://roco.dvg.cn/dbsource/spirit/600/137-.png",
+    "stats": [90, 102, 86, 120, 92, 92],
+    "skills": [],
+    "verifiedAt": "2026-10-10"
+  },
+  {
+    "slug": "abu",
+    "name": "阿布",
+    "number": 630,
+    "type": ["普通"],
+    "image": "/img/pets/abu.png",
+    "sourceUrl": "https://roco.dvg.cn/spirit_info.php?id=630",
+    "imageSourceUrl": "https://roco.dvg.cn/dbsource/spirit/600/630-.png",
+    "stats": [82, 75, 70, 62, 68, 75],
+    "skills": [],
+    "verifiedAt": "2026-10-10"
+  },
+  {
+    "slug": "shuilanlan",
+    "name": "水蓝蓝",
+    "number": 7,
+    "type": ["水"],
+    "image": "/img/pets/shuilanlan.png",
+    "sourceUrl": "https://roco.dvg.cn/spirit_info.php?id=7",
+    "imageSourceUrl": "https://roco.dvg.cn/dbsource/spirit/600/7-.png",
+    "stats": [44, 48, 65, 50, 64, 43],
+    "skills": [],
+    "verifiedAt": "2026-10-10"
+  },
+  {
+    "slug": "huohua",
+    "name": "火花",
+    "number": 4,
+    "type": ["火"],
+    "image": "/img/pets/huohua.png",
+    "sourceUrl": "https://roco.dvg.cn/spirit_info.php?id=4",
+    "imageSourceUrl": "https://roco.dvg.cn/dbsource/spirit/600/4-.png",
+    "stats": [39, 52, 43, 60, 50, 65],
+    "skills": [],
+    "verifiedAt": "2026-10-10"
+  },
+  {
+    "slug": "miaomiao",
+    "name": "喵喵",
+    "number": 1,
+    "type": ["草"],
+    "image": "/img/pets/miaomiao.png",
+    "sourceUrl": "https://roco.dvg.cn/spirit_info.php?id=1",
+    "imageSourceUrl": "https://roco.dvg.cn/dbsource/spirit/600/1-.png",
+    "stats": [45, 49, 49, 65, 65, 45],
+    "skills": [],
+    "verifiedAt": "2026-10-10"
+  },
+  {
+    "slug": "royal-dimo",
+    "name": "皇家圣光迪莫",
+    "number": 1888,
+    "type": ["光"],
+    "image": "/img/pets/royal-dimo.png",
+    "sourceUrl": "https://roco.dvg.cn/spirit_info.php?id=1888",
+    "imageSourceUrl": "https://roco.dvg.cn/dbsource/spirit/600/1888-.png",
+    "stats": [120, 135, 105, 150, 112, 113],
+    "skills": [],
+    "verifiedAt": "2026-10-10"
+  },
+  {
+    "slug": "moshen",
+    "name": "魔神武王",
+    "number": 2531,
+    "type": ["武", "恶魔"],
+    "image": "/img/pets/moshen.png",
+    "sourceUrl": "https://roco.dvg.cn/spirit_info.php?id=2531",
+    "imageSourceUrl": "https://roco.dvg.cn/dbsource/spirit/600/2531-.png",
+    "stats": [147, 145, 142, 118, 138, 138],
+    "skills": [],
+    "verifiedAt": "2026-10-10"
+  },
+  {
+    "slug": "zhuque",
+    "name": "灵瑞朱雀",
+    "number": 3031,
+    "type": ["火", "翼"],
+    "image": "/img/pets/zhuque.png",
+    "sourceUrl": "https://roco.dvg.cn/spirit_info.php?id=3031",
+    "imageSourceUrl": "https://roco.dvg.cn/dbsource/spirit/600/3031-.png",
+    "stats": [164, 104, 131, 150, 136, 135],
+    "skills": [],
+    "verifiedAt": "2026-10-10"
+  },
+  {
+    "slug": "hapuluosi",
+    "name": "哈普洛斯",
+    "number": 2316,
+    "type": ["神水"],
+    "image": "/img/pets/hapuluosi.png",
+    "sourceUrl": "https://roco.dvg.cn/spirit_info.php?id=2316",
+    "imageSourceUrl": "https://roco.dvg.cn/dbsource/spirit/600/2316-.png",
+    "stats": [161, 135, 126, 146, 144, 137],
+    "skills": [],
+    "verifiedAt": "2026-10-10"
+  },
+  {
+    "slug": "sailemu",
+    "name": "塞勒姆",
+    "number": 3362,
+    "type": ["冰"],
+    "image": "/img/pets/sailemu.webp",
+    "sourceUrl": "https://roco.dvg.cn/spirit_info.php?id=3362",
+    "imageSourceUrl": "https://roco.dvg.cn/dbsource/spirit/600/3362-.png",
+    "stats": [165, 100, 140, 150, 140, 144],
+    "skills": [],
+    "verifiedAt": "2026-10-10"
+  }
+]

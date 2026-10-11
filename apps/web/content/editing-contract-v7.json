@@ -1,0 +1,292 @@
+{
+  "schemaVersion": 7,
+  "title": "章节编辑、发布快照与生产接入约定",
+  "implementationStatus": "可操作的本机原型；未接入线上账号、投稿 API 或真实部署服务",
+  "interface": {
+    "component": "src/wiki/editing/EditEntry.jsx",
+    "hrefBuilder": "editorHref(request)",
+    "snapshotReader": "getPublishedSnapshot(request, workspace)",
+    "localReadingHook": "usePublishedSection(request)",
+    "route": "/edit/",
+    "parameters": {
+      "entity": "当前对象的显示名称；生产服务另使用稳定对象 ID",
+      "section": "正在编辑的小标题或条目正文",
+      "mode": "已知字段模式，决定专用表单",
+      "returnTo": "站内阅读路径，保留筛选参数、宠物上下文和锚点",
+      "record": "可选的稳定记录 ID；技能支持 base 与 branch-N",
+      "intent": "add 表示新增；省略时编辑现有内容",
+      "submission": "可选的继续修订投稿标识"
+    },
+    "legacyAliases": {
+      "from": "returnTo",
+      "action=create": "intent=add",
+      "counter": "matchup",
+      "skill-effects": "skill",
+      "timeline": "acquisition",
+      "markdown": "article"
+    }
+  },
+  "modes": [
+    {
+      "id": "article",
+      "label": "章节正文",
+      "fields": ["markdown"],
+      "baseline": "当前文档 Markdown、真实阅读页章节快照；计算规则有单独原文",
+      "reading": "文章发布结果通过安全 Markdown 渲染器替换对应正文"
+    },
+    {
+      "id": "acquisition",
+      "label": "获取记录",
+      "fields": [
+        "activityId",
+        "occurrenceId",
+        "title",
+        "kind",
+        "startDate",
+        "endDate",
+        "place",
+        "conditions",
+        "method",
+        "reward",
+        "sourceUrl",
+        "sourceLabel"
+      ],
+      "baseline": "宠物获取历史与本机已发布记录的组合结果"
+    },
+    {
+      "id": "event",
+      "label": "活动与开放批次",
+      "fields": ["id", "name", "summary", "occurrences"],
+      "occurrenceFields": [
+        "id",
+        "label",
+        "startDate",
+        "endDate",
+        "location",
+        "conditions",
+        "rewards",
+        "sourceUrl",
+        "sourceTitle",
+        "certainty"
+      ],
+      "baseline": "同一活动主条目及全部开放批次；从批次或新增入口进入共享主条目版本"
+    },
+    {
+      "id": "skill",
+      "label": "技能资料与效果分支",
+      "fields": [
+        "name",
+        "type",
+        "category",
+        "power",
+        "pp",
+        "priority",
+        "hit",
+        "summary",
+        "common",
+        "phases",
+        "sourceUrl"
+      ],
+      "baseline": "与技能阅读页共用 skillRulePresentation，保留明确的成立和其他分支条件",
+      "branchFields": ["label", "when", "effect", "otherwiseWhen", "otherwise"],
+      "displayLabels": {
+        "summary": "技能描述",
+        "common": "基础效果",
+        "phases": "条件分支"
+      }
+    },
+    {
+      "id": "matchup",
+      "label": "PVP 对位记录",
+      "fields": [
+        "opponent",
+        "scene",
+        "conclusion",
+        "conditions",
+        "limitations",
+        "recordedAt",
+        "testedAt",
+        "sourceUrl",
+        "sourceLabel"
+      ],
+      "scenes": ["lead-together", "switch-in", "already-active", "unspecified"],
+      "scenePolicy": "新增默认未选择；来源未说明时可以明确标为待核实。支持率不属于编辑字段。",
+      "baseline": "PVP 记录及本机发布组合；内容变化更新对应结论版本，其他对位票池保持"
+    },
+    {
+      "id": "npc",
+      "label": "人物与 NPC",
+      "fields": [
+        "name",
+        "aliases",
+        "location",
+        "role",
+        "intro",
+        "services",
+        "relatedTasks",
+        "sourceUrl",
+        "sourceTitle",
+        "slug"
+      ],
+      "baseline": "与人物阅读页共用身份、场景、服务和来源数据；新增打开空表单",
+      "localEntryRoute": "/npcs/?entry=<stable-id>"
+    },
+    {
+      "id": "pet",
+      "label": "宠物资料",
+      "fields": [
+        "name",
+        "number",
+        "types",
+        "group",
+        "series",
+        "experienceType",
+        "bloodlines",
+        "ladderMagic",
+        "hp",
+        "attack",
+        "defense",
+        "magicAttack",
+        "magicDefense",
+        "speed",
+        "sourceUrl"
+      ],
+      "baseline": "当前宠物资料及补充字段；未知数值留空"
+    },
+    {
+      "id": "pve",
+      "label": "PVE 挑战方案",
+      "fields": [
+        "title",
+        "challenge",
+        "pets",
+        "version",
+        "testedAt",
+        "requirements",
+        "steps",
+        "alternatives",
+        "sourceUrl"
+      ],
+      "baseline": "副本资料和已迁移的历史挑战记录；PVE 由副本单向查询挑战宠物"
+    },
+    {
+      "id": "index",
+      "label": "目录与入口",
+      "fields": ["title", "description", "entries"],
+      "entryFields": ["title", "href", "description"],
+      "baseline": "相应目录入口集合；新增目标地址只接受站内路径"
+    },
+    {
+      "id": "relationship",
+      "label": "效果关系实测",
+      "fields": [
+        "sourceEffect",
+        "incomingEffect",
+        "order",
+        "timing",
+        "conditions",
+        "result",
+        "certainty",
+        "reproduction",
+        "sourceUrl"
+      ],
+      "baseline": "新增实测表单；已有机制文章通过文章模式编辑"
+    }
+  ],
+  "publishedBaseline": {
+    "firstRead": "随当前版本交付的实际内容，不使用虚构发布版本号或占位正文",
+    "localRead": "仅 status=published 且 editorVersion=7 的投稿参与本机结果组合",
+    "fingerprint": "pub-xxxxxxxx 是前端内容指纹，不是 Git SHA、安全令牌或服务端并发凭证",
+    "productionRevision": "服务端应返回 Git tree/commit SHA、稳定章节修订号或 ETag",
+    "documentComposition": "整篇与分节文章按发布时间依次应用，阅读页和编辑器共用 documentComposition.js；修订号由实际编辑范围内容计算，其他章节独立变更不导致假冲突",
+    "recordComposition": "获取和对位共用 publishedRecords.js，依次应用整节替换、单行修改、删除与新增",
+    "eventIdentity": "event + activity.id；每个开放批次独立维护日期、条件、地点、奖励与来源",
+    "rewardSemantics": "进化资格与直接获得宠物不能混同；奖励转为文本编辑字段时保留获取形式，不跨批次继承条件",
+    "npcIdentity": "已知 slug 或新建条目的稳定 ID；显示名称更改后仍能继续编辑"
+  },
+  "draftAndReview": {
+    "storageKey": "roco-wiki-v4:community",
+    "preservedFields": [
+      "editorRequest",
+      "snapshotKey",
+      "baseVersion",
+      "baseData",
+      "baseContent",
+      "typedData"
+    ],
+    "flow": [
+      "本机草稿",
+      "提交本地审核",
+      "审核批准",
+      "普通合并",
+      "构建",
+      "模拟发布"
+    ],
+    "merge": "三方比较原基线、当前发布内容和我的草稿；独立字段自动合并，同字段分歧必须显式选择",
+    "arrays": "记录数组并发修改按一个冲突项处理，避免静默覆盖或删除新记录；生产服务可以增加基于稳定 ID 的逐行合并",
+    "staleSubmission": "基线变化阻止直接提交和合并，保留草稿并提供对照处理",
+    "readingRefreshEvent": "roco:community-updated",
+    "legacyDrafts": "旧版草稿和示例投稿继续使用兼容编辑器，不强制按新字段模式解释"
+  },
+  "accountInformationArchitecture": [
+    "我的首页",
+    "我的投稿（含草稿）",
+    "我的收藏",
+    "个人资料",
+    "账号与安全"
+  ],
+  "productionBoundary": {
+    "implementedLocally": [
+      "字段预填",
+      "输入与来源验证",
+      "草稿",
+      "前后差异",
+      "三方冲突选择",
+      "审核阶段体验",
+      "本机已发布内容读回"
+    ],
+    "notConnected": [
+      "线上 Wiki 身份认证",
+      "跨设备数据同步",
+      "远端投稿与审核 API",
+      "GitHub App 提交",
+      "真实合并和构建部署"
+    ],
+    "identity": "本机昵称和审核体验身份不构成已登录账号或权限；服务端需验证每个保存、提交、审核和合并请求",
+    "architecturePreserved": [
+      "独立 Wiki 账号",
+      "可选 GitHub OAuth",
+      "Workers / Hono",
+      "D1",
+      "GitHub App",
+      "每次投稿独立提交",
+      "普通合并而非 squash",
+      "GitCode 单向镜像",
+      "EdgeOne 静态分发"
+    ],
+    "proposedApiNotImplemented": [
+      "GET /api/wiki/entries/{entryId}/sections/{sectionId}",
+      "POST /api/wiki/drafts",
+      "POST /api/wiki/submissions",
+      "GET /api/wiki/submissions/{submissionId}",
+      "POST /api/wiki/submissions/{submissionId}/review"
+    ],
+    "submissionContract": [
+      "稳定对象 ID",
+      "稳定章节 ID",
+      "可选记录 ID",
+      "baseRevision",
+      "已知 schema 下的字段变更",
+      "修改摘要",
+      "来源和证据定位"
+    ],
+    "contentPolicy": "文章作为受限 Markdown 渲染，不执行原始 HTML、MDX 或任意脚本。计算规则文章可走贡献审核，公式实现修改仍需代码维护及算例验证。"
+  },
+  "validation": {
+    "script": "validation/check-v7-editing.cjs",
+    "result": "validation/v7-editing-check-results.json",
+    "scope": "源代码和 DOM 交互；不表示浏览器视觉检查或远端服务已通过验证",
+    "latestPassedChecks": 50,
+    "sourceHashes": "结果 JSON 保存本次验证的源码 SHA-256"
+  }
+}

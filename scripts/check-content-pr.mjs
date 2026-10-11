@@ -1,0 +1,25 @@
+import {execFileSync} from 'node:child_process';
+import {readFileSync,writeFileSync,mkdirSync} from 'node:fs';
+import {createHash} from 'node:crypto';
+const base=process.env.BASE_SHA,head=process.env.HEAD_SHA;
+if(!/^[a-f0-9]{40}$/.test(base)||!/^[a-f0-9]{40}$/.test(head))throw Error('Invalid comparison SHA');
+const git=(...args)=>execFileSync('git',args,{encoding:'utf8',maxBuffer:10*1024*1024});
+const registry=JSON.parse(readFileSync('content/catalog.json','utf8'));
+const files=git('diff','--name-only',base,head).trim().split('\n').filter(Boolean);
+if(files.length!==2)throw Error('A community revision must change exactly its content and public metadata');
+const page=registry.find(p=>files.includes(p.kind==='article'?`content/${p.section}/${p.id}.md`:`content/data/${p.kind}s/${p.id}.json`));
+if(!page)throw Error('Unregistered community path');
+const path=page.kind==='article'?`content/${page.section}/${page.id}.md`:`content/data/${page.kind}s/${page.id}.json`,metaPath=`content/metadata/${page.id}.json`;
+if(!files.includes(metaPath))throw Error('Public metadata required');
+for(const file of files)if(!git('ls-tree',head,'--',file).startsWith('100644 blob '))throw Error('Only plain files are permitted');
+const content=git('show',`${head}:${path}`),metaBody=git('show',`${head}:${metaPath}`),meta=JSON.parse(metaBody);
+if(meta.page_id!==page.id||meta.snapshot_hash!==createHash('sha256').update(content).digest('hex'))throw Error('Snapshot metadata mismatch');
+const commits=git('rev-list',`${base}..${head}`).trim().split('\n');if(commits.length>30)throw Error('Too many community commits');
+const matching=commits.filter(sha=>git('show','-s','--format=%B',sha).includes(`Wiki-Revision-ID: ${meta.revision_id}\n`));
+if(matching.length!==1)throw Error('One original content revision commit required');
+const original=matching[0],message=git('show','-s','--format=%B',original);
+if(!message.includes(`Wiki-User-ID: ${meta.public_uid}\n`)||git('show',`${original}:${path}`)!==content||git('show',`${original}:${metaPath}`)!==metaBody)throw Error('Reviewed snapshot changed');
+const baseline=message.match(/^Wiki-Base-Blob-SHA: ([a-f0-9]{40})$/m)?.[1];
+if(!baseline||git('rev-parse',`${base}:${path}`).trim()!==baseline)throw Error('Baseline changed; a new reviewed candidate is required');
+for(const file of files){mkdirSync(file.slice(0,file.lastIndexOf('/')),{recursive:true});writeFileSync(file,git('show',`${head}:${file}`));}
+console.log(`Community boundary verified: ${meta.revision_id}`);

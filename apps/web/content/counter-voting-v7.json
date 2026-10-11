@@ -1,0 +1,79 @@
+{
+  "schemaVersion": 7,
+  "status": "interface-contract-not-a-deployed-api",
+  "currentPreview": {
+    "persistence": "browser-localStorage-or-in-memory-fallback",
+    "seedVotes": 0,
+    "populationLabel": "本机体验数据",
+    "authentication": "No real account session is connected. A visitor ID is used; a display nickname must never be treated as authentication.",
+    "componentAdapter": "CounterVotes authenticatedUserId prop accepts a real session's stable Wiki user ID when the existing account service is connected.",
+    "voteKey": [
+      "petSlug",
+      "recordId",
+      "claimRevision",
+      "scene",
+      "claimContentDigest"
+    ],
+    "localLimits": "Local counts are neither public community totals nor protection against resetting browser storage. The client digest separates edited preview claims; it is not a security checksum."
+  },
+  "meaning": {
+    "supportRate": "supportCount / (supportCount + opposeCount), displayed with counts and sample size; null when the denominator is zero.",
+    "interpretation": "Community support for the stated conditional claim. It is not match win rate, an objective proof of correctness, or a substitute for a reproducible battle record.",
+    "separateEvidence": [
+      "sourceUrl",
+      "recordedAt",
+      "testedAt",
+      "limitations",
+      "applicableRulesDate"
+    ],
+    "scenes": {
+      "lead-together": "同起：双方同时起手；记录初始精力、状态与先手。",
+      "switch-in": "后上拦截：当前图鉴宠物后上，应对已在场对手。",
+      "already-active": "先在场：当前图鉴宠物已经在场，应对后上的对手。",
+      "unspecified": "出场情形待补：来源未说明时保留未知，不推断。"
+    }
+  },
+  "serverDesign": {
+    "architecture": "Use the existing Workers/Hono API and Cloudflare D1. Published Counter claims remain versioned Wiki content in Git; ballots are transactional D1 data and do not produce one Git commit per vote.",
+    "identity": "Resolve authenticated user IDs from the server session. For visitors, issue a random signed HttpOnly visitor cookie; do not accept a user ID supplied in the vote body as identity.",
+    "uniqueConstraint": [
+      "claim_id",
+      "published_revision",
+      "scene",
+      "voter_subject_id"
+    ],
+    "methods": [
+      {
+        "method": "GET",
+        "path": "/api/counter/:claimId/revisions/:revision/votes",
+        "purpose": "Return supportCount, opposeCount, sampleSize, supportRate or null, updatedAt, and viewerVote from the resolved session. Public totals and evidence status remain separate."
+      },
+      {
+        "method": "PUT",
+        "path": "/api/counter/:claimId/revisions/:revision/vote",
+        "body": {
+          "choice": "support | oppose",
+          "scene": "published scene enum"
+        },
+        "purpose": "Atomically insert or switch one ballot. Verify that the requested claim revision and scene exist and are open for voting. Return authoritative updated totals."
+      },
+      {
+        "method": "DELETE",
+        "path": "/api/counter/:claimId/revisions/:revision/vote",
+        "purpose": "Idempotently remove the caller's ballot and return current totals."
+      }
+    ],
+    "revisionConflict": "Respond 409 with the current revision when the published conclusion or conditions have changed. Ask the reader to review the new claim before voting again; never carry old ballots into the new conclusion.",
+    "signInMigration": "In one D1 transaction, link a visitor subject to the authenticated Wiki account. If that account already has a ballot for the same claim revision and scene, keep the account ballot and retire the visitor ballot. Otherwise adopt it. Keep the linkage across logout so changing session state does not create an additional voter.",
+    "abuseControls": "Apply a small per-subject request budget, server-enforced idempotent writes, and cookie/origin checks. Show the sample size and preserve the distinction between visitor support and verified evidence; anonymous participation cannot make the result objective proof.",
+    "privacy": "The public response contains aggregate counts only. Do not publish voter identities or raw IP addresses."
+  },
+  "acceptance": [
+    "A visitor can support, oppose, change a vote, or withdraw it without logging in.",
+    "Zero ballots show 暂无投票, not 0% support or fabricated seed totals.",
+    "Each claim and each entry scene has an independent ballot pool.",
+    "A new published conclusion revision starts with its own sample.",
+    "Evidence, scope, dates and limitations remain visible regardless of vote totals.",
+    "The local preview explicitly identifies its local scope and survives malformed or blocked storage."
+  ]
+}

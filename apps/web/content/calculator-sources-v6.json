@@ -1,0 +1,54 @@
+{
+  "game": "洛克王国页游",
+  "checkedAt": "2026-10-10",
+  "sources": [
+    {
+      "id": "forum-training",
+      "title": "【PK入门·1】宠物能力培养指南",
+      "author": "巴甫洛夫的猫 / 洛克王国官方论坛版主团",
+      "kind": "官方论坛版主团原创教程（非客户端源码）",
+      "published": "2025-07-17",
+      "formulaEdited": "2026-04-14",
+      "url": "https://17roco.gamebbs.qq.com/forum.php?mod=viewthread&tid=162202",
+      "readableUrl": "https://17roco.gamebbs.qq.com/forum.php?action=printable&mod=viewthread&tid=162202",
+      "locator": "第二至七步；末楼‘总结归纳’三张六维能力公式图与取整说明",
+      "formulaImages": [
+        "https://dp.gtimg.cn/discuzpic/0/discuz_17roco_gamebbs_qq_com_forum_202510_30_1510353gvh0gzigbxuhiuu.png/0",
+        "https://dp.gtimg.cn/discuzpic/0/discuz_17roco_gamebbs_qq_com_forum_202510_30_151849bcstvesxvtbxx6r7.png/0",
+        "https://dp.gtimg.cn/discuzpic/0/discuz_17roco_gamebbs_qq_com_forum_202510_30_151038t1fo3oxii3ai3dob.png/0"
+      ],
+      "verification": "已阅读原文、公式图片；尚无本项目账号逐项实机复现"
+    },
+    {
+      "id": "power-expression",
+      "title": "洛克王国伤害值计算公式 种族值计算公式",
+      "author": "4399",
+      "kind": "历史页游攻略",
+      "published": "2010-08-25",
+      "url": "https://news.4399.com/luoke/miji/201008-25-76090.html",
+      "locator": "正文第三个公式：等级、威力、攻防比与属性修正",
+      "verification": "基础表达式已阅读；原文没有明确中间取整位置，不能作客户端源码证明"
+    },
+    {
+      "id": "damage-variation",
+      "title": "【洛克王国】揭开伤害浮动机制的真面目",
+      "author": "超级楚的無頭",
+      "kind": "作者原始实测视频",
+      "published": "2022-06-14",
+      "url": "https://www.bilibili.com/video/BV1dY4y1W7om/",
+      "locator": "约04:00：21个伤害值的频数表；约04:30：0.80至1.00的逐档对照表",
+      "verification": "已查看原视频画面；21档为该历史实验口径，不宣称当前客户端已逐项复现",
+      "limitation": "片头公式的取整括号按字面计算存在矛盾，因此未采用片头取整式；也不把有限样本的均匀性检验当作精确击杀概率。"
+    },
+    {
+      "id": "single-matchup",
+      "title": "[玩家投稿]洛克王国宠物的优劣判断依据",
+      "author": "夏末~残阳 / 4399 玩家投稿",
+      "kind": "历史页游玩家分析",
+      "published": "2011-02-28",
+      "url": "https://news.4399.com/luoke/miji/201102-28-87952.html",
+      "locator": "伤害公式后的相克修正说明",
+      "verification": "仅采用普通、单重克制和单重抵抗三档；不推断双属性或神系关系"
+    }
+  ]
+}

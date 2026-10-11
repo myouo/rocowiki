@@ -1,0 +1,56 @@
+{
+  "name": "rocowiki",
+  "private": true,
+  "type": "module",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "engines": {
+    "node": ">=24.15.0"
+  },
+  "scripts": {
+    "dev:web": "npm run generate && npm run start -w @rocowiki/web",
+    "dev:api": "npm run dev -w @rocowiki/api",
+    "db:migrate": "npm run db:migrate -w @rocowiki/api",
+    "generate": "node --import tsx scripts/generate-pages.ts",
+    "check:content": "node --import tsx scripts/check-schema.ts",
+    "check:architecture": "node scripts/check-web-architecture.mjs",
+    "licenses:refresh": "node scripts/refresh-license-inventory.mjs",
+    "check:repository": "node scripts/check-repository.cjs",
+    "check:production-config": "node scripts/check-production-config.cjs",
+    "typecheck": "npm run generate && tsc --noEmit && npm run typecheck:web-critical",
+    "typecheck:web-critical": "tsc -p tsconfig.web-critical.json --noEmit",
+    "test": "vitest run && npm run test:runtime -w @rocowiki/web && npm run test:workbench -w @rocowiki/web",
+    "build": "npm run check:production-config && npm run check:content && npm run generate && npm run check:content -w @rocowiki/web && npm run build -w @rocowiki/web && pagefind --site apps/web/build && node scripts/version-manifest.mjs",
+    "check": "npm run check:repository && npm run check:architecture && npm run check:content && npm run typecheck && npm test && npm run build",
+    "api:dry-run": "npm run dry-run -w @rocowiki/api",
+    "deploy:web": "node --import tsx scripts/deploy-workers.ts"
+  },
+  "dependencies": {
+    "hono": "4.12.32",
+    "jose": "6.2.12",
+    "openid-client": "6.8.8",
+    "rehype-sanitize": "6.0.0",
+    "rehype-stringify": "10.0.1",
+    "remark-gfm": "4.0.1",
+    "remark-parse": "11.0.0",
+    "remark-rehype": "11.1.2",
+    "unified": "11.0.5",
+    "unist-util-visit": "5.1.0",
+    "zod": "3.25.76"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "5.20261010.1",
+    "@types/node": "24.19.2",
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
+    "js-yaml": "4.3.2",
+    "pagefind": "1.5.2",
+    "tsx": "4.23.15",
+    "typescript": "5.9.3",
+    "vitest": "3.2.7",
+    "wrangler": "4.149.0"
+  },
+  "license": "GPL-3.0-only"
+}

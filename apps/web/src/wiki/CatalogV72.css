@@ -1,0 +1,160 @@
+/* V7.2 keeps the reference-card vocabulary from the home page. */
+.rw .rw-pet-detail-v6 .rw-pet-overview-v72 {
+  grid-template-columns: minmax(180px, .8fr) minmax(280px, 1.35fr) minmax(220px, 1fr);
+  align-items: stretch;
+  border-radius: 22px;
+  background: #fffefa;
+}
+.rw .rw-pet-overview-v72 .rw-pet-identity-v72 {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
+  min-width: 0;
+  min-height: 0;
+  padding: 17px 13px 16px;
+  background: linear-gradient(165deg, #edf5fa, #f7f4ef);
+}
+.rw-pet-gallery-image-v72 { position: relative; min-width: 0; }
+.rw .rw-pet-overview-v72 .rw-pet-gallery-image-v72 .rw-portrait.hero { width: 100%; height: 246px; padding: 8px; border-radius: 17px; overflow: hidden; background: #fff; }
+.rw .rw-pet-overview-v72 .rw-pet-gallery-image-v72 .rw-portrait.hero img { width: 100%; height: 100%; object-fit: contain; }
+.rw-pet-hero-magic-v72 { position: absolute; top: 8px; left: 8px; right: 8px; z-index: 1; display: flex; justify-content: flex-end; pointer-events: none; }
+.rw .rw-pet-hero-magic-v72 .rw-magic-cost-v6 { position: relative; top: auto; right: auto; width: 32px; height: 32px; background: #fff8e6; border: 1px solid #ddc389; box-shadow: 0 2px 6px #94754812; font-size: 16px; pointer-events: auto; }
+.rw-pet-hero-magic-v72 .rw-magic-tooltip-v6 { top: 40px; right: 0; left: auto; width: 245px; max-width: 100%; box-sizing: border-box; }
+.rw .rw-pet-overview-v72 .rw-number { margin: 11px 0 8px; text-align: center; font-size: 11px; color: #687387; }
+.rw-pet-appearance-options-v72 { display: flex; justify-content: center; flex-wrap: wrap; gap: 5px; }
+.rw-pet-appearance-options-v72 button { border: 1px solid #dde5ee; border-radius: 999px; padding: 5px 10px; min-height: 32px; background: #ffffffa8; font: inherit; font-size: 11px; line-height: 1.3; color: #5e6e82; cursor: pointer; transition: background-color 150ms ease, border-color 150ms ease; }
+.rw-pet-appearance-options-v72 button[aria-pressed="true"] { background: #e3edf9; color: #3f648f; border-color: #adc6e2; }
+.rw-pet-appearance-options-v72 button:focus-visible { outline: 2px solid #5e88b6; outline-offset: 3px; }
+.rw-pet-appearance-caption-v72 { display: flex; align-items: center; flex-direction: column; gap: 3px; margin-top: 9px; min-height: 35px; text-align: center; font-size: 10px; line-height: 1.7; color: #718097; overflow-wrap: anywhere; }
+.rw-pet-appearance-caption-v72 a { display: inline-flex; align-items: center; gap: 4px; color: #5b7696; }
+.rw .rw-pet-overview-v72 .rw-pet-facts { min-width: 0; padding: 23px 21px 16px; grid-column: auto; }
+.rw .rw-pet-overview-v72 .rw-facts-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 18px; margin: 16px 0 0; }
+.rw .rw-pet-overview-v72 .rw-facts-grid > .rw-pair { display: block; min-width: 0; padding: 9px 0; font-size: 12px; }
+.rw .rw-pet-overview-v72 .rw-facts-grid > .rw-pair:nth-child(3) { display: block; grid-column: 1 / -1; }
+.rw .rw-pet-overview-v72 .rw-pair dt { font-size: 11px; color: #838391; }
+.rw .rw-pet-overview-v72 .rw-pair dd { margin: 4px 0 0; text-align: left; line-height: 1.6; color: #444a5d; overflow-wrap: anywhere; }
+.rw .rw-pet-overview-v72 .rw-pair dd small { font-size: 10px; color: #7c8291; }
+.rw-pet-fact-links-v72 { display: flex; flex-wrap: wrap; gap: 4px 9px; }
+.rw .rw-pet-overview-v72 .rw-pet-radar { min-width: 0; grid-column: auto; padding: 24px 17px 15px; align-self: stretch; background: #fcfbff; border-left: 1px solid #efecf3; }
+.rw .rw-pet-overview-v72 .rw-pet-radar .rw-subnote { line-height: 1.8; }
+.rw-counter-bloodline-side-v71.any { background: #f1f7ed; border-color: #d8e6cc; }
+.rw-counter-bloodline-side-v71.any > strong { color: #57794f; }
+.rw-counter-bloodline-side-v71 > strong { display: flex; gap: 5px; flex-wrap: wrap; }
+.rw-pet-stats-mini-v72 { margin: 22px 0 32px; padding: 22px; border: 1px solid #dfe7ee; border-radius: 21px; background: linear-gradient(140deg, #f9fcff, #fffefa 70%); min-width: 0; scroll-margin-top: 120px; }
+.rw-pet-mini-heading { display: flex; align-items: flex-start; justify-content: space-between; gap: 15px; margin-bottom: 16px; }
+.rw-pet-mini-heading > div { min-width: 0; }
+.rw-pet-mini-heading > div > span { display: flex; align-items: center; gap: 8px; color: #6383a6; }
+.rw .rw-pet-mini-heading h2 { font-size: 18px; margin: 0; line-height: 1.5; color: #405b79; }
+.rw-pet-mini-heading p { margin: 5px 0 0; font-size: 12px; color: #758093; line-height: 1.8; }
+.rw-pet-mini-heading > a { flex-shrink: 0; font-size: 12px; margin-top: 4px; }
+.rw-pet-mini-controls { display: grid; grid-template-columns: minmax(80px, .7fr) minmax(180px, 1.4fr) auto; align-items: end; gap: 13px; max-width: 660px; margin-bottom: 15px; }
+.rw-pet-mini-field { min-width: 0; display: block; }
+.rw-pet-mini-field > span { display: block; font-size: 12px; color: #63738b; margin-bottom: 6px; }
+.rw-pet-mini-field input, .rw-pet-mini-cultivation input { display: block; width: 100%; min-height: 38px; padding: 7px 11px; border: 1px solid #dce4ed; border-radius: 11px; color: #414f64; background: #fff; font: inherit; font-size: 13px; box-sizing: border-box; }
+.rw-pet-mini-reset { display: inline-flex; align-items: center; justify-content: center; gap: 6px; font: inherit; font-size: 12px; color: #78859a; background: #f2f5fa; border: 1px solid #e2e7ef; border-radius: 11px; padding: 8px 11px; min-height: 38px; cursor: pointer; }
+.rw-pet-mini-result { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 8px; }
+.rw-pet-mini-result > div:not(.rw-pet-mini-errors) { min-width: 0; padding: 13px 5px 10px; text-align: center; border: 1px solid #e8eaf1; border-radius: 15px; background: #fff; color: #536c96; }
+.rw-pet-mini-result span, .rw-pet-mini-result strong, .rw-pet-mini-result small { display: block; }
+.rw-pet-mini-result span { font-size: 11px; }
+.rw-pet-mini-result strong { font-size: 23px; font-weight: 650; line-height: 1.7; }
+.rw-pet-mini-result small { font-size: 9px; color: #8a8d9a; line-height: 1.6; overflow-wrap: anywhere; }
+.rw-pet-mini-result .stat-hp { color: #568c75 !important; background: #f3faf6 !important; }
+.rw-pet-mini-result .stat-attack { color: #b57560 !important; background: #fcf6f1 !important; }
+.rw-pet-mini-result .stat-defense { color: #a58b50 !important; background: #fcf9ef !important; }
+.rw-pet-mini-result .stat-magicAttack { color: #9980b6 !important; background: #f8f4fd !important; }
+.rw-pet-mini-result .stat-magicDefense { color: #5d8ea8 !important; background: #f1f8fc !important; }
+.rw-pet-mini-result .stat-speed { color: #7b84ad !important; background: #f5f6fc !important; }
+.rw-pet-mini-errors { grid-column: 1 / -1; padding: 14px 16px; border: 1px solid #e8cbbc; border-radius: 14px; background: #fff5ed; color: #975f4b; font-size: 12px; line-height: 1.8; }
+.rw-pet-mini-errors > strong { font-size: 13px; }
+.rw-pet-mini-errors ul { margin: 7px 0 0; padding-left: 18px; }
+.rw-pet-mini-details { margin-top: 14px; border: 1px solid #e1e7ef; border-radius: 14px; background: #ffffff9c; }
+.rw-pet-mini-details > summary { cursor: pointer; padding: 11px 13px; font-size: 12px; color: #5e7290; }
+.rw-pet-mini-details > summary small { font-size: 10px; float: right; color: #8793a6; }
+.rw-pet-mini-details-body { padding: 6px 14px 17px; }
+.rw-pet-mini-cultivation { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 8px; }
+.rw-pet-mini-cultivation fieldset { min-width: 0; margin: 0; padding: 9px; border: 1px solid #e7eaf1; border-radius: 12px; }
+.rw-pet-mini-cultivation legend { padding: 0 4px; font-size: 11px; color: #566d8a; }
+.rw-pet-mini-cultivation label { display: block; margin-bottom: 8px; }
+.rw-pet-mini-cultivation label:last-child { margin-bottom: 0; }
+.rw-pet-mini-cultivation label > span { display: block; font-size: 10px; color: #8a92a0; margin-bottom: 3px; }
+.rw-pet-mini-cultivation input { min-height: 33px; padding: 5px 6px; font-size: 12px; border-radius: 8px; }
+.rw-pet-mini-additions, .rw-pet-mini-equipment { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin-top: 14px; }
+.rw-pet-mini-equipment { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.rw-pet-mini-intimacy { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 9px; margin-top: 14px; }
+.rw-pet-mini-intimacy p { grid-column: 1 / -1; margin: 0; font-size: 11px; color: #8991a0; }
+.rw-pet-mini-note { margin: 11px 0 0; font-size: 11px; line-height: 1.9; color: #8590a1; }
+.rw-pet-mini-unknown { font-size: 13px; line-height: 1.9; color: #8f755b; padding: 13px 15px; border-radius: 13px; background: #f9f3e9; }
+.rw-skill-sort-v72 { max-width: none; }
+.rw-bloodline-index-toolbar-v72 { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin: 22px 0 16px; }
+.rw-bloodline-index-toolbar-v72 .rw-input-icon { max-width: 460px; flex: 1; }
+.rw-bloodline-index-toolbar-v72 > span { font-size: 12px; color: #8290a2; }
+.rw-bloodline-grid-v72 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin-bottom: 24px; }
+.rw-bloodline-card-v72 { min-width: 0; border: 1px solid #e4e0ed; border-radius: 21px; padding: 20px; background: linear-gradient(135deg, #fbf8ff, #fffefa); }
+.rw-bloodline-card-v72.tone-1 { background: linear-gradient(135deg, #f2f8fc, #fffefa); border-color: #dae5ee; }
+.rw-bloodline-card-v72.tone-2 { background: linear-gradient(135deg, #f9f6ef, #fffefa); border-color: #e9e2d4; }
+.rw-bloodline-card-v72.tone-3 { background: linear-gradient(135deg, #f1f8f5, #fffefa); border-color: #dfe9e3; }
+.rw-bloodline-card-main-v72 { display: flex; gap: 13px; align-items: center; color: #71608d; }
+.rw-bloodline-card-main-v72 > div { flex: 1; min-width: 0; }
+.rw-bloodline-symbol-v72 { display: grid; place-items: center; width: 47px; height: 47px; flex-shrink: 0; border-radius: 16px; background: #ece5f6; }
+.tone-1 .rw-bloodline-symbol-v72 { background: #dfedf7; color: #658cab; }
+.tone-2 .rw-bloodline-symbol-v72 { background: #f3ead6; color: #a49065; }
+.tone-3 .rw-bloodline-symbol-v72 { background: #deeee6; color: #66957f; }
+.rw .rw-bloodline-card-main-v72 h2 { margin: 3px 0 0; font-size: 20px; color: #4d4b62; }
+.rw-bloodline-card-main-v72 small { font-size: 10px; color: #9991a6; }
+.rw-bloodline-owners-v72 { display: flex; align-items: center; flex-wrap: wrap; gap: 8px 12px; margin-top: 20px; }
+.rw-bloodline-owners-v72 > span { font-size: 11px; color: #91919f; }
+.rw-bloodline-owners-v72 a { display: flex; gap: 5px; align-items: center; font-size: 12px; }
+.rw .rw-bloodline-owners-v72 .rw-portrait { width: 28px; height: 28px; padding: 2px; border-radius: 50%; background: #edf2f7; }
+.rw-bloodline-card-v72 > p { margin: 13px 0 0; font-size: 11px; line-height: 1.8; color: #8b8e9d; }
+.rw-bloodline-holders-v72 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 15px; }
+.rw-bloodline-holders-v72 article { border: 1px solid #e3e7ee; border-radius: 18px; background: #fbfcfe; padding: 16px; }
+.rw-bloodline-holders-v72 article > a:first-child { display: flex; align-items: center; gap: 13px; }
+.rw-bloodline-holders-v72 article > a:first-child > div:not(.rw-portrait) { flex: 1; min-width: 0; }
+.rw-bloodline-holders-v72 h3 { margin: 0; font-size: 16px; }
+.rw-bloodline-holders-v72 p { margin: 6px 0 0; font-size: 12px; color: #8a90a0; }
+.rw .rw-bloodline-holders-v72 .rw-portrait { width: 60px; height: 60px; padding: 3px; border-radius: 18px; background: #f0f5fb; }
+.rw-bloodline-holders-v72 .rw-edit-entry { margin-top: 14px; }
+.rw-bloodline-source-links-v72 { display: flex; flex-direction: column; gap: 9px; }
+.rw-bloodline-source-links-v72 a { display: flex; align-items: center; gap: 9px; padding: 13px 15px; border: 1px solid #e1e9f0; border-radius: 13px; background: #f7fbff; color: #637e9f; font-size: 13px; }
+.rw-bloodline-source-links-v72 a > span { flex: 1; }
+.rw-bloodline-related-v72 { display: flex; align-items: center; gap: 13px; border: 1px solid #e6e0ef; border-radius: 17px; padding: 18px; margin-top: 20px; background: #faf7fd; color: #8b78a6; }
+.rw-bloodline-related-v72 > div { flex: 1; min-width: 0; }
+.rw-bloodline-related-v72 strong { font-size: 14px; color: #6a5d82; }
+.rw-bloodline-related-v72 p { margin: 5px 0 0; font-size: 12px; color: #92899f; line-height: 1.8; }
+@media (max-width: 1180px) and (min-width: 761px) {
+  .rw .rw-pet-detail-v6 .rw-pet-overview-v72 { grid-template-columns: minmax(180px, .9fr) minmax(240px, 1.35fr) minmax(200px, 1fr); }
+  .rw .rw-pet-overview-v72 .rw-pet-facts { padding: 21px 15px 15px; }
+  .rw .rw-pet-overview-v72 .rw-facts-grid { gap: 0 12px; }
+}
+@media (max-width: 760px) {
+  .rw .rw-pet-detail-v6 .rw-pet-overview-v72 { grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr); }
+  .rw .rw-pet-overview-v72 .rw-pet-radar { grid-column: 1 / -1; border-left: 0; border-top: 1px solid #efecf3; }
+  .rw .rw-pet-overview-v72 .rw-pet-radar .rw-stats-radar { max-width: 300px; margin: 0 auto; }
+  .rw-pet-mini-heading { flex-wrap: wrap; }
+  .rw-pet-mini-result, .rw-pet-mini-cultivation { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .rw-pet-mini-intimacy { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .rw-bloodline-grid-v72, .rw-bloodline-holders-v72 { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 500px) {
+  .rw .rw-pet-detail-v6 .rw-pet-overview-v72 { grid-template-columns: minmax(0, 1fr); }
+  .rw .rw-pet-overview-v72 .rw-pet-identity-v72 { padding: 17px 18px; }
+  .rw .rw-pet-overview-v72 .rw-pet-gallery-image-v72 .rw-portrait.hero { height: 260px; }
+  .rw .rw-pet-overview-v72 .rw-pet-facts { padding: 20px 20px 16px; }
+  .rw .rw-pet-overview-v72 .rw-facts-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 16px; }
+  .rw-pet-stats-mini-v72 { padding: 17px 14px; border-radius: 18px; }
+  .rw-pet-mini-controls { grid-template-columns: minmax(66px, .7fr) minmax(0, 1.5fr); gap: 10px; }
+  .rw-pet-mini-reset { grid-column: 1 / -1; justify-self: end; min-height: 32px; padding: 5px 10px; }
+  .rw-pet-mini-additions, .rw-pet-mini-equipment { grid-template-columns: minmax(0, 1fr); }
+  .rw-pet-mini-details > summary small { display: block; float: none; margin: 5px 0 0 14px; }
+  .rw-pet-mini-details-body { padding: 5px 10px 14px; }
+  .rw-bloodline-index-toolbar-v72 { align-items: stretch; flex-direction: column; gap: 8px; }
+  .rw-bloodline-index-toolbar-v72 .rw-input-icon { max-width: none; }
+  .rw-bloodline-card-v72 { padding: 17px; }
+  .rw-skill-sort-v72 { gap: 6px; width: 100%; }
+  .rw-skill-sort-v72 > label { flex: 1; min-width: 0; }
+  .rw-skill-sort-v72 .rw-select { flex: 1; min-width: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .rw-pet-appearance-options-v72 button { transition: none; }
+}

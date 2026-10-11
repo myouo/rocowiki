@@ -1,0 +1,576 @@
+{
+  "/guides/pve/": {
+    "title": "挑战攻略怎么查",
+    "headings": [
+      {
+        "id": "section-1",
+        "text": "确认挑战记录"
+      },
+      {
+        "id": "section-2",
+        "text": "配置要求分清必要与替代"
+      },
+      {
+        "id": "section-3",
+        "text": "步骤要能应对变化"
+      },
+      {
+        "id": "section-4",
+        "text": "复现与修订"
+      }
+    ],
+    "html": "<p>一篇可复用的挑战攻略需要说明“在什么条件下，使用什么配置，按什么步骤完成”。先确认对象与规则，再比较自己的配置。</p>\n<h2 id=\"section-1\" data-has-editor=\"true\">确认挑战记录<span class=\"rw-inline-section-edit\"><a class=\"rw-edit-entry\" href=\"/edit/?entity=%E6%8C%91%E6%88%98%E6%94%BB%E7%95%A5%E6%80%8E%E4%B9%88%E6%9F%A5&amp;section=%E7%A1%AE%E8%AE%A4%E6%8C%91%E6%88%98%E8%AE%B0%E5%BD%95&amp;mode=article&amp;returnTo=%2Fguides%2Fpve%2F%23section-1\" aria-label=\"编辑本节：确认挑战记录\"><svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" aria-hidden=\"true\"><path d=\"m16 3 5 5-12 12-6 1 1-6Z M14 5l5 5\"/></svg><span>编辑</span></a></span></h2>\n<p>从 <a href=\"/challenges/\">挑战资料</a> 查入口、前置条件、参与限制与奖励。活动期间的挑战应关联到对应的 <a href=\"/events/\">活动记录</a>，避免跨期套用变化过的规则。</p>\n<h2 id=\"section-2\" data-has-editor=\"true\">配置要求分清必要与替代<span class=\"rw-inline-section-edit\"><a class=\"rw-edit-entry\" href=\"/edit/?entity=%E6%8C%91%E6%88%98%E6%94%BB%E7%95%A5%E6%80%8E%E4%B9%88%E6%9F%A5&amp;section=%E9%85%8D%E7%BD%AE%E8%A6%81%E6%B1%82%E5%88%86%E6%B8%85%E5%BF%85%E8%A6%81%E4%B8%8E%E6%9B%BF%E4%BB%A3&amp;mode=article&amp;returnTo=%2Fguides%2Fpve%2F%23section-2\" aria-label=\"编辑本节：配置要求分清必要与替代\"><svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" aria-hidden=\"true\"><path d=\"m16 3 5 5-12 12-6 1 1-6Z M14 5l5 5\"/></svg><span>编辑</span></a></span></h2>\n<table>\n<thead>\n<tr>\n<th>项目</th>\n<th>应有说明</th>\n</tr>\n</thead>\n<tbody><tr>\n<td>宠物与形态</td>\n<td>必须对象与可替换对象</td>\n</tr>\n<tr>\n<td>技能</td>\n<td>关键技能、获取方式及用途</td>\n</tr>\n<tr>\n<td>培养</td>\n<td>实测配置，以及哪些数值影响过程</td>\n</tr>\n<tr>\n<td>血脉与装备</td>\n<td>是否参与关键阶段</td>\n</tr>\n<tr>\n<td>消耗</td>\n<td>材料、次数或其他成本，附来源</td>\n</tr>\n</tbody></table>\n<p><a href=\"/pets/\">查宠物</a> · <a href=\"/skills/\">查技能</a> · <a href=\"/guides/training/\">查培养资料</a></p>\n<h2 id=\"section-3\" data-has-editor=\"true\">步骤要能应对变化<span class=\"rw-inline-section-edit\"><a class=\"rw-edit-entry\" href=\"/edit/?entity=%E6%8C%91%E6%88%98%E6%94%BB%E7%95%A5%E6%80%8E%E4%B9%88%E6%9F%A5&amp;section=%E6%AD%A5%E9%AA%A4%E8%A6%81%E8%83%BD%E5%BA%94%E5%AF%B9%E5%8F%98%E5%8C%96&amp;mode=article&amp;returnTo=%2Fguides%2Fpve%2F%23section-3\" aria-label=\"编辑本节：步骤要能应对变化\"><svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" aria-hidden=\"true\"><path d=\"m16 3 5 5-12 12-6 1 1-6Z M14 5l5 5\"/></svg><span>编辑</span></a></span></h2>\n<p>攻略按“条件 → 操作 → 预期结果 → 失败时处理”写。只写固定的回合按键顺序，无法解释与实测不一致的情况。</p>\n<p>关键步骤附带技能阶段、PP、状态与对手动作。需要概率条件时说明成功条件，尚未统计的成功率不填写百分比。</p>\n<h2 id=\"section-4\" data-has-editor=\"true\">复现与修订<span class=\"rw-inline-section-edit\"><a class=\"rw-edit-entry\" href=\"/edit/?entity=%E6%8C%91%E6%88%98%E6%94%BB%E7%95%A5%E6%80%8E%E4%B9%88%E6%9F%A5&amp;section=%E5%A4%8D%E7%8E%B0%E4%B8%8E%E4%BF%AE%E8%AE%A2&amp;mode=article&amp;returnTo=%2Fguides%2Fpve%2F%23section-4\" aria-label=\"编辑本节：复现与修订\"><svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" aria-hidden=\"true\"><path d=\"m16 3 5 5-12 12-6 1 1-6Z M14 5l5 5\"/></svg><span>编辑</span></a></span></h2>\n<p>记录挑战版本、测试日期、配置与完整过程。投稿时指出哪一步产生差异，并附对应证据；新结论应保留原攻略的适用范围。</p>\n<p><a href=\"/mechanics/stages/\">技能阶段与结算</a> · <a href=\"/mechanics/pp/\">PP 与技能限制</a> · <a href=\"/help/contributing/\">提交资料修订</a></p>\n"
+  },
+  "/guides/returning/": {
+    "title": "回归先查什么",
+    "headings": [
+      {
+        "id": "section-1",
+        "text": "第一步：整理已有宠物"
+      },
+      {
+        "id": "section-2",
+        "text": "第二步：看当前还能获得什么"
+      },
+      {
+        "id": "section-3",
+        "text": "第三步：选择近期目标"
+      },
+      {
+        "id": "section-4",
+        "text": "使用攻略时保留适用条件"
+      }
+    ],
+    "html": "<p>先明确目标玩法和已有资源，再决定参加什么活动、培养哪只宠物。不要从一份缺少适用日期的推荐名单直接投入资源。</p>\n<h2 id=\"section-1\" data-has-editor=\"true\">第一步：整理已有宠物<span class=\"rw-inline-section-edit\"><a class=\"rw-edit-entry\" href=\"/edit/?entity=%E5%9B%9E%E5%BD%92%E5%85%88%E6%9F%A5%E4%BB%80%E4%B9%88&amp;section=%E7%AC%AC%E4%B8%80%E6%AD%A5%EF%BC%9A%E6%95%B4%E7%90%86%E5%B7%B2%E6%9C%89%E5%AE%A0%E7%89%A9&amp;mode=article&amp;returnTo=%2Fguides%2Freturning%2F%23section-1\" aria-label=\"编辑本节：第一步：整理已有宠物\"><svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" aria-hidden=\"true\"><path d=\"m16 3 5 5-12 12-6 1 1-6Z M14 5l5 5\"/></svg><span>编辑</span></a></span></h2>\n<p>到 <a href=\"/pets/\">宠物图鉴</a> 查询已有宠物，核对具体形态、技能池、血脉与培养资料。名称相近或存在多个形态时，确认编号与获取关系。</p>\n<p>记录需要补充的技能、培养材料和前置条件；已有宠物是否适合当前目标，应结合具体玩法分析。</p>\n<h2 id=\"section-2\" data-has-editor=\"true\">第二步：看当前还能获得什么<span class=\"rw-inline-section-edit\"><a class=\"rw-edit-entry\" href=\"/edit/?entity=%E5%9B%9E%E5%BD%92%E5%85%88%E6%9F%A5%E4%BB%80%E4%B9%88&amp;section=%E7%AC%AC%E4%BA%8C%E6%AD%A5%EF%BC%9A%E7%9C%8B%E5%BD%93%E5%89%8D%E8%BF%98%E8%83%BD%E8%8E%B7%E5%BE%97%E4%BB%80%E4%B9%88&amp;mode=article&amp;returnTo=%2Fguides%2Freturning%2F%23section-2\" aria-label=\"编辑本节：第二步：看当前还能获得什么\"><svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" aria-hidden=\"true\"><path d=\"m16 3 5 5-12 12-6 1 1-6Z M14 5l5 5\"/></svg><span>编辑</span></a></span></h2>\n<p>打开 <a href=\"/events/\">活动查询</a>，先看开放时间与参与条件，再看奖励和每天操作。历史活动与本次开放记录分开，避免把过去的获得方式当成当前入口。</p>\n<table>\n<thead>\n<tr>\n<th>需要核对</th>\n<th>作用</th>\n</tr>\n</thead>\n<tbody><tr>\n<td>开放与结束日期</td>\n<td>判断现在能否参与</td>\n</tr>\n<tr>\n<td>地点与进入方式</td>\n<td>找到实际入口</td>\n</tr>\n<tr>\n<td>前置宠物或材料</td>\n<td>估算准备成本</td>\n</tr>\n<tr>\n<td>每日限制与任务条件</td>\n<td>安排参与顺序</td>\n</tr>\n<tr>\n<td>奖励与获取次数</td>\n<td>确认最终获得对象</td>\n</tr>\n</tbody></table>\n<h2 id=\"section-3\" data-has-editor=\"true\">第三步：选择近期目标<span class=\"rw-inline-section-edit\"><a class=\"rw-edit-entry\" href=\"/edit/?entity=%E5%9B%9E%E5%BD%92%E5%85%88%E6%9F%A5%E4%BB%80%E4%B9%88&amp;section=%E7%AC%AC%E4%B8%89%E6%AD%A5%EF%BC%9A%E9%80%89%E6%8B%A9%E8%BF%91%E6%9C%9F%E7%9B%AE%E6%A0%87&amp;mode=article&amp;returnTo=%2Fguides%2Freturning%2F%23section-3\" aria-label=\"编辑本节：第三步：选择近期目标\"><svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" aria-hidden=\"true\"><path d=\"m16 3 5 5-12 12-6 1 1-6Z M14 5l5 5\"/></svg><span>编辑</span></a></span></h2>\n<table>\n<thead>\n<tr>\n<th>目标</th>\n<th>推荐查询路径</th>\n</tr>\n</thead>\n<tbody><tr>\n<td>补充收藏与图鉴</td>\n<td><a href=\"/pets/\">宠物</a> → <a href=\"/events/\">获取活动</a> → <a href=\"/places/\">地图</a></td>\n</tr>\n<tr>\n<td>完成挑战</td>\n<td><a href=\"/challenges/\">挑战资料</a> → <a href=\"/guides/pve/\">PVE 攻略阅读</a></td>\n</tr>\n<tr>\n<td>熟悉对战</td>\n<td><a href=\"/battle/\">对战资料</a> → <a href=\"/mechanics/overview/\">战斗机制</a></td>\n</tr>\n<tr>\n<td>补齐培养</td>\n<td><a href=\"/guides/training/\">培养资料</a> → <a href=\"/items/\">道具索引</a></td>\n</tr>\n</tbody></table>\n<h2 id=\"section-4\" data-has-editor=\"true\">使用攻略时保留适用条件<span class=\"rw-inline-section-edit\"><a class=\"rw-edit-entry\" href=\"/edit/?entity=%E5%9B%9E%E5%BD%92%E5%85%88%E6%9F%A5%E4%BB%80%E4%B9%88&amp;section=%E4%BD%BF%E7%94%A8%E6%94%BB%E7%95%A5%E6%97%B6%E4%BF%9D%E7%95%99%E9%80%82%E7%94%A8%E6%9D%A1%E4%BB%B6&amp;mode=article&amp;returnTo=%2Fguides%2Freturning%2F%23section-4\" aria-label=\"编辑本节：使用攻略时保留适用条件\"><svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" aria-hidden=\"true\"><path d=\"m16 3 5 5-12 12-6 1 1-6Z M14 5l5 5\"/></svg><span>编辑</span></a></span></h2>\n<p>查看攻略的宠物、技能、培养条件与更新时间。配置不完整时先找替代方案，判断差异影响哪一步，再决定是否照做。</p>\n<p>本页提供查询顺序；当前原型未维护实时强度排行或现行活动推荐名单。</p>\n"
+  },
+  "/guides/training/": {
+    "title": "宠物培养资料",
+    "headings": [
+      {
+        "id": "section-1",
+        "text": "先确认培养对象"
+      },
+      {
+        "id": "section-2",
+        "text": "一套配置包含什么"
+      },
+      {
+        "id": "section-3",
+        "text": "培养前先查来源"
+      },
+      {
+        "id": "section-4",
+        "text": "配置推荐应说明理由"
+      }
+    ],
+    "html": "<p>先确定宠物用于什么玩法，再看实际配置与材料来源。基础属性、个体培养和对战中产生的状态变化分开记录。</p>\n<h2 id=\"section-1\" data-has-editor=\"true\">先确认培养对象<span class=\"rw-inline-section-edit\"><a class=\"rw-edit-entry\" href=\"/edit/?entity=%E5%AE%A0%E7%89%A9%E5%9F%B9%E5%85%BB%E8%B5%84%E6%96%99&amp;section=%E5%85%88%E7%A1%AE%E8%AE%A4%E5%9F%B9%E5%85%BB%E5%AF%B9%E8%B1%A1&amp;mode=article&amp;returnTo=%2Fguides%2Ftraining%2F%23section-1\" aria-label=\"编辑本节：先确认培养对象\"><svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" aria-hidden=\"true\"><path d=\"m16 3 5 5-12 12-6 1 1-6Z M14 5l5 5\"/></svg><span>编辑</span></a></span></h2>\n<p>在 <a href=\"/pets/\">宠物图鉴</a> 核对编号、形态与技能池。进化关系与皮肤、外观或其他关联形态使用各自的资料类型；没有来源时不自动推断它们共享技能和数据。</p>\n<h2 id=\"section-2\" data-has-editor=\"true\">一套配置包含什么<span class=\"rw-inline-section-edit\"><a class=\"rw-edit-entry\" href=\"/edit/?entity=%E5%AE%A0%E7%89%A9%E5%9F%B9%E5%85%BB%E8%B5%84%E6%96%99&amp;section=%E4%B8%80%E5%A5%97%E9%85%8D%E7%BD%AE%E5%8C%85%E5%90%AB%E4%BB%80%E4%B9%88&amp;mode=article&amp;returnTo=%2Fguides%2Ftraining%2F%23section-2\" aria-label=\"编辑本节：一套配置包含什么\"><svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" aria-hidden=\"true\"><path d=\"m16 3 5 5-12 12-6 1 1-6Z M14 5l5 5\"/></svg><span>编辑</span></a></span></h2>\n<table>\n<thead>\n<tr>\n<th>部分</th>\n<th>记录内容</th>\n</tr>\n</thead>\n<tbody><tr>\n<td>基础资料</td>\n<td>属性、种族值、相关形态</td>\n</tr>\n<tr>\n<td>能力培养</td>\n<td>等级、天赋、努力值、性格及其他适用项目</td>\n</tr>\n<tr>\n<td>技能配置</td>\n<td>具体技能、获得条件与配置理由</td>\n</tr>\n<tr>\n<td>血脉</td>\n<td>名称、条件与已核实效果</td>\n</tr>\n<tr>\n<td>装备与其他培养</td>\n<td>适用对象、效果、获得来源</td>\n</tr>\n<tr>\n<td>使用场景</td>\n<td>对战规则或具体挑战、承担的任务</td>\n</tr>\n</tbody></table>\n<p>字段是否适用以实际游戏资料为准；不能因为模板存在该字段就给每只宠物填入同一种内容。</p>\n<h2 id=\"section-3\" data-has-editor=\"true\">培养前先查来源<span class=\"rw-inline-section-edit\"><a class=\"rw-edit-entry\" href=\"/edit/?entity=%E5%AE%A0%E7%89%A9%E5%9F%B9%E5%85%BB%E8%B5%84%E6%96%99&amp;section=%E5%9F%B9%E5%85%BB%E5%89%8D%E5%85%88%E6%9F%A5%E6%9D%A5%E6%BA%90&amp;mode=article&amp;returnTo=%2Fguides%2Ftraining%2F%23section-3\" aria-label=\"编辑本节：培养前先查来源\"><svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" aria-hidden=\"true\"><path d=\"m16 3 5 5-12 12-6 1 1-6Z M14 5l5 5\"/></svg><span>编辑</span></a></span></h2>\n<p>技能、道具与宠物的获得方式分别记录。确认所需资源当前可获取、是否需要前置条件，以及是否存在历史限定。</p>\n<p><a href=\"/skills/\">技能资料</a> · <a href=\"/bloodlines/\">血脉资料</a> · <a href=\"/items/\">道具索引</a> · <a href=\"/events/\">活动查询</a></p>\n<h2 id=\"section-4\" data-has-editor=\"true\">配置推荐应说明理由<span class=\"rw-inline-section-edit\"><a class=\"rw-edit-entry\" href=\"/edit/?entity=%E5%AE%A0%E7%89%A9%E5%9F%B9%E5%85%BB%E8%B5%84%E6%96%99&amp;section=%E9%85%8D%E7%BD%AE%E6%8E%A8%E8%8D%90%E5%BA%94%E8%AF%B4%E6%98%8E%E7%90%86%E7%94%B1&amp;mode=article&amp;returnTo=%2Fguides%2Ftraining%2F%23section-4\" aria-label=\"编辑本节：配置推荐应说明理由\"><svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" aria-hidden=\"true\"><path d=\"m16 3 5 5-12 12-6 1 1-6Z M14 5l5 5\"/></svg><span>编辑</span></a></span></h2>\n<p>推荐配置应写明目标、必要条件、可替代项和差异，而不只给一组数值。没有验证过的能力阈值不要包装成“必须达到”。</p>\n<p>比较配置时使用相同等级和条件；工具尚未具备现行公式时，以其公开假设为准，不把演示值当成游戏计算结果。</p>\n<p><a href=\"/tools/\">对比与实用工具</a> · <a href=\"/mechanics/priority/\">速度与先手</a> · <a href=\"/guides/pve/\">挑战攻略阅读</a></p>\n"
+  },
+  "/help/contributing/": {
+    "title": "参与编辑",
+    "headings": [
+      {
+        "id": "section-1",
+        "text": "从具体资料开始"
+      },
+      {
+        "id": "section-2",
+        "text": "一次修订写什么"
+      },
+      {
+        "id": "section-3",
+        "text": "审核通过后还有发布过程"
+      },
+      {
+        "id": "section-4",
+        "text": "遇到版本冲突"
+      },
+      {
+        "id": "section-5",
+        "text": "版权与来源"
+      },
+      {
+        "id": "section-6",
+        "text": "当前原型的范围"
+      }
+    ],
+    "html": "<p>从需要修正的词条进入编辑，系统会保留当前对象。补充来源、纠正字段、完善文字都可以成为一次独立投稿。</p>\n<h2 id=\"section-1\" data-has-editor=\"true\">从具体资料开始<span class=\"rw-inline-section-edit\"><a class=\"rw-edit-entry\" href=\"/edit/?entity=%E5%8F%82%E4%B8%8E%E7%BC%96%E8%BE%91&amp;section=%E4%BB%8E%E5%85%B7%E4%BD%93%E8%B5%84%E6%96%99%E5%BC%80%E5%A7%8B&amp;mode=article&amp;returnTo=%2Fhelp%2Fcontributing%2F%23section-1\" aria-label=\"编辑本节：从具体资料开始\"><svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" aria-hidden=\"true\"><path d=\"m16 3 5 5-12 12-6 1 1-6Z M14 5l5 5\"/></svg><span>编辑</span></a></span></h2>\n<table>\n<thead>\n<tr>\n<th>想做什么</th>\n<th>推荐入口</th>\n</tr>\n</thead>\n<tbody><tr>\n<td>修正宠物或技能字段</td>\n<td>对应详情页的编辑入口</td>\n</tr>\n<tr>\n<td>补充当前获得方式</td>\n<td>宠物的获取章节或具体活动页</td>\n</tr>\n<tr>\n<td>补充机制证据</td>\n<td>对应机制文章的编辑入口</td>\n</tr>\n<tr>\n<td>报告资料或页面问题</td>\n<td>页面的反馈入口</td>\n</tr>\n<tr>\n<td>查看自己的进度</td>\n<td><a href=\"/account/\">个人中心</a></td>\n</tr>\n<tr>\n<td>查看已采纳的修改</td>\n<td><a href=\"/community/\">贡献与修订</a></td>\n</tr>\n</tbody></table>\n<p>社区用于协作、贡献记录、审核与反馈。新内容的整理从相关资料和维护需求出发，不设置孤立的“创建词条”流程。</p>\n<h2 id=\"section-2\" data-has-editor=\"true\">一次修订写什么<span class=\"rw-inline-section-edit\"><a class=\"rw-edit-entry\" href=\"/edit/?entity=%E5%8F%82%E4%B8%8E%E7%BC%96%E8%BE%91&amp;section=%E4%B8%80%E6%AC%A1%E4%BF%AE%E8%AE%A2%E5%86%99%E4%BB%80%E4%B9%88&amp;mode=article&amp;returnTo=%2Fhelp%2Fcontributing%2F%23section-2\" aria-label=\"编辑本节：一次修订写什么\"><svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" aria-hidden=\"true\"><path d=\"m16 3 5 5-12 12-6 1 1-6Z M14 5l5 5\"/></svg><span>编辑</span></a></span></h2>\n<p>写明修改内容、依据和适用范围。结构化字段通过表单修改；正文使用受限 Markdown。提交前比较修改前后内容，确认没有带入无关改动。</p>\n<p>来源应尽量直接定位到所支持的字段或句子；方法见 <a href=\"/help/sources/\">资料来源规范</a>。</p>\n<h2 id=\"section-3\" data-has-editor=\"true\">审核通过后还有发布过程<span class=\"rw-inline-section-edit\"><a class=\"rw-edit-entry\" href=\"/edit/?entity=%E5%8F%82%E4%B8%8E%E7%BC%96%E8%BE%91&amp;section=%E5%AE%A1%E6%A0%B8%E9%80%9A%E8%BF%87%E5%90%8E%E8%BF%98%E6%9C%89%E5%8F%91%E5%B8%83%E8%BF%87%E7%A8%8B&amp;mode=article&amp;returnTo=%2Fhelp%2Fcontributing%2F%23section-3\" aria-label=\"编辑本节：审核通过后还有发布过程\"><svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" aria-hidden=\"true\"><path d=\"m16 3 5 5-12 12-6 1 1-6Z M14 5l5 5\"/></svg><span>编辑</span></a></span></h2>\n<table>\n<thead>\n<tr>\n<th>状态</th>\n<th>含义</th>\n</tr>\n</thead>\n<tbody><tr>\n<td>草稿</td>\n<td>尚未提交，作者可继续编辑</td>\n</tr>\n<tr>\n<td>待审核</td>\n<td>已形成投稿，等待核对内容与来源</td>\n</tr>\n<tr>\n<td>需修改</td>\n<td>审核意见要求补充或调整</td>\n</tr>\n<tr>\n<td>已通过</td>\n<td>内容通过审核，等待后续合并与构建</td>\n</tr>\n<tr>\n<td>发布中</td>\n<td>正在合并、构建或分发</td>\n</tr>\n<tr>\n<td>已发布</td>\n<td>对应修订已在站点可见</td>\n</tr>\n<tr>\n<td>发布失败</td>\n<td>内容保留，维护者可查看失败原因并重试</td>\n</tr>\n</tbody></table>\n<p>页面按实际进度显示状态。已通过审核的内容仍可能等待发布；查看“已发布”状态后，可回到对应词条核对线上内容。</p>\n<h2 id=\"section-4\" data-has-editor=\"true\">遇到版本冲突<span class=\"rw-inline-section-edit\"><a class=\"rw-edit-entry\" href=\"/edit/?entity=%E5%8F%82%E4%B8%8E%E7%BC%96%E8%BE%91&amp;section=%E9%81%87%E5%88%B0%E7%89%88%E6%9C%AC%E5%86%B2%E7%AA%81&amp;mode=article&amp;returnTo=%2Fhelp%2Fcontributing%2F%23section-4\" aria-label=\"编辑本节：遇到版本冲突\"><svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" aria-hidden=\"true\"><path d=\"m16 3 5 5-12 12-6 1 1-6Z M14 5l5 5\"/></svg><span>编辑</span></a></span></h2>\n<p>保留自己的草稿，对照“开始编辑时的版本”“当前线上版本”“自己的修改”。确认冲突部分后重新预览，再提交新的修订。</p>\n<p>他人的更新不能因一次过期投稿被静默覆盖。投稿记录应保持作者、来源、差异和每次修订的可追溯性。</p>\n<h2 id=\"section-5\" data-has-editor=\"true\">版权与来源<span class=\"rw-inline-section-edit\"><a class=\"rw-edit-entry\" href=\"/edit/?entity=%E5%8F%82%E4%B8%8E%E7%BC%96%E8%BE%91&amp;section=%E7%89%88%E6%9D%83%E4%B8%8E%E6%9D%A5%E6%BA%90&amp;mode=article&amp;returnTo=%2Fhelp%2Fcontributing%2F%23section-5\" aria-label=\"编辑本节：版权与来源\"><svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" aria-hidden=\"true\"><path d=\"m16 3 5 5-12 12-6 1 1-6Z M14 5l5 5\"/></svg><span>编辑</span></a></span></h2>\n<p>新原创 Wiki 正文的项目许可为 <a href=\"https://creativecommons.org/licenses/by-sa/4.0/deed.zh-hans\">CC BY-SA 4.0</a>，作者保留版权。许可允许商业使用，分享时须合理署名、保留来源与许可信息、标注修改；分享改编作品须遵守相同方式共享要求。只提交你有权许可的部分，游戏素材和第三方引用单独标明原权利范围。已有导入资料不因这项政策自动改许可。</p>\n<p>正式投稿的许可确认仍待启用，邮箱署名授权不能代替内容许可。详细范围见 <a href=\"/copyright/\">版权与许可</a>。</p>\n<h2 id=\"section-6\" data-has-editor=\"true\">当前原型的范围<span class=\"rw-inline-section-edit\"><a class=\"rw-edit-entry\" href=\"/edit/?entity=%E5%8F%82%E4%B8%8E%E7%BC%96%E8%BE%91&amp;section=%E5%BD%93%E5%89%8D%E5%8E%9F%E5%9E%8B%E7%9A%84%E8%8C%83%E5%9B%B4&amp;mode=article&amp;returnTo=%2Fhelp%2Fcontributing%2F%23section-6\" aria-label=\"编辑本节：当前原型的范围\"><svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" aria-hidden=\"true\"><path d=\"m16 3 5 5-12 12-6 1 1-6Z M14 5l5 5\"/></svg><span>编辑</span></a></span></h2>\n<p>界面用于演示编辑、差异、审核与发布状态。正式账号、云端草稿和实际发布尚未开放；本地预览的状态变化不代表线上投稿成功。</p>\n"
+  },
+  "/help/sources/": {
+    "title": "资料来源与验证",
+    "headings": [
+      {
+        "id": "section-1",
+        "text": "不同来源分别标记"
+      },
+      {
+        "id": "section-2",
+        "text": "原文与解析分开"
+      },
+      {
+        "id": "section-3",
+        "text": "资料状态"
+      },
+      {
+        "id": "section-4",
+        "text": "最小实测记录"
+      },
+      {
+        "id": "section-5",
+        "text": "提交前检查"
+      }
+    ],
+    "html": "<p>一条资料应能回答：依据来自哪里，支持哪句话，何时取得，适用于什么范围。来源和结论一起维护。</p>\n<h2 id=\"section-1\" data-has-editor=\"true\">不同来源分别标记<span class=\"rw-inline-section-edit\"><a class=\"rw-edit-entry\" href=\"/edit/?entity=%E8%B5%84%E6%96%99%E6%9D%A5%E6%BA%90%E4%B8%8E%E9%AA%8C%E8%AF%81&amp;section=%E4%B8%8D%E5%90%8C%E6%9D%A5%E6%BA%90%E5%88%86%E5%88%AB%E6%A0%87%E8%AE%B0&amp;mode=article&amp;returnTo=%2Fhelp%2Fsources%2F%23section-1\" aria-label=\"编辑本节：不同来源分别标记\"><svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" aria-hidden=\"true\"><path d=\"m16 3 5 5-12 12-6 1 1-6Z M14 5l5 5\"/></svg><span>编辑</span></a></span></h2>\n<table>\n<thead>\n<tr>\n<th>来源类型</th>\n<th>适合支持的内容</th>\n<th>需要附带</th>\n</tr>\n</thead>\n<tbody><tr>\n<td>官方页面或公告</td>\n<td>活动、说明、公开调整记录</td>\n<td>原始链接、标题、日期与相关位置</td>\n</tr>\n<tr>\n<td>游戏内资料</td>\n<td>当时显示的字段与原文</td>\n<td>截图、记录日期、对象与上下文</td>\n</tr>\n<tr>\n<td>配置或源码记录</td>\n<td>对应文件中的字段与逻辑</td>\n<td>文件来源、版本、字段位置与解释范围</td>\n</tr>\n<tr>\n<td>可复现实测</td>\n<td>指定条件下观察到的行为</td>\n<td>配置、步骤、样本与完整结果</td>\n</tr>\n<tr>\n<td>社区整理</td>\n<td>查询线索与已有分析</td>\n<td>作者、链接，并尽量追溯原始证据</td>\n</tr>\n</tbody></table>\n<p>源码或配置记录反映的是该份材料；是否对应当前服务端行为，需要额外核验。</p>\n<h2 id=\"section-2\" data-has-editor=\"true\">原文与解析分开<span class=\"rw-inline-section-edit\"><a class=\"rw-edit-entry\" href=\"/edit/?entity=%E8%B5%84%E6%96%99%E6%9D%A5%E6%BA%90%E4%B8%8E%E9%AA%8C%E8%AF%81&amp;section=%E5%8E%9F%E6%96%87%E4%B8%8E%E8%A7%A3%E6%9E%90%E5%88%86%E5%BC%80&amp;mode=article&amp;returnTo=%2Fhelp%2Fsources%2F%23section-2\" aria-label=\"编辑本节：原文与解析分开\"><svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" aria-hidden=\"true\"><path d=\"m16 3 5 5-12 12-6 1 1-6Z M14 5l5 5\"/></svg><span>编辑</span></a></span></h2>\n<p>引用原文时保留含义和必要上下文。解析可以分段、标注条件与关联机制，但不把推断写进原文，不把缺失条件补成确定规则。</p>\n<p>技能的先手、PP、伤害描述与特殊效果可能来自不同来源，允许字段拥有独立证据，而不只在页脚放一串链接。</p>\n<h2 id=\"section-3\" data-has-editor=\"true\">资料状态<span class=\"rw-inline-section-edit\"><a class=\"rw-edit-entry\" href=\"/edit/?entity=%E8%B5%84%E6%96%99%E6%9D%A5%E6%BA%90%E4%B8%8E%E9%AA%8C%E8%AF%81&amp;section=%E8%B5%84%E6%96%99%E7%8A%B6%E6%80%81&amp;mode=article&amp;returnTo=%2Fhelp%2Fsources%2F%23section-3\" aria-label=\"编辑本节：资料状态\"><svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" aria-hidden=\"true\"><path d=\"m16 3 5 5-12 12-6 1 1-6Z M14 5l5 5\"/></svg><span>编辑</span></a></span></h2>\n<table>\n<thead>\n<tr>\n<th>状态</th>\n<th>使用原则</th>\n</tr>\n</thead>\n<tbody><tr>\n<td>已核实</td>\n<td>明确证据、验证范围与日期</td>\n</tr>\n<tr>\n<td>待核实</td>\n<td>已有条目或线索，仍需来源支持</td>\n</tr>\n<tr>\n<td>存在分歧</td>\n<td>展示差异与各自证据，不强行合并</td>\n</tr>\n<tr>\n<td>历史资料</td>\n<td>记录曾经适用的内容和时间</td>\n</tr>\n<tr>\n<td>来源失效</td>\n<td>保留可追溯信息，补充存档或替代证据</td>\n</tr>\n</tbody></table>\n<p>“没有记录”“明确不存在”“当前无法判断”使用不同空态。</p>\n<h2 id=\"section-4\" data-has-editor=\"true\">最小实测记录<span class=\"rw-inline-section-edit\"><a class=\"rw-edit-entry\" href=\"/edit/?entity=%E8%B5%84%E6%96%99%E6%9D%A5%E6%BA%90%E4%B8%8E%E9%AA%8C%E8%AF%81&amp;section=%E6%9C%80%E5%B0%8F%E5%AE%9E%E6%B5%8B%E8%AE%B0%E5%BD%95&amp;mode=article&amp;returnTo=%2Fhelp%2Fsources%2F%23section-4\" aria-label=\"编辑本节：最小实测记录\"><svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" aria-hidden=\"true\"><path d=\"m16 3 5 5-12 12-6 1 1-6Z M14 5l5 5\"/></svg><span>编辑</span></a></span></h2>\n<p>记录目的、日期、场景、参与宠物与完整配置、开始状态、操作过程、实际结果和异常样本。一次结果不能证明概率分布；公式也需要说明推导条件与验证覆盖。</p>\n<p>涉及 <a href=\"/mechanics/pp/\">PP</a>、<a href=\"/mechanics/priority/\">行动次序</a> 或 <a href=\"/mechanics/shield/\">护盾</a> 时，按对应文章要求补足状态。</p>\n<h2 id=\"section-5\" data-has-editor=\"true\">提交前检查<span class=\"rw-inline-section-edit\"><a class=\"rw-edit-entry\" href=\"/edit/?entity=%E8%B5%84%E6%96%99%E6%9D%A5%E6%BA%90%E4%B8%8E%E9%AA%8C%E8%AF%81&amp;section=%E6%8F%90%E4%BA%A4%E5%89%8D%E6%A3%80%E6%9F%A5&amp;mode=article&amp;returnTo=%2Fhelp%2Fsources%2F%23section-5\" aria-label=\"编辑本节：提交前检查\"><svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" aria-hidden=\"true\"><path d=\"m16 3 5 5-12 12-6 1 1-6Z M14 5l5 5\"/></svg><span>编辑</span></a></span></h2>\n<p>确认链接指向具体内容、结论没有超出证据范围、历史资料没有被误写成现行规则。带着字段或段落位置进入编辑，有助于审核者复核同一问题。</p>\n<p><a href=\"/help/contributing/\">参与编辑</a> · <a href=\"/community/\">社区修订</a> · <a href=\"/mechanics/overview/\">战斗机制</a></p>\n"
+  },
+  "/mechanics/accuracy/": {
+    "title": "命中、必中与闪避",
+    "headings": [
+      {
+        "id": "section-1",
+        "text": "一次技能分开检查"
+      },
+      {
+        "id": "section-2",
+        "text": "条件写在必中旁边"
+      },
+      {
+        "id": "section-3",
+        "text": "必中与必闪相遇"
+      }
+    ],
+    "html": "<p>查“必中为什么没有生效”时，先定位是哪一部分效果未发生：技能未命中、伤害被保护效果处理、附加状态被免疫，是不同现象。</p>\n<h2 id=\"section-1\" data-has-editor=\"true\">一次技能分开检查<span class=\"rw-inline-section-edit\"><a class=\"rw-edit-entry\" href=\"/edit/?entity=%E5%91%BD%E4%B8%AD%E3%80%81%E5%BF%85%E4%B8%AD%E4%B8%8E%E9%97%AA%E9%81%BF&amp;section=%E4%B8%80%E6%AC%A1%E6%8A%80%E8%83%BD%E5%88%86%E5%BC%80%E6%A3%80%E6%9F%A5&amp;mode=article&amp;returnTo=%2Fmechanics%2Faccuracy%2F%23section-1\" aria-label=\"编辑本节：一次技能分开检查\"><svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" aria-hidden=\"true\"><path d=\"m16 3 5 5-12 12-6 1 1-6Z M14 5l5 5\"/></svg><span>编辑</span></a></span></h2>\n<table>\n<thead>\n<tr>\n<th>检查项</th>\n<th>要回答的问题</th>\n</tr>\n</thead>\n<tbody><tr>\n<td>必中条件</td>\n<td>是否要求某种天气、出手顺序或已受到伤害？</td>\n</tr>\n<tr>\n<td>适用范围</td>\n<td>对整个技能、某段伤害，还是某个附加效果有效？</td>\n</tr>\n<tr>\n<td>对方效果</td>\n<td>是否存在必闪、致盲、反弹或作用对象变化？</td>\n</tr>\n<tr>\n<td>附加状态</td>\n<td>技能命中后，状态是否另有免疫或触发条件？</td>\n</tr>\n<tr>\n<td>实际结果</td>\n<td>显示未命中，还是出现命中动画但没有掉血或状态？</td>\n</tr>\n</tbody></table>\n<h2 id=\"section-2\" data-has-editor=\"true\">条件写在必中旁边<span class=\"rw-inline-section-edit\"><a class=\"rw-edit-entry\" href=\"/edit/?entity=%E5%91%BD%E4%B8%AD%E3%80%81%E5%BF%85%E4%B8%AD%E4%B8%8E%E9%97%AA%E9%81%BF&amp;section=%E6%9D%A1%E4%BB%B6%E5%86%99%E5%9C%A8%E5%BF%85%E4%B8%AD%E6%97%81%E8%BE%B9&amp;mode=article&amp;returnTo=%2Fmechanics%2Faccuracy%2F%23section-2\" aria-label=\"编辑本节：条件写在必中旁边\"><svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" aria-hidden=\"true\"><path d=\"m16 3 5 5-12 12-6 1 1-6Z M14 5l5 5\"/></svg><span>编辑</span></a></span></h2>\n<p>技能表中的“必中”保留可展开的条件。分支改变命中方式时，分别在对应分支展示；未说明的分支不自动继承。</p>\n<p>诸如“受到先手伤害”的条件，还需查看 <a href=\"/mechanics/timing/\">结算时点</a>：一次伤害事件和行动前后精力减少未必是同一个判断对象。</p>\n<h2 id=\"section-3\" data-has-editor=\"true\">必中与必闪相遇<span class=\"rw-inline-section-edit\"><a class=\"rw-edit-entry\" href=\"/edit/?entity=%E5%91%BD%E4%B8%AD%E3%80%81%E5%BF%85%E4%B8%AD%E4%B8%8E%E9%97%AA%E9%81%BF&amp;section=%E5%BF%85%E4%B8%AD%E4%B8%8E%E5%BF%85%E9%97%AA%E7%9B%B8%E9%81%87&amp;mode=article&amp;returnTo=%2Fmechanics%2Faccuracy%2F%23section-3\" aria-label=\"编辑本节：必中与必闪相遇\"><svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" aria-hidden=\"true\"><path d=\"m16 3 5 5-12 12-6 1 1-6Z M14 5l5 5\"/></svg><span>编辑</span></a></span></h2>\n<p>从 <a href=\"/mechanics/relations/\">效果关系对照</a> 选择两个<strong>来源明确</strong>的效果，查看该配对的施加顺序、条件和证据。未收录具体关系时显示待核验，不用关键词的字面强弱替代结论。</p>\n<p>需要提交实测时，记录双方技能、相关标记、出手顺序和每段结果。只有最终掉血截图通常不足以区分命中问题与伤害被免除。</p>\n<p><a href=\"/skills/\">技能资料</a> · <a href=\"/mechanics/shield/\">护盾与减伤</a> · <a href=\"/mechanics/evidence/\">机制实测</a></p>\n"
+  },
+  "/mechanics/attributes/": {
+    "title": "属性、能力与克制",
+    "headings": [
+      {
+        "id": "section-1",
+        "text": "查面板时看什么"
+      },
+      {
+        "id": "section-2",
+        "text": "属性关系必须带场景"
+      },
+      {
+        "id": "section-3",
+        "text": "强化不等于所有加成"
+      }
+    ],
+    "html": "<p>宠物图鉴的六维图用于比较<strong>种族值分布</strong>。实际对局的能力、当前强化和技能临时加成需要另外核对，不能直接把图鉴六维当作伤害计算输入。</p>\n<h2 id=\"section-1\" data-has-editor=\"true\">查面板时看什么<span class=\"rw-inline-section-edit\"><a class=\"rw-edit-entry\" href=\"/edit/?entity=%E5%B1%9E%E6%80%A7%E3%80%81%E8%83%BD%E5%8A%9B%E4%B8%8E%E5%85%8B%E5%88%B6&amp;section=%E6%9F%A5%E9%9D%A2%E6%9D%BF%E6%97%B6%E7%9C%8B%E4%BB%80%E4%B9%88&amp;mode=article&amp;returnTo=%2Fmechanics%2Fattributes%2F%23section-1\" aria-label=\"编辑本节：查面板时看什么\"><svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" aria-hidden=\"true\"><path d=\"m16 3 5 5-12 12-6 1 1-6Z M14 5l5 5\"/></svg><span>编辑</span></a></span></h2>\n<table>\n<thead>\n<tr>\n<th>信息</th>\n<th>查看位置</th>\n<th>用途</th>\n</tr>\n</thead>\n<tbody><tr>\n<td>种族值</td>\n<td><a href=\"/pets/\">宠物图鉴</a></td>\n<td>比较基础分布，识别培养方向</td>\n</tr>\n<tr>\n<td>等级与培养结果</td>\n<td>对局宠物面板</td>\n<td>固定本次计算输入</td>\n</tr>\n<tr>\n<td>强化与弱化</td>\n<td>战斗状态、技能说明</td>\n<td>记录本回合的可见能力变化</td>\n</tr>\n<tr>\n<td>临时能力视作值与加成</td>\n<td>技能、血脉详情</td>\n<td>保留触发条件和适用的一次行动</td>\n</tr>\n<tr>\n<td>属性与属性变更</td>\n<td>宠物、技能、战场条目</td>\n<td>核对当前实际参与判断的属性</td>\n</tr>\n</tbody></table>\n<h2 id=\"section-2\" data-has-editor=\"true\">属性关系必须带场景<span class=\"rw-inline-section-edit\"><a class=\"rw-edit-entry\" href=\"/edit/?entity=%E5%B1%9E%E6%80%A7%E3%80%81%E8%83%BD%E5%8A%9B%E4%B8%8E%E5%85%8B%E5%88%B6&amp;section=%E5%B1%9E%E6%80%A7%E5%85%B3%E7%B3%BB%E5%BF%85%E9%A1%BB%E5%B8%A6%E5%9C%BA%E6%99%AF&amp;mode=article&amp;returnTo=%2Fmechanics%2Fattributes%2F%23section-2\" aria-label=\"编辑本节：属性关系必须带场景\"><svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" aria-hidden=\"true\"><path d=\"m16 3 5 5-12 12-6 1 1-6Z M14 5l5 5\"/></svg><span>编辑</span></a></span></h2>\n<p>查克制关系时，同时记录技能属性、承受者当前属性与战场效果。若技能提到改变属性、无视抵抗或改变克制关系，应从对应效果进入，不能把这种例外改写进基础属性表。</p>\n<p>本版尚未收录经过独立核验的完整现行属性矩阵，因此不从其他作品的属性表补齐空白。</p>\n<h2 id=\"section-3\" data-has-editor=\"true\">强化不等于所有加成<span class=\"rw-inline-section-edit\"><a class=\"rw-edit-entry\" href=\"/edit/?entity=%E5%B1%9E%E6%80%A7%E3%80%81%E8%83%BD%E5%8A%9B%E4%B8%8E%E5%85%8B%E5%88%B6&amp;section=%E5%BC%BA%E5%8C%96%E4%B8%8D%E7%AD%89%E4%BA%8E%E6%89%80%E6%9C%89%E5%8A%A0%E6%88%90&amp;mode=article&amp;returnTo=%2Fmechanics%2Fattributes%2F%23section-3\" aria-label=\"编辑本节：强化不等于所有加成\"><svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" aria-hidden=\"true\"><path d=\"m16 3 5 5-12 12-6 1 1-6Z M14 5l5 5\"/></svg><span>编辑</span></a></span></h2>\n<p>“提升能力等级”“视为某等级”“直接改变能力”和“增加技能威力”采用不同标签。阅读伤害说明时，先确定它修改的是哪一个量，再查看该量能否被清除、反转、锁定或继承。</p>\n<p><a href=\"/mechanics/status/\">异常、强化与标记</a> · <a href=\"/mechanics/damage/\">伤害类型与结算</a> · <a href=\"/tools/compare/\">宠物对比</a></p>\n"
+  },
+  "/mechanics/damage/": {
+    "title": "伤害类型与结算",
+    "headings": [
+      {
+        "id": "section-1",
+        "text": "伤害按来源查"
+      },
+      {
+        "id": "section-2",
+        "text": "同一技能逐段阅读"
+      },
+      {
+        "id": "section-3",
+        "text": "多种保护效果同时存在"
+      },
+      {
+        "id": "section-4",
+        "text": "计算工具的适用边界"
+      },
+      {
+        "id": "section-5",
+        "text": "普通威力的参考模型"
+      },
+      {
+        "id": "section-6",
+        "text": "随机浮动与证据状态"
+      },
+      {
+        "id": "section-7",
+        "text": "从培养得到实际能力"
+      }
+    ],
+    "html": "<p>先查“这一段伤害从哪里来”，再查它受到哪些效果影响。一个技能可以包含多项伤害与治疗，最终精力变化不能代替每项结算记录。</p>\n<h2 id=\"section-1\" data-has-editor=\"true\">伤害按来源查<span class=\"rw-inline-section-edit\"><a class=\"rw-edit-entry\" href=\"/edit/?entity=%E4%BC%A4%E5%AE%B3%E7%B1%BB%E5%9E%8B%E4%B8%8E%E7%BB%93%E7%AE%97&amp;section=%E4%BC%A4%E5%AE%B3%E6%8C%89%E6%9D%A5%E6%BA%90%E6%9F%A5&amp;mode=article&amp;returnTo=%2Fmechanics%2Fdamage%2F%23section-1\" aria-label=\"编辑本节：伤害按来源查\"><svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" aria-hidden=\"true\"><path d=\"m16 3 5 5-12 12-6 1 1-6Z M14 5l5 5\"/></svg><span>编辑</span></a></span></h2>\n<table>\n<thead>\n<tr>\n<th>查询类别</th>\n<th>阅读重点</th>\n</tr>\n</thead>\n<tbody><tr>\n<td>威力伤害</td>\n<td>技能威力、物理或魔法类别、属性及临时修正</td>\n</tr>\n<tr>\n<td>固定或比例描述</td>\n<td>数值基准、上下限和取整位置</td>\n</tr>\n<tr>\n<td>附加伤害</td>\n<td>触发条件、来源技能或血脉、发生时点</td>\n</tr>\n<tr>\n<td>反伤与反弹</td>\n<td>反回的对象、内容与时机，是否改变技能作用者</td>\n</tr>\n<tr>\n<td>波及</td>\n<td>场下目标选择、伤害范围及能否致死的具体条目</td>\n</tr>\n<tr>\n<td>自损与代价</td>\n<td>何时支付、触发失败时是否仍支付</td>\n</tr>\n</tbody></table>\n<p>这些是资料的查询类别，并非对所有技能适用的伤害公式。</p>\n<h2 id=\"section-2\" data-has-editor=\"true\">同一技能逐段阅读<span class=\"rw-inline-section-edit\"><a class=\"rw-edit-entry\" href=\"/edit/?entity=%E4%BC%A4%E5%AE%B3%E7%B1%BB%E5%9E%8B%E4%B8%8E%E7%BB%93%E7%AE%97&amp;section=%E5%90%8C%E4%B8%80%E6%8A%80%E8%83%BD%E9%80%90%E6%AE%B5%E9%98%85%E8%AF%BB&amp;mode=article&amp;returnTo=%2Fmechanics%2Fdamage%2F%23section-2\" aria-label=\"编辑本节：同一技能逐段阅读\"><svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" aria-hidden=\"true\"><path d=\"m16 3 5 5-12 12-6 1 1-6Z M14 5l5 5\"/></svg><span>编辑</span></a></span></h2>\n<p>每段分别展示对象、类型、基准和命中要求。造成伤害前后的回复、状态清除、标记施加与 PP 变化，在 <a href=\"/mechanics/stages/\">技能阶段</a> 中保留原有顺序。</p>\n<p>“最大精力”“当前精力”“已损精力”直接显示在数值旁边；伤害上限和最低值也与对应伤害项放在一起。</p>\n<h2 id=\"section-3\" data-has-editor=\"true\">多种保护效果同时存在<span class=\"rw-inline-section-edit\"><a class=\"rw-edit-entry\" href=\"/edit/?entity=%E4%BC%A4%E5%AE%B3%E7%B1%BB%E5%9E%8B%E4%B8%8E%E7%BB%93%E7%AE%97&amp;section=%E5%A4%9A%E7%A7%8D%E4%BF%9D%E6%8A%A4%E6%95%88%E6%9E%9C%E5%90%8C%E6%97%B6%E5%AD%98%E5%9C%A8&amp;mode=article&amp;returnTo=%2Fmechanics%2Fdamage%2F%23section-3\" aria-label=\"编辑本节：多种保护效果同时存在\"><svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" aria-hidden=\"true\"><path d=\"m16 3 5 5-12 12-6 1 1-6Z M14 5l5 5\"/></svg><span>编辑</span></a></span></h2>\n<p>从 <a href=\"/mechanics/shield/\">护盾与减伤</a> 查每种保护作用于什么，再进入 <a href=\"/mechanics/interactions/\">覆盖与共存</a> 查它与其他效果的关系。比较的对象可能是两个持续效果，也可能是伤害转换与保护效果之间的结算顺序。</p>\n<p>在没有完整证据时，不把护盾、限伤、转化、反伤排列成一条通用顺序。</p>\n<h2 id=\"section-4\" data-has-editor=\"true\">计算工具的适用边界<span class=\"rw-inline-section-edit\"><a class=\"rw-edit-entry\" href=\"/edit/?entity=%E4%BC%A4%E5%AE%B3%E7%B1%BB%E5%9E%8B%E4%B8%8E%E7%BB%93%E7%AE%97&amp;section=%E8%AE%A1%E7%AE%97%E5%B7%A5%E5%85%B7%E7%9A%84%E9%80%82%E7%94%A8%E8%BE%B9%E7%95%8C&amp;mode=article&amp;returnTo=%2Fmechanics%2Fdamage%2F%23section-4\" aria-label=\"编辑本节：计算工具的适用边界\"><svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" aria-hidden=\"true\"><path d=\"m16 3 5 5-12 12-6 1 1-6Z M14 5l5 5\"/></svg><span>编辑</span></a></span></h2>\n<p><a href=\"/tools/damage/\">伤害计算器</a> 已支持普通物理、魔法威力攻击的参考计算。输入的是本次攻击的实际攻防能力与已知威力；物理配对物攻与物防，魔法配对魔攻与魔抗。普通、单重抵抗和单重克制分别计算，不能把双属性关系直接乘起来。</p>\n<p>目前的计算范围是跨系、非暴击、没有其他伤害修正的单段威力攻击。本系加成、天气环境、血脉、护盾、限伤、锁血、伤害转化、条件威力、固伤、多段与波及，需要对应技能和效果的专用规则；选择这些条件时，工具会停止输出，说明缺少什么依据。</p>\n<h2 id=\"section-5\" data-has-editor=\"true\">普通威力的参考模型<span class=\"rw-inline-section-edit\"><a class=\"rw-edit-entry\" href=\"/edit/?entity=%E4%BC%A4%E5%AE%B3%E7%B1%BB%E5%9E%8B%E4%B8%8E%E7%BB%93%E7%AE%97&amp;section=%E6%99%AE%E9%80%9A%E5%A8%81%E5%8A%9B%E7%9A%84%E5%8F%82%E8%80%83%E6%A8%A1%E5%9E%8B&amp;mode=article&amp;returnTo=%2Fmechanics%2Fdamage%2F%23section-5\" aria-label=\"编辑本节：普通威力的参考模型\"><svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" aria-hidden=\"true\"><path d=\"m16 3 5 5-12 12-6 1 1-6Z M14 5l5 5\"/></svg><span>编辑</span></a></span></h2>\n<p>2010 年的页游攻略给出以等级、威力、攻防比和克制关系构成的基础表达式。这里将它改写为代数上相同的形式：</p>\n<pre><code class=\"language-text\">B = (攻击方等级 + 5) × 威力 × 实际攻击 / (125 × 实际防御) + 2\n本工具参考值 = floor(B × 克制修正 × r)\n</code></pre>\n<p><code>floor</code> 表示向下取整。工具将整个分式合成后再取整，这是一项<strong>明确的计算约定</strong>。原始基础教程没有写出客户端中间取整顺序，因此这里不把这个约定写成已证实的游戏底层实现。<a href=\"https://news.4399.com/luoke/miji/201008-25-76090.html\">基础表达式来源</a>；<a href=\"https://news.4399.com/luoke/miji/201102-28-87952.html\">单重相克修正来源</a>。</p>\n<p>例如，在 100 级、100 威力、实际攻击 300、实际防御 300、普通克制关系下，<code>B = 86</code>。按下述 21 档，工具输出 68–86；这是参考模型的回归例子，不是本站已经完成的游戏实测。</p>\n<h2 id=\"section-6\" data-has-editor=\"true\">随机浮动与证据状态<span class=\"rw-inline-section-edit\"><a class=\"rw-edit-entry\" href=\"/edit/?entity=%E4%BC%A4%E5%AE%B3%E7%B1%BB%E5%9E%8B%E4%B8%8E%E7%BB%93%E7%AE%97&amp;section=%E9%9A%8F%E6%9C%BA%E6%B5%AE%E5%8A%A8%E4%B8%8E%E8%AF%81%E6%8D%AE%E7%8A%B6%E6%80%81&amp;mode=article&amp;returnTo=%2Fmechanics%2Fdamage%2F%23section-6\" aria-label=\"编辑本节：随机浮动与证据状态\"><svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" aria-hidden=\"true\"><path d=\"m16 3 5 5-12 12-6 1 1-6Z M14 5l5 5\"/></svg><span>编辑</span></a></span></h2>\n<p>超级楚的無頭于 2022-06-14 发布的<a href=\"https://www.bilibili.com/video/BV1dY4y1W7om/\">原始实测视频《揭开伤害浮动机制的真面目》</a>在约 04:00 展示了 21 个伤害值的频数表，约 04:30 展示了逐档系数与结果。工具据此采用：</p>\n<pre><code class=\"language-text\">r = 0.80、0.81、0.82、……、0.99、1.00\n</code></pre>\n<p>这些档位固定枚举，不允许任意输入浮动上下限。不同系数取整后可能产生相同整数。历史实验中的频数检验不等同于当前客户端的精确概率证明，因此工具不提供击杀概率或“必定击杀”的判断。</p>\n<p>视频片头的取整括号按字面执行会出现矛盾，不能据此确认中间取整；本站只引用后半部分能够直接查验的随机档位数据。当前游戏版本是否还有取整或特殊伤害差异，仍需按 <a href=\"/mechanics/evidence/\">实测规范</a> 记录双方配置、完整伤害样本与版本后复核。</p>\n<h2 id=\"section-7\" data-has-editor=\"true\">从培养得到实际能力<span class=\"rw-inline-section-edit\"><a class=\"rw-edit-entry\" href=\"/edit/?entity=%E4%BC%A4%E5%AE%B3%E7%B1%BB%E5%9E%8B%E4%B8%8E%E7%BB%93%E7%AE%97&amp;section=%E4%BB%8E%E5%9F%B9%E5%85%BB%E5%BE%97%E5%88%B0%E5%AE%9E%E9%99%85%E8%83%BD%E5%8A%9B&amp;mode=article&amp;returnTo=%2Fmechanics%2Fdamage%2F%23section-7\" aria-label=\"编辑本节：从培养得到实际能力\"><svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" aria-hidden=\"true\"><path d=\"m16 3 5 5-12 12-6 1 1-6Z M14 5l5 5\"/></svg><span>编辑</span></a></span></h2>\n<p><a href=\"/tools/stats/\">能力计算器</a> 使用官方论坛版主团<a href=\"https://17roco.gamebbs.qq.com/forum.php?mod=viewthread&amp;tid=162202\">《PK入门·1》宠物能力培养指南</a>末楼的六维公式图（公式段编辑于 2026-04-14），并将面板与守护兽的战斗加成分开展示。</p>\n<pre><code class=\"language-text\">E = floor(努力值 / 4)\nB = floor((2 × 种族值 + 天赋 + E + 亲密值) × 等级 / 100)\n精力 = B + 等级 + 10 + 装备 + 守护兽\n非精力 = floor((B + 5) × 性格修正) + 装备 + 守护兽\n</code></pre>\n<p>这里的亲密值包括已分配点数和关系的额外加成；速度的亲密、装备与守护兽项均为 0。性格使用精确的 <code>9/10、1、11/10</code> 比值计算，避免十进制乘法误差改变向下取整结果。能力计算所得是尚未叠加战斗中强化、血脉和临时效果的基础值；带入伤害工具后，要按当次出手条件继续核对。</p>\n<p><a href=\"/mechanics/healing/\">治疗、禁疗与转化</a> · <a href=\"/mechanics/timing/\">触发顺序与结算时点</a></p>\n"
+  },
+  "/mechanics/effects/pressure/": {
+    "title": "压迫（双损）",
+    "headings": [
+      {
+        "id": "section-1",
+        "text": "来源决定查询对象"
+      },
+      {
+        "id": "section-2",
+        "text": "已有的历史线索"
+      },
+      {
+        "id": "section-3",
+        "text": "在对照器中怎样看"
+      },
+      {
+        "id": "section-4",
+        "text": "本条目待复核的问题"
+      }
+    ],
+    "html": "<p>查询这类效果时，分别核对<strong>适用技能属性、施加目标、消耗时机和解除来源</strong>。额外消耗与直接删除 PP 使用不同字段，不因都表现为 PP 减少而合并。</p>\n<p><a href=\"/mechanics/relations/?existing=pressure-chencai&amp;incoming=pressure-yanbo\">打开双损关系对照</a> · <a href=\"/mechanics/pp/\">PP 与技能限制</a></p>\n<h2 id=\"section-1\" data-has-editor=\"true\">来源决定查询对象<span class=\"rw-inline-section-edit\"><a class=\"rw-edit-entry\" href=\"/edit/?entity=%E5%8E%8B%E8%BF%AB%EF%BC%88%E5%8F%8C%E6%8D%9F%EF%BC%89&amp;section=%E6%9D%A5%E6%BA%90%E5%86%B3%E5%AE%9A%E6%9F%A5%E8%AF%A2%E5%AF%B9%E8%B1%A1&amp;mode=article&amp;returnTo=%2Fmechanics%2Feffects%2Fpressure%2F%23section-1\" aria-label=\"编辑本节：来源决定查询对象\"><svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" aria-hidden=\"true\"><path d=\"m16 3 5 5-12 12-6 1 1-6Z M14 5l5 5\"/></svg><span>编辑</span></a></span></h2>\n<table>\n<thead>\n<tr>\n<th>来源技能</th>\n<th>来源宠物示例</th>\n<th>资料入口</th>\n</tr>\n</thead>\n<tbody><tr>\n<td>沉彩飞光</td>\n<td>圣湮伊莱娜</td>\n<td><a href=\"https://www.bilibili.com/opus/668235050899210276\">历史实测报告</a></td>\n</tr>\n<tr>\n<td>烟波长静</td>\n<td>汐纱水王</td>\n<td><a href=\"https://roco.dvg.cn/skill_info.php?id=2247\">技能来源</a></td>\n</tr>\n<tr>\n<td>孤壑分疆</td>\n<td>混沌石王</td>\n<td><a href=\"https://roco.dvg.cn/skill_info.php?id=1842\">技能来源</a></td>\n</tr>\n<tr>\n<td>太阳的守护</td>\n<td>可鲁贝洛斯等</td>\n<td><a href=\"https://roco.dvg.cn/skill_info.php?id=2307\">技能来源</a></td>\n</tr>\n<tr>\n<td>庸惟虚灭</td>\n<td>煌明火王等</td>\n<td><a href=\"https://roco.dvg.cn/skill_info.php?id=2674\">技能来源</a></td>\n</tr>\n</tbody></table>\n<p>来源列表用于选择具体效果，不表示这些效果完全相同。技能资料抓取时间也不代表关系已在该日期复测。</p>\n<h2 id=\"section-2\" data-has-editor=\"true\">已有的历史线索<span class=\"rw-inline-section-edit\"><a class=\"rw-edit-entry\" href=\"/edit/?entity=%E5%8E%8B%E8%BF%AB%EF%BC%88%E5%8F%8C%E6%8D%9F%EF%BC%89&amp;section=%E5%B7%B2%E6%9C%89%E7%9A%84%E5%8E%86%E5%8F%B2%E7%BA%BF%E7%B4%A2&amp;mode=article&amp;returnTo=%2Fmechanics%2Feffects%2Fpressure%2F%23section-2\" aria-label=\"编辑本节：已有的历史线索\"><svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" aria-hidden=\"true\"><path d=\"m16 3 5 5-12 12-6 1 1-6Z M14 5l5 5\"/></svg><span>编辑</span></a></span></h2>\n<p>微风卟解意于 <strong>2022-06-05</strong> 发布的实测报告记录：沉彩飞光与烟波长静、太阳的守护等双损存在相互解除；报告另称其优先关系低于孤壑分疆、庸惟虚灭等来源。原文定位为“沉彩飞光”章节末段。<a href=\"https://www.bilibili.com/opus/668235050899210276\">查看原始报告</a></p>\n<p><strong>这是一条历史实测来源，本版未做当前版本复测。</strong> 原文的“相互解除”不直接说明施加瞬间谁替换谁；有关清理时点、同场多来源和正反顺序，需要分别补齐证据。</p>\n<h2 id=\"section-3\" data-has-editor=\"true\">在对照器中怎样看<span class=\"rw-inline-section-edit\"><a class=\"rw-edit-entry\" href=\"/edit/?entity=%E5%8E%8B%E8%BF%AB%EF%BC%88%E5%8F%8C%E6%8D%9F%EF%BC%89&amp;section=%E5%9C%A8%E5%AF%B9%E7%85%A7%E5%99%A8%E4%B8%AD%E6%80%8E%E6%A0%B7%E7%9C%8B&amp;mode=article&amp;returnTo=%2Fmechanics%2Feffects%2Fpressure%2F%23section-3\" aria-label=\"编辑本节：在对照器中怎样看\"><svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" aria-hidden=\"true\"><path d=\"m16 3 5 5-12 12-6 1 1-6Z M14 5l5 5\"/></svg><span>编辑</span></a></span></h2>\n<p>选定两个来源后，先看施加结果，再看解除与持续时间。历史资料只明确部分行为时，页面保留已知部分，同时列出待核验条件。</p>\n<p>换一个来源、换一个施加顺序、换宠或让旧效果自然结束，都属于不同的验证场景。其他尚未收录的双损来源显示“暂无配对记录”。</p>\n<h2 id=\"section-4\" data-has-editor=\"true\">本条目待复核的问题<span class=\"rw-inline-section-edit\"><a class=\"rw-edit-entry\" href=\"/edit/?entity=%E5%8E%8B%E8%BF%AB%EF%BC%88%E5%8F%8C%E6%8D%9F%EF%BC%89&amp;section=%E6%9C%AC%E6%9D%A1%E7%9B%AE%E5%BE%85%E5%A4%8D%E6%A0%B8%E7%9A%84%E9%97%AE%E9%A2%98&amp;mode=article&amp;returnTo=%2Fmechanics%2Feffects%2Fpressure%2F%23section-4\" aria-label=\"编辑本节：本条目待复核的问题\"><svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" aria-hidden=\"true\"><path d=\"m16 3 5 5-12 12-6 1 1-6Z M14 5l5 5\"/></svg><span>编辑</span></a></span></h2>\n<ol>\n<li>已有与新施加两种顺序，在当前版本分别得到什么结果？</li>\n<li>旧技能回合结束时，是否影响后来施加的效果？</li>\n<li>换宠、不同技能属性以及天气环境变化会否改变结果？</li>\n<li>多只宠物使用同一技能时，效果实例和解除是否共享？</li>\n</ol>\n<p><a href=\"/mechanics/evidence/\">提交复核证据</a> · <a href=\"/mechanics/interactions/\">覆盖、共存与解除</a> · <a href=\"/mechanics/effects/\">效果档案</a></p>\n"
+  },
+  "/mechanics/effects/": {
+    "title": "效果档案与同名识别",
+    "headings": [
+      {
+        "id": "section-1",
+        "text": "一个效果先回答六件事"
+      },
+      {
+        "id": "section-2",
+        "text": "相同显示名不直接合并"
+      },
+      {
+        "id": "section-3",
+        "text": "关系标签怎样理解"
+      },
+      {
+        "id": "section-4",
+        "text": "从效果回到宠物"
+      }
+    ],
+    "html": "<p>看到相同名称或图标时，先选择<strong>来源技能或血脉</strong>。同名效果只是检索入口；是否共享行为、能否互相覆盖，需要单独的证据。</p>\n<p><a href=\"/mechanics/relations/\">打开效果关系对照</a> · <a href=\"/mechanics/effects/pressure/\">查看压迫（双损）档案</a></p>\n<h2 id=\"section-1\" data-has-editor=\"true\">一个效果先回答六件事<span class=\"rw-inline-section-edit\"><a class=\"rw-edit-entry\" href=\"/edit/?entity=%E6%95%88%E6%9E%9C%E6%A1%A3%E6%A1%88%E4%B8%8E%E5%90%8C%E5%90%8D%E8%AF%86%E5%88%AB&amp;section=%E4%B8%80%E4%B8%AA%E6%95%88%E6%9E%9C%E5%85%88%E5%9B%9E%E7%AD%94%E5%85%AD%E4%BB%B6%E4%BA%8B&amp;mode=article&amp;returnTo=%2Fmechanics%2Feffects%2F%23section-1\" aria-label=\"编辑本节：一个效果先回答六件事\"><svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" aria-hidden=\"true\"><path d=\"m16 3 5 5-12 12-6 1 1-6Z M14 5l5 5\"/></svg><span>编辑</span></a></span></h2>\n<table>\n<thead>\n<tr>\n<th>信息</th>\n<th>玩家要查的内容</th>\n</tr>\n</thead>\n<tbody><tr>\n<td>来源</td>\n<td>哪只宠物、哪个技能或血脉、具体哪一段</td>\n</tr>\n<tr>\n<td>对象</td>\n<td>当前宠物、场下宠物、下一只上场、队伍或战场</td>\n</tr>\n<tr>\n<td>作用</td>\n<td>修改什么，数值基准和适用范围是什么</td>\n</tr>\n<tr>\n<td>时机</td>\n<td>何时施加、何时触发、何时结束</td>\n</tr>\n<tr>\n<td>重复施加</td>\n<td>叠层、刷新、替换、共存或失败的已知条件</td>\n</tr>\n<tr>\n<td>相互关系</td>\n<td>谁能影响它，影响发生在施加还是清理阶段</td>\n</tr>\n</tbody></table>\n<h2 id=\"section-2\" data-has-editor=\"true\">相同显示名不直接合并<span class=\"rw-inline-section-edit\"><a class=\"rw-edit-entry\" href=\"/edit/?entity=%E6%95%88%E6%9E%9C%E6%A1%A3%E6%A1%88%E4%B8%8E%E5%90%8C%E5%90%8D%E8%AF%86%E5%88%AB&amp;section=%E7%9B%B8%E5%90%8C%E6%98%BE%E7%A4%BA%E5%90%8D%E4%B8%8D%E7%9B%B4%E6%8E%A5%E5%90%88%E5%B9%B6&amp;mode=article&amp;returnTo=%2Fmechanics%2Feffects%2F%23section-2\" aria-label=\"编辑本节：相同显示名不直接合并\"><svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" aria-hidden=\"true\"><path d=\"m16 3 5 5-12 12-6 1 1-6Z M14 5l5 5\"/></svg><span>编辑</span></a></span></h2>\n<p>例如查询“压迫”时，先显示来源列表，再选择具体效果对照。一个技能含有多个状态时，也应分别选择；技能名称本身不是效果的唯一身份。</p>\n<p>站内资料标识用于稳定引用。除非已有来源确认，页面不把自建标识称为游戏服务端效果编号。</p>\n<h2 id=\"section-3\" data-has-editor=\"true\">关系标签怎样理解<span class=\"rw-inline-section-edit\"><a class=\"rw-edit-entry\" href=\"/edit/?entity=%E6%95%88%E6%9E%9C%E6%A1%A3%E6%A1%88%E4%B8%8E%E5%90%8C%E5%90%8D%E8%AF%86%E5%88%AB&amp;section=%E5%85%B3%E7%B3%BB%E6%A0%87%E7%AD%BE%E6%80%8E%E6%A0%B7%E7%90%86%E8%A7%A3&amp;mode=article&amp;returnTo=%2Fmechanics%2Feffects%2F%23section-3\" aria-label=\"编辑本节：关系标签怎样理解\"><svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" aria-hidden=\"true\"><path d=\"m16 3 5 5-12 12-6 1 1-6Z M14 5l5 5\"/></svg><span>编辑</span></a></span></h2>\n<table>\n<thead>\n<tr>\n<th>标签</th>\n<th>能说明什么</th>\n</tr>\n</thead>\n<tbody><tr>\n<td>覆盖</td>\n<td>新效果替换已有效果，需写明方向和条件</td>\n</tr>\n<tr>\n<td>共存</td>\n<td>指定条件下两者分别存在或分别结算</td>\n</tr>\n<tr>\n<td>刷新</td>\n<td>同一效果的持续时间或数值被更新</td>\n</tr>\n<tr>\n<td>叠层</td>\n<td>增加层数或独立实例，需注明上限</td>\n</tr>\n<tr>\n<td>互相解除</td>\n<td>某方的清理会影响另一方，不等同于施加时覆盖</td>\n</tr>\n<tr>\n<td>未知</td>\n<td>当前证据不足，不能推导为没有相互作用</td>\n</tr>\n</tbody></table>\n<h2 id=\"section-4\" data-has-editor=\"true\">从效果回到宠物<span class=\"rw-inline-section-edit\"><a class=\"rw-edit-entry\" href=\"/edit/?entity=%E6%95%88%E6%9E%9C%E6%A1%A3%E6%A1%88%E4%B8%8E%E5%90%8C%E5%90%8D%E8%AF%86%E5%88%AB&amp;section=%E4%BB%8E%E6%95%88%E6%9E%9C%E5%9B%9E%E5%88%B0%E5%AE%A0%E7%89%A9&amp;mode=article&amp;returnTo=%2Fmechanics%2Feffects%2F%23section-4\" aria-label=\"编辑本节：从效果回到宠物\"><svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" aria-hidden=\"true\"><path d=\"m16 3 5 5-12 12-6 1 1-6Z M14 5l5 5\"/></svg><span>编辑</span></a></span></h2>\n<p>效果页同时连接来源技能、来源宠物、所属机制和证据。宠物页只展示与该宠物有关的效果及冲突提示，完整的交互关系由这里维护，避免多处说明各自失效。</p>\n<p><a href=\"/mechanics/interactions/\">覆盖、共存与解除</a> · <a href=\"/mechanics/passive/\">血脉与被动触发</a> · <a href=\"/help/contributing/\">贡献指南</a></p>\n"
+  },
+  "/mechanics/environments/mirage/": {
+    "title": "海市蜃楼（环境）",
+    "headings": [
+      {
+        "id": "section-1",
+        "text": "召唤来源与持续回合"
+      },
+      {
+        "id": "section-2",
+        "text": "与宠物、技能的关联"
+      },
+      {
+        "id": "section-3",
+        "text": "覆盖关系怎么查"
+      },
+      {
+        "id": "section-4",
+        "text": "本页依据"
+      }
+    ],
+    "html": "<p><strong>海市蜃楼</strong>是战场环境名称，也是一项技能的名称。本页记录环境及其召唤来源；引用同名技能时，需要同时注明技能与学习宠物，避免混淆。</p>\n<h2 id=\"section-1\" data-has-editor=\"true\">召唤来源与持续回合<span class=\"rw-inline-section-edit\"><a class=\"rw-edit-entry\" href=\"/edit/?entity=%E6%B5%B7%E5%B8%82%E8%9C%83%E6%A5%BC%EF%BC%88%E7%8E%AF%E5%A2%83%EF%BC%89&amp;section=%E5%8F%AC%E5%94%A4%E6%9D%A5%E6%BA%90%E4%B8%8E%E6%8C%81%E7%BB%AD%E5%9B%9E%E5%90%88&amp;mode=article&amp;returnTo=%2Fmechanics%2Fenvironments%2Fmirage%2F%23section-1\" aria-label=\"编辑本节：召唤来源与持续回合\"><svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" aria-hidden=\"true\"><path d=\"m16 3 5 5-12 12-6 1 1-6Z M14 5l5 5\"/></svg><span>编辑</span></a></span></h2>\n<p>不同技能描述给出的持续回合不同，不能只为“海市蜃楼”设置一个全局时长。</p>\n<table>\n<thead>\n<tr>\n<th>已收录召唤来源</th>\n<th>技能描述中的时长</th>\n<th>继续查阅</th>\n</tr>\n</thead>\n<tbody><tr>\n<td>霞姿月韵</td>\n<td>6 回合</td>\n<td><a href=\"/skills/xiazi/\">技能效果与条件</a></td>\n</tr>\n<tr>\n<td>飞星浮渡</td>\n<td>3 回合</td>\n<td><a href=\"/skills/feixing/\">召唤结果与后续分支</a></td>\n</tr>\n<tr>\n<td>海市蜃楼（海皇波塞冬的技能）</td>\n<td>5 回合</td>\n<td><a href=\"https://roco.dvg.cn/skill_info.php?id=1274\">外部技能资料</a></td>\n</tr>\n</tbody></table>\n<p>上表按社区数据库现有技能描述整理。持续回合的递减时点、是否受其他来源延长，以及替换后的结果，应另附相应版本的实测记录。</p>\n<h2 id=\"section-2\" data-has-editor=\"true\">与宠物、技能的关联<span class=\"rw-inline-section-edit\"><a class=\"rw-edit-entry\" href=\"/edit/?entity=%E6%B5%B7%E5%B8%82%E8%9C%83%E6%A5%BC%EF%BC%88%E7%8E%AF%E5%A2%83%EF%BC%89&amp;section=%E4%B8%8E%E5%AE%A0%E7%89%A9%E3%80%81%E6%8A%80%E8%83%BD%E7%9A%84%E5%85%B3%E8%81%94&amp;mode=article&amp;returnTo=%2Fmechanics%2Fenvironments%2Fmirage%2F%23section-2\" aria-label=\"编辑本节：与宠物、技能的关联\"><svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" aria-hidden=\"true\"><path d=\"m16 3 5 5-12 12-6 1 1-6Z M14 5l5 5\"/></svg><span>编辑</span></a></span></h2>\n<p><a href=\"/pets/haifu/\">海芙约忒</a>的霞姿月韵会强化环境伤害效果；飞星浮渡则区分环境召唤成功与失败，后续 PP 回复与额外消耗条件随之变化。这些是<strong>具体技能的作用</strong>，不应复制成所有召唤来源都具备的环境基础效果。</p>\n<p>同名技能海市蜃楼的描述提及幻象长眠。关于不同免疫、天气环境锁定与特殊召唤方式下是否生效，需要逐对查询证据。</p>\n<h2 id=\"section-3\" data-has-editor=\"true\">覆盖关系怎么查<span class=\"rw-inline-section-edit\"><a class=\"rw-edit-entry\" href=\"/edit/?entity=%E6%B5%B7%E5%B8%82%E8%9C%83%E6%A5%BC%EF%BC%88%E7%8E%AF%E5%A2%83%EF%BC%89&amp;section=%E8%A6%86%E7%9B%96%E5%85%B3%E7%B3%BB%E6%80%8E%E4%B9%88%E6%9F%A5&amp;mode=article&amp;returnTo=%2Fmechanics%2Fenvironments%2Fmirage%2F%23section-3\" aria-label=\"编辑本节：覆盖关系怎么查\"><svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" aria-hidden=\"true\"><path d=\"m16 3 5 5-12 12-6 1 1-6Z M14 5l5 5\"/></svg><span>编辑</span></a></span></h2>\n<p>打开<a href=\"/mechanics/relations/\">效果关系查询</a>，记录已有效果、产生来源、新施加来源和顺序。若已有记录未覆盖这组条件，请通过本页右下角反馈或<a href=\"/edit/?entity=%E6%B5%B7%E5%B8%82%E8%9C%83%E6%A5%BC%E7%8E%AF%E5%A2%83&amp;section=%E8%A6%86%E7%9B%96%E5%85%B3%E7%B3%BB\">提交环境实测</a>补充。</p>\n<p>未证实的覆盖、共存或解除关系，不能由“召唤失败”的单一提示反推。一般记录方法见<a href=\"/mechanics/weather/\">天气与环境</a>及<a href=\"/mechanics/timing/\">触发顺序与结算时点</a>。</p>\n<h2 id=\"section-4\" data-has-editor=\"true\">本页依据<span class=\"rw-inline-section-edit\"><a class=\"rw-edit-entry\" href=\"/edit/?entity=%E6%B5%B7%E5%B8%82%E8%9C%83%E6%A5%BC%EF%BC%88%E7%8E%AF%E5%A2%83%EF%BC%89&amp;section=%E6%9C%AC%E9%A1%B5%E4%BE%9D%E6%8D%AE&amp;mode=article&amp;returnTo=%2Fmechanics%2Fenvironments%2Fmirage%2F%23section-4\" aria-label=\"编辑本节：本页依据\"><svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" aria-hidden=\"true\"><path d=\"m16 3 5 5-12 12-6 1 1-6Z M14 5l5 5\"/></svg><span>编辑</span></a></span></h2>\n<ul>\n<li><a href=\"https://roco.dvg.cn/skills.php?sx=21\">洛克小册子：神水属性技能资料</a>，霞姿月韵、飞星浮渡、海市蜃楼三个技能的描述；2026-10-10 查阅。</li>\n<li><a href=\"https://roco.dvg.cn/spirit_info.php?id=1906\">洛克小册子：海皇波塞冬</a>，学习技能与同名技能的归属；2026-10-10 查阅。</li>\n</ul>\n<p>这里保留来源和适用范围，便于后续修订；未取得当前客户端配置或完成全部组合实测。</p>\n"
+  },
+  "/mechanics/evidence/": {
+    "title": "机制实测与争议记录",
+    "headings": [
+      {
+        "id": "section-1",
+        "text": "证据状态"
+      },
+      {
+        "id": "section-2",
+        "text": "一条配对实测的最小记录"
+      },
+      {
+        "id": "section-3",
+        "text": "观察和解释分别写"
+      },
+      {
+        "id": "section-4",
+        "text": "有冲突时怎样处理"
+      }
+    ],
+    "html": "<p>机制页先展示可用结论，再展示适用条件和证据。原文、玩家解析和实测记录分别标注，读者可以判断一条资料目前能回答什么问题。</p>\n<h2 id=\"section-1\" data-has-editor=\"true\">证据状态<span class=\"rw-inline-section-edit\"><a class=\"rw-edit-entry\" href=\"/edit/?entity=%E6%9C%BA%E5%88%B6%E5%AE%9E%E6%B5%8B%E4%B8%8E%E4%BA%89%E8%AE%AE%E8%AE%B0%E5%BD%95&amp;section=%E8%AF%81%E6%8D%AE%E7%8A%B6%E6%80%81&amp;mode=article&amp;returnTo=%2Fmechanics%2Fevidence%2F%23section-1\" aria-label=\"编辑本节：证据状态\"><svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" aria-hidden=\"true\"><path d=\"m16 3 5 5-12 12-6 1 1-6Z M14 5l5 5\"/></svg><span>编辑</span></a></span></h2>\n<table>\n<thead>\n<tr>\n<th>状态</th>\n<th>页面含义</th>\n</tr>\n</thead>\n<tbody><tr>\n<td>原文记载</td>\n<td>技能、公告或已说明来源中有直接描述</td>\n</tr>\n<tr>\n<td>历史实测</td>\n<td>有测试记录，但未完成当前版本复核</td>\n</tr>\n<tr>\n<td>当前已复核</td>\n<td>有本次测试日期、条件和可定位证据</td>\n</tr>\n<tr>\n<td>存在争议</td>\n<td>不同记录在相同或待确认条件下发生冲突</td>\n</tr>\n<tr>\n<td>尚未验证</td>\n<td>目前只有疑问、推测或不完整观察</td>\n</tr>\n</tbody></table>\n<p>网页“最后抓取时间”与“游戏测试日期”分开记录。只有来源刷新，不会自动升级验证状态。</p>\n<h2 id=\"section-2\" data-has-editor=\"true\">一条配对实测的最小记录<span class=\"rw-inline-section-edit\"><a class=\"rw-edit-entry\" href=\"/edit/?entity=%E6%9C%BA%E5%88%B6%E5%AE%9E%E6%B5%8B%E4%B8%8E%E4%BA%89%E8%AE%AE%E8%AE%B0%E5%BD%95&amp;section=%E4%B8%80%E6%9D%A1%E9%85%8D%E5%AF%B9%E5%AE%9E%E6%B5%8B%E7%9A%84%E6%9C%80%E5%B0%8F%E8%AE%B0%E5%BD%95&amp;mode=article&amp;returnTo=%2Fmechanics%2Fevidence%2F%23section-2\" aria-label=\"编辑本节：一条配对实测的最小记录\"><svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" aria-hidden=\"true\"><path d=\"m16 3 5 5-12 12-6 1 1-6Z M14 5l5 5\"/></svg><span>编辑</span></a></span></h2>\n<table>\n<thead>\n<tr>\n<th>记录项</th>\n<th>示例要求</th>\n</tr>\n</thead>\n<tbody><tr>\n<td>参与者</td>\n<td>双方宠物、技能、血脉及与结论有关的队伍位置</td>\n</tr>\n<tr>\n<td>起始状态</td>\n<td>已有效果、PP、相关能力与天气环境</td>\n</tr>\n<tr>\n<td>操作顺序</td>\n<td>哪一回合由谁施加 A，哪一回合施加 B</td>\n</tr>\n<tr>\n<td>观察时点</td>\n<td>施加后、触发时、旧效果结束时、换宠后</td>\n</tr>\n<tr>\n<td>结果</td>\n<td>数值或状态具体变化，以及没有变化的项目</td>\n</tr>\n<tr>\n<td>来源定位</td>\n<td>日期、规则场景、录像时间或日志回合位置</td>\n</tr>\n</tbody></table>\n<p>重复实验不只重复同一操作，也应补充逆序、没有另一个效果时的对照，以及已知会改变结果的边界条件。</p>\n<h2 id=\"section-3\" data-has-editor=\"true\">观察和解释分别写<span class=\"rw-inline-section-edit\"><a class=\"rw-edit-entry\" href=\"/edit/?entity=%E6%9C%BA%E5%88%B6%E5%AE%9E%E6%B5%8B%E4%B8%8E%E4%BA%89%E8%AE%AE%E8%AE%B0%E5%BD%95&amp;section=%E8%A7%82%E5%AF%9F%E5%92%8C%E8%A7%A3%E9%87%8A%E5%88%86%E5%88%AB%E5%86%99&amp;mode=article&amp;returnTo=%2Fmechanics%2Fevidence%2F%23section-3\" aria-label=\"编辑本节：观察和解释分别写\"><svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" aria-hidden=\"true\"><path d=\"m16 3 5 5-12 12-6 1 1-6Z M14 5l5 5\"/></svg><span>编辑</span></a></span></h2>\n<p>“第 4 回合额外消耗停止”是观察；“B 覆盖 A”是解释。解释需要同时排除到期、免疫、技能未满足条件等原因；证据不足时先保存观察。</p>\n<p>没有观察到某效果，不自动认定其内部状态已经删除。现有状态、触发行为和最终数值分别记录。</p>\n<h2 id=\"section-4\" data-has-editor=\"true\">有冲突时怎样处理<span class=\"rw-inline-section-edit\"><a class=\"rw-edit-entry\" href=\"/edit/?entity=%E6%9C%BA%E5%88%B6%E5%AE%9E%E6%B5%8B%E4%B8%8E%E4%BA%89%E8%AE%AE%E8%AE%B0%E5%BD%95&amp;section=%E6%9C%89%E5%86%B2%E7%AA%81%E6%97%B6%E6%80%8E%E6%A0%B7%E5%A4%84%E7%90%86&amp;mode=article&amp;returnTo=%2Fmechanics%2Fevidence%2F%23section-4\" aria-label=\"编辑本节：有冲突时怎样处理\"><svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" aria-hidden=\"true\"><path d=\"m16 3 5 5-12 12-6 1 1-6Z M14 5l5 5\"/></svg><span>编辑</span></a></span></h2>\n<p>并列保留不同结论、各自证据和适用日期。先检查技能调整、操作顺序、作用对象及计数时点差异。仍无法解释时维持争议状态，不按投稿顺序覆盖旧记录。</p>\n<p>页内反馈会带上当前页面；在 <a href=\"/mechanics/relations/\">效果关系对照</a> 中反馈还应保留选中的两个效果与方向。</p>\n<p><a href=\"/help/contributing/\">贡献指南</a> · <a href=\"/help/sources/\">资料来源规范</a></p>\n"
+  },
+  "/mechanics/glossary/": {
+    "title": "战斗术语速查",
+    "headings": [
+      {
+        "id": "section-1",
+        "text": "行动与技能"
+      },
+      {
+        "id": "section-2",
+        "text": "状态与数值"
+      },
+      {
+        "id": "section-3",
+        "text": "战场与关系"
+      }
+    ],
+    "html": "<p>本页帮助定位资料。简写只作搜索别名，具体对象、数值与例外仍以对应技能的完整说明为准。</p>\n<h2 id=\"section-1\" data-has-editor=\"true\">行动与技能<span class=\"rw-inline-section-edit\"><a class=\"rw-edit-entry\" href=\"/edit/?entity=%E6%88%98%E6%96%97%E6%9C%AF%E8%AF%AD%E9%80%9F%E6%9F%A5&amp;section=%E8%A1%8C%E5%8A%A8%E4%B8%8E%E6%8A%80%E8%83%BD&amp;mode=article&amp;returnTo=%2Fmechanics%2Fglossary%2F%23section-1\" aria-label=\"编辑本节：行动与技能\"><svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" aria-hidden=\"true\"><path d=\"m16 3 5 5-12 12-6 1 1-6Z M14 5l5 5\"/></svg><span>编辑</span></a></span></h2>\n<table>\n<thead>\n<tr>\n<th>常见词</th>\n<th>从哪里查</th>\n</tr>\n</thead>\n<tbody><tr>\n<td>先手、后手、控速</td>\n<td><a href=\"/mechanics/priority/\">速度与先手</a></td>\n</tr>\n<tr>\n<td>必中、必闪、致盲</td>\n<td><a href=\"/mechanics/accuracy/\">命中、必中与闪避</a></td>\n</tr>\n<tr>\n<td>首段、末段、带出、连续回合</td>\n<td><a href=\"/mechanics/stages/\">技能阶段与结算</a></td>\n</tr>\n<tr>\n<td>PP、单删、群删、回 PP</td>\n<td><a href=\"/mechanics/pp/\">PP 与技能限制</a></td>\n</tr>\n<tr>\n<td>双损、压迫、额外消耗</td>\n<td><a href=\"/mechanics/effects/pressure/\">压迫（双损）</a></td>\n</tr>\n</tbody></table>\n<h2 id=\"section-2\" data-has-editor=\"true\">状态与数值<span class=\"rw-inline-section-edit\"><a class=\"rw-edit-entry\" href=\"/edit/?entity=%E6%88%98%E6%96%97%E6%9C%AF%E8%AF%AD%E9%80%9F%E6%9F%A5&amp;section=%E7%8A%B6%E6%80%81%E4%B8%8E%E6%95%B0%E5%80%BC&amp;mode=article&amp;returnTo=%2Fmechanics%2Fglossary%2F%23section-2\" aria-label=\"编辑本节：状态与数值\"><svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" aria-hidden=\"true\"><path d=\"m16 3 5 5-12 12-6 1 1-6Z M14 5l5 5\"/></svg><span>编辑</span></a></span></h2>\n<table>\n<thead>\n<tr>\n<th>常见词</th>\n<th>从哪里查</th>\n</tr>\n</thead>\n<tbody><tr>\n<td>防控、净化、免疫、异常</td>\n<td><a href=\"/mechanics/status/\">异常、强化与标记</a></td>\n</tr>\n<tr>\n<td>清强、锁强、反转、负面</td>\n<td><a href=\"/mechanics/status/\">异常、强化与标记</a></td>\n</tr>\n<tr>\n<td>护盾、减伤、免伤、限伤</td>\n<td><a href=\"/mechanics/shield/\">护盾与减伤</a></td>\n</tr>\n<tr>\n<td>固伤、反伤、反弹、波及</td>\n<td><a href=\"/mechanics/damage/\">伤害类型与结算</a></td>\n</tr>\n<tr>\n<td>回血、减疗、禁疗、毒奶</td>\n<td><a href=\"/mechanics/healing/\">治疗、禁疗与转化</a></td>\n</tr>\n</tbody></table>\n<h2 id=\"section-3\" data-has-editor=\"true\">战场与关系<span class=\"rw-inline-section-edit\"><a class=\"rw-edit-entry\" href=\"/edit/?entity=%E6%88%98%E6%96%97%E6%9C%AF%E8%AF%AD%E9%80%9F%E6%9F%A5&amp;section=%E6%88%98%E5%9C%BA%E4%B8%8E%E5%85%B3%E7%B3%BB&amp;mode=article&amp;returnTo=%2Fmechanics%2Fglossary%2F%23section-3\" aria-label=\"编辑本节：战场与关系\"><svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" aria-hidden=\"true\"><path d=\"m16 3 5 5-12 12-6 1 1-6Z M14 5l5 5\"/></svg><span>编辑</span></a></span></h2>\n<table>\n<thead>\n<tr>\n<th>常见词</th>\n<th>从哪里查</th>\n</tr>\n</thead>\n<tbody><tr>\n<td>天气、环境、召唤、锁定</td>\n<td><a href=\"/mechanics/weather/\">天气与环境</a></td>\n</tr>\n<tr>\n<td>换宠、驱逐、场下、下一只</td>\n<td><a href=\"/mechanics/switching/\">换宠、驱逐与场下</a></td>\n</tr>\n<tr>\n<td>血脉、被动、专属资源</td>\n<td><a href=\"/mechanics/passive/\">血脉与被动触发</a></td>\n</tr>\n<tr>\n<td>覆盖、共存、刷新、互相解除</td>\n<td><a href=\"/mechanics/interactions/\">覆盖、共存与解除</a></td>\n</tr>\n</tbody></table>\n<p>若简写具有多种用法，从反馈入口说明你看到它的技能或上下文，便于补充搜索别名和歧义提示。</p>\n"
+  },
+  "/mechanics/healing/": {
+    "title": "治疗、禁疗与转化",
+    "headings": [
+      {
+        "id": "section-1",
+        "text": "回复来源"
+      },
+      {
+        "id": "section-2",
+        "text": "减疗、禁疗和转化分别查"
+      },
+      {
+        "id": "section-3",
+        "text": "条件变化时怎样判断"
+      }
+    ],
+    "html": "<p>查回复为什么没有达到预期，先固定回复来源和计算基准，再检查减疗、禁疗、转化以及当时的精力状态。</p>\n<h2 id=\"section-1\" data-has-editor=\"true\">回复来源<span class=\"rw-inline-section-edit\"><a class=\"rw-edit-entry\" href=\"/edit/?entity=%E6%B2%BB%E7%96%97%E3%80%81%E7%A6%81%E7%96%97%E4%B8%8E%E8%BD%AC%E5%8C%96&amp;section=%E5%9B%9E%E5%A4%8D%E6%9D%A5%E6%BA%90&amp;mode=article&amp;returnTo=%2Fmechanics%2Fhealing%2F%23section-1\" aria-label=\"编辑本节：回复来源\"><svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" aria-hidden=\"true\"><path d=\"m16 3 5 5-12 12-6 1 1-6Z M14 5l5 5\"/></svg><span>编辑</span></a></span></h2>\n<table>\n<thead>\n<tr>\n<th>类别</th>\n<th>需要保留的信息</th>\n</tr>\n</thead>\n<tbody><tr>\n<td>主动技能回复</td>\n<td>回复谁、数值基准、与其他技能效果的先后</td>\n</tr>\n<tr>\n<td>血脉或标记回复</td>\n<td>触发事件、触发次数、是否需要命中</td>\n</tr>\n<tr>\n<td>持续回复</td>\n<td>起止阶段、换宠后的处理</td>\n</tr>\n<tr>\n<td>场下与队伍回复</td>\n<td>目标选择规则、存活要求、队伍顺位</td>\n</tr>\n<tr>\n<td>转化得到的回复</td>\n<td>原始事件、转化比例、限制与例外</td>\n</tr>\n</tbody></table>\n<h2 id=\"section-2\" data-has-editor=\"true\">减疗、禁疗和转化分别查<span class=\"rw-inline-section-edit\"><a class=\"rw-edit-entry\" href=\"/edit/?entity=%E6%B2%BB%E7%96%97%E3%80%81%E7%A6%81%E7%96%97%E4%B8%8E%E8%BD%AC%E5%8C%96&amp;section=%E5%87%8F%E7%96%97%E3%80%81%E7%A6%81%E7%96%97%E5%92%8C%E8%BD%AC%E5%8C%96%E5%88%86%E5%88%AB%E6%9F%A5&amp;mode=article&amp;returnTo=%2Fmechanics%2Fhealing%2F%23section-2\" aria-label=\"编辑本节：减疗、禁疗和转化分别查\"><svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" aria-hidden=\"true\"><path d=\"m16 3 5 5-12 12-6 1 1-6Z M14 5l5 5\"/></svg><span>编辑</span></a></span></h2>\n<p><strong>减疗</strong>查剩余回复如何计算；<strong>禁疗</strong>查哪些回复来源受到限制；<strong>转化</strong>查输入事件如何被改写。三者同时存在时，查询具体配对与时机，不能将它们合成一个“不能回血”的状态。</p>\n<p>同样，保留精力、复活与精力上限变化应在自己的效果档案中说明，不从表面数值推断它一定属于常规治疗。</p>\n<h2 id=\"section-3\" data-has-editor=\"true\">条件变化时怎样判断<span class=\"rw-inline-section-edit\"><a class=\"rw-edit-entry\" href=\"/edit/?entity=%E6%B2%BB%E7%96%97%E3%80%81%E7%A6%81%E7%96%97%E4%B8%8E%E8%BD%AC%E5%8C%96&amp;section=%E6%9D%A1%E4%BB%B6%E5%8F%98%E5%8C%96%E6%97%B6%E6%80%8E%E6%A0%B7%E5%88%A4%E6%96%AD&amp;mode=article&amp;returnTo=%2Fmechanics%2Fhealing%2F%23section-3\" aria-label=\"编辑本节：条件变化时怎样判断\"><svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" aria-hidden=\"true\"><path d=\"m16 3 5 5-12 12-6 1 1-6Z M14 5l5 5\"/></svg><span>编辑</span></a></span></h2>\n<table>\n<thead>\n<tr>\n<th>变化</th>\n<th>要核对的条件</th>\n</tr>\n</thead>\n<tbody><tr>\n<td>换宠后仍有回复或限制</td>\n<td>效果挂在宠物、队伍还是某个待结算事件上</td>\n</tr>\n<tr>\n<td>被反弹后触发</td>\n<td>当前作用对象与触发动作归属</td>\n</tr>\n<tr>\n<td>护盾吸收后仍回复</td>\n<td>条件检查伤害事件、最终伤害还是精力差</td>\n</tr>\n<tr>\n<td>原限制到期后异常</td>\n<td>旧效果的清理是否影响后施加效果</td>\n</tr>\n</tbody></table>\n<p><a href=\"/mechanics/relations/\">效果关系对照</a> · <a href=\"/mechanics/switching/\">换宠、驱逐与场下</a> · <a href=\"/mechanics/timing/\">结算时点</a></p>\n"
+  },
+  "/mechanics/interactions/": {
+    "title": "覆盖、共存与解除",
+    "headings": [
+      {
+        "id": "section-1",
+        "text": "先看结论适用于哪里"
+      },
+      {
+        "id": "section-2",
+        "text": "施加与清理分开看"
+      },
+      {
+        "id": "section-3",
+        "text": "优先关系只用于已证实的范围"
+      },
+      {
+        "id": "section-4",
+        "text": "历史实测与现行结论"
+      },
+      {
+        "id": "section-5",
+        "text": "未收录的配对怎样补充"
+      }
+    ],
+    "html": "<p>查“谁能盖掉谁”，在 <a href=\"/mechanics/relations/\">效果关系对照</a> 左侧选<strong>已有的效果</strong>，右侧选<strong>准备施加的效果</strong>。两个选择都包含来源，不只比较状态名称。</p>\n<h2 id=\"section-1\" data-has-editor=\"true\">先看结论适用于哪里<span class=\"rw-inline-section-edit\"><a class=\"rw-edit-entry\" href=\"/edit/?entity=%E8%A6%86%E7%9B%96%E3%80%81%E5%85%B1%E5%AD%98%E4%B8%8E%E8%A7%A3%E9%99%A4&amp;section=%E5%85%88%E7%9C%8B%E7%BB%93%E8%AE%BA%E9%80%82%E7%94%A8%E4%BA%8E%E5%93%AA%E9%87%8C&amp;mode=article&amp;returnTo=%2Fmechanics%2Finteractions%2F%23section-1\" aria-label=\"编辑本节：先看结论适用于哪里\"><svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" aria-hidden=\"true\"><path d=\"m16 3 5 5-12 12-6 1 1-6Z M14 5l5 5\"/></svg><span>编辑</span></a></span></h2>\n<p>一条结论同时列出承受者、施加顺序、触发阶段、前置条件和证据日期。有明确结论时直接展示“保留谁、移除谁、何时变化”；条件不全时显示缺失项。</p>\n<p><strong>施加 A 后再施加 B</strong> 与 <strong>施加 B 后再施加 A</strong> 分别保存。交换选择后查询另一条记录，不自动将答案对调。</p>\n<h2 id=\"section-2\" data-has-editor=\"true\">施加与清理分开看<span class=\"rw-inline-section-edit\"><a class=\"rw-edit-entry\" href=\"/edit/?entity=%E8%A6%86%E7%9B%96%E3%80%81%E5%85%B1%E5%AD%98%E4%B8%8E%E8%A7%A3%E9%99%A4&amp;section=%E6%96%BD%E5%8A%A0%E4%B8%8E%E6%B8%85%E7%90%86%E5%88%86%E5%BC%80%E7%9C%8B&amp;mode=article&amp;returnTo=%2Fmechanics%2Finteractions%2F%23section-2\" aria-label=\"编辑本节：施加与清理分开看\"><svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" aria-hidden=\"true\"><path d=\"m16 3 5 5-12 12-6 1 1-6Z M14 5l5 5\"/></svg><span>编辑</span></a></span></h2>\n<table>\n<thead>\n<tr>\n<th>时间点</th>\n<th>需要回答的问题</th>\n</tr>\n</thead>\n<tbody><tr>\n<td>新效果刚施加</td>\n<td>成功、失败、覆盖、刷新还是共存？</td>\n</tr>\n<tr>\n<td>下一次相关事件</td>\n<td>哪个效果实际参与计算或扣除？</td>\n</tr>\n<tr>\n<td>原效果到期</td>\n<td>是否影响后来施加的效果？</td>\n</tr>\n<tr>\n<td>换宠或清除</td>\n<td>移除哪些效果，是否保留计数或待结算事件？</td>\n</tr>\n</tbody></table>\n<p>因此，“优先级较高”“共用图标”和“互相解除”不能互相替代。它们描述的是不同的事实。</p>\n<h2 id=\"section-3\" data-has-editor=\"true\">优先关系只用于已证实的范围<span class=\"rw-inline-section-edit\"><a class=\"rw-edit-entry\" href=\"/edit/?entity=%E8%A6%86%E7%9B%96%E3%80%81%E5%85%B1%E5%AD%98%E4%B8%8E%E8%A7%A3%E9%99%A4&amp;section=%E4%BC%98%E5%85%88%E5%85%B3%E7%B3%BB%E5%8F%AA%E7%94%A8%E4%BA%8E%E5%B7%B2%E8%AF%81%E5%AE%9E%E7%9A%84%E8%8C%83%E5%9B%B4&amp;mode=article&amp;returnTo=%2Fmechanics%2Finteractions%2F%23section-3\" aria-label=\"编辑本节：优先关系只用于已证实的范围\"><svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" aria-hidden=\"true\"><path d=\"m16 3 5 5-12 12-6 1 1-6Z M14 5l5 5\"/></svg><span>编辑</span></a></span></h2>\n<p>一对效果的优先关系不自动推广到所有同类效果。即便分别查到 A 与 B、B 与 C 的关系，也仍需单独确认 A 与 C 的条件与结算阶段。</p>\n<p>对照器保留来源报告的关系描述；来源未给出施加结果或完整顺序时，不生成一个看似确定的数值排名。</p>\n<h2 id=\"section-4\" data-has-editor=\"true\">历史实测与现行结论<span class=\"rw-inline-section-edit\"><a class=\"rw-edit-entry\" href=\"/edit/?entity=%E8%A6%86%E7%9B%96%E3%80%81%E5%85%B1%E5%AD%98%E4%B8%8E%E8%A7%A3%E9%99%A4&amp;section=%E5%8E%86%E5%8F%B2%E5%AE%9E%E6%B5%8B%E4%B8%8E%E7%8E%B0%E8%A1%8C%E7%BB%93%E8%AE%BA&amp;mode=article&amp;returnTo=%2Fmechanics%2Finteractions%2F%23section-4\" aria-label=\"编辑本节：历史实测与现行结论\"><svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" aria-hidden=\"true\"><path d=\"m16 3 5 5-12 12-6 1 1-6Z M14 5l5 5\"/></svg><span>编辑</span></a></span></h2>\n<p><a href=\"/mechanics/effects/pressure/\">压迫（双损）</a> 已有历史实测线索，可以用来提出明确的复核问题。本版没有将它们标为当前版本已复测。</p>\n<p>新增证据应保留来源日期与测试日期。若不同版本结果不一致，各自保留适用范围，并从当前结论链接到历史记录。</p>\n<h2 id=\"section-5\" data-has-editor=\"true\">未收录的配对怎样补充<span class=\"rw-inline-section-edit\"><a class=\"rw-edit-entry\" href=\"/edit/?entity=%E8%A6%86%E7%9B%96%E3%80%81%E5%85%B1%E5%AD%98%E4%B8%8E%E8%A7%A3%E9%99%A4&amp;section=%E6%9C%AA%E6%94%B6%E5%BD%95%E7%9A%84%E9%85%8D%E5%AF%B9%E6%80%8E%E6%A0%B7%E8%A1%A5%E5%85%85&amp;mode=article&amp;returnTo=%2Fmechanics%2Finteractions%2F%23section-5\" aria-label=\"编辑本节：未收录的配对怎样补充\"><svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" aria-hidden=\"true\"><path d=\"m16 3 5 5-12 12-6 1 1-6Z M14 5l5 5\"/></svg><span>编辑</span></a></span></h2>\n<p>对照器空结果保留当前选项，并可从反馈入口提交问题。提交内容应包含两个效果的来源、先后施加顺序、战场条件和关键结果；录像或日志附上对应回合位置。</p>\n<p><a href=\"/mechanics/evidence/\">机制实测与争议记录</a> · <a href=\"/mechanics/effects/\">效果档案</a></p>\n"
+  },
+  "/mechanics/overview/": {
+    "title": "战斗机制总目录",
+    "headings": [
+      {
+        "id": "section-1",
+        "text": "基础与行动"
+      },
+      {
+        "id": "section-2",
+        "text": "伤害与治疗"
+      },
+      {
+        "id": "section-3",
+        "text": "资源与效果"
+      },
+      {
+        "id": "section-4",
+        "text": "战场与换宠"
+      },
+      {
+        "id": "section-5",
+        "text": "资料有分歧时"
+      }
+    ],
+    "html": "<p>先从对局中发生的现象进入，再核对具体技能与血脉。本站收录的是<strong>洛克王国页游</strong>资料；技能原文、历史实测与当前版本已复核的结论分别标注。</p>\n<p><a href=\"/mechanics/\">战斗机制首页</a> · <a href=\"/mechanics/relations/\">效果关系对照</a> · <a href=\"/mechanics/glossary/\">术语速查</a></p>\n<h2 id=\"section-1\" data-has-editor=\"true\">基础与行动<span class=\"rw-inline-section-edit\"><a class=\"rw-edit-entry\" href=\"/edit/?entity=%E6%88%98%E6%96%97%E6%9C%BA%E5%88%B6%E6%80%BB%E7%9B%AE%E5%BD%95&amp;section=%E5%9F%BA%E7%A1%80%E4%B8%8E%E8%A1%8C%E5%8A%A8&amp;mode=article&amp;returnTo=%2Fmechanics%2Foverview%2F%23section-1\" aria-label=\"编辑本节：基础与行动\"><svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" aria-hidden=\"true\"><path d=\"m16 3 5 5-12 12-6 1 1-6Z M14 5l5 5\"/></svg><span>编辑</span></a></span></h2>\n<table>\n<thead>\n<tr>\n<th>遇到的问题</th>\n<th>查阅条目</th>\n</tr>\n</thead>\n<tbody><tr>\n<td>面板、强化和实际能力有什么关系？</td>\n<td><a href=\"/mechanics/attributes/\">属性、能力与克制</a></td>\n</tr>\n<tr>\n<td>为什么对方先动？</td>\n<td><a href=\"/mechanics/priority/\">速度与先手</a></td>\n</tr>\n<tr>\n<td>必中为什么仍然失败？</td>\n<td><a href=\"/mechanics/accuracy/\">命中、必中与闪避</a></td>\n</tr>\n<tr>\n<td>连续技能现在结算第几段？</td>\n<td><a href=\"/mechanics/stages/\">技能阶段与结算</a></td>\n</tr>\n<tr>\n<td>相同回合内，哪些效果先处理？</td>\n<td><a href=\"/mechanics/timing/\">触发顺序与结算时点</a></td>\n</tr>\n</tbody></table>\n<h2 id=\"section-2\" data-has-editor=\"true\">伤害与治疗<span class=\"rw-inline-section-edit\"><a class=\"rw-edit-entry\" href=\"/edit/?entity=%E6%88%98%E6%96%97%E6%9C%BA%E5%88%B6%E6%80%BB%E7%9B%AE%E5%BD%95&amp;section=%E4%BC%A4%E5%AE%B3%E4%B8%8E%E6%B2%BB%E7%96%97&amp;mode=article&amp;returnTo=%2Fmechanics%2Foverview%2F%23section-2\" aria-label=\"编辑本节：伤害与治疗\"><svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" aria-hidden=\"true\"><path d=\"m16 3 5 5-12 12-6 1 1-6Z M14 5l5 5\"/></svg><span>编辑</span></a></span></h2>\n<table>\n<thead>\n<tr>\n<th>遇到的问题</th>\n<th>查阅条目</th>\n</tr>\n</thead>\n<tbody><tr>\n<td>威力伤害、固伤、反伤分别受什么影响？</td>\n<td><a href=\"/mechanics/damage/\">伤害类型与结算</a></td>\n</tr>\n<tr>\n<td>护盾、减伤和限伤怎样相互作用？</td>\n<td><a href=\"/mechanics/shield/\">护盾与减伤</a></td>\n</tr>\n<tr>\n<td>治疗为什么减少、失败或变成伤害？</td>\n<td><a href=\"/mechanics/healing/\">治疗、禁疗与转化</a></td>\n</tr>\n</tbody></table>\n<h2 id=\"section-3\" data-has-editor=\"true\">资源与效果<span class=\"rw-inline-section-edit\"><a class=\"rw-edit-entry\" href=\"/edit/?entity=%E6%88%98%E6%96%97%E6%9C%BA%E5%88%B6%E6%80%BB%E7%9B%AE%E5%BD%95&amp;section=%E8%B5%84%E6%BA%90%E4%B8%8E%E6%95%88%E6%9E%9C&amp;mode=article&amp;returnTo=%2Fmechanics%2Foverview%2F%23section-3\" aria-label=\"编辑本节：资源与效果\"><svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" aria-hidden=\"true\"><path d=\"m16 3 5 5-12 12-6 1 1-6Z M14 5l5 5\"/></svg><span>编辑</span></a></span></h2>\n<table>\n<thead>\n<tr>\n<th>遇到的问题</th>\n<th>查阅条目</th>\n</tr>\n</thead>\n<tbody><tr>\n<td>为什么扣了额外 PP？免删为什么仍然少 PP？</td>\n<td><a href=\"/mechanics/pp/\">PP 与技能限制</a> · <a href=\"/mechanics/effects/pressure/\">压迫（双损）</a></td>\n</tr>\n<tr>\n<td>状态同名，为什么结果不同？</td>\n<td><a href=\"/mechanics/effects/\">效果档案与同名识别</a></td>\n</tr>\n<tr>\n<td>哪个能覆盖哪个？换一个施加顺序会怎样？</td>\n<td><a href=\"/mechanics/interactions/\">覆盖、共存与解除</a> · <a href=\"/mechanics/relations/\">交互对照表</a></td>\n</tr>\n<tr>\n<td>防控、负面强化、标记分别怎样处理？</td>\n<td><a href=\"/mechanics/status/\">异常、强化与标记</a></td>\n</tr>\n<tr>\n<td>血脉是否在未主动出招时生效？</td>\n<td><a href=\"/mechanics/passive/\">血脉与被动触发</a></td>\n</tr>\n</tbody></table>\n<h2 id=\"section-4\" data-has-editor=\"true\">战场与换宠<span class=\"rw-inline-section-edit\"><a class=\"rw-edit-entry\" href=\"/edit/?entity=%E6%88%98%E6%96%97%E6%9C%BA%E5%88%B6%E6%80%BB%E7%9B%AE%E5%BD%95&amp;section=%E6%88%98%E5%9C%BA%E4%B8%8E%E6%8D%A2%E5%AE%A0&amp;mode=article&amp;returnTo=%2Fmechanics%2Foverview%2F%23section-4\" aria-label=\"编辑本节：战场与换宠\"><svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" aria-hidden=\"true\"><path d=\"m16 3 5 5-12 12-6 1 1-6Z M14 5l5 5\"/></svg><span>编辑</span></a></span></h2>\n<table>\n<thead>\n<tr>\n<th>遇到的问题</th>\n<th>查阅条目</th>\n</tr>\n</thead>\n<tbody><tr>\n<td>召唤失败、环境锁定和天气屏蔽有什么区别？</td>\n<td><a href=\"/mechanics/weather/\">天气与环境</a></td>\n</tr>\n<tr>\n<td>换宠以后什么还保留？下一只上场会受到什么？</td>\n<td><a href=\"/mechanics/switching/\">换宠、驱逐与场下</a></td>\n</tr>\n<tr>\n<td>本周能用什么宠物和属性？</td>\n<td><a href=\"/battle/\">赛事与本周规则</a></td>\n</tr>\n</tbody></table>\n<h2 id=\"section-5\" data-has-editor=\"true\">资料有分歧时<span class=\"rw-inline-section-edit\"><a class=\"rw-edit-entry\" href=\"/edit/?entity=%E6%88%98%E6%96%97%E6%9C%BA%E5%88%B6%E6%80%BB%E7%9B%AE%E5%BD%95&amp;section=%E8%B5%84%E6%96%99%E6%9C%89%E5%88%86%E6%AD%A7%E6%97%B6&amp;mode=article&amp;returnTo=%2Fmechanics%2Foverview%2F%23section-5\" aria-label=\"编辑本节：资料有分歧时\"><svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" aria-hidden=\"true\"><path d=\"m16 3 5 5-12 12-6 1 1-6Z M14 5l5 5\"/></svg><span>编辑</span></a></span></h2>\n<p>相互关系以<strong>具体来源、方向、条件、时机和版本</strong>为单位保存。空白表示未收录；待复核表示已有历史线索；有争议表示存在不能同时成立的证据。它们都不等于“没有效果”。</p>\n<p>从 <a href=\"/mechanics/evidence/\">机制实测与争议记录</a> 查看证据要求。每页右下角的反馈入口可以提交错误位置与复现信息；准备直接修订正文时，先看 <a href=\"/help/contributing/\">贡献指南</a>。</p>\n"
+  },
+  "/mechanics/passive/": {
+    "title": "血脉与被动触发",
+    "headings": [
+      {
+        "id": "section-1",
+        "text": "什么时候触发"
+      },
+      {
+        "id": "section-2",
+        "text": "专属资源放在血脉旁边"
+      },
+      {
+        "id": "section-3",
+        "text": "同一个条件怎样避免读错"
+      },
+      {
+        "id": "section-4",
+        "text": "与其他效果一起查"
+      }
+    ],
+    "html": "<p>查被动效果时，先确认来源和触发事件。血脉、技能携带效果、上场触发与持续标记分别显示来源，避免误以为都需要主动使用技能。</p>\n<h2 id=\"section-1\" data-has-editor=\"true\">什么时候触发<span class=\"rw-inline-section-edit\"><a class=\"rw-edit-entry\" href=\"/edit/?entity=%E8%A1%80%E8%84%89%E4%B8%8E%E8%A2%AB%E5%8A%A8%E8%A7%A6%E5%8F%91&amp;section=%E4%BB%80%E4%B9%88%E6%97%B6%E5%80%99%E8%A7%A6%E5%8F%91&amp;mode=article&amp;returnTo=%2Fmechanics%2Fpassive%2F%23section-1\" aria-label=\"编辑本节：什么时候触发\"><svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" aria-hidden=\"true\"><path d=\"m16 3 5 5-12 12-6 1 1-6Z M14 5l5 5\"/></svg><span>编辑</span></a></span></h2>\n<table>\n<thead>\n<tr>\n<th>事件入口</th>\n<th>查看什么</th>\n</tr>\n</thead>\n<tbody><tr>\n<td>进入对战或上场</td>\n<td>首发与非首发、携带技能、PP 或队伍要求</td>\n</tr>\n<tr>\n<td>主动使用技能</td>\n<td>技能类别、命中要求、次数与目标身份</td>\n</tr>\n<tr>\n<td>造成或受到伤害</td>\n<td>每段还是每次行动、伤害判断的具体时点</td>\n</tr>\n<tr>\n<td>获得或失去状态</td>\n<td>变化前后的数量、阈值与例外</td>\n</tr>\n<tr>\n<td>回合内固定时点</td>\n<td>触发阶段、持续条件、结束处理</td>\n</tr>\n<tr>\n<td>换下或阵亡</td>\n<td>是否清空、转移或保留待结算效果</td>\n</tr>\n</tbody></table>\n<h2 id=\"section-2\" data-has-editor=\"true\">专属资源放在血脉旁边<span class=\"rw-inline-section-edit\"><a class=\"rw-edit-entry\" href=\"/edit/?entity=%E8%A1%80%E8%84%89%E4%B8%8E%E8%A2%AB%E5%8A%A8%E8%A7%A6%E5%8F%91&amp;section=%E4%B8%93%E5%B1%9E%E8%B5%84%E6%BA%90%E6%94%BE%E5%9C%A8%E8%A1%80%E8%84%89%E6%97%81%E8%BE%B9&amp;mode=article&amp;returnTo=%2Fmechanics%2Fpassive%2F%23section-2\" aria-label=\"编辑本节：专属资源放在血脉旁边\"><svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" aria-hidden=\"true\"><path d=\"m16 3 5 5-12 12-6 1 1-6Z M14 5l5 5\"/></svg><span>编辑</span></a></span></h2>\n<p>资源名称、当前量、上限、获得和消耗来源集中展示。点击相关技能时，只强调它如何改变该资源，完整规则回到对应血脉条目查阅。</p>\n<p>未核验的资源单位或上限显示待核验。单凭数值或图标相似，不将两只宠物的专属资源合并。</p>\n<h2 id=\"section-3\" data-has-editor=\"true\">同一个条件怎样避免读错<span class=\"rw-inline-section-edit\"><a class=\"rw-edit-entry\" href=\"/edit/?entity=%E8%A1%80%E8%84%89%E4%B8%8E%E8%A2%AB%E5%8A%A8%E8%A7%A6%E5%8F%91&amp;section=%E5%90%8C%E4%B8%80%E4%B8%AA%E6%9D%A1%E4%BB%B6%E6%80%8E%E6%A0%B7%E9%81%BF%E5%85%8D%E8%AF%BB%E9%94%99&amp;mode=article&amp;returnTo=%2Fmechanics%2Fpassive%2F%23section-3\" aria-label=\"编辑本节：同一个条件怎样避免读错\"><svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" aria-hidden=\"true\"><path d=\"m16 3 5 5-12 12-6 1 1-6Z M14 5l5 5\"/></svg><span>编辑</span></a></span></h2>\n<p>保持条件的从属关系，例如携带技能条件、PP 阈值和上场条件应处在同一分支。技能主动效果与携带期间效果分别列出起止时间。</p>\n<h2 id=\"section-4\" data-has-editor=\"true\">与其他效果一起查<span class=\"rw-inline-section-edit\"><a class=\"rw-edit-entry\" href=\"/edit/?entity=%E8%A1%80%E8%84%89%E4%B8%8E%E8%A2%AB%E5%8A%A8%E8%A7%A6%E5%8F%91&amp;section=%E4%B8%8E%E5%85%B6%E4%BB%96%E6%95%88%E6%9E%9C%E4%B8%80%E8%B5%B7%E6%9F%A5&amp;mode=article&amp;returnTo=%2Fmechanics%2Fpassive%2F%23section-4\" aria-label=\"编辑本节：与其他效果一起查\"><svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" aria-hidden=\"true\"><path d=\"m16 3 5 5-12 12-6 1 1-6Z M14 5l5 5\"/></svg><span>编辑</span></a></span></h2>\n<p>血脉触发的效果也进入 <a href=\"/mechanics/relations/\">效果关系对照</a>。结果需要说明对照的是哪一个被动分支，以及施加、结算和清理分别发生在何时。</p>\n<p><a href=\"/bloodlines/\">血脉资料</a> · <a href=\"/skills/\">技能资料</a> · <a href=\"/mechanics/timing/\">触发顺序与结算时点</a></p>\n"
+  },
+  "/mechanics/pp/": {
+    "title": "PP 与技能限制",
+    "headings": [
+      {
+        "id": "section-1",
+        "text": "先分清对象"
+      },
+      {
+        "id": "section-2",
+        "text": "删除、消耗与回复"
+      },
+      {
+        "id": "section-3",
+        "text": "技能无法使用的记录"
+      },
+      {
+        "id": "section-4",
+        "text": "相同双损为什么不同"
+      },
+      {
+        "id": "section-5",
+        "text": "相关查询"
+      }
+    ],
+    "html": "<p>查“技能为什么不能用”时，分别看当前 PP、使用条件与封锁效果。技能的基础 PP 是资料字段；当前 PP 属于具体对局状态。</p>\n<h2 id=\"section-1\" data-has-editor=\"true\">先分清对象<span class=\"rw-inline-section-edit\"><a class=\"rw-edit-entry\" href=\"/edit/?entity=PP+%E4%B8%8E%E6%8A%80%E8%83%BD%E9%99%90%E5%88%B6&amp;section=%E5%85%88%E5%88%86%E6%B8%85%E5%AF%B9%E8%B1%A1&amp;mode=article&amp;returnTo=%2Fmechanics%2Fpp%2F%23section-1\" aria-label=\"编辑本节：先分清对象\"><svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" aria-hidden=\"true\"><path d=\"m16 3 5 5-12 12-6 1 1-6Z M14 5l5 5\"/></svg><span>编辑</span></a></span></h2>\n<table>\n<thead>\n<tr>\n<th>描述对象</th>\n<th>记录要求</th>\n</tr>\n</thead>\n<tbody><tr>\n<td>单个技能</td>\n<td>明确技能、选取规则及是否有例外</td>\n</tr>\n<tr>\n<td>一只宠物的多个技能</td>\n<td>明确范围，不能只写“群删”</td>\n</tr>\n<tr>\n<td>多只宠物</td>\n<td>明确场上、场下、全队或指定目标</td>\n</tr>\n<tr>\n<td>使用者与对手</td>\n<td>直接写明双方归属，避免“本方”随叙述变化</td>\n</tr>\n</tbody></table>\n<h2 id=\"section-2\" data-has-editor=\"true\">删除、消耗与回复<span class=\"rw-inline-section-edit\"><a class=\"rw-edit-entry\" href=\"/edit/?entity=PP+%E4%B8%8E%E6%8A%80%E8%83%BD%E9%99%90%E5%88%B6&amp;section=%E5%88%A0%E9%99%A4%E3%80%81%E6%B6%88%E8%80%97%E4%B8%8E%E5%9B%9E%E5%A4%8D&amp;mode=article&amp;returnTo=%2Fmechanics%2Fpp%2F%23section-2\" aria-label=\"编辑本节：删除、消耗与回复\"><svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" aria-hidden=\"true\"><path d=\"m16 3 5 5-12 12-6 1 1-6Z M14 5l5 5\"/></svg><span>编辑</span></a></span></h2>\n<p>将一次行动的变化拆成“使用前 → 使用或额外消耗 → 技能效果 → 后续阶段”。每个变化保留来源、数值、目标选择条件与发生时机。</p>\n<table>\n<thead>\n<tr>\n<th>字段</th>\n<th>示例写法，非具体技能效果</th>\n</tr>\n</thead>\n<tbody><tr>\n<td>来源</td>\n<td>某技能 / 某血脉 / 持续效果</td>\n</tr>\n<tr>\n<td>方向</td>\n<td>消耗、删除或回复</td>\n</tr>\n<tr>\n<td>对象</td>\n<td>当前技能 / 指定技能 / 满足条件的技能</td>\n</tr>\n<tr>\n<td>选取依据</td>\n<td>本回合、上回合、最近一次等原文限定</td>\n</tr>\n<tr>\n<td>时机</td>\n<td>释放前、指定阶段、回合结束等</td>\n</tr>\n</tbody></table>\n<p>“本回合”“上回合”“最近一次”属于不同条件，不能互换或在精简时删掉。</p>\n<h2 id=\"section-3\" data-has-editor=\"true\">技能无法使用的记录<span class=\"rw-inline-section-edit\"><a class=\"rw-edit-entry\" href=\"/edit/?entity=PP+%E4%B8%8E%E6%8A%80%E8%83%BD%E9%99%90%E5%88%B6&amp;section=%E6%8A%80%E8%83%BD%E6%97%A0%E6%B3%95%E4%BD%BF%E7%94%A8%E7%9A%84%E8%AE%B0%E5%BD%95&amp;mode=article&amp;returnTo=%2Fmechanics%2Fpp%2F%23section-3\" aria-label=\"编辑本节：技能无法使用的记录\"><svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" aria-hidden=\"true\"><path d=\"m16 3 5 5-12 12-6 1 1-6Z M14 5l5 5\"/></svg><span>编辑</span></a></span></h2>\n<p>先记录界面呈现的现象，再写判断。PP 为零、技能被限制、未达到技能条件，应使用不同状态，不把它们合并成“不可用”。</p>\n<p>遇到异常情况，补充限制来源、开始回合、持续条件与解除方式；不能确定时只记录观察结果。</p>\n<h2 id=\"section-4\" data-has-editor=\"true\">相同双损为什么不同<span class=\"rw-inline-section-edit\"><a class=\"rw-edit-entry\" href=\"/edit/?entity=PP+%E4%B8%8E%E6%8A%80%E8%83%BD%E9%99%90%E5%88%B6&amp;section=%E7%9B%B8%E5%90%8C%E5%8F%8C%E6%8D%9F%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%8D%E5%90%8C&amp;mode=article&amp;returnTo=%2Fmechanics%2Fpp%2F%23section-4\" aria-label=\"编辑本节：相同双损为什么不同\"><svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" aria-hidden=\"true\"><path d=\"m16 3 5 5-12 12-6 1 1-6Z M14 5l5 5\"/></svg><span>编辑</span></a></span></h2>\n<p>从 <a href=\"/mechanics/effects/pressure/\">压迫（双损）</a> 选择来源，再进入 <a href=\"/mechanics/relations/\">效果关系对照</a>。额外消耗、技能直接删除和旧效果的解除分别查看；“免疫删除”这个标签本身不能回答所有 PP 变化的原因。</p>\n<p>对照结果同时记录施加后和旧效果到期后的状态。只有当前 PP 数值相同，不能证明两种来源共存或互相覆盖。</p>\n<h2 id=\"section-5\" data-has-editor=\"true\">相关查询<span class=\"rw-inline-section-edit\"><a class=\"rw-edit-entry\" href=\"/edit/?entity=PP+%E4%B8%8E%E6%8A%80%E8%83%BD%E9%99%90%E5%88%B6&amp;section=%E7%9B%B8%E5%85%B3%E6%9F%A5%E8%AF%A2&amp;mode=article&amp;returnTo=%2Fmechanics%2Fpp%2F%23section-5\" aria-label=\"编辑本节：相关查询\"><svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" aria-hidden=\"true\"><path d=\"m16 3 5 5-12 12-6 1 1-6Z M14 5l5 5\"/></svg><span>编辑</span></a></span></h2>\n<p><a href=\"/skills/\">技能资料</a> · <a href=\"/mechanics/stages/\">技能阶段与结算</a> · <a href=\"/mechanics/status/\">异常、强化与标记</a> · <a href=\"/help/sources/\">补充实测来源</a></p>\n"
+  },
+  "/mechanics/priority/": {
+    "title": "速度与先手",
+    "headings": [
+      {
+        "id": "section-1",
+        "text": "两个数值放在哪里看"
+      },
+      {
+        "id": "section-2",
+        "text": "一次比较的核对顺序"
+      },
+      {
+        "id": "section-3",
+        "text": "实测记录至少包含什么"
+      },
+      {
+        "id": "section-4",
+        "text": "相关资料"
+      }
+    ],
+    "html": "<p>判断行动次序时，把<strong>技能先手值、宠物速度、特殊行动条件</strong>分开核对。技能说明中的条件不能省略成“速度更快就一定先动”。</p>\n<h2 id=\"section-1\" data-has-editor=\"true\">两个数值放在哪里看<span class=\"rw-inline-section-edit\"><a class=\"rw-edit-entry\" href=\"/edit/?entity=%E9%80%9F%E5%BA%A6%E4%B8%8E%E5%85%88%E6%89%8B&amp;section=%E4%B8%A4%E4%B8%AA%E6%95%B0%E5%80%BC%E6%94%BE%E5%9C%A8%E5%93%AA%E9%87%8C%E7%9C%8B&amp;mode=article&amp;returnTo=%2Fmechanics%2Fpriority%2F%23section-1\" aria-label=\"编辑本节：两个数值放在哪里看\"><svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" aria-hidden=\"true\"><path d=\"m16 3 5 5-12 12-6 1 1-6Z M14 5l5 5\"/></svg><span>编辑</span></a></span></h2>\n<table>\n<thead>\n<tr>\n<th>字段</th>\n<th>所属资料</th>\n<th>需要保留的上下文</th>\n</tr>\n</thead>\n<tbody><tr>\n<td>先手值</td>\n<td>技能</td>\n<td>使用的具体技能、条件触发前后是否变化</td>\n</tr>\n<tr>\n<td>速度</td>\n<td>宠物与本回合状态</td>\n<td>实际能力、强化或弱化、相关持续效果</td>\n</tr>\n<tr>\n<td>特殊行动条件</td>\n<td>技能、血脉或战场效果</td>\n<td>谁触发、作用于谁、持续到何时</td>\n</tr>\n</tbody></table>\n<p><a href=\"/skills/\">查询技能先手</a> · <a href=\"/pets/\">查询宠物资料</a> · <a href=\"/bloodlines/\">查看血脉</a></p>\n<h2 id=\"section-2\" data-has-editor=\"true\">一次比较的核对顺序<span class=\"rw-inline-section-edit\"><a class=\"rw-edit-entry\" href=\"/edit/?entity=%E9%80%9F%E5%BA%A6%E4%B8%8E%E5%85%88%E6%89%8B&amp;section=%E4%B8%80%E6%AC%A1%E6%AF%94%E8%BE%83%E7%9A%84%E6%A0%B8%E5%AF%B9%E9%A1%BA%E5%BA%8F&amp;mode=article&amp;returnTo=%2Fmechanics%2Fpriority%2F%23section-2\" aria-label=\"编辑本节：一次比较的核对顺序\"><svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" aria-hidden=\"true\"><path d=\"m16 3 5 5-12 12-6 1 1-6Z M14 5l5 5\"/></svg><span>编辑</span></a></span></h2>\n<ol>\n<li>写明双方本回合选用的技能。</li>\n<li>核对技能先手字段，以及是否满足改变行动次序的条件。</li>\n<li>记录双方的实际速度和正在生效的相关状态。</li>\n<li>查看是否存在强制行动、换宠、封锁等特殊处理。</li>\n<li>对照对应版本的规则与实测记录；资料缺失时保留“尚不能判定”。</li>\n</ol>\n<p>以上是查证步骤，不能代替尚未核验的完整服务端排序算法。</p>\n<p>技能谁先出手与两个效果谁覆盖谁是不同问题。后者进入 <a href=\"/mechanics/relations/\">效果关系对照</a>；一次行动里的处理先后进入 <a href=\"/mechanics/timing/\">结算时点</a>。</p>\n<h2 id=\"section-3\" data-has-editor=\"true\">实测记录至少包含什么<span class=\"rw-inline-section-edit\"><a class=\"rw-edit-entry\" href=\"/edit/?entity=%E9%80%9F%E5%BA%A6%E4%B8%8E%E5%85%88%E6%89%8B&amp;section=%E5%AE%9E%E6%B5%8B%E8%AE%B0%E5%BD%95%E8%87%B3%E5%B0%91%E5%8C%85%E5%90%AB%E4%BB%80%E4%B9%88&amp;mode=article&amp;returnTo=%2Fmechanics%2Fpriority%2F%23section-3\" aria-label=\"编辑本节：实测记录至少包含什么\"><svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" aria-hidden=\"true\"><path d=\"m16 3 5 5-12 12-6 1 1-6Z M14 5l5 5\"/></svg><span>编辑</span></a></span></h2>\n<table>\n<thead>\n<tr>\n<th>必填记录</th>\n<th>用途</th>\n</tr>\n</thead>\n<tbody><tr>\n<td>双方宠物、技能与血脉</td>\n<td>重现参与者与能力来源</td>\n</tr>\n<tr>\n<td>速度面板、强化状态</td>\n<td>排除培养差异</td>\n</tr>\n<tr>\n<td>回合开始时的天气、环境与标记</td>\n<td>确认外部条件</td>\n</tr>\n<tr>\n<td>本回合操作与实际先后次序</td>\n<td>对比预测与结果</td>\n</tr>\n<tr>\n<td>测试日期、规则场景、截图或录像</td>\n<td>判断证据是否仍适用</td>\n</tr>\n</tbody></table>\n<h2 id=\"section-4\" data-has-editor=\"true\">相关资料<span class=\"rw-inline-section-edit\"><a class=\"rw-edit-entry\" href=\"/edit/?entity=%E9%80%9F%E5%BA%A6%E4%B8%8E%E5%85%88%E6%89%8B&amp;section=%E7%9B%B8%E5%85%B3%E8%B5%84%E6%96%99&amp;mode=article&amp;returnTo=%2Fmechanics%2Fpriority%2F%23section-4\" aria-label=\"编辑本节：相关资料\"><svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" aria-hidden=\"true\"><path d=\"m16 3 5 5-12 12-6 1 1-6Z M14 5l5 5\"/></svg><span>编辑</span></a></span></h2>\n<p><a href=\"/mechanics/stages/\">技能阶段与结算</a> · <a href=\"/mechanics/status/\">异常、强化与标记</a> · <a href=\"/battle/\">对战资料</a> · <a href=\"/tools/\">实用工具</a></p>\n"
+  },
+  "/mechanics/shield/": {
+    "title": "护盾与减伤",
+    "headings": [
+      {
+        "id": "section-1",
+        "text": "四类信息分开看"
+      },
+      {
+        "id": "section-2",
+        "text": "先区分伤害来源"
+      },
+      {
+        "id": "section-3",
+        "text": "怎样验证结算顺序"
+      },
+      {
+        "id": "section-4",
+        "text": "工具与来源"
+      }
+    ],
+    "html": "<p>受伤结果偏离预期时，先确认伤害类型与保护效果。护盾、减伤、免伤和伤害上限使用不同字段，不能仅靠最终掉血量判断效果来源。</p>\n<h2 id=\"section-1\" data-has-editor=\"true\">四类信息分开看<span class=\"rw-inline-section-edit\"><a class=\"rw-edit-entry\" href=\"/edit/?entity=%E6%8A%A4%E7%9B%BE%E4%B8%8E%E5%87%8F%E4%BC%A4&amp;section=%E5%9B%9B%E7%B1%BB%E4%BF%A1%E6%81%AF%E5%88%86%E5%BC%80%E7%9C%8B&amp;mode=article&amp;returnTo=%2Fmechanics%2Fshield%2F%23section-1\" aria-label=\"编辑本节：四类信息分开看\"><svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" aria-hidden=\"true\"><path d=\"m16 3 5 5-12 12-6 1 1-6Z M14 5l5 5\"/></svg><span>编辑</span></a></span></h2>\n<table>\n<thead>\n<tr>\n<th>信息</th>\n<th>需要查明什么</th>\n</tr>\n</thead>\n<tbody><tr>\n<td>护盾</td>\n<td>生成条件、盾量、吸收对象、消耗与清除</td>\n</tr>\n<tr>\n<td>减伤</td>\n<td>适用伤害、比例或数值、条件与持续时间</td>\n</tr>\n<tr>\n<td>免伤</td>\n<td>触发条件、伤害范围与例外</td>\n</tr>\n<tr>\n<td>伤害上限</td>\n<td>针对一次结算、一段还是其他范围</td>\n</tr>\n</tbody></table>\n<h2 id=\"section-2\" data-has-editor=\"true\">先区分伤害来源<span class=\"rw-inline-section-edit\"><a class=\"rw-edit-entry\" href=\"/edit/?entity=%E6%8A%A4%E7%9B%BE%E4%B8%8E%E5%87%8F%E4%BC%A4&amp;section=%E5%85%88%E5%8C%BA%E5%88%86%E4%BC%A4%E5%AE%B3%E6%9D%A5%E6%BA%90&amp;mode=article&amp;returnTo=%2Fmechanics%2Fshield%2F%23section-2\" aria-label=\"编辑本节：先区分伤害来源\"><svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" aria-hidden=\"true\"><path d=\"m16 3 5 5-12 12-6 1 1-6Z M14 5l5 5\"/></svg><span>编辑</span></a></span></h2>\n<p>记录攻击技能的完整原文，并区分普通威力伤害、固定数值、比例描述与多次结算。百分比的基准写明是最大精力、当前精力还是其他值。</p>\n<p>若同一技能含多种伤害，逐项记录，不将总掉血量当作单一公式的结果。</p>\n<h2 id=\"section-3\" data-has-editor=\"true\">怎样验证结算顺序<span class=\"rw-inline-section-edit\"><a class=\"rw-edit-entry\" href=\"/edit/?entity=%E6%8A%A4%E7%9B%BE%E4%B8%8E%E5%87%8F%E4%BC%A4&amp;section=%E6%80%8E%E6%A0%B7%E9%AA%8C%E8%AF%81%E7%BB%93%E7%AE%97%E9%A1%BA%E5%BA%8F&amp;mode=article&amp;returnTo=%2Fmechanics%2Fshield%2F%23section-3\" aria-label=\"编辑本节：怎样验证结算顺序\"><svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" aria-hidden=\"true\"><path d=\"m16 3 5 5-12 12-6 1 1-6Z M14 5l5 5\"/></svg><span>编辑</span></a></span></h2>\n<p>使用同一目标与同一条件，先记录没有目标保护效果时的结果，再记录存在效果时的结果。每次只改变需要验证的条件，并记录盾量和精力各自变化。</p>\n<p>单次观察只能说明这一组条件下的结果。现行公式、取整位置、随机分布及所有例外尚未核验时，计算工具应明确展示假设与适用范围。</p>\n<p>两个来源都写“护盾”或“减伤”时，从 <a href=\"/mechanics/effects/\">效果档案</a> 识别具体来源，再查 <a href=\"/mechanics/relations/\">效果关系对照</a>。不同保护机制的结算先后与同名效果的覆盖关系分别记录。</p>\n<h2 id=\"section-4\" data-has-editor=\"true\">工具与来源<span class=\"rw-inline-section-edit\"><a class=\"rw-edit-entry\" href=\"/edit/?entity=%E6%8A%A4%E7%9B%BE%E4%B8%8E%E5%87%8F%E4%BC%A4&amp;section=%E5%B7%A5%E5%85%B7%E4%B8%8E%E6%9D%A5%E6%BA%90&amp;mode=article&amp;returnTo=%2Fmechanics%2Fshield%2F%23section-4\" aria-label=\"编辑本节：工具与来源\"><svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" aria-hidden=\"true\"><path d=\"m16 3 5 5-12 12-6 1 1-6Z M14 5l5 5\"/></svg><span>编辑</span></a></span></h2>\n<p>从 <a href=\"/skills/\">技能资料</a> 查伤害描述，从 <a href=\"/bloodlines/\">血脉资料</a> 查保护效果，再使用 <a href=\"/tools/\">实用工具</a> 中已明确输入条件的工具。</p>\n<p><a href=\"/mechanics/stages/\">技能阶段与结算</a> · <a href=\"/help/sources/\">资料来源规范</a></p>\n"
+  },
+  "/mechanics/stages/": {
+    "title": "技能阶段与结算",
+    "headings": [
+      {
+        "id": "section-1",
+        "text": "三种顺序"
+      },
+      {
+        "id": "section-2",
+        "text": "条件必须与分支一起阅读"
+      },
+      {
+        "id": "section-3",
+        "text": "原文、解析与实测"
+      },
+      {
+        "id": "section-4",
+        "text": "从这里继续查询"
+      }
+    ],
+    "html": "<p>读复杂技能时，同时保留<strong>条件、作用对象与阶段</strong>。第一段、中间段、末段，单次动作的伤害次数，以及回合内时点属于不同信息，不能相互代替。</p>\n<h2 id=\"section-1\" data-has-editor=\"true\">三种顺序<span class=\"rw-inline-section-edit\"><a class=\"rw-edit-entry\" href=\"/edit/?entity=%E6%8A%80%E8%83%BD%E9%98%B6%E6%AE%B5%E4%B8%8E%E7%BB%93%E7%AE%97&amp;section=%E4%B8%89%E7%A7%8D%E9%A1%BA%E5%BA%8F&amp;mode=article&amp;returnTo=%2Fmechanics%2Fstages%2F%23section-1\" aria-label=\"编辑本节：三种顺序\"><svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" aria-hidden=\"true\"><path d=\"m16 3 5 5-12 12-6 1 1-6Z M14 5l5 5\"/></svg><span>编辑</span></a></span></h2>\n<table>\n<thead>\n<tr>\n<th>顺序</th>\n<th>问的是什么</th>\n</tr>\n</thead>\n<tbody><tr>\n<td>技能阶段</td>\n<td>当前属于该技能描述中的哪一阶段</td>\n</tr>\n<tr>\n<td>伤害次数</td>\n<td>本次动作第几次造成或结算伤害</td>\n</tr>\n<tr>\n<td>回合时点</td>\n<td>本回合何时施加、消耗、清除或结算</td>\n</tr>\n</tbody></table>\n<p>具体技能有几段、如何推进、是否重置，由它的来源与实测记录决定。资料模板不会强制所有技能拥有相同阶段。</p>\n<p>主动再用一次、原技能持续带出和旧效果到期清理分别保留记录；它们之间的关联可继续查 <a href=\"/mechanics/timing/\">触发顺序与结算时点</a> 与 <a href=\"/mechanics/interactions/\">覆盖、共存与解除</a>。</p>\n<h2 id=\"section-2\" data-has-editor=\"true\">条件必须与分支一起阅读<span class=\"rw-inline-section-edit\"><a class=\"rw-edit-entry\" href=\"/edit/?entity=%E6%8A%80%E8%83%BD%E9%98%B6%E6%AE%B5%E4%B8%8E%E7%BB%93%E7%AE%97&amp;section=%E6%9D%A1%E4%BB%B6%E5%BF%85%E9%A1%BB%E4%B8%8E%E5%88%86%E6%94%AF%E4%B8%80%E8%B5%B7%E9%98%85%E8%AF%BB&amp;mode=article&amp;returnTo=%2Fmechanics%2Fstages%2F%23section-2\" aria-label=\"编辑本节：条件必须与分支一起阅读\"><svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" aria-hidden=\"true\"><path d=\"m16 3 5 5-12 12-6 1 1-6Z M14 5l5 5\"/></svg><span>编辑</span></a></span></h2>\n<p>精简说明可以缩短文字，但不能把一个共同前提拆散后，让各分支看起来无条件生效。</p>\n<table>\n<thead>\n<tr>\n<th>层级</th>\n<th>示例结构，非某个真实技能</th>\n</tr>\n</thead>\n<tbody><tr>\n<td>时机</td>\n<td>在指定伤害结算前</td>\n</tr>\n<tr>\n<td>共同动作</td>\n<td>按条件处理自身某项状态</td>\n</tr>\n<tr>\n<td>分支 A</td>\n<td>满足条件 A 时，采用结果 A</td>\n</tr>\n<tr>\n<td>分支 B</td>\n<td>满足条件 B 时，采用结果 B</td>\n</tr>\n<tr>\n<td>后续</td>\n<td>继续执行该阶段剩余效果</td>\n</tr>\n</tbody></table>\n<p>共同动作与分支保留从属关系；“至少”“最多”“本回合”“上回合”等限定词不能因压缩版面而删除。</p>\n<h2 id=\"section-3\" data-has-editor=\"true\">原文、解析与实测<span class=\"rw-inline-section-edit\"><a class=\"rw-edit-entry\" href=\"/edit/?entity=%E6%8A%80%E8%83%BD%E9%98%B6%E6%AE%B5%E4%B8%8E%E7%BB%93%E7%AE%97&amp;section=%E5%8E%9F%E6%96%87%E3%80%81%E8%A7%A3%E6%9E%90%E4%B8%8E%E5%AE%9E%E6%B5%8B&amp;mode=article&amp;returnTo=%2Fmechanics%2Fstages%2F%23section-3\" aria-label=\"编辑本节：原文、解析与实测\"><svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" aria-hidden=\"true\"><path d=\"m16 3 5 5-12 12-6 1 1-6Z M14 5l5 5\"/></svg><span>编辑</span></a></span></h2>\n<table>\n<thead>\n<tr>\n<th>内容</th>\n<th>展示方法</th>\n</tr>\n</thead>\n<tbody><tr>\n<td>技能原文</td>\n<td>原样引用并标注出处与获取日期</td>\n</tr>\n<tr>\n<td>条件化解析</td>\n<td>按阶段组织，保留对象与分支</td>\n</tr>\n<tr>\n<td>已验证结论</td>\n<td>附复现条件及证据</td>\n</tr>\n<tr>\n<td>待核问题</td>\n<td>单独列出，不混入确定语句</td>\n</tr>\n</tbody></table>\n<p>解析与原文有冲突时，应允许读者直接对照，并从对应段落提交修订。</p>\n<h2 id=\"section-4\" data-has-editor=\"true\">从这里继续查询<span class=\"rw-inline-section-edit\"><a class=\"rw-edit-entry\" href=\"/edit/?entity=%E6%8A%80%E8%83%BD%E9%98%B6%E6%AE%B5%E4%B8%8E%E7%BB%93%E7%AE%97&amp;section=%E4%BB%8E%E8%BF%99%E9%87%8C%E7%BB%A7%E7%BB%AD%E6%9F%A5%E8%AF%A2&amp;mode=article&amp;returnTo=%2Fmechanics%2Fstages%2F%23section-4\" aria-label=\"编辑本节：从这里继续查询\"><svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" aria-hidden=\"true\"><path d=\"m16 3 5 5-12 12-6 1 1-6Z M14 5l5 5\"/></svg><span>编辑</span></a></span></h2>\n<p><a href=\"/skills/\">技能资料</a> · <a href=\"/mechanics/pp/\">PP 与技能限制</a> · <a href=\"/mechanics/weather/\">天气与环境</a> · <a href=\"/mechanics/status/\">异常、强化与标记</a> · <a href=\"/help/sources/\">资料来源规范</a></p>\n"
+  },
+  "/mechanics/status/": {
+    "title": "异常、强化与标记",
+    "headings": [
+      {
+        "id": "section-1",
+        "text": "状态分类"
+      },
+      {
+        "id": "section-2",
+        "text": "清除与免疫"
+      },
+      {
+        "id": "section-3",
+        "text": "标记必须带来源"
+      },
+      {
+        "id": "section-4",
+        "text": "换宠时怎么查"
+      }
+    ],
+    "html": "<p>同一只宠物身上的异常、能力变化与专属标记使用不同资料类型。清除、免疫、锁定也分别记录，避免将效果统一概括成“净化”。</p>\n<h2 id=\"section-1\" data-has-editor=\"true\">状态分类<span class=\"rw-inline-section-edit\"><a class=\"rw-edit-entry\" href=\"/edit/?entity=%E5%BC%82%E5%B8%B8%E3%80%81%E5%BC%BA%E5%8C%96%E4%B8%8E%E6%A0%87%E8%AE%B0&amp;section=%E7%8A%B6%E6%80%81%E5%88%86%E7%B1%BB&amp;mode=article&amp;returnTo=%2Fmechanics%2Fstatus%2F%23section-1\" aria-label=\"编辑本节：状态分类\"><svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" aria-hidden=\"true\"><path d=\"m16 3 5 5-12 12-6 1 1-6Z M14 5l5 5\"/></svg><span>编辑</span></a></span></h2>\n<table>\n<thead>\n<tr>\n<th>类型</th>\n<th>记录重点</th>\n</tr>\n</thead>\n<tbody><tr>\n<td>异常状态</td>\n<td>施加、命中条件、作用、解除与免疫</td>\n</tr>\n<tr>\n<td>强化或弱化</td>\n<td>对应能力、变化量、当前等级与来源</td>\n</tr>\n<tr>\n<td>强化锁定</td>\n<td>锁定的能力、对象、时长与例外</td>\n</tr>\n<tr>\n<td>专属标记</td>\n<td>标记来源、所属宠物、层数或计量单位、触发效果</td>\n</tr>\n<tr>\n<td>持续效果</td>\n<td>起始时机、结算阶段、剩余条件</td>\n</tr>\n</tbody></table>\n<h2 id=\"section-2\" data-has-editor=\"true\">清除与免疫<span class=\"rw-inline-section-edit\"><a class=\"rw-edit-entry\" href=\"/edit/?entity=%E5%BC%82%E5%B8%B8%E3%80%81%E5%BC%BA%E5%8C%96%E4%B8%8E%E6%A0%87%E8%AE%B0&amp;section=%E6%B8%85%E9%99%A4%E4%B8%8E%E5%85%8D%E7%96%AB&amp;mode=article&amp;returnTo=%2Fmechanics%2Fstatus%2F%23section-2\" aria-label=\"编辑本节：清除与免疫\"><svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" aria-hidden=\"true\"><path d=\"m16 3 5 5-12 12-6 1 1-6Z M14 5l5 5\"/></svg><span>编辑</span></a></span></h2>\n<p>“解除已经存在的效果”和“阻止效果以后施加”回答的是不同问题。条目应分别说明处理对象、触发时点以及排除项。</p>\n<p>原文只说明一类效果时，不将它扩写为无条件免疫；遇到“清强”“锁强”等精简词，保留可以展开查看的完整解释。</p>\n<h2 id=\"section-3\" data-has-editor=\"true\">标记必须带来源<span class=\"rw-inline-section-edit\"><a class=\"rw-edit-entry\" href=\"/edit/?entity=%E5%BC%82%E5%B8%B8%E3%80%81%E5%BC%BA%E5%8C%96%E4%B8%8E%E6%A0%87%E8%AE%B0&amp;section=%E6%A0%87%E8%AE%B0%E5%BF%85%E9%A1%BB%E5%B8%A6%E6%9D%A5%E6%BA%90&amp;mode=article&amp;returnTo=%2Fmechanics%2Fstatus%2F%23section-3\" aria-label=\"编辑本节：标记必须带来源\"><svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" aria-hidden=\"true\"><path d=\"m16 3 5 5-12 12-6 1 1-6Z M14 5l5 5\"/></svg><span>编辑</span></a></span></h2>\n<p>标记同名、同图标或视觉相似时，用来源实体和作用对象识别。一个可用于实测的记录至少包含：来源技能或血脉、施加者、承受者、数值、创建阶段与消失条件。</p>\n<p>若标记显示数值尚无权威解释，记录观察到的变化，不自行命名单位或上限。</p>\n<p>同名效果的来源列表放在 <a href=\"/mechanics/effects/\">效果档案</a>。从 <a href=\"/mechanics/interactions/\">覆盖、共存与解除</a> 或 <a href=\"/mechanics/relations/\">效果关系对照</a> 查相互关系，并分别核对重复施加、到期和换宠时的处理。</p>\n<h2 id=\"section-4\" data-has-editor=\"true\">换宠时怎么查<span class=\"rw-inline-section-edit\"><a class=\"rw-edit-entry\" href=\"/edit/?entity=%E5%BC%82%E5%B8%B8%E3%80%81%E5%BC%BA%E5%8C%96%E4%B8%8E%E6%A0%87%E8%AE%B0&amp;section=%E6%8D%A2%E5%AE%A0%E6%97%B6%E6%80%8E%E4%B9%88%E6%9F%A5&amp;mode=article&amp;returnTo=%2Fmechanics%2Fstatus%2F%23section-4\" aria-label=\"编辑本节：换宠时怎么查\"><svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" aria-hidden=\"true\"><path d=\"m16 3 5 5-12 12-6 1 1-6Z M14 5l5 5\"/></svg><span>编辑</span></a></span></h2>\n<p>分别记录换宠前后仍保留、被清除和发生转移的效果。不能把某个专属技能的测试结果推广为所有状态的统一规则。</p>\n<p><a href=\"/skills/\">技能资料</a> · <a href=\"/bloodlines/\">血脉资料</a> · <a href=\"/mechanics/stages/\">技能阶段与结算</a> · <a href=\"/battle/\">对战资料</a></p>\n"
+  },
+  "/mechanics/switching/": {
+    "title": "换宠、驱逐与场下",
+    "headings": [
+      {
+        "id": "section-1",
+        "text": "换下后什么仍然存在"
+      },
+      {
+        "id": "section-2",
+        "text": "下一只与指定宠物不同"
+      },
+      {
+        "id": "section-3",
+        "text": "驱逐失败看原因"
+      },
+      {
+        "id": "section-4",
+        "text": "场下也要记录具体目标"
+      }
+    ],
+    "html": "<p>页面按“离场前—离场处理—下一只上场”阅读。主动换宠、被驱逐和阵亡后的替换分别记录，具体差异以对应技能和实测为准。</p>\n<h2 id=\"section-1\" data-has-editor=\"true\">换下后什么仍然存在<span class=\"rw-inline-section-edit\"><a class=\"rw-edit-entry\" href=\"/edit/?entity=%E6%8D%A2%E5%AE%A0%E3%80%81%E9%A9%B1%E9%80%90%E4%B8%8E%E5%9C%BA%E4%B8%8B&amp;section=%E6%8D%A2%E4%B8%8B%E5%90%8E%E4%BB%80%E4%B9%88%E4%BB%8D%E7%84%B6%E5%AD%98%E5%9C%A8&amp;mode=article&amp;returnTo=%2Fmechanics%2Fswitching%2F%23section-1\" aria-label=\"编辑本节：换下后什么仍然存在\"><svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" aria-hidden=\"true\"><path d=\"m16 3 5 5-12 12-6 1 1-6Z M14 5l5 5\"/></svg><span>编辑</span></a></span></h2>\n<table>\n<thead>\n<tr>\n<th>效果挂载位置</th>\n<th>查询问题</th>\n</tr>\n</thead>\n<tbody><tr>\n<td>宠物本身</td>\n<td>层数、持续回合、免疫与标记是否清除？</td>\n</tr>\n<tr>\n<td>队伍一侧</td>\n<td>换上其他宠物后是否仍受影响？</td>\n</tr>\n<tr>\n<td>整个战场</td>\n<td>天气、环境、场地限制是否变化？</td>\n</tr>\n<tr>\n<td>下一只上场目标</td>\n<td>由谁、在什么时候对下一只施加？</td>\n</tr>\n<tr>\n<td>待结算事件</td>\n<td>触发条件以后满足时是否继续执行？</td>\n</tr>\n</tbody></table>\n<p>这些挂载位置是资料归类；具体技能可能涉及其中多个位置，需拆成多项效果。</p>\n<h2 id=\"section-2\" data-has-editor=\"true\">下一只与指定宠物不同<span class=\"rw-inline-section-edit\"><a class=\"rw-edit-entry\" href=\"/edit/?entity=%E6%8D%A2%E5%AE%A0%E3%80%81%E9%A9%B1%E9%80%90%E4%B8%8E%E5%9C%BA%E4%B8%8B&amp;section=%E4%B8%8B%E4%B8%80%E5%8F%AA%E4%B8%8E%E6%8C%87%E5%AE%9A%E5%AE%A0%E7%89%A9%E4%B8%8D%E5%90%8C&amp;mode=article&amp;returnTo=%2Fmechanics%2Fswitching%2F%23section-2\" aria-label=\"编辑本节：下一只与指定宠物不同\"><svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" aria-hidden=\"true\"><path d=\"m16 3 5 5-12 12-6 1 1-6Z M14 5l5 5\"/></svg><span>编辑</span></a></span></h2>\n<p>“下一只上场”“某个背包位置”“某个编号”和“上次命中的目标”采用不同描述。若反弹、换位或多只同宠会改变目标身份，保留对应例外。</p>\n<p>从 <a href=\"/mechanics/effects/\">效果档案</a> 可查看来源与承受者；从 <a href=\"/mechanics/passive/\">血脉与被动触发</a> 可查看上场条件。</p>\n<h2 id=\"section-3\" data-has-editor=\"true\">驱逐失败看原因<span class=\"rw-inline-section-edit\"><a class=\"rw-edit-entry\" href=\"/edit/?entity=%E6%8D%A2%E5%AE%A0%E3%80%81%E9%A9%B1%E9%80%90%E4%B8%8E%E5%9C%BA%E4%B8%8B&amp;section=%E9%A9%B1%E9%80%90%E5%A4%B1%E8%B4%A5%E7%9C%8B%E5%8E%9F%E5%9B%A0&amp;mode=article&amp;returnTo=%2Fmechanics%2Fswitching%2F%23section-3\" aria-label=\"编辑本节：驱逐失败看原因\"><svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" aria-hidden=\"true\"><path d=\"m16 3 5 5-12 12-6 1 1-6Z M14 5l5 5\"/></svg><span>编辑</span></a></span></h2>\n<p>驱逐无效时，先区分免疫、没有可替换目标、技能未命中和前置未满足。某个分支要求“免疫驱逐”时，不应自动扩大为所有驱逐失败情况。</p>\n<h2 id=\"section-4\" data-has-editor=\"true\">场下也要记录具体目标<span class=\"rw-inline-section-edit\"><a class=\"rw-edit-entry\" href=\"/edit/?entity=%E6%8D%A2%E5%AE%A0%E3%80%81%E9%A9%B1%E9%80%90%E4%B8%8E%E5%9C%BA%E4%B8%8B&amp;section=%E5%9C%BA%E4%B8%8B%E4%B9%9F%E8%A6%81%E8%AE%B0%E5%BD%95%E5%85%B7%E4%BD%93%E7%9B%AE%E6%A0%87&amp;mode=article&amp;returnTo=%2Fmechanics%2Fswitching%2F%23section-4\" aria-label=\"编辑本节：场下也要记录具体目标\"><svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" aria-hidden=\"true\"><path d=\"m16 3 5 5-12 12-6 1 1-6Z M14 5l5 5\"/></svg><span>编辑</span></a></span></h2>\n<p>队伍回复、波及、标记等条目展示目标选择规则和范围。涉及最低精力、最高上限、属性或顺位时，将这些限定直接放在作用对象旁边。</p>\n<p><a href=\"/mechanics/damage/\">伤害类型与结算</a> · <a href=\"/mechanics/weather/\">天气与环境</a> · <a href=\"/mechanics/evidence/\">机制实测</a></p>\n"
+  },
+  "/mechanics/timing/": {
+    "title": "触发顺序与结算时点",
+    "headings": [
+      {
+        "id": "section-1",
+        "text": "四种时间范围"
+      },
+      {
+        "id": "section-2",
+        "text": "查询一段技能的过程"
+      },
+      {
+        "id": "section-3",
+        "text": "旧效果到期也可能是关键"
+      },
+      {
+        "id": "section-4",
+        "text": "相同措辞需要相同判据吗"
+      }
+    ],
+    "html": "<p><strong>行动顺序</strong>回答谁先动；<strong>效果顺序</strong>回答一次行动里先发生什么；<strong>冲突关系</strong>回答多个效果相遇时如何处理。三个问题分别查询。</p>\n<h2 id=\"section-1\" data-has-editor=\"true\">四种时间范围<span class=\"rw-inline-section-edit\"><a class=\"rw-edit-entry\" href=\"/edit/?entity=%E8%A7%A6%E5%8F%91%E9%A1%BA%E5%BA%8F%E4%B8%8E%E7%BB%93%E7%AE%97%E6%97%B6%E7%82%B9&amp;section=%E5%9B%9B%E7%A7%8D%E6%97%B6%E9%97%B4%E8%8C%83%E5%9B%B4&amp;mode=article&amp;returnTo=%2Fmechanics%2Ftiming%2F%23section-1\" aria-label=\"编辑本节：四种时间范围\"><svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" aria-hidden=\"true\"><path d=\"m16 3 5 5-12 12-6 1 1-6Z M14 5l5 5\"/></svg><span>编辑</span></a></span></h2>\n<table>\n<thead>\n<tr>\n<th>范围</th>\n<th>典型问题</th>\n</tr>\n</thead>\n<tbody><tr>\n<td>对战全局</td>\n<td>计数是否跨换宠保留，次数上限怎样重置？</td>\n</tr>\n<tr>\n<td>一回合</td>\n<td>哪些持续效果结算，回合数何时递减？</td>\n</tr>\n<tr>\n<td>一次行动</td>\n<td>先回复、先清除，还是先施加状态？</td>\n</tr>\n<tr>\n<td>一段事件</td>\n<td>伤害进入护盾前后、最终掉血后分别触发什么？</td>\n</tr>\n</tbody></table>\n<h2 id=\"section-2\" data-has-editor=\"true\">查询一段技能的过程<span class=\"rw-inline-section-edit\"><a class=\"rw-edit-entry\" href=\"/edit/?entity=%E8%A7%A6%E5%8F%91%E9%A1%BA%E5%BA%8F%E4%B8%8E%E7%BB%93%E7%AE%97%E6%97%B6%E7%82%B9&amp;section=%E6%9F%A5%E8%AF%A2%E4%B8%80%E6%AE%B5%E6%8A%80%E8%83%BD%E7%9A%84%E8%BF%87%E7%A8%8B&amp;mode=article&amp;returnTo=%2Fmechanics%2Ftiming%2F%23section-2\" aria-label=\"编辑本节：查询一段技能的过程\"><svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" aria-hidden=\"true\"><path d=\"m16 3 5 5-12 12-6 1 1-6Z M14 5l5 5\"/></svg><span>编辑</span></a></span></h2>\n<p>在技能详情中选择阶段，按“前置条件—本段事件—后续分支”阅读。引用资料只明确其中一部分顺序时，未明确的部分仍标未知，不补成完整服务端执行顺序。</p>\n<p>先从 <a href=\"/mechanics/stages/\">技能阶段与结算</a> 定位主动与持续阶段，再从 <a href=\"/mechanics/interactions/\">效果关系</a> 查看相互影响。</p>\n<h2 id=\"section-3\" data-has-editor=\"true\">旧效果到期也可能是关键<span class=\"rw-inline-section-edit\"><a class=\"rw-edit-entry\" href=\"/edit/?entity=%E8%A7%A6%E5%8F%91%E9%A1%BA%E5%BA%8F%E4%B8%8E%E7%BB%93%E7%AE%97%E6%97%B6%E7%82%B9&amp;section=%E6%97%A7%E6%95%88%E6%9E%9C%E5%88%B0%E6%9C%9F%E4%B9%9F%E5%8F%AF%E8%83%BD%E6%98%AF%E5%85%B3%E9%94%AE&amp;mode=article&amp;returnTo=%2Fmechanics%2Ftiming%2F%23section-3\" aria-label=\"编辑本节：旧效果到期也可能是关键\"><svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" aria-hidden=\"true\"><path d=\"m16 3 5 5-12 12-6 1 1-6Z M14 5l5 5\"/></svg><span>编辑</span></a></span></h2>\n<p>查询覆盖关系时，除了刚施加后的结果，还要检查原效果本来的到期时点、新效果到期时点，以及中间换宠后的结果。</p>\n<p>一张状态截图只能证明那个时点的表象，不能证明持续时间已经刷新、旧实例已经删除或后续清理互不影响。</p>\n<h2 id=\"section-4\" data-has-editor=\"true\">相同措辞需要相同判据吗<span class=\"rw-inline-section-edit\"><a class=\"rw-edit-entry\" href=\"/edit/?entity=%E8%A7%A6%E5%8F%91%E9%A1%BA%E5%BA%8F%E4%B8%8E%E7%BB%93%E7%AE%97%E6%97%B6%E7%82%B9&amp;section=%E7%9B%B8%E5%90%8C%E6%8E%AA%E8%BE%9E%E9%9C%80%E8%A6%81%E7%9B%B8%E5%90%8C%E5%88%A4%E6%8D%AE%E5%90%97&amp;mode=article&amp;returnTo=%2Fmechanics%2Ftiming%2F%23section-4\" aria-label=\"编辑本节：相同措辞需要相同判据吗\"><svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" aria-hidden=\"true\"><path d=\"m16 3 5 5-12 12-6 1 1-6Z M14 5l5 5\"/></svg><span>编辑</span></a></span></h2>\n<p>“受到伤害”可能对应伤害事件、最终结算值或行动前后精力变化。具体技能采用什么判据，只在证据明确时填写，不能从近似措辞继承结论。</p>\n<p><a href=\"/mechanics/evidence/\">机制实测与争议记录</a> · <a href=\"/mechanics/healing/\">治疗、禁疗与转化</a></p>\n"
+  },
+  "/mechanics/weather/": {
+    "title": "天气与环境",
+    "headings": [
+      {
+        "id": "section-1",
+        "text": "一条战场效果的资料"
+      },
+      {
+        "id": "section-2",
+        "text": "锁定不应只显示一个图标"
+      },
+      {
+        "id": "section-3",
+        "text": "召唤、屏蔽和回合变化"
+      },
+      {
+        "id": "section-4",
+        "text": "关联查询应保留条件"
+      },
+      {
+        "id": "section-5",
+        "text": "建议的实测记录"
+      }
+    ],
+    "html": "<p>天气与环境在资料中分别归类。页面先展示作用与来源，再记录持续、清除、覆盖或锁定的条件；不从名称推测结算关系。</p>\n<h2 id=\"section-1\" data-has-editor=\"true\">一条战场效果的资料<span class=\"rw-inline-section-edit\"><a class=\"rw-edit-entry\" href=\"/edit/?entity=%E5%A4%A9%E6%B0%94%E4%B8%8E%E7%8E%AF%E5%A2%83&amp;section=%E4%B8%80%E6%9D%A1%E6%88%98%E5%9C%BA%E6%95%88%E6%9E%9C%E7%9A%84%E8%B5%84%E6%96%99&amp;mode=article&amp;returnTo=%2Fmechanics%2Fweather%2F%23section-1\" aria-label=\"编辑本节：一条战场效果的资料\"><svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" aria-hidden=\"true\"><path d=\"m16 3 5 5-12 12-6 1 1-6Z M14 5l5 5\"/></svg><span>编辑</span></a></span></h2>\n<table>\n<thead>\n<tr>\n<th>字段</th>\n<th>玩家需要知道什么</th>\n</tr>\n</thead>\n<tbody><tr>\n<td>名称与类别</td>\n<td>查到的是天气还是环境</td>\n</tr>\n<tr>\n<td>效果原文</td>\n<td>影响对象、能力、技能或其他状态</td>\n</tr>\n<tr>\n<td>产生来源</td>\n<td>哪些技能、血脉或规则会产生它</td>\n</tr>\n<tr>\n<td>持续条件</td>\n<td>持续时长的依据，以及延续或结束条件</td>\n</tr>\n<tr>\n<td>覆盖与清除</td>\n<td>谁能替换、清除，是否存在条件</td>\n</tr>\n<tr>\n<td>适用版本</td>\n<td>来源日期与已验证范围</td>\n</tr>\n</tbody></table>\n<h2 id=\"section-2\" data-has-editor=\"true\">锁定不应只显示一个图标<span class=\"rw-inline-section-edit\"><a class=\"rw-edit-entry\" href=\"/edit/?entity=%E5%A4%A9%E6%B0%94%E4%B8%8E%E7%8E%AF%E5%A2%83&amp;section=%E9%94%81%E5%AE%9A%E4%B8%8D%E5%BA%94%E5%8F%AA%E6%98%BE%E7%A4%BA%E4%B8%80%E4%B8%AA%E5%9B%BE%E6%A0%87&amp;mode=article&amp;returnTo=%2Fmechanics%2Fweather%2F%23section-2\" aria-label=\"编辑本节：锁定不应只显示一个图标\"><svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" aria-hidden=\"true\"><path d=\"m16 3 5 5-12 12-6 1 1-6Z M14 5l5 5\"/></svg><span>编辑</span></a></span></h2>\n<p>锁定的对象、来源与解除条件应与战场效果一起记录。只标“已锁定”不足以解释一次覆盖失败，也无法让其他玩家复现实测。</p>\n<p>查询具体技能时，保留原文中的前置条件及作用范围；暂未验证的相互关系显示待核项。</p>\n<h2 id=\"section-3\" data-has-editor=\"true\">召唤、屏蔽和回合变化<span class=\"rw-inline-section-edit\"><a class=\"rw-edit-entry\" href=\"/edit/?entity=%E5%A4%A9%E6%B0%94%E4%B8%8E%E7%8E%AF%E5%A2%83&amp;section=%E5%8F%AC%E5%94%A4%E3%80%81%E5%B1%8F%E8%94%BD%E5%92%8C%E5%9B%9E%E5%90%88%E5%8F%98%E5%8C%96&amp;mode=article&amp;returnTo=%2Fmechanics%2Fweather%2F%23section-3\" aria-label=\"编辑本节：召唤、屏蔽和回合变化\"><svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" aria-hidden=\"true\"><path d=\"m16 3 5 5-12 12-6 1 1-6Z M14 5l5 5\"/></svg><span>编辑</span></a></span></h2>\n<p>召唤成功、未能召唤、现有效果被清除、仍存在但暂不参与作用，以及剩余回合变化，使用不同结果描述。涉及锁定或特殊召唤方式时，按“已有效果 → 新操作”的方向进入 <a href=\"/mechanics/relations/\">效果关系对照</a>。</p>\n<p>时长在什么时候增减、作用何时恢复，查 <a href=\"/mechanics/timing/\">触发顺序与结算时点</a>。未有对应证据时不从图标是否出现推断内部状态。</p>\n<h2 id=\"section-4\" data-has-editor=\"true\">关联查询应保留条件<span class=\"rw-inline-section-edit\"><a class=\"rw-edit-entry\" href=\"/edit/?entity=%E5%A4%A9%E6%B0%94%E4%B8%8E%E7%8E%AF%E5%A2%83&amp;section=%E5%85%B3%E8%81%94%E6%9F%A5%E8%AF%A2%E5%BA%94%E4%BF%9D%E7%95%99%E6%9D%A1%E4%BB%B6&amp;mode=article&amp;returnTo=%2Fmechanics%2Fweather%2F%23section-4\" aria-label=\"编辑本节：关联查询应保留条件\"><svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" aria-hidden=\"true\"><path d=\"m16 3 5 5-12 12-6 1 1-6Z M14 5l5 5\"/></svg><span>编辑</span></a></span></h2>\n<p>从某种天气或环境进入技能资料，应获得与该效果相关的技能集合；进入宠物页，应指向真正拥有这些能力的宠物。</p>\n<p><a href=\"/skills/\">查询相关技能</a> · <a href=\"/bloodlines/\">查询血脉</a> · <a href=\"/pets/\">宠物图鉴</a></p>\n<h2 id=\"section-5\" data-has-editor=\"true\">建议的实测记录<span class=\"rw-inline-section-edit\"><a class=\"rw-edit-entry\" href=\"/edit/?entity=%E5%A4%A9%E6%B0%94%E4%B8%8E%E7%8E%AF%E5%A2%83&amp;section=%E5%BB%BA%E8%AE%AE%E7%9A%84%E5%AE%9E%E6%B5%8B%E8%AE%B0%E5%BD%95&amp;mode=article&amp;returnTo=%2Fmechanics%2Fweather%2F%23section-5\" aria-label=\"编辑本节：建议的实测记录\"><svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" aria-hidden=\"true\"><path d=\"m16 3 5 5-12 12-6 1 1-6Z M14 5l5 5\"/></svg><span>编辑</span></a></span></h2>\n<p>记录效果产生前的战场、召唤技能、当回合阶段、第二种效果的产生方式与最终战场结果。验证“清除”“覆盖”“延长”“锁定”时分别建记录，避免一次测试承担多个结论。</p>\n<p><a href=\"/mechanics/stages/\">技能阶段与结算</a> · <a href=\"/help/sources/\">资料来源规范</a></p>\n"
+  }
+}

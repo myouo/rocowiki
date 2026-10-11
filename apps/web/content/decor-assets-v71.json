@@ -1,0 +1,20 @@
+{
+  "version": "V7.1",
+  "assets": [
+    {
+      "path": "/img/decor/official-roco-login-bg.png",
+      "kind": "official_web_game_asset",
+      "sourcePage": "https://17roco.qq.com/",
+      "sourceStylesheet": "https://res.17roco.qq.com/style/newstyle.css",
+      "sourceAsset": "https://res.17roco.qq.com/images/bg.png",
+      "retrievedAt": "2026-10-10",
+      "width": 2000,
+      "height": 2070,
+      "bytes": 752565,
+      "sha256": "7c5b9369c340421f73c9e8fe7b852aa1c8b27bba26748968253988819f631ed9",
+      "transformation": "None. Original downloaded PNG retained byte-for-byte; CSS positions the right-side castle and applies a reading gradient.",
+      "rights": "原图来自腾讯洛克王国页游官方网站，权益归原权利人所有；未声明开源授权。",
+      "purpose": "首页页游百科横幅背景；保留官方页游风格，不使用生成式图片。"
+    }
+  ]
+}

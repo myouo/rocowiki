@@ -1,0 +1,14 @@
+.rw-bounded-textarea{width:100%;min-width:0;max-width:100%;box-sizing:border-box;align-self:stretch}
+.rw-bounded-textarea>textarea{display:block;width:100%!important;min-width:0!important;max-width:100%!important;box-sizing:border-box!important;resize:none!important;overflow:auto;overflow-wrap:anywhere;margin:0;border-radius:13px 13px 0 0!important}
+.rw-textarea-height-tools{display:flex;justify-content:space-between;align-items:center;gap:8px;min-width:0;max-width:100%;padding:5px 9px;background:#f7f9fc;border:1px solid #dce4ec;border-top:0;border-radius:0 0 12px 12px;color:#637184;font-size:11px;line-height:1.5}
+.rw-textarea-height-tools>span{min-width:0;overflow-wrap:anywhere}
+.rw-textarea-height-tools>div{display:flex;align-items:center;gap:3px;flex-shrink:0}
+.rw-textarea-height-tools button,.rw-textarea-height-tools .rw-textarea-grip{display:inline-flex!important;align-items:center;justify-content:center;width:28px;min-width:28px;height:28px;min-height:28px;padding:0!important;margin:0!important;border:1px solid transparent!important;border-radius:7px!important;box-shadow:none!important;background:transparent!important;color:#526a87!important;cursor:pointer;touch-action:none}
+.rw-textarea-height-tools button:hover,.rw-textarea-height-tools .rw-textarea-grip:hover{background:#e7eff8!important}
+.rw-textarea-height-tools button:disabled{opacity:.35;cursor:default}
+.rw-textarea-height-tools .rw-textarea-grip{cursor:ns-resize}
+.rw-textarea-height-tools :focus-visible{outline:2px solid #4079bc;outline-offset:1px}
+.rw-entity-editor{min-width:0;max-width:100%}
+.rw-entity-editor .rw-bounded-textarea>textarea{border-radius:0!important}
+.cm-markdown-field>.rw-bounded-textarea{grid-column:1/-1}
+@media(max-width:420px){.rw-textarea-height-tools{padding:4px 6px;font-size:10px;gap:4px}.rw-textarea-height-tools button,.rw-textarea-height-tools .rw-textarea-grip{width:26px;min-width:26px}}

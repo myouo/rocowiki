@@ -1,0 +1,15 @@
+# Inactive example / 未启用的示例
+# Copy to .github/CODEOWNERS only after the owner assigns real accounts/teams.
+# Obtain actual reviewer consent and enable required code-owner review in GitHub.
+# 确认真实账号/团队及责任后再复制并配置 GitHub 必需审核。
+# Examples below intentionally contain no fake handles.
+#
+# * <actual-maintainer>
+# /packages/auth/ <actual-security-reviewer>
+# /packages/git-wrapper/ <actual-publishing-reviewer>
+# /packages/publish-coordinator/ <actual-publishing-reviewer>
+# /apps/api/ <actual-api-reviewer>
+# /database/ <actual-data-reviewer>
+# /.github/ <actual-ci-reviewer>
+# /content/catalog.json <actual-content-maintainer>
+# /content/policy.json <actual-security-reviewer>

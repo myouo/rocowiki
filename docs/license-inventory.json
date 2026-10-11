@@ -1,0 +1,701 @@
+{
+  "schema": 1,
+  "projectLicense": "GPL-3.0-only",
+  "wikiContentLicense": "CC-BY-SA-4.0",
+  "contentPolicy": "COPYRIGHT.md",
+  "scope": "Direct dependencies only; transitive artifact licensing requires release review. Wiki licensing applies only to material with valid rights; imported content is not automatically relicensed.",
+  "licenseText": {
+    "file": "LICENSE",
+    "source": "https://raw.githubusercontent.com/spdx/license-list-data/main/text/GPL-3.0-only.txt",
+    "sha256": "fb981668c18a279e285fc4d83fba1e836cc84dd4daa73c9697d3cfd2d8aca6e0",
+    "retrievedAt": "2026-10-11"
+  },
+  "dependencies": [
+    {
+      "name": "@cloudflare/workers-types",
+      "requests": [
+        {
+          "manifest": "package.json",
+          "version": "5.20261010.1"
+        }
+      ],
+      "version": "5.20261010.1",
+      "declaredLicense": "MIT OR Apache-2.0",
+      "status": "metadata-only",
+      "notices": []
+    },
+    {
+      "name": "@docusaurus/core",
+      "requests": [
+        {
+          "manifest": "apps/web/package.json",
+          "version": "3.10.2"
+        }
+      ],
+      "version": "3.10.2",
+      "declaredLicense": "MIT",
+      "status": "notice-retained",
+      "notices": [
+        {
+          "file": "licenses/third-party/docusaurus__core/LICENSE",
+          "sha256": "52412d7bc7ce4157ea628bbaacb8829e0a9cb3c58f57f99176126bc8cf2bfc85",
+          "source": "node_modules/@docusaurus/core/LICENSE"
+        }
+      ]
+    },
+    {
+      "name": "@docusaurus/preset-classic",
+      "requests": [
+        {
+          "manifest": "apps/web/package.json",
+          "version": "3.10.2"
+        }
+      ],
+      "version": "3.10.2",
+      "declaredLicense": "MIT",
+      "status": "notice-retained",
+      "notices": [
+        {
+          "file": "licenses/third-party/docusaurus__preset-classic/LICENSE",
+          "sha256": "52412d7bc7ce4157ea628bbaacb8829e0a9cb3c58f57f99176126bc8cf2bfc85",
+          "source": "node_modules/@docusaurus/preset-classic/LICENSE"
+        }
+      ]
+    },
+    {
+      "name": "@docusaurus/theme-common",
+      "requests": [
+        {
+          "manifest": "apps/web/package.json",
+          "version": "3.10.2"
+        }
+      ],
+      "version": "3.10.2",
+      "declaredLicense": "MIT",
+      "status": "notice-retained",
+      "notices": [
+        {
+          "file": "licenses/third-party/docusaurus__theme-common/LICENSE",
+          "sha256": "52412d7bc7ce4157ea628bbaacb8829e0a9cb3c58f57f99176126bc8cf2bfc85",
+          "source": "node_modules/@docusaurus/theme-common/LICENSE"
+        }
+      ]
+    },
+    {
+      "name": "@docusaurus/types",
+      "requests": [
+        {
+          "manifest": "apps/web/package.json",
+          "version": "3.10.2"
+        }
+      ],
+      "version": "3.10.2",
+      "declaredLicense": "MIT",
+      "status": "notice-retained",
+      "notices": [
+        {
+          "file": "licenses/third-party/docusaurus__types/LICENSE",
+          "sha256": "52412d7bc7ce4157ea628bbaacb8829e0a9cb3c58f57f99176126bc8cf2bfc85",
+          "source": "node_modules/@docusaurus/types/LICENSE"
+        }
+      ]
+    },
+    {
+      "name": "@mdx-js/react",
+      "requests": [
+        {
+          "manifest": "apps/web/package.json",
+          "version": "3.1.1"
+        }
+      ],
+      "version": "3.1.1",
+      "declaredLicense": "MIT",
+      "status": "notice-retained",
+      "notices": [
+        {
+          "file": "licenses/third-party/mdx-js__react/license",
+          "sha256": "c274d2be30a4def0f9344506f3fe6d15668890a8e6d3e3d6bea732b44af9e124",
+          "source": "node_modules/@mdx-js/react/license"
+        }
+      ]
+    },
+    {
+      "name": "@types/node",
+      "requests": [
+        {
+          "manifest": "package.json",
+          "version": "24.19.2"
+        }
+      ],
+      "version": "24.19.2",
+      "declaredLicense": "MIT",
+      "status": "notice-retained",
+      "notices": [
+        {
+          "file": "licenses/third-party/types__node/LICENSE",
+          "sha256": "c2cfccb812fe482101a8f04597dfc5a9991a6b2748266c47ac91b6a5aae15383",
+          "source": "node_modules/@types/node/LICENSE"
+        }
+      ]
+    },
+    {
+      "name": "@types/react",
+      "requests": [
+        {
+          "manifest": "package.json",
+          "version": "19.3.0"
+        }
+      ],
+      "version": "19.3.0",
+      "declaredLicense": "MIT",
+      "status": "notice-retained",
+      "notices": [
+        {
+          "file": "licenses/third-party/types__react/LICENSE",
+          "sha256": "c2cfccb812fe482101a8f04597dfc5a9991a6b2748266c47ac91b6a5aae15383",
+          "source": "node_modules/@types/react/LICENSE"
+        }
+      ]
+    },
+    {
+      "name": "@types/react-dom",
+      "requests": [
+        {
+          "manifest": "package.json",
+          "version": "19.3.0"
+        }
+      ],
+      "version": "19.3.0",
+      "declaredLicense": "MIT",
+      "status": "notice-retained",
+      "notices": [
+        {
+          "file": "licenses/third-party/types__react-dom/LICENSE",
+          "sha256": "c2cfccb812fe482101a8f04597dfc5a9991a6b2748266c47ac91b6a5aae15383",
+          "source": "node_modules/@types/react-dom/LICENSE"
+        }
+      ]
+    },
+    {
+      "name": "clsx",
+      "requests": [
+        {
+          "manifest": "apps/web/package.json",
+          "version": "2.1.1"
+        }
+      ],
+      "version": "2.1.1",
+      "declaredLicense": "MIT",
+      "status": "notice-retained",
+      "notices": [
+        {
+          "file": "licenses/third-party/clsx/license",
+          "sha256": "9a9edad7baae52622bddf3c15b2ef8a33d2c89f2d25408ad13e8a7481c6b0c97",
+          "source": "node_modules/clsx/license"
+        }
+      ]
+    },
+    {
+      "name": "diff",
+      "requests": [
+        {
+          "manifest": "apps/web/package.json",
+          "version": "9.0.0"
+        }
+      ],
+      "version": "9.0.0",
+      "declaredLicense": "BSD-3-Clause",
+      "status": "notice-retained",
+      "notices": [
+        {
+          "file": "licenses/third-party/diff/LICENSE",
+          "sha256": "eda81a415869e67809f6a9f3fd6056062cb83a462118e07eec5e92b2e0c40ce9",
+          "source": "node_modules/diff/LICENSE"
+        }
+      ]
+    },
+    {
+      "name": "esbuild",
+      "requests": [
+        {
+          "manifest": "apps/web/package.json",
+          "version": "0.28.2"
+        }
+      ],
+      "version": "0.28.2",
+      "declaredLicense": "MIT",
+      "status": "notice-retained",
+      "notices": [
+        {
+          "file": "licenses/third-party/esbuild/LICENSE.md",
+          "sha256": "b40ec5baec7bb34fa5b1c09521fa3cd52d5fad7adafed74932a2010d3612a681",
+          "source": "node_modules/esbuild/LICENSE.md"
+        }
+      ]
+    },
+    {
+      "name": "github-slugger",
+      "requests": [
+        {
+          "manifest": "apps/web/package.json",
+          "version": "1.5.0"
+        }
+      ],
+      "version": "1.5.0",
+      "declaredLicense": "ISC",
+      "status": "notice-retained",
+      "notices": [
+        {
+          "file": "licenses/third-party/github-slugger/LICENSE",
+          "sha256": "542aefa99456832996da0cc63b14d8b89f04a30ba403e241dbe3e5aaf49fa372",
+          "source": "node_modules/github-slugger/LICENSE"
+        }
+      ]
+    },
+    {
+      "name": "hono",
+      "requests": [
+        {
+          "manifest": "package.json",
+          "version": "4.12.32"
+        }
+      ],
+      "version": "4.12.32",
+      "declaredLicense": "MIT",
+      "status": "notice-retained",
+      "notices": [
+        {
+          "file": "licenses/third-party/hono/LICENSE",
+          "sha256": "a6ab98e5c77b9070c443eaff2ff81034a6f8cc05a7524d5098eb0f24defa0115",
+          "source": "node_modules/hono/LICENSE"
+        }
+      ]
+    },
+    {
+      "name": "jose",
+      "requests": [
+        {
+          "manifest": "package.json",
+          "version": "6.2.12"
+        }
+      ],
+      "version": "6.2.12",
+      "declaredLicense": "MIT",
+      "status": "notice-retained",
+      "notices": [
+        {
+          "file": "licenses/third-party/jose/LICENSE.md",
+          "sha256": "8078b0829d6c3e9ecde2f003e1966e4cad3efc6e7a640efbab0313cc166b1af1",
+          "source": "node_modules/jose/LICENSE.md"
+        }
+      ]
+    },
+    {
+      "name": "js-yaml",
+      "requests": [
+        {
+          "manifest": "package.json",
+          "version": "4.3.2"
+        }
+      ],
+      "version": "4.3.2",
+      "declaredLicense": "MIT",
+      "status": "notice-retained",
+      "notices": [
+        {
+          "file": "licenses/third-party/js-yaml/LICENSE",
+          "sha256": "a07bc24468b9654ce76a547d47a2db282d07733b715db4c73a98bd63961f9550",
+          "source": "node_modules/js-yaml/LICENSE"
+        }
+      ]
+    },
+    {
+      "name": "jsdom",
+      "requests": [
+        {
+          "manifest": "apps/web/package.json",
+          "version": "30.1.2"
+        }
+      ],
+      "version": "30.1.2",
+      "declaredLicense": "MIT",
+      "status": "notice-retained",
+      "notices": [
+        {
+          "file": "licenses/third-party/jsdom/LICENSE.txt",
+          "sha256": "242d37e7cab25cbafc36cc973ee88f9345fddf066afe4f72b7ac3d9ad4e24cce",
+          "source": "node_modules/jsdom/LICENSE.txt"
+        }
+      ]
+    },
+    {
+      "name": "lucide-react",
+      "requests": [
+        {
+          "manifest": "apps/web/package.json",
+          "version": "1.55.0"
+        }
+      ],
+      "version": "1.55.0",
+      "declaredLicense": "ISC",
+      "status": "notice-retained",
+      "notices": [
+        {
+          "file": "licenses/third-party/lucide-react/LICENSE",
+          "sha256": "b495047bd93a9b06913511076f504daba17d5bbeb3e0650f3bb53a4220329c57",
+          "source": "node_modules/lucide-react/LICENSE"
+        }
+      ]
+    },
+    {
+      "name": "marked",
+      "requests": [
+        {
+          "manifest": "apps/web/package.json",
+          "version": "18.1.0"
+        }
+      ],
+      "version": "18.1.0",
+      "declaredLicense": "MIT",
+      "status": "notice-retained",
+      "notices": [
+        {
+          "file": "licenses/third-party/marked/LICENSE",
+          "sha256": "8e3a3f82f59a60958f56ca08f445647c32a4733dc7ca6c2c46f6eb898471ab9c",
+          "source": "node_modules/marked/LICENSE"
+        }
+      ]
+    },
+    {
+      "name": "openid-client",
+      "requests": [
+        {
+          "manifest": "package.json",
+          "version": "6.8.8"
+        }
+      ],
+      "version": "6.8.8",
+      "declaredLicense": "MIT",
+      "status": "notice-retained",
+      "notices": [
+        {
+          "file": "licenses/third-party/openid-client/LICENSE.md",
+          "sha256": "14c5cc0dc21f44add6d88a5621c65813d40bf382550c978430096db3df0cf68c",
+          "source": "node_modules/openid-client/LICENSE.md"
+        }
+      ]
+    },
+    {
+      "name": "pagefind",
+      "requests": [
+        {
+          "manifest": "package.json",
+          "version": "1.5.2"
+        }
+      ],
+      "version": "1.5.2",
+      "declaredLicense": "MIT",
+      "status": "notice-retained",
+      "notices": [
+        {
+          "file": "licenses/third-party/pagefind/LICENSE/LICENSE",
+          "sha256": "f7499d8f9a345ba2846f39325271de0fdf54c1d2968eadfde7998625cc45add0",
+          "source": "node_modules/pagefind/LICENSE/LICENSE"
+        },
+        {
+          "file": "licenses/third-party/pagefind/LICENSE/LICENSE-vscode-ripgrep",
+          "sha256": "ccf06b70760761ae1437395117bcf911501e3dc85385d84c7eba20d5dfab55dd",
+          "source": "node_modules/pagefind/LICENSE/LICENSE-vscode-ripgrep"
+        }
+      ]
+    },
+    {
+      "name": "react",
+      "requests": [
+        {
+          "manifest": "apps/web/package.json",
+          "version": "19.3.0"
+        }
+      ],
+      "version": "19.3.0",
+      "declaredLicense": "MIT",
+      "status": "notice-retained",
+      "notices": [
+        {
+          "file": "licenses/third-party/react/LICENSE",
+          "sha256": "da6d3703ed11cbe42bd212c725957c98da23cbff1998c05fa4b3d976d1a58e93",
+          "source": "node_modules/react/LICENSE"
+        }
+      ]
+    },
+    {
+      "name": "react-dom",
+      "requests": [
+        {
+          "manifest": "apps/web/package.json",
+          "version": "19.3.0"
+        }
+      ],
+      "version": "19.3.0",
+      "declaredLicense": "MIT",
+      "status": "notice-retained",
+      "notices": [
+        {
+          "file": "licenses/third-party/react-dom/LICENSE",
+          "sha256": "da6d3703ed11cbe42bd212c725957c98da23cbff1998c05fa4b3d976d1a58e93",
+          "source": "node_modules/react-dom/LICENSE"
+        }
+      ]
+    },
+    {
+      "name": "rehype-sanitize",
+      "requests": [
+        {
+          "manifest": "package.json",
+          "version": "6.0.0"
+        }
+      ],
+      "version": "6.0.0",
+      "declaredLicense": "MIT",
+      "status": "notice-retained",
+      "notices": [
+        {
+          "file": "licenses/third-party/rehype-sanitize/license",
+          "sha256": "ca4662cb5d1b738fbe5350c0d5485ba11773b4b7208974082ae6e129a52d631d",
+          "source": "node_modules/rehype-sanitize/license"
+        }
+      ]
+    },
+    {
+      "name": "rehype-stringify",
+      "requests": [
+        {
+          "manifest": "package.json",
+          "version": "10.0.1"
+        }
+      ],
+      "version": "10.0.1",
+      "declaredLicense": "MIT",
+      "status": "notice-retained",
+      "notices": [
+        {
+          "file": "licenses/third-party/rehype-stringify/license",
+          "sha256": "e18cf5173e928f808f0cd208097fee8fbec9d28fc0255213938e4c559e29ff58",
+          "source": "node_modules/rehype-stringify/license"
+        }
+      ]
+    },
+    {
+      "name": "remark-gfm",
+      "requests": [
+        {
+          "manifest": "package.json",
+          "version": "4.0.1"
+        }
+      ],
+      "version": "4.0.1",
+      "declaredLicense": "MIT",
+      "status": "notice-retained",
+      "notices": [
+        {
+          "file": "licenses/third-party/remark-gfm/license",
+          "sha256": "dd1081884a92952802f4803110a6bb543acea9a814c786d58605b4c1219b5ebb",
+          "source": "node_modules/remark-gfm/license"
+        }
+      ]
+    },
+    {
+      "name": "remark-parse",
+      "requests": [
+        {
+          "manifest": "package.json",
+          "version": "11.0.0"
+        }
+      ],
+      "version": "11.0.0",
+      "declaredLicense": "MIT",
+      "status": "notice-retained",
+      "notices": [
+        {
+          "file": "licenses/third-party/remark-parse/license",
+          "sha256": "413654b0a78b98661dce96d2aff2e4d075603d220b8483e28b1aa010ccc138b4",
+          "source": "node_modules/remark-parse/license"
+        }
+      ]
+    },
+    {
+      "name": "remark-rehype",
+      "requests": [
+        {
+          "manifest": "package.json",
+          "version": "11.1.2"
+        }
+      ],
+      "version": "11.1.2",
+      "declaredLicense": "MIT",
+      "status": "notice-retained",
+      "notices": [
+        {
+          "file": "licenses/third-party/remark-rehype/license",
+          "sha256": "dd1081884a92952802f4803110a6bb543acea9a814c786d58605b4c1219b5ebb",
+          "source": "node_modules/remark-rehype/license"
+        }
+      ]
+    },
+    {
+      "name": "tsx",
+      "requests": [
+        {
+          "manifest": "package.json",
+          "version": "4.23.15"
+        }
+      ],
+      "version": "4.23.15",
+      "declaredLicense": "MIT",
+      "status": "notice-retained",
+      "notices": [
+        {
+          "file": "licenses/third-party/tsx/LICENSE",
+          "sha256": "8dded67841a9261a622c739fb61c81785e93765de852828ceeb9403d20a74581",
+          "source": "node_modules/tsx/LICENSE"
+        }
+      ]
+    },
+    {
+      "name": "typescript",
+      "requests": [
+        {
+          "manifest": "package.json",
+          "version": "5.9.3"
+        }
+      ],
+      "version": "5.9.3",
+      "declaredLicense": "Apache-2.0",
+      "status": "notice-retained",
+      "notices": [
+        {
+          "file": "licenses/third-party/typescript/LICENSE.txt",
+          "sha256": "a7d00bfd54525bc694b6e32f64c7ebcf5e6b7ae3657be5cc12767bce74654a47",
+          "source": "node_modules/typescript/LICENSE.txt"
+        }
+      ]
+    },
+    {
+      "name": "unified",
+      "requests": [
+        {
+          "manifest": "package.json",
+          "version": "11.0.5"
+        }
+      ],
+      "version": "11.0.5",
+      "declaredLicense": "MIT",
+      "status": "notice-retained",
+      "notices": [
+        {
+          "file": "licenses/third-party/unified/license",
+          "sha256": "05811400116ed61f1a7693b78fe8ca6598c155a12f3978e609db4df648a4cb3d",
+          "source": "node_modules/unified/license"
+        }
+      ]
+    },
+    {
+      "name": "unist-util-visit",
+      "requests": [
+        {
+          "manifest": "package.json",
+          "version": "5.1.0"
+        }
+      ],
+      "version": "5.1.0",
+      "declaredLicense": "MIT",
+      "status": "notice-retained",
+      "notices": [
+        {
+          "file": "licenses/third-party/unist-util-visit/license",
+          "sha256": "63cb98b3f6abfb3c3592c16f88253c1bdc834087bf52671e8ce5609e4eb693cf",
+          "source": "node_modules/unist-util-visit/license"
+        }
+      ]
+    },
+    {
+      "name": "vitest",
+      "requests": [
+        {
+          "manifest": "package.json",
+          "version": "3.2.7"
+        }
+      ],
+      "version": "3.2.7",
+      "declaredLicense": "MIT",
+      "status": "notice-retained",
+      "notices": [
+        {
+          "file": "licenses/third-party/vitest/LICENSE.md",
+          "sha256": "6b861d7554fbc8488a08ee59e613bd488785a2e27bd87b80142e5125abec6f4c",
+          "source": "node_modules/vitest/LICENSE.md"
+        }
+      ]
+    },
+    {
+      "name": "wrangler",
+      "requests": [
+        {
+          "manifest": "package.json",
+          "version": "4.149.0"
+        }
+      ],
+      "version": "4.149.0",
+      "declaredLicense": "MIT OR Apache-2.0",
+      "status": "metadata-only",
+      "notices": []
+    },
+    {
+      "name": "zod",
+      "requests": [
+        {
+          "manifest": "package.json",
+          "version": "3.25.76"
+        }
+      ],
+      "version": "3.25.76",
+      "declaredLicense": "MIT",
+      "status": "notice-retained",
+      "notices": [
+        {
+          "file": "licenses/third-party/zod/LICENSE",
+          "sha256": "3f1189b28e3866e0d979968d466b78f813f76827cfdca1fbb124cc0a5c8841f8",
+          "source": "node_modules/zod/LICENSE"
+        }
+      ]
+    }
+  ],
+  "assets": [
+    {
+      "id": "serif-font",
+      "status": "notice-retained",
+      "license": "OFL-1.1",
+      "file": "apps/web/static/fonts/roco-wiki-serif-600.woff2",
+      "notice": "apps/web/static/fonts/OFL-Noto-Serif-SC.txt",
+      "evidence": "apps/web/static/fonts/FONT-SOURCE.json"
+    },
+    {
+      "id": "sans-font",
+      "status": "notice-retained",
+      "license": "OFL-1.1",
+      "file": "apps/web/static/fonts/roco-wiki-sans-v7.woff2",
+      "notice": "apps/web/static/fonts/OFL-Noto-Sans-SC.txt",
+      "evidence": "apps/web/static/fonts/FONT-SOURCE-V7.json"
+    },
+    {
+      "id": "game-images",
+      "status": "permission-unverified",
+      "license": "Not established by this repository",
+      "directory": "apps/web/static/img",
+      "evidence": [
+        "apps/web/content/asset-sources.json",
+        "apps/web/content/pet-sources.json"
+      ]
+    }
+  ]
+}

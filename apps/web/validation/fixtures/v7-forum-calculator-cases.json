@@ -1,0 +1,406 @@
+{
+  "source": "https://17roco.gamebbs.qq.com/forum.php?mod=viewthread&tid=162103",
+  "sourceEdited": "2026-10-06",
+  "generatedFrom": "Live official-forum calculator render function executed in isolated DOM; outputs are numerical facts.",
+  "htmlSha256": "b686d505995359ab877eb3e941b3d9c41b2a9bba643a1e79b6f50681229d9ba2",
+  "cases": [
+    {
+      "name": "default",
+      "input": {
+        "level": 100,
+        "power": 120,
+        "attack": 300,
+        "attackStage": 0,
+        "defense": 300,
+        "defenseStage": 0,
+        "matchup": "neutral",
+        "boost": 0,
+        "reduction": 0,
+        "hp": 500,
+        "category": "physical",
+        "mode": "ordinary",
+        "conditions": "plain"
+      },
+      "expected": [
+        82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99,
+        100, 101, 102
+      ]
+    },
+    {
+      "name": "level-50",
+      "input": {
+        "level": 50,
+        "power": 120,
+        "attack": 300,
+        "attackStage": 0,
+        "defense": 300,
+        "defenseStage": 0,
+        "matchup": "neutral",
+        "boost": 0,
+        "reduction": 0,
+        "hp": 500,
+        "category": "physical",
+        "mode": "ordinary",
+        "conditions": "plain"
+      },
+      "expected": [
+        43, 44, 44, 45, 46, 46, 47, 47, 48, 48, 49, 49, 50, 50, 51, 52, 52, 53,
+        53, 54, 54
+      ]
+    },
+    {
+      "name": "attack-plus-6",
+      "input": {
+        "level": 100,
+        "power": 120,
+        "attack": 300,
+        "attackStage": 6,
+        "defense": 300,
+        "defenseStage": 0,
+        "matchup": "neutral",
+        "boost": 0,
+        "reduction": 0,
+        "hp": 500,
+        "category": "physical",
+        "mode": "ordinary",
+        "conditions": "plain"
+      },
+      "expected": [
+        324, 328, 332, 336, 340, 344, 348, 352, 356, 360, 364, 368, 372, 376,
+        380, 384, 388, 393, 397, 401, 405
+      ]
+    },
+    {
+      "name": "attack-minus-6",
+      "input": {
+        "level": 100,
+        "power": 120,
+        "attack": 300,
+        "attackStage": -6,
+        "defense": 300,
+        "defenseStage": 0,
+        "matchup": "neutral",
+        "boost": 0,
+        "reduction": 0,
+        "hp": 500,
+        "category": "physical",
+        "mode": "ordinary",
+        "conditions": "plain"
+      },
+      "expected": [
+        21, 22, 22, 22, 22, 23, 23, 23, 23, 24, 24, 24, 25, 25, 25, 25, 26, 26,
+        26, 26, 27
+      ]
+    },
+    {
+      "name": "defense-plus-6",
+      "input": {
+        "level": 100,
+        "power": 120,
+        "attack": 300,
+        "attackStage": 0,
+        "defense": 300,
+        "defenseStage": 6,
+        "matchup": "neutral",
+        "boost": 0,
+        "reduction": 0,
+        "hp": 500,
+        "category": "physical",
+        "mode": "ordinary",
+        "conditions": "plain"
+      },
+      "expected": [
+        21, 22, 22, 22, 22, 23, 23, 23, 23, 24, 24, 24, 25, 25, 25, 25, 26, 26,
+        26, 26, 27
+      ]
+    },
+    {
+      "name": "defense-minus-6",
+      "input": {
+        "level": 100,
+        "power": 120,
+        "attack": 300,
+        "attackStage": 0,
+        "defense": 300,
+        "defenseStage": -6,
+        "matchup": "neutral",
+        "boost": 0,
+        "reduction": 0,
+        "hp": 500,
+        "category": "physical",
+        "mode": "ordinary",
+        "conditions": "plain"
+      },
+      "expected": [
+        324, 328, 332, 336, 340, 344, 348, 352, 356, 360, 364, 368, 372, 376,
+        380, 384, 388, 393, 397, 401, 405
+      ]
+    },
+    {
+      "name": "equal-stages",
+      "input": {
+        "level": 100,
+        "power": 120,
+        "attack": 300,
+        "attackStage": 6,
+        "defense": 300,
+        "defenseStage": 6,
+        "matchup": "neutral",
+        "boost": 0,
+        "reduction": 0,
+        "hp": 500,
+        "category": "physical",
+        "mode": "ordinary",
+        "conditions": "plain"
+      },
+      "expected": [
+        82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99,
+        100, 101, 102
+      ]
+    },
+    {
+      "name": "fractional-stage",
+      "input": {
+        "level": 100,
+        "power": 120,
+        "attack": 317,
+        "attackStage": -3,
+        "defense": 283,
+        "defenseStage": 2,
+        "matchup": "neutral",
+        "boost": 0,
+        "reduction": 0,
+        "hp": 500,
+        "category": "physical",
+        "mode": "ordinary",
+        "conditions": "plain"
+      },
+      "expected": [
+        19, 19, 20, 20, 20, 20, 21, 21, 21, 21, 22, 22, 22, 22, 23, 23, 23, 23,
+        24, 24, 24
+      ]
+    },
+    {
+      "name": "double-effective",
+      "input": {
+        "level": 100,
+        "power": 120,
+        "attack": 300,
+        "attackStage": 0,
+        "defense": 300,
+        "defenseStage": 0,
+        "matchup": "double",
+        "boost": 0,
+        "reduction": 0,
+        "hp": 500,
+        "category": "physical",
+        "mode": "ordinary",
+        "conditions": "plain"
+      },
+      "expected": [
+        246, 249, 252, 255, 259, 262, 265, 268, 271, 274, 277, 280, 283, 286,
+        289, 292, 296, 299, 302, 305, 308
+      ]
+    },
+    {
+      "name": "effective",
+      "input": {
+        "level": 100,
+        "power": 120,
+        "attack": 300,
+        "attackStage": 0,
+        "defense": 300,
+        "defenseStage": 0,
+        "matchup": "effective",
+        "boost": 0,
+        "reduction": 0,
+        "hp": 500,
+        "category": "physical",
+        "mode": "ordinary",
+        "conditions": "plain"
+      },
+      "expected": [
+        164, 166, 168, 170, 172, 174, 176, 178, 180, 182, 185, 187, 189, 191,
+        193, 195, 197, 199, 201, 203, 205
+      ]
+    },
+    {
+      "name": "resisted",
+      "input": {
+        "level": 100,
+        "power": 120,
+        "attack": 300,
+        "attackStage": 0,
+        "defense": 300,
+        "defenseStage": 0,
+        "matchup": "resisted",
+        "boost": 0,
+        "reduction": 0,
+        "hp": 500,
+        "category": "physical",
+        "mode": "ordinary",
+        "conditions": "plain"
+      },
+      "expected": [
+        41, 41, 42, 42, 43, 43, 44, 44, 45, 45, 46, 46, 47, 47, 48, 48, 49, 49,
+        50, 50, 51
+      ]
+    },
+    {
+      "name": "strong-resistance",
+      "input": {
+        "level": 100,
+        "power": 120,
+        "attack": 300,
+        "attackStage": 0,
+        "defense": 300,
+        "defenseStage": 0,
+        "matchup": "strong-resist",
+        "boost": 0,
+        "reduction": 0,
+        "hp": 500,
+        "category": "physical",
+        "mode": "ordinary",
+        "conditions": "plain"
+      },
+      "expected": [
+        27, 27, 28, 28, 28, 29, 29, 29, 30, 30, 30, 31, 31, 31, 32, 32, 32, 33,
+        33, 33, 34
+      ]
+    },
+    {
+      "name": "boost-and-reduce",
+      "input": {
+        "level": 100,
+        "power": 120,
+        "attack": 300,
+        "attackStage": 0,
+        "defense": 300,
+        "defenseStage": 0,
+        "matchup": "neutral",
+        "boost": 50,
+        "reduction": 20,
+        "hp": 500,
+        "category": "physical",
+        "mode": "ordinary",
+        "conditions": "plain"
+      },
+      "expected": [
+        98, 99, 101, 102, 103, 104, 106, 107, 108, 109, 111, 112, 113, 114, 115,
+        117, 118, 119, 120, 122, 123
+      ]
+    },
+    {
+      "name": "complete-reduction",
+      "input": {
+        "level": 100,
+        "power": 120,
+        "attack": 300,
+        "attackStage": 0,
+        "defense": 300,
+        "defenseStage": 0,
+        "matchup": "neutral",
+        "boost": 0,
+        "reduction": 100,
+        "hp": 500,
+        "category": "physical",
+        "mode": "ordinary",
+        "conditions": "plain"
+      },
+      "expected": [
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1
+      ]
+    },
+    {
+      "name": "floor-minimum",
+      "input": {
+        "level": 1,
+        "power": 1,
+        "attack": 1,
+        "attackStage": 0,
+        "defense": 99999,
+        "defenseStage": 0,
+        "matchup": "strong-resist",
+        "boost": 0,
+        "reduction": 0,
+        "hp": 500,
+        "category": "physical",
+        "mode": "ordinary",
+        "conditions": "plain"
+      },
+      "expected": [
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1
+      ]
+    },
+    {
+      "name": "different-power",
+      "input": {
+        "level": 100,
+        "power": 125,
+        "attack": 300,
+        "attackStage": 0,
+        "defense": 300,
+        "defenseStage": 0,
+        "matchup": "neutral",
+        "boost": 0,
+        "reduction": 0,
+        "hp": 500,
+        "category": "physical",
+        "mode": "ordinary",
+        "conditions": "plain"
+      },
+      "expected": [
+        85, 86, 87, 88, 89, 90, 92, 93, 94, 95, 96, 97, 98, 99, 100, 101, 102,
+        103, 104, 105, 107
+      ]
+    },
+    {
+      "name": "mixed-conditions",
+      "input": {
+        "level": 75,
+        "power": 135,
+        "attack": 389,
+        "attackStage": 2,
+        "defense": 231,
+        "defenseStage": -2,
+        "matchup": "resisted",
+        "boost": 30,
+        "reduction": 35,
+        "hp": 500,
+        "category": "physical",
+        "mode": "ordinary",
+        "conditions": "plain"
+      },
+      "expected": [
+        197, 199, 202, 204, 207, 209, 212, 214, 217, 219, 222, 224, 226, 229,
+        231, 234, 236, 239, 241, 244, 246
+      ]
+    },
+    {
+      "name": "large-safe-input",
+      "input": {
+        "level": 100,
+        "power": 99999,
+        "attack": 99999,
+        "attackStage": 6,
+        "defense": 1,
+        "defenseStage": -6,
+        "matchup": "neutral",
+        "boost": 10000,
+        "reduction": 0,
+        "hp": 500,
+        "category": "physical",
+        "mode": "ordinary",
+        "conditions": "plain"
+      },
+      "expected": [
+        10859302810847, 10995044095983, 11130785381118, 11266526666254,
+        11402267951389, 11538009236525, 11673750521661, 11809491806796,
+        11945233091932, 12080974377067, 12216715662203, 12352456947339,
+        12488198232474, 12623939517610, 12759680802745, 12895422087881,
+        13031163373017, 13166904658152, 13302645943288, 13438387228423,
+        13574128513559
+      ]
+    }
+  ]
+}

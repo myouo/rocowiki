@@ -1,0 +1,150 @@
+{
+  "version": "7.3.1",
+  "title": "恢复图片表现，统一目录组件与流程关系",
+  "subtitle": "首页原图定位与左侧淡出回归，横向流程按真实关系连接，冒险目录和新增操作集中复用。",
+  "sources": [
+    {
+      "id": "official-home",
+      "title": "洛克王国页游官网原始背景",
+      "url": "https://res.17roco.qq.com/images/bg.png",
+      "role": "沿用已保存的官网原始 PNG；本轮检查原图 alpha 和绘图区，不重新生成或修改素材。出处及 SHA 见 decor-assets-v71.json。"
+    },
+    {
+      "id": "mermaid",
+      "title": "Mermaid 官方流程图文档",
+      "url": "https://mermaid.js.org/syntax/flowchart.html",
+      "role": "沿用项目既有 Mermaid TD/LR 导出；阅读组件与导出共享节点和边。"
+    }
+  ],
+  "sections": [
+    {
+      "id": "home-background",
+      "title": "01 · 首页原图复位，淡出对准可见画面",
+      "paragraphs": [
+        "官网原图为 2000×2070，中间 x=520…1478 是透明区域。V7.3 把显示宽度从 1700px 改成 1100px，同时在横幅大范围上加遮罩；因此可见右图变小、向右收缩，而淡出主要发生在透明区域，实际图像左侧仍然突兀。",
+        "V7.3.1 使用独立 WelcomeBackdrop 背景组件，恢复桌面 1700px、窄屏 1150px 的原图尺度和右上定位。渐变只覆盖原图右侧 521px 的绘图区，图片左边缘从透明逐渐显现，右侧保持清楚，底层卡片仍是纯白。原始 PNG 的字节没有修改。",
+        "同时收窄旧的直属子元素定位规则：文字保持正常排布，迪莫装饰与来源标记保持绝对定位，背景层独立置底。这样装饰不会因共享样式被推进文档流。"
+      ],
+      "sourceIds": [
+        "official-home"
+      ],
+      "reviewRoutes": [
+        "/"
+      ],
+      "implementationEvidence": [
+        "src/wiki/WelcomeBackdrop.jsx",
+        "src/wiki/WelcomeBackdrop.css",
+        "src/wiki/HomePage.jsx",
+        "src/css/v72.css",
+        "src/css/v73.css"
+      ]
+    },
+    {
+      "id": "horizontal-flow",
+      "title": "02 · 横向布局按真实节点关系连接",
+      "paragraphs": [
+        "旧横向视图将纵向卡片切成两列，却仍用固定位置的短连线和局部 sticky 条件卡；长条件、否则路径与下级分支的相对位置会因此看起来不对应。",
+        "本次横向布局直接读取与 Mermaid 相同的节点与边。条件、结果、否则和下级分支依据真实父子关系排列，连接区属于对应边，不依赖固定卡片高度。较宽的流程只在图内滚动。纵向阅读、方向偏好和 Mermaid 导出语义保持原有行为。",
+        "当前技能图的生成模型为单父节点树。横向布局校验节点、边和入度，未来如果引入合流图而布局尚未支持，会明确提示，避免静默漏边或错误复制节点。"
+      ],
+      "sourceIds": [
+        "mermaid"
+      ],
+      "reviewRoutes": [
+        "/skills/xiazi/"
+      ],
+      "implementationEvidence": [
+        "src/wiki/SkillBranchView.jsx",
+        "src/wiki/SkillBranchView.css",
+        "src/wiki/skillFlow.js"
+      ]
+    },
+    {
+      "id": "shared-directories",
+      "title": "03 · 四类冒险目录共用圆角与搜索组件",
+      "paragraphs": [
+        "物品目录、任务目录、人物目录和地图目录改用同一套 DirectoryPanel。标题、条目数量、筛选区、搜索区和正文内容各有固定位置，容器、边框、圆角及间距在组件中集中维护。新增操作统一保留在页首，不再在目录中重复出现。",
+        "人物与地图的搜索框统一为圆角样式，并与物品搜索复用 DirectorySearch。搜索图标、清空入口、焦点状态、宽度约束和窄屏换行共同维护；页面只提供查询状态、文案、筛选项和列表内容。任务目录继续采用原有分类浏览。",
+        "已有分类、筛选、详情跳转与新增条目入口继续保留。本次只统一目录组件与它的实际使用处，没有重排冒险资料的信息归属。"
+      ],
+      "table": {
+        "headers": [
+          "页面",
+          "复用范围"
+        ],
+        "rows": [
+          [
+            "道具与物品",
+            "物品目录容器、标题、分类、搜索与条目卡片"
+          ],
+          [
+            "任务与剧情",
+            "任务目录容器、标题、分类与条目卡片"
+          ],
+          [
+            "人物与 NPC",
+            "人物目录、搜索及筛选排列"
+          ],
+          [
+            "地图与地区",
+            "地区目录、搜索及筛选排列"
+          ]
+        ]
+      },
+      "reviewRoutes": [
+        "/items/",
+        "/tasks/",
+        "/npcs/",
+        "/places/"
+      ],
+      "implementationEvidence": [
+        "src/wiki/DirectoryPanel.jsx",
+        "src/wiki/DirectoryPanel.css",
+        "src/wiki/WorldPages.jsx"
+      ]
+    },
+    {
+      "id": "primary-action",
+      "title": "04 · 新增玩法使用共用主按钮变体",
+      "paragraphs": [
+        "蓝底蓝字来自编辑入口旧样式中的强制前景色：页首按钮的背景已更新，但文字仍被旧蓝色覆盖。继续提高单个页面的选择器优先级会让维护更困难。",
+        "EditEntry 新增 primary 变体，由组件集中提供背景、白字、图标及悬停、访问和键盘焦点状态。旧普通编辑入口的强制色仅作用于非 primary 变体。PVE 新增玩法在原来的页首主操作位置使用这一变体，其他需要突出新增操作的目录也可以复用。"
+      ],
+      "reviewRoutes": [
+        "/pve/"
+      ],
+      "implementationEvidence": [
+        "src/wiki/editing/EditEntry.jsx",
+        "src/wiki/editing/EditEntry.css",
+        "src/wiki/EditingV7.css",
+        "src/wiki/PvePages.jsx"
+      ]
+    },
+    {
+      "id": "review-and-next-steps",
+      "title": "05 · 本轮验收与交接范围",
+      "paragraphs": [
+        "建议先打开首页核对图片的右侧定位和左侧淡出，再在技能详情切换横向视图，检查条件、否则及下级分支；随后查看物品、任务、人物、地图四类目录，搜索与清空，并确认 PVE 新增玩法的文字与图标清楚。",
+        "本轮只处理这次反馈中的界面回归、横向关系和组件复用，保留 Docusaurus。账号、计算器、其他业务数据及已实现的预览生命周期代码没有扩展；剩余生命周期问题按你的安排由你继续修复。",
+        "本轮验证基于原始图像 alpha 与坐标、React/DOM 交互、节点边对应关系以及原生构建与最终预览。当前环境未执行真实浏览器截图、实际缩放或帧率验收，不将 DOM 模拟当作这类验收。"
+      ],
+      "reviewRoutes": [
+        "/",
+        "/skills/xiazi/",
+        "/pve/",
+        "/items/",
+        "/tasks/",
+        "/npcs/",
+        "/places/"
+      ]
+    }
+  ],
+  "validation": {
+    "reportFiles": [
+      "validation/v731-flow-check.json",
+      "validation/v731-catalog-check.json",
+      "validation/v731-delivery-check.json"
+    ],
+    "browserVisualQa": "本轮未执行真实浏览器截图、实际缩放、设备绘制及帧率验收；已有生命周期代码保持原样，剩余生命周期问题由用户继续处理。"
+  }
+}

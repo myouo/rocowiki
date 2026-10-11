@@ -1,0 +1,50 @@
+{
+  "status": "PASS",
+  "scope": "jsdom DOM integration only; no actual-browser rendering, geometry, or visual assertions",
+  "artifact": "/workspace/scratch/e31631b30c0a/roco-wiki/RocoWiki_UI_V6.html",
+  "artifactSha256": "f64e60c2d4b96df62015ecc78713f3809857ef3f34f1a5c96afc172a1adb6c54",
+  "checkCount": 26,
+  "checks": [
+    "Seed review explicitly identifies its submission as a demonstration",
+    "Pending review renders its evidence and actual content difference",
+    "Approval persists as approved and does not skip the merge stage",
+    "Reviewer UI requires switching to the publishing role for merge actions",
+    "Merge persists independently from build and publication",
+    "Starting a build moves the stored and visible state to building",
+    "Failed build retains the submission and displays the error explanation",
+    "Retry returns to building while retaining the failed build event",
+    "Successful build waits for a separate publication action",
+    "Publication persists as published and visibly remains a local demonstration",
+    "Audit trail retains approval, merge, failure, retry, build success, and publication events",
+    "Published submission appears in the correct entity history",
+    "Only-local history includes the published demo submission and excludes static sample versions",
+    "Published state and its audit history survive a fresh DOM instance with persisted browser storage",
+    "Editor success link opens the exact newly created submission",
+    "Returning a submission without a reason is blocked with an inline validation error",
+    "A valid return reason persists with changes_requested and a direct revision link",
+    "Revision opens the same submission with preserved body and reviewer feedback",
+    "Resubmission resets the same record to pending and increments its revision count",
+    "Simulated upstream conflict blocks merge and persists the conflict state",
+    "Upstream conflict expands into a concrete before-and-after difference",
+    "Conflict revision rebases its displayed version and preserves the added upstream requirement",
+    "Conflict resubmission returns to pending on demo-r18 while preserving upstream content",
+    "Revision audit history retains both requested changes and the upstream conflict",
+    "The revised pending submission and upstream base version survive refresh",
+    "No runtime console errors occurred during the bounded DOM workflow tests"
+  ],
+  "finalStates": {
+    "publishedDemo": {
+      "id": "demo-001",
+      "status": "published",
+      "eventCount": 8
+    },
+    "revisedLocal": {
+      "id": "local-mv2b7jvb",
+      "status": "pending",
+      "baseVersion": "demo-r18",
+      "revisionCount": 3,
+      "eventCount": 6
+    }
+  },
+  "consoleErrors": []
+}

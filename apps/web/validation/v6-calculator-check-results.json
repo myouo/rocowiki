@@ -1,0 +1,151 @@
+{
+  "checkedAt": "2026-10-10T11:26:27.342Z",
+  "artifact": "RocoWiki_UI_V6.html",
+  "sha256": "f64e60c2d4b96df62015ecc78713f3809857ef3f34f1a5c96afc172a1adb6c54",
+  "scope": "Pure calculation regression and jsdom interaction contracts. No browser visual, geometry, real-device, live-game or gameplay verification.",
+  "passed": 35,
+  "total": 35,
+  "runtimeErrors": [],
+  "checks": [
+    {
+      "name": "Stats: known baseline from sourced species + formula",
+      "passed": true
+    },
+    {
+      "name": "Stats: floor effort / 4 before level scaling (252 = 255)",
+      "passed": true
+    },
+    {
+      "name": "Stats: nature precedes equipment and guardian, HP unaffected by nature",
+      "passed": true
+    },
+    {
+      "name": "Stats: 25 natures, exactly five balanced",
+      "passed": true
+    },
+    {
+      "name": "Stats: relation bonus belongs inside level-scaled intimacy",
+      "passed": true
+    },
+    {
+      "name": "Stats: guardian is excluded from panel and speed",
+      "passed": true
+    },
+    {
+      "name": "Stats: armor, weapon and accessory add to corresponding dimensions",
+      "passed": true
+    },
+    {
+      "name": "Stats: reject 100-level equipment on lower-level pet",
+      "passed": true
+    },
+    {
+      "name": "Stats: reject effort sum > 510 without silently clipping",
+      "passed": true
+    },
+    {
+      "name": "Stats: reject per-stat effort > 255",
+      "passed": true
+    },
+    {
+      "name": "Stats: reject speed intimacy, partial relationship budget and non-10 allocations",
+      "passed": true
+    },
+    {
+      "name": "Stats: empty, decimal and out-of-bounds fields are invalid",
+      "passed": true
+    },
+    {
+      "name": "Damage: exact default rational calculation and fixed 21 rolls",
+      "passed": true
+    },
+    {
+      "name": "Damage: 80 through 100 enumerated without custom float inputs",
+      "passed": true
+    },
+    {
+      "name": "Damage: category selects corresponding entered ability, not a new formula",
+      "passed": true
+    },
+    {
+      "name": "Damage: single resistance and effectiveness remain finite",
+      "passed": true
+    },
+    {
+      "name": "Damage: unknown special skill / modifiers / complex types return no range",
+      "passed": true
+    },
+    {
+      "name": "Damage: zero defense, fractional power and empty HP are rejected",
+      "passed": true
+    },
+    {
+      "name": "Damage: unresolved minimum-damage edge is explicitly unsupported",
+      "passed": true
+    },
+    {
+      "name": "Damage: no probability claim in result object",
+      "passed": true
+    },
+    {
+      "name": "DOM: stats route renders six results and custom selectors",
+      "passed": true
+    },
+    {
+      "name": "DOM: ability input updates result and shareable query",
+      "passed": true
+    },
+    {
+      "name": "DOM: shareable ability URL restores exact form after navigation",
+      "passed": true
+    },
+    {
+      "name": "DOM: changing relationship allocates legal default then allows invalid budget correction",
+      "passed": true
+    },
+    {
+      "name": "DOM: invalid total effort suppresses numeric outputs",
+      "passed": true
+    },
+    {
+      "name": "DOM: malformed calc JSON and nested values fall back safely",
+      "passed": true
+    },
+    {
+      "name": "DOM: ability → damage carries correct category, level and ability",
+      "passed": true
+    },
+    {
+      "name": "DOM: damage default renders 21 reference rolls",
+      "passed": true
+    },
+    {
+      "name": "DOM: damage change is deterministic and preserved in URL",
+      "passed": true
+    },
+    {
+      "name": "DOM: unsupported skill replaces result, has mechanics link",
+      "passed": true
+    },
+    {
+      "name": "DOM: legacy PP and range routes offer moved links without forms",
+      "passed": true
+    },
+    {
+      "name": "DOM: comparison keeps radar and uses shared selects",
+      "passed": true
+    },
+    {
+      "name": "DOM: mechanics first recommendation is stable and changes only on explicit action",
+      "passed": true
+    },
+    {
+      "name": "DOM: relations retains both selectors with shared component",
+      "passed": true
+    },
+    {
+      "name": "DOM: no React or jsdom runtime errors",
+      "passed": true
+    }
+  ]
+}

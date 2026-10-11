@@ -1,0 +1,19 @@
+{
+  "status": "passed",
+  "family": "Roco Wiki Sans",
+  "weights": [
+    400,
+    700
+  ],
+  "file": "static/fonts/roco-wiki-sans-v7.woff2",
+  "bytes": 367192,
+  "requestedCharacters": 1546,
+  "coveredCharacters": 1545,
+  "missingCharacters": "",
+  "intentionalFallbackCharacters": "⅓",
+  "sha256": "18a5452b6c4753fbbcc8ff1bf3a2298e26e16ba058d9e4155bea0d0415dfb85f",
+  "source": "https://raw.githubusercontent.com/google/fonts/main/ofl/notosanssc/NotoSansSC%5Bwght%5D.ttf",
+  "sourceSha256": "a3041811a78c361b1de50f953c805e0244951c21c5bd412f7232ef0d899af0da",
+  "license": "OFL-1.1",
+  "fallback": "PingFang SC, Microsoft YaHei, Noto Sans CJK SC, system sans-serif"
+}

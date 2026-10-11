@@ -1,0 +1,863 @@
+{
+  "status": "PASS",
+  "scope": "jsdom DOM/data integration and deterministic clock tests; not browser rendering, visual QA or animation performance validation",
+  "preview": "RocoWiki_UI_V5.html",
+  "previewSha256": "6a3c2c2c1b13840d4e0ed27ce4b8f28f0c8cac386d00e4f7c27fc21e493985ea",
+  "ranAt": "2026-10-10T09:33:14.644Z",
+  "routeCount": 97,
+  "checkCount": 42,
+  "checks": [
+    {
+      "name": "Account has a direct header link outside dropdown containers",
+      "pass": true
+    },
+    {
+      "name": "Contribution guide has a dedicated header entry",
+      "pass": true
+    },
+    {
+      "name": "Battle mechanics has its own primary navigation entry",
+      "pass": true
+    },
+    {
+      "name": "Homepage contains four newly introduced activities",
+      "pass": true
+    },
+    {
+      "name": "New activity list keeps evolution qualification visible",
+      "pass": true
+    },
+    {
+      "name": "Homepage continuing activity tab contains three activities",
+      "pass": true
+    },
+    {
+      "name": "Activity tab accessibility state follows selection",
+      "pass": true
+    },
+    {
+      "name": "Activity tabs can return to the four-item group",
+      "pass": true
+    },
+    {
+      "name": "Every homepage activity opens a registered detail route",
+      "pass": true
+    },
+    {
+      "name": "October 9 type tournament shows eleven bans",
+      "pass": true
+    },
+    {
+      "name": "Type tournament labels primary attributes",
+      "pass": true
+    },
+    {
+      "name": "October 13 type tournament shows ten bans",
+      "pass": true
+    },
+    {
+      "name": "Second type period shows water fire ice",
+      "pass": true
+    },
+    {
+      "name": "Homepage PVP filter link retains the selected period",
+      "pass": true
+    },
+    {
+      "name": "Uncatalogued bans are plain text; every linked ban resolves",
+      "pass": true
+    },
+    {
+      "name": "Ladder tab shows its separate twelve bans",
+      "pass": true
+    },
+    {
+      "name": "Ladder panel does not show type tournament eligibility",
+      "pass": true
+    },
+    {
+      "name": "First type period filters to Abu and Moshen by primary attribute",
+      "pass": true
+    },
+    {
+      "name": "Second type period excludes the banned Sailemu",
+      "pass": true
+    },
+    {
+      "name": "PVP filter does not claim full team eligibility",
+      "pass": true
+    },
+    {
+      "name": "General attribute search may match a secondary attribute",
+      "pass": true
+    },
+    {
+      "name": "Primary-only attribute search excludes a secondary-only match",
+      "pass": true
+    },
+    {
+      "name": "Fourth compare selection shows actionable limit feedback",
+      "pass": true
+    },
+    {
+      "name": "Compare selection remains capped at three distinct pets",
+      "pass": true
+    },
+    {
+      "name": "Removing an entry frees a compare slot",
+      "pass": true
+    },
+    {
+      "name": "Clear compare removes the selection and tray",
+      "pass": true
+    },
+    {
+      "name": "Unknown comparison IDs are discarded without fake links",
+      "pass": true
+    },
+    {
+      "name": "Comparison query deduplicates pet IDs",
+      "pass": true
+    },
+    {
+      "name": "Compare URL caps three unique valid IDs after deduplication",
+      "pass": true
+    },
+    {
+      "name": "Entirely unknown compare query displays an empty state",
+      "pass": true
+    },
+    {
+      "name": "Unknown pet ID does not display a different pet as fallback",
+      "pass": true
+    },
+    {
+      "name": "All 97 registered V5 routes are included in smoke validation",
+      "pass": true
+    },
+    {
+      "name": "Every registered route renders one substantial titled page with one feedback button",
+      "pass": true
+    },
+    {
+      "name": "All rendered internal links have registered routes",
+      "pass": true
+    },
+    {
+      "name": "Catalog sanitizes invalid duplicate and excess saved compare IDs",
+      "pass": true
+    },
+    {
+      "name": "Homepage automatically selects the October 13 period on that Shanghai date",
+      "pass": true
+    },
+    {
+      "name": "Stale homepage explicitly labels the edition as historical",
+      "pass": true
+    },
+    {
+      "name": "Stale homepage no longer titles its panels this week",
+      "pass": true
+    },
+    {
+      "name": "Stale continuing tab is labelled as that edition’s continuation",
+      "pass": true
+    },
+    {
+      "name": "A kept-open homepage refreshes stale state when refocused after Shanghai midnight",
+      "pass": true
+    },
+    {
+      "name": "Scheduled Shanghai midnight callback refreshes an active homepage",
+      "pass": true
+    },
+    {
+      "name": "No JavaScript runtime or console errors occurred",
+      "pass": true
+    }
+  ],
+  "pageResults": [
+    {
+      "route": "/",
+      "title": "洛克王国页游百科",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1
+    },
+    {
+      "route": "/pets/",
+      "title": "宠物图鉴",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1
+    },
+    {
+      "route": "/skills/",
+      "title": "技能查询",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1
+    },
+    {
+      "route": "/bloodlines/",
+      "title": "血脉资料",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1
+    },
+    {
+      "route": "/events/",
+      "title": "活动与获取",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1
+    },
+    {
+      "route": "/battle/",
+      "title": "对战与禁赛",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1
+    },
+    {
+      "route": "/adventure/",
+      "title": "冒险资料",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1
+    },
+    {
+      "route": "/places/",
+      "title": "地图与地区",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1
+    },
+    {
+      "route": "/npcs/",
+      "title": "人物与NPC",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1
+    },
+    {
+      "route": "/items/",
+      "title": "道具与物品",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1
+    },
+    {
+      "route": "/challenges/",
+      "title": "挑战攻略",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1
+    },
+    {
+      "route": "/tools/",
+      "title": "实用工具",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1
+    },
+    {
+      "route": "/community/",
+      "title": "贡献中心",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1
+    },
+    {
+      "route": "/account/",
+      "title": "个人中心",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1
+    },
+    {
+      "route": "/edit/",
+      "title": "编辑 · 海芙约忒",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1
+    },
+    {
+      "route": "/review/",
+      "title": "审核工作台",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1
+    },
+    {
+      "route": "/history/",
+      "title": "修订记录 · 海芙约忒",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1
+    },
+    {
+      "route": "/search/",
+      "title": "全站搜索",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1
+    },
+    {
+      "route": "/guides/",
+      "title": "玩家指南",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1
+    },
+    {
+      "route": "/help/",
+      "title": "贡献与资料规范",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1
+    },
+    {
+      "route": "/tasks/",
+      "title": "任务与剧情",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1
+    },
+    {
+      "route": "/not-found/",
+      "title": "没有找到这份资料",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1
+    },
+    {
+      "route": "/pets/haifu/",
+      "title": "海芙约忒",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1
+    },
+    {
+      "route": "/pets/bishui/",
+      "title": "碧水灵兽",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1
+    },
+    {
+      "route": "/pets/dimo/",
+      "title": "迪莫",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1
+    },
+    {
+      "route": "/pets/abu/",
+      "title": "阿布",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1
+    },
+    {
+      "route": "/pets/shuilanlan/",
+      "title": "水蓝蓝",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1
+    },
+    {
+      "route": "/pets/huohua/",
+      "title": "火花",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1
+    },
+    {
+      "route": "/pets/miaomiao/",
+      "title": "喵喵",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1
+    },
+    {
+      "route": "/pets/royal-dimo/",
+      "title": "皇家圣光迪莫",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1
+    },
+    {
+      "route": "/pets/moshen/",
+      "title": "魔神武王",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1
+    },
+    {
+      "route": "/pets/zhuque/",
+      "title": "灵瑞朱雀",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1
+    },
+    {
+      "route": "/pets/hapuluosi/",
+      "title": "哈普洛斯",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1
+    },
+    {
+      "route": "/pets/sailemu/",
+      "title": "塞勒姆",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1
+    },
+    {
+      "route": "/skills/xiazi/",
+      "title": "霞姿月韵",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1
+    },
+    {
+      "route": "/skills/yuanyun/",
+      "title": "渊云点墨",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1
+    },
+    {
+      "route": "/skills/diezhang/",
+      "title": "叠嶂扶影",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1
+    },
+    {
+      "route": "/skills/tianhe/",
+      "title": "天河夜转",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1
+    },
+    {
+      "route": "/skills/feixing/",
+      "title": "飞星浮渡",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1
+    },
+    {
+      "route": "/skills/linghuo/",
+      "title": "灵火之杖",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1
+    },
+    {
+      "route": "/skills/xiufu/",
+      "title": "袖拂尘散",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1
+    },
+    {
+      "route": "/skills/wufa/",
+      "title": "巫法重击",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1
+    },
+    {
+      "route": "/places/castle/",
+      "title": "王国城堡",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1
+    },
+    {
+      "route": "/places/academy/",
+      "title": "魔法学院",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1
+    },
+    {
+      "route": "/places/mermaid-bay/",
+      "title": "人鱼湾",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1
+    },
+    {
+      "route": "/places/snow-valley/",
+      "title": "雪人谷",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1
+    },
+    {
+      "route": "/places/xuan-yu/",
+      "title": "玄玉岛",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1
+    },
+    {
+      "route": "/places/sky/",
+      "title": "天空城",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1
+    },
+    {
+      "route": "/npcs/griffin/",
+      "title": "格里芬院长",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1
+    },
+    {
+      "route": "/npcs/lancelot/",
+      "title": "兰斯洛",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1
+    },
+    {
+      "route": "/bloodlines/haifu/",
+      "title": "海芙约忒 · 血脉与专属资源",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1
+    },
+    {
+      "route": "/events/fun-chess-20251128/",
+      "title": "趣味对弈",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1
+    },
+    {
+      "route": "/challenges/star-tower/",
+      "title": "星辰之塔",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1
+    },
+    {
+      "route": "/items/potion/",
+      "title": "HP药剂",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1
+    },
+    {
+      "route": "/tasks/badges/",
+      "title": "徽章任务",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1
+    },
+    {
+      "route": "/tools/compare/",
+      "title": "宠物对比",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1
+    },
+    {
+      "route": "/tools/pp/",
+      "title": "PP 预算",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1
+    },
+    {
+      "route": "/tools/range/",
+      "title": "自定义浮动区间",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1
+    },
+    {
+      "route": "/skills/shuilingdong/",
+      "title": "水灵动",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1
+    },
+    {
+      "route": "/skills/yupiaoyao/",
+      "title": "雨飘摇",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1
+    },
+    {
+      "route": "/skills/chenshiji/",
+      "title": "趁势击",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1
+    },
+    {
+      "route": "/skills/feiyanlingbo/",
+      "title": "飞燕凌波",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1
+    },
+    {
+      "route": "/feedback/",
+      "title": "我的反馈",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1
+    },
+    {
+      "route": "/mechanics/",
+      "title": "战斗机制",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1
+    },
+    {
+      "route": "/mechanics/relations/",
+      "title": "效果关系查询",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1
+    },
+    {
+      "route": "/battle/rules/",
+      "title": "系别排位赛参赛规则",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1
+    },
+    {
+      "route": "/events/harvest-fruit-line-20261009/",
+      "title": "丰收水果连线",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1
+    },
+    {
+      "route": "/events/ifrit-challenge-20261009/",
+      "title": "伊芙利特的挑战",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1
+    },
+    {
+      "route": "/events/soul-helmets-20261009/",
+      "title": "千盔铸魂",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1
+    },
+    {
+      "route": "/events/energy-array-20261009/",
+      "title": "能量调和之阵",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1
+    },
+    {
+      "route": "/events/collect-colors-20261002/",
+      "title": "采集颜色",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1
+    },
+    {
+      "route": "/events/fruit-market-20261002/",
+      "title": "瓜果集市",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1
+    },
+    {
+      "route": "/events/duck-challenge-20261002/",
+      "title": "难不倒鸭",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1
+    },
+    {
+      "route": "/guides/pve/",
+      "title": "挑战攻略怎么查",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1
+    },
+    {
+      "route": "/guides/returning/",
+      "title": "回归先查什么",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1
+    },
+    {
+      "route": "/guides/training/",
+      "title": "宠物培养资料",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1
+    },
+    {
+      "route": "/help/contributing/",
+      "title": "参与编辑",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1
+    },
+    {
+      "route": "/help/sources/",
+      "title": "资料来源与验证",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1
+    },
+    {
+      "route": "/mechanics/accuracy/",
+      "title": "命中、必中与闪避",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1
+    },
+    {
+      "route": "/mechanics/attributes/",
+      "title": "属性、能力与克制",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1
+    },
+    {
+      "route": "/mechanics/damage/",
+      "title": "伤害类型与结算",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1
+    },
+    {
+      "route": "/mechanics/effects/pressure/",
+      "title": "压迫（双损）",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1
+    },
+    {
+      "route": "/mechanics/effects/",
+      "title": "效果档案与同名识别",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1
+    },
+    {
+      "route": "/mechanics/evidence/",
+      "title": "机制实测与争议记录",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1
+    },
+    {
+      "route": "/mechanics/glossary/",
+      "title": "战斗术语速查",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1
+    },
+    {
+      "route": "/mechanics/healing/",
+      "title": "治疗、禁疗与转化",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1
+    },
+    {
+      "route": "/mechanics/interactions/",
+      "title": "覆盖、共存与解除",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1
+    },
+    {
+      "route": "/mechanics/overview/",
+      "title": "战斗机制总目录",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1
+    },
+    {
+      "route": "/mechanics/passive/",
+      "title": "血脉与被动触发",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1
+    },
+    {
+      "route": "/mechanics/pp/",
+      "title": "PP 与技能限制",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1
+    },
+    {
+      "route": "/mechanics/priority/",
+      "title": "速度与先手",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1
+    },
+    {
+      "route": "/mechanics/shield/",
+      "title": "护盾与减伤",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1
+    },
+    {
+      "route": "/mechanics/stages/",
+      "title": "技能阶段与结算",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1
+    },
+    {
+      "route": "/mechanics/status/",
+      "title": "异常、强化与标记",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1
+    },
+    {
+      "route": "/mechanics/switching/",
+      "title": "换宠、驱逐与场下",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1
+    },
+    {
+      "route": "/mechanics/timing/",
+      "title": "触发顺序与结算时点",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1
+    },
+    {
+      "route": "/mechanics/weather/",
+      "title": "天气与环境",
+      "pass": true,
+      "h1Count": 1,
+      "feedbackButtons": 1
+    }
+  ],
+  "badLinks": [],
+  "runtimeErrors": [],
+  "jsdomLimitations": []
+}

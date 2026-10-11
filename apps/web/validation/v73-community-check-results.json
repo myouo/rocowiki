@@ -1,0 +1,467 @@
+{
+  "version": "7.3",
+  "scope": "UID/UUID separation, uniform daily reward and durable accounting, real calendars, direct social activity records, cosmetic presentation, and actual React account interactions (no browser visual QA)",
+  "generatedAt": "2026-10-11T01:34:54.794Z",
+  "total": 111,
+  "passed": 111,
+  "checks": [
+    {
+      "name": "Registration UID accepts positive integer strings without floating-point precision loss",
+      "pass": true
+    },
+    {
+      "name": "Registration UID rejects UUIDs, invented display prefixes, zero, negatives and unsafe numbers",
+      "pass": true
+    },
+    {
+      "name": "UUID initialization never invents a registration UID",
+      "pass": true
+    },
+    {
+      "name": "Uniform reward buckets cover exactly 3, 4, 5, 6 and 7",
+      "pass": true
+    },
+    {
+      "name": "Random reward rejection sampling excludes the biased Uint32 remainder",
+      "pass": true
+    },
+    {
+      "name": "Unavailable secure randomness cannot create a rewarded check-in",
+      "pass": true
+    },
+    {
+      "name": "Out-of-policy rewards fail before creating a record",
+      "pass": true
+    },
+    {
+      "name": "Persisted reward survives reread and a second attempt never draws again",
+      "pass": true
+    },
+    {
+      "name": "A failed reward write does not replace an existing wallet or return a successful draw",
+      "pass": true
+    },
+    {
+      "name": "V7.2 rewards remain exact saved amounts during migration",
+      "pass": true
+    },
+    {
+      "name": "Month view uses 28 or 29 actual February dates and pads Monday-first rows",
+      "pass": true
+    },
+    {
+      "name": "A six-row month displays every real date and marks adjacent-month cells",
+      "pass": true
+    },
+    {
+      "name": "Week view is a real Monday-to-Sunday week even across years",
+      "pass": true
+    },
+    {
+      "name": "Calendar navigation preserves months with different lengths",
+      "pass": true
+    },
+    {
+      "name": "Impossible calendar dates fall back instead of rolling into another month",
+      "pass": true
+    },
+    {
+      "name": "Beijing day changes exactly at 16:00 UTC",
+      "pass": true
+    },
+    {
+      "name": "Week starts on Monday in Beijing, including a UTC Sunday boundary",
+      "pass": true
+    },
+    {
+      "name": "Month rollover is determined in Beijing",
+      "pass": true
+    },
+    {
+      "name": "Leap-day calculation retains February 29",
+      "pass": true
+    },
+    {
+      "name": "Generated profile identity is a real UUID",
+      "pass": true
+    },
+    {
+      "name": "A legacy profile receives a durable UUID without losing drafts",
+      "pass": true
+    },
+    {
+      "name": "Renaming a profile does not replace its UUID",
+      "pass": true
+    },
+    {
+      "name": "Migration does not guess legacy submission authors from matching nicknames",
+      "pass": true
+    },
+    {
+      "name": "Failed UUID persistence cannot claim a durable account identity",
+      "pass": true
+    },
+    {
+      "name": "Storage failure during UUID migration preserves the readable old profile",
+      "pass": true
+    },
+    {
+      "name": "An unknown identity cannot earn currency",
+      "pass": true
+    },
+    {
+      "name": "Insufficient balance prevents both purchase and debit",
+      "pass": true
+    },
+    {
+      "name": "A controlled five-token draw stores one daily reward and one ledger entry",
+      "pass": true
+    },
+    {
+      "name": "Repeated same-day check-in is idempotent",
+      "pass": true
+    },
+    {
+      "name": "A saved five-token reward can fund one complete badge redemption",
+      "pass": true
+    },
+    {
+      "name": "Owned cosmetic items cannot charge the wallet again",
+      "pass": true
+    },
+    {
+      "name": "A redeemed badge can be worn and removed without affecting money",
+      "pass": true
+    },
+    {
+      "name": "Unowned cosmetics cannot be worn",
+      "pass": true
+    },
+    {
+      "name": "A badge cannot be installed into the frame slot",
+      "pass": true
+    },
+    {
+      "name": "Seven-day bonus is awarded at day 7 and again at day 14",
+      "pass": true
+    },
+    {
+      "name": "Current, cumulative and longest streaks remain distinct fields",
+      "pass": true
+    },
+    {
+      "name": "A missed day resets current streak and preserves historical records",
+      "pass": true
+    },
+    {
+      "name": "Clock rollback cannot create another rewarded past day",
+      "pass": true
+    },
+    {
+      "name": "Seven-day achievement follows a true contiguous streak",
+      "pass": true
+    },
+    {
+      "name": "Guide likes credit their explicit author and remain separate from comments",
+      "pass": true
+    },
+    {
+      "name": "Self-likes are rejected",
+      "pass": true
+    },
+    {
+      "name": "Counter support votes are not accepted by the social-like model",
+      "pass": true
+    },
+    {
+      "name": "Withdrawing a like reverses author influence immediately",
+      "pass": true
+    },
+    {
+      "name": "Reliking retains the original period instead of farming a new monthly score",
+      "pass": true
+    },
+    {
+      "name": "A historical guide can receive a content like without inventing an author",
+      "pass": true
+    },
+    {
+      "name": "Comments preserve author UUID, display name and avatar",
+      "pass": true
+    },
+    {
+      "name": "Comment likes use the real comment author, not a caller-supplied owner",
+      "pass": true
+    },
+    {
+      "name": "Only a comment's own author can remove it",
+      "pass": true
+    },
+    {
+      "name": "Removing a comment also removes its active likes",
+      "pass": true
+    },
+    {
+      "name": "Received-guide records retain the actual liker, original timestamp and target link",
+      "pass": true
+    },
+    {
+      "name": "A comment-like record returns to the exact comment anchor and preserves its body",
+      "pass": true
+    },
+    {
+      "name": "Discussion footprint filters by explicit author UUID and shows valid received likes",
+      "pass": true
+    },
+    {
+      "name": "Deleted or orphaned comments are excluded consistently from counters and activity",
+      "pass": true
+    },
+    {
+      "name": "Historical likes without a display-name snapshot do not invent a user identity",
+      "pass": true
+    },
+    {
+      "name": "Activity period filtering uses the same original Beijing date as leaderboard statistics",
+      "pass": true
+    },
+    {
+      "name": "Contribution count excludes duplicates, examples, no-op changes, unowned history and drafts",
+      "pass": true
+    },
+    {
+      "name": "New-entry contribution footprint opens the actual detail and its own revision",
+      "pass": true
+    },
+    {
+      "name": "Repeated publication stays in its original publication period",
+      "pass": true
+    },
+    {
+      "name": "A withdrawn publication leaves the currently effective contribution count",
+      "pass": true
+    },
+    {
+      "name": "Spending check-in currency cannot decrease earned contribution influence",
+      "pass": true
+    },
+    {
+      "name": "Equal scores receive shared competition ranks 1, 1, 3",
+      "pass": true
+    },
+    {
+      "name": "Streak ranking is based on consecutive days, not check-in totals",
+      "pass": true
+    },
+    {
+      "name": "A new-month streak milestone carries genuine previous-month continuity",
+      "pass": true
+    },
+    {
+      "name": "Week and month views change displayed scope while preserving a three-day cross-month streak",
+      "pass": true
+    },
+    {
+      "name": "Zero-score users are omitted without fabricated rankings",
+      "pass": true
+    },
+    {
+      "name": "Example rankings are explicit and detached from real account data",
+      "pass": true
+    },
+    {
+      "name": "Failed wallet persistence does not report success or alter saved state",
+      "pass": true
+    },
+    {
+      "name": "Actual profile screen migrates a UUID and retains old profile details",
+      "pass": true
+    },
+    {
+      "name": "Profile labels distinguish UUID from a server registration UID",
+      "pass": true
+    },
+    {
+      "name": "An example UID is explicitly marked and never saved as this account's registration",
+      "pass": true
+    },
+    {
+      "name": "Profile UUID copy uses the actual stable identifier",
+      "pass": true
+    },
+    {
+      "name": "Avatar keyboard navigation remains available",
+      "pass": true
+    },
+    {
+      "name": "Saving profile and avatar preserves the UUID",
+      "pass": true
+    },
+    {
+      "name": "Profile biography uses the shared bounded textarea with constrained native sizing",
+      "pass": true
+    },
+    {
+      "name": "Account homepage shows distinct guide-like and comment-like influence counters",
+      "pass": true
+    },
+    {
+      "name": "Homepage contains seven actual recent dates without a fake monthly reset",
+      "pass": true
+    },
+    {
+      "name": "Footprint guideLikes opens its own addressable records screen and useful empty state",
+      "pass": true
+    },
+    {
+      "name": "Footprint commentLikes opens its own addressable records screen and useful empty state",
+      "pass": true
+    },
+    {
+      "name": "Footprint comments opens its own addressable records screen and useful empty state",
+      "pass": true
+    },
+    {
+      "name": "Footprint contributions opens its own addressable records screen and useful empty state",
+      "pass": true
+    },
+    {
+      "name": "Homepage check-in saves one event and updates the live wallet",
+      "pass": true
+    },
+    {
+      "name": "Disabled same-day check-in cannot create duplicate rewards",
+      "pass": true
+    },
+    {
+      "name": "Community honors has a clear top-level account section",
+      "pass": true
+    },
+    {
+      "name": "Full check-in page defaults to a real current-month calendar",
+      "pass": true
+    },
+    {
+      "name": "Week switch changes URL and displays exactly Monday through Sunday",
+      "pass": true
+    },
+    {
+      "name": "Calendar browsing records its selected date and supports returning to the current week",
+      "pass": true
+    },
+    {
+      "name": "Returning to the current calendar period keeps the existing check-in reward",
+      "pass": true
+    },
+    {
+      "name": "Badge cabinet updates its deep-link URL",
+      "pass": true
+    },
+    {
+      "name": "The first cosmetic is redeemable in the actual UI with zero remaining balance",
+      "pass": true
+    },
+    {
+      "name": "Wearing a badge updates the identity card immediately",
+      "pass": true
+    },
+    {
+      "name": "The wallet ledger exposes credit, debit and running balances",
+      "pass": true
+    },
+    {
+      "name": "Rankings can be opened directly by URL",
+      "pass": true
+    },
+    {
+      "name": "Default rankings show only the genuine local participant",
+      "pass": true
+    },
+    {
+      "name": "Example rankings require an explicit switch and are visibly marked",
+      "pass": true
+    },
+    {
+      "name": "Day/week/month/all period controls are interactive",
+      "pass": true
+    },
+    {
+      "name": "Viewing examples never writes fabricated scores into the real account",
+      "pass": true
+    },
+    {
+      "name": "Returning through a deep link restores the correct honors view",
+      "pass": true
+    },
+    {
+      "name": "Both cosmetic frame previews keep decorative outer glow layers separate from the avatar image",
+      "pass": true
+    },
+    {
+      "name": "Growth badges use distinct handcrafted SVG medals with unique gradient IDs",
+      "pass": true
+    },
+    {
+      "name": "Homepage counters reflect own actual contributions, received likes and comments without future or other-user records",
+      "pass": true
+    },
+    {
+      "name": "A supplied registration UID appears read-only without replacing the existing UUID",
+      "pass": true
+    },
+    {
+      "name": "Actual guide-like activity displays liker, timestamp, precise target and usable return link",
+      "pass": true
+    },
+    {
+      "name": "Actual received-comment view renders linked entities and points to the exact discussion anchor",
+      "pass": true
+    },
+    {
+      "name": "Actual participation record includes my comment and its separate received-like count",
+      "pass": true
+    },
+    {
+      "name": "Actual published-contribution view has both original-section and revision-specific links",
+      "pass": true
+    },
+    {
+      "name": "Deep linking restores the requested real activity view and its time filter",
+      "pass": true
+    },
+    {
+      "name": "Withdrawing an existing guide like removes it from the live activity screen",
+      "pass": true
+    },
+    {
+      "name": "Saving nickname, avatar and biography cannot edit a supplied registration UID",
+      "pass": true
+    },
+    {
+      "name": "Avatar-frame motion contract uses only opacity and transform animations and supports reduced motion",
+      "pass": true
+    },
+    {
+      "name": "Custom selection controls do not introduce native select menus",
+      "pass": true
+    },
+    {
+      "name": "Actual community UI rendered without React errors",
+      "pass": true
+    }
+  ],
+  "errors": [],
+  "sourceHashes": {
+    "src/wiki/CommunityPages.jsx": "81c5677013aa458b62a3d413b490eb81a6f4b0ca91bc935b8575296b0802fdec",
+    "src/wiki/AccountIdentity.jsx": "b8e08b51092880783fd8806d248ce63667aed8ca77764fd3fd9d984d26d6a7f9",
+    "src/wiki/communitySocialModel.js": "ed686d41f28457736c09d9194321627bcd93c9b0c70e38d5eb2affaedf1131b0",
+    "src/wiki/communitySocialStore.js": "3879f2c938eea7f1b616915795208cb9c67ca158cc9687c7b33950045693514c",
+    "src/wiki/communityActivityModel.js": "d185b1f49d1dbae8a2bae01f0a271dcf06435b5c6be52315a350969ea04f9af3",
+    "src/wiki/CommunityActivity.jsx": "e3a5899b2345c76e1cbb324d6eaf2adb836541a727db445050645aba68ce9d8d",
+    "src/wiki/CommunityCheckinCalendar.jsx": "6d4ab910bb3ca9ba860a86f6bca599f60c52e03581812c1175207ca9511bbdb8",
+    "src/wiki/CommunityHonors.jsx": "58ad226e41709847f7b5a9f7936197e90b2566c18ed0a6eaf850edecbcd4c08b",
+    "src/wiki/CommunityHonors.css": "885fe539a5091e4b58bf5b34c9cc9c2ad361da6b7d680d489946d59db64a2b31",
+    "src/wiki/HonorSymbols.jsx": "f25037567915fafd282f26e42175d736d376c05bb0de91aed1ccb330f26c542c",
+    "content/community-ecology-v73.json": "a1579e4e01330dff49d679f87e1f058e930bd621d826f0694e894541aa3d226a"
+  }
+}

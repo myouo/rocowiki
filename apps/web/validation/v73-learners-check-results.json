@@ -1,0 +1,199 @@
+{
+  "suite": "V7.3 many-to-many skill learners",
+  "checkedAt": "2026-10-11T01:34:58.690Z",
+  "checks": [
+    {
+      "name": "Owner hints, pet pools and explicit additions merge into a deduplicated union",
+      "pass": true
+    },
+    {
+      "name": "Known pool method and level are preserved",
+      "pass": true
+    },
+    {
+      "name": "Explicit source-backed learning details can refine the aggregate",
+      "pass": true
+    },
+    {
+      "name": "Unknown method and level remain unknown",
+      "pass": true
+    },
+    {
+      "name": "Removing supplemental rows retains every imported pool relation",
+      "pass": true
+    },
+    {
+      "name": "Stable skill slug still matches after a name change",
+      "pass": true
+    },
+    {
+      "name": "Missing or deleted pet references are reported without broken cards",
+      "pass": true
+    },
+    {
+      "name": "Local pet routes retain the entry query",
+      "pass": true
+    },
+    {
+      "name": "Missing learning method and level are valid with a source",
+      "pass": true
+    },
+    {
+      "name": "Invalid levels, unknown pets and duplicate relations are rejected",
+      "pass": true
+    },
+    {
+      "name": "Learning source URLs reject executable schemes",
+      "pass": true
+    },
+    {
+      "name": "Learning edits have an isolated snapshot identity",
+      "pass": true
+    },
+    {
+      "name": "Learning snapshots contain no editable effect or description payload",
+      "pass": true
+    },
+    {
+      "name": "A learning publication modifies only the learning relation",
+      "pass": true
+    },
+    {
+      "name": "A learning publication does not claim to replace battle rules",
+      "pass": true
+    },
+    {
+      "name": "Draft learning records stay out of public reading",
+      "pass": true
+    },
+    {
+      "name": "Later normal skill edits preserve learning data",
+      "pass": true
+    },
+    {
+      "name": "Reopening a learning edit reads the published relation and current skill identity",
+      "pass": true
+    },
+    {
+      "name": "General skill editor cannot load the learning-only snapshot by accident",
+      "pass": true
+    },
+    {
+      "name": "Learning-specific validation does not require unrelated skill description",
+      "pass": true
+    },
+    {
+      "name": "Learning differences use the learning-method label",
+      "pass": true
+    },
+    {
+      "name": "Even an add-intent learner request cannot append a skill branch",
+      "pass": true
+    },
+    {
+      "name": "Reader renders a compact card for each distinct learner",
+      "pass": true
+    },
+    {
+      "name": "Pets without an image use the portrait symbol instead of requesting a blank URL",
+      "pass": true
+    },
+    {
+      "name": "Local learner card opens the local pet skill pool",
+      "pass": true
+    },
+    {
+      "name": "All contributing sources stay accessible",
+      "pass": true
+    },
+    {
+      "name": "Search filters the compact relationship grid",
+      "pass": true
+    },
+    {
+      "name": "Large learner sets start with a bounded card batch",
+      "pass": true
+    },
+    {
+      "name": "More results expand without replacing previous cards",
+      "pass": true
+    },
+    {
+      "name": "Searching covers the entire set, not just the visible batch",
+      "pass": true
+    },
+    {
+      "name": "The dedicated editor supports selecting multiple recorded pets",
+      "pass": true
+    },
+    {
+      "name": "Learning method, optional level and source edit their own relation",
+      "pass": true
+    },
+    {
+      "name": "Removing one supplemental relation leaves the others intact",
+      "pass": true
+    },
+    {
+      "name": "Learning preview uses the same aggregated card component",
+      "pass": true
+    },
+    {
+      "name": "Learning preview does not invent an empty skill-effect form",
+      "pass": true
+    },
+    {
+      "name": "The full editor opens directly on the learning form",
+      "pass": true
+    },
+    {
+      "name": "Full editor preview shows both imported and newly selected learners",
+      "pass": true
+    },
+    {
+      "name": "Submitting a learning edit creates a scoped reviewable record",
+      "pass": true
+    },
+    {
+      "name": "The real SkillPage reads published additions beside imported learners",
+      "pass": true
+    },
+    {
+      "name": "The real learning section exposes the precise implemented editor route",
+      "pass": true
+    },
+    {
+      "name": "Owners no longer offers the unrelated generic article editor",
+      "pass": true
+    },
+    {
+      "name": "The reverse pet skill pool also contains the newly related skill",
+      "pass": true
+    },
+    {
+      "name": "Learner, relationship and source cards share rounded responsive styling",
+      "pass": true
+    },
+    {
+      "name": "No unexpected React or JavaScript errors occurred",
+      "pass": true
+    }
+  ],
+  "passed": 44,
+  "total": 44,
+  "failed": 0,
+  "sourceHashes": {
+    "src/wiki/skillLearnerModel.js": "3fcbfc3cfb730c4420cab01d9683937fdf3bfec0141ae7e20a0662634afbf851",
+    "src/wiki/SkillLearners.jsx": "65a4201e9072e04924136b7069452e0a8bc67264c1ee4b2f355a2ce770d07a0e",
+    "src/wiki/SkillLearners.css": "20649d9be7b0d547772b6d3cd24da0bd9366e0be08de0e9cc01883fe563dedb3",
+    "src/wiki/CatalogPages.jsx": "8278a140395baf372863d81db635e65d8fbff753b38c9e0a7ecc66a77215cd2c",
+    "src/wiki/catalogPublished.js": "098e21b665b2012a20de53ed6ed4868aefc9d2dfba6acafa6a6c41020054c610",
+    "src/wiki/editing/registry.js": "cb8c1ab89902b004ed922253b5a5df99f59f85df490253e2b0969dda8685d778",
+    "src/wiki/editing/TypedFields.jsx": "68156605e95160c9404451527905067a1f8e1f53888f4757c38841dc209faedc",
+    "src/wiki/editing/model.js": "1661175b27dfd272f37abc8e3e90d67579b834e4349b3344b500d359ded889c5",
+    "src/wiki/editing/PreviewContent.jsx": "c1eea068bb55cda74619654b295d26ed50f904b7c745952f2f5df7becb8063a2",
+    "src/wiki/editing/SectionEditor.jsx": "75ee630d5fd1007e58b3a611e8a493ce8196f728bc7a44917feabd5c16ef99eb"
+  },
+  "errors": [],
+  "browserVisualQA": false
+}
