@@ -129,8 +129,9 @@ async function main(){
     execFileSync(process.execPath,['node_modules/wrangler/bin/wrangler.js','deploy','--config',file],{stdio:'inherit',env:{...env,CI:'true'}});
   }finally{await rm(temporary,{recursive:true,force:true});}
   await bindWorkerDomain(env.CLOUDFLARE_ACCOUNT_ID!,env.CLOUDFLARE_ZONE_ID!,env.CLOUDFLARE_API_TOKEN!);
-  await verifyPublicRelease(version,'https://wiki-direct.rocoai.app');
   await configurePreferredRoute(env.CLOUDFLARE_ZONE_ID!,env.CLOUDFLARE_API_TOKEN!,env.CLOUDFLARE_ZONE_API_TOKEN||env.CLOUDFLARE_API_TOKEN!);
+  // Prepare both hostnames before validation; no receipt is sent until both verify.
+  await verifyPublicRelease(version,'https://wiki-direct.rocoai.app');
   await verifyPublicRelease(version,env.SITE_URL!);
   console.log(`Verified public release: ${version.release_id}`);
   if(enabled==='true'){await sendReceipt(version,env.API_ORIGIN!,env.DEPLOY_WEBHOOK_SECRET!);console.log('Release receipt accepted');}
