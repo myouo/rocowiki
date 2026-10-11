@@ -1,6 +1,6 @@
 # Governance
 [中文](GOVERNANCE.md) · [Security](SECURITY.en.md)
-<!-- rocowiki-policy: governance; version: 1; lang: en -->
+<!-- rocowiki-policy: governance; version: 2; lang: en -->
 
 <a id="roles"></a>
 ## Roles and responsibilities
@@ -17,7 +17,7 @@ Wiki reviewer/admin status is independent of GitHub maintenance or merge permiss
 <a id="decisions"></a>
 ## Decisions
 
-Module maintainers resolve routine implementation choices. Changes to authentication, publishing, data authority, public contracts or licensing first explain the need, constraints, impact and trade-offs, then provide a reviewable implementation. Record significant long-term decisions as ADRs under docs/decisions/ with Chinese and English summaries. Record evidence and unresolved questions; silence is not approval.
+Module maintainers resolve routine implementation choices. Changes to authentication, publishing, data authority, public contracts or licensing first explain the need, constraints, impact and trade-offs, then provide a reviewable implementation. Record important decisions, reasoning and impact in the corresponding issue or PR; explain policy changes in Chinese and English. Record evidence and unresolved questions; silence is not approval.
 
 <a id="review"></a>
 ## Review ownership
@@ -27,7 +27,7 @@ Code requires independent review and required checks. Content uses Wiki review a
 <a id="release"></a>
 ## Release and recovery
 
-Protect main and publish verified artifacts without publisher bypass or automatic merging. Follow operations guidance for migration order, compatibility, receipts, online SHA, reconciliation and recovery. Record outstanding platform acceptance separately; mocks prove neither deployment nor third-party asset permission. Emergency fixes still require auditable records and subsequent independent review.
+Protect main and publish verified artifacts without publisher bypass or automatic merging. Release PRs describe migration order, compatibility, verification and recovery. Confirm publication only after checking the actual online version and trusted receipt. Record outstanding platform acceptance separately; mocks prove neither deployment nor third-party asset permission. Emergency fixes still require auditable records and subsequent independent review.
 
 <a id="policy"></a>
 ## Policy maintenance

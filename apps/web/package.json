@@ -14,7 +14,6 @@
     "check:content": "node scripts/check-content.mjs",
     "build:baselines": "node scripts/build-published-docs.mjs && node scripts/build-section-snapshots.cjs",
     "check:v7": "node validation/check-v7-calculators.cjs && node validation/check-v7-catalog.cjs && node validation/check-v7-world.cjs && node validation/check-v7-editing.cjs && node validation/check-v7-shared-edit-audit.cjs && node validation/check-v7-integration.cjs",
-    "build:report": "node scripts/build-design-report-v731.mjs",
     "check:v71": "node validation/check-v71-catalog.cjs && node validation/check-v71-editing.cjs && node validation/check-v71-world.cjs && node validation/check-v71-integration.cjs",
     "check:v72": "node validation/check-v72-catalog.cjs && node validation/check-v72-community.cjs && node validation/check-v72-flow.cjs && node validation/check-v72-world.cjs && node validation/check-v72-integration.cjs",
     "check:v73": "node validation/check-v73-community.cjs && node validation/check-v73-calculators.cjs && node validation/check-v73-learners.cjs && node validation/check-v73-interface.cjs && node validation/check-v731-flow.cjs && node validation/check-v731-catalog.cjs",

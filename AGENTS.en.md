@@ -1,11 +1,11 @@
 # Repository instructions
-[中文](AGENTS.md) · [Full standards](docs/standards.en.md)
-<!-- rocowiki-policy: repository-instructions; version: 1; lang: en -->
+[中文](AGENTS.md) · [Contributing](CONTRIBUTING.en.md)
+<!-- rocowiki-policy: repository-instructions; version: 2; lang: en -->
 
 <a id="scope"></a>
 ## Scope and authorization
 
-Applies across the repository alongside CONTRIBUTING.en.md, SECURITY.en.md and docs/standards.en.md. Valid task authorization from the user and higher-priority instructions take precedence. Independent review/production approval rules govern merging and production operations; they do not block authorized local investigation, implementation or verification. Never invent deployment status, maintainer accounts or contacts.
+Applies across the repository alongside CONTRIBUTING.en.md and SECURITY.en.md. Valid task authorization from the user and higher-priority instructions take precedence. Independent review/production approval rules govern merging and production operations; they do not block authorized local investigation, implementation or verification. Never invent deployment status, maintainer accounts or contacts.
 
 <a id="git"></a>
 ## Git

@@ -1,6 +1,6 @@
 # 贡献指南
 [English](CONTRIBUTING.en.md) · [行为准则](CODE_OF_CONDUCT.md) · [安全政策](SECURITY.md)
-<!-- rocowiki-policy: contributing; version: 2; lang: zh-CN -->
+<!-- rocowiki-policy: contributing; version: 3; lang: zh-CN -->
 
 <a id="entry"></a>
 ## 选择入口
@@ -19,14 +19,16 @@
 <a id="setup"></a>
 ## 本地开发
 
-需要 Node.js 24.15.0+。使用 npm ci 安装锁定依赖；npm run db:migrate 迁移本地数据库。分别运行 npm run dev:api 和 npm run dev:web。网页/API 使用 localhost:3000 / localhost:8787，避免混用 127.0.0.1。配置公开开发参数与未入 Git 的 apps/api/.dev.vars；真实账号联调见 [README](README.md)。
+需要 Node.js 24.15.0+。使用 npm ci 安装锁定依赖；npm run db:migrate 迁移本地数据库。分别运行 npm run dev:api 和 npm run dev:web。网页/API 使用 localhost:3000 / localhost:8787，避免混用 127.0.0.1。配置公开开发参数与未入 Git 的 apps/api/.dev.vars；API 的公开参数在 apps/api/wrangler.jsonc 中配置；私密参数参考 apps/api/.dev.vars.example。OIDC 提供商须支持已验证邮箱、PKCE 和 auth_time，开发回调为 http://localhost:8787/auth/callback；GitHub 绑定使用独立 OAuth 应用，回调为 http://localhost:8787/auth/github/callback。发布 App 仅安装到 Wiki 仓库，使用 Contents write 与 Pull requests write 权限。生产 Secret 使用交互式 Wrangler 配置，不写入仓库或命令参数。
 
-离线/浏览器演示不提供认证绕过或生产发布。生成文件从来源重建，不手工修改 build、dist、docs-generated、src/generated 或历史设计归档来修复当前业务。
+离线/浏览器演示不提供认证绕过或生产发布。生成文件从来源重建，不手工修改 build、dist、docs-generated或 src/generated来修复当前业务。
 
 <a id="change"></a>
 ## 代码与文档
 
-遵守 [项目规范](docs/standards.md) 和 [AGENTS.md](AGENTS.md)。每个 PR 聚焦一项可审阅改动；新业务代码使用 TypeScript，修改遗留 JS 时逐模块补类型覆盖。服务端契约、身份、正文、事务与生命周期问题须覆盖真实边界，不能只测试两个 mock 相互兼容。
+遵守 [仓库协作规范](AGENTS.md) 与 [安全政策](SECURITY.md)。每个 PR 聚焦一项可审阅改动；新业务代码使用 TypeScript，修改遗留 JS 时逐模块补类型覆盖。服务端契约、身份、正文、事务与生命周期问题须覆盖真实边界，不能只测试两个 mock 相互兼容。
+
+外部数据先校验；组件的请求、定时器、observer、事件与 portal 随生命周期清理。界面复用柔和背景、圆角和统一宽度，并检查窄屏、长内容、键盘及空/错误状态。接口变更同步更新前后端契约，数据库迁移追加编号文件，不修改已应用的迁移；重试保留幂等键和失败记录。
 
 改变规范时同时更新中英文，保持同一政策版本和章节。引用第三方代码、字体或素材时保留许可与来源，登记 [第三方说明](THIRD_PARTY_NOTICES.md)。原创代码与仓库规范文档贡献按 GPL-3.0-only 提交；未要求 CLA、版权转让或 DCO sign-off。
 

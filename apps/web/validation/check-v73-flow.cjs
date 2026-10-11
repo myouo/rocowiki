@@ -11,7 +11,7 @@ const esbuild = require('esbuild');
 const project = path.resolve(__dirname, '..');
 const temporary = fs.mkdtempSync(path.join(os.tmpdir(), 'roco-v73-flow-'));
 const checks = [], expectedErrors = [], runtimeErrors = [];
-const sourceFiles = ['src/wiki/SkillBranchView.jsx','src/wiki/SkillBranchView.css','src/wiki/skillFlow.js','src/wiki/skillConditions.js','src/wiki/editing/PreviewContent.jsx','src/wiki/editing/PreviewBoundary.jsx','src/wiki/editing/previewRuntime.js','src/wiki/editing/ReadingMarkdown.jsx','src/wiki/editing/SectionEditor.jsx','src/wiki/editing/README.md','src/wiki/BoundedTextarea.jsx','src/wiki/BoundedTextarea.css'];
+const sourceFiles = ['src/wiki/SkillBranchView.jsx','src/wiki/SkillBranchView.css','src/wiki/skillFlow.js','src/wiki/skillConditions.js','src/wiki/editing/PreviewContent.jsx','src/wiki/editing/PreviewBoundary.jsx','src/wiki/editing/previewRuntime.js','src/wiki/editing/ReadingMarkdown.jsx','src/wiki/editing/SectionEditor.jsx','src/wiki/BoundedTextarea.jsx','src/wiki/BoundedTextarea.css'];
 const check = (name, value) => { checks.push({ name, pass: Boolean(value) }); assert.ok(value, name); };
 const pause = (ms = 35) => new Promise(resolve => setTimeout(resolve, ms));
 let root, dom, previousConsoleError, previousNavigator;
@@ -66,8 +66,6 @@ async function main() {
   async function resize(node,width){if(node)widths.set(node,width);await act(async()=>{observers.forEach(observer=>observer.fire());node?.ownerDocument.defaultView.dispatchEvent(new node.ownerDocument.defaultView.Event('resize'));await pause()});await act(async()=>await pause())}
   const branch={id:'one',label:'环境判断',when:'环境存在',effect:'回复精力\n回复 PP',otherwise:'消耗 PP',children:[{id:'nested',when:'第 2 回合',effect:'追加效果'}]};
   const flow={name:'技能 A',summary:'[海芙约忒](/pets/haifuyueti/)',common:['基础效果一','基础效果二'],phases:[branch,{id:'two',label:'独立条件',when:'天气存在',effect:'效果甲',otherwiseWhen:'血脉生效',otherwise:'效果乙'}]};
-  const before=JSON.parse(fs.readFileSync(path.join(project,'validation/v73-preview-before.json'),'utf8'));
-  check('Archived pre-fix reproduction confirms both defects without claiming device screenshots',before.confirmed.length===2&&before.confirmed.every(row=>row.pass)&&/No graphical browser/.test(before.notConfirmed));
   const vertical=C.buildSkillFlowGraph(flow),horizontal=C.buildSkillFlowGraph(flow,{direction:'horizontal'});
   check('Default Mermaid direction is TD',vertical.direction==='TD'&&vertical.mermaid.startsWith('flowchart TD\n'));
   check('Horizontal Mermaid direction is LR',horizontal.direction==='LR'&&horizontal.mermaid.startsWith('flowchart LR\n'));
@@ -80,11 +78,11 @@ async function main() {
   await render(directionCase);
   const first=d.querySelector('[data-flow-holder="A"]'),second=d.querySelector('[data-flow-holder="B"]'),firstFlow=first.querySelector('[data-skill-flow]');
   check('Each flow starts with a vertical preference',firstFlow.dataset.flowPreference==='vertical'&&second.querySelector('[data-skill-flow]').dataset.flowPreference==='vertical');
-  const beforeText=firstFlow.querySelector('.rw-skill-branch-list').textContent;
   await click('横向',first);
   check('Wide flow selects horizontal layout',firstFlow.dataset.flowDirection==='horizontal'&&first.querySelector('button[aria-pressed=true]').textContent==='横向');
   check('Direction changes stay inside one flow instance',second.querySelector('[data-skill-flow]').dataset.flowDirection==='vertical');
-  check('Direction change keeps every condition and effect',firstFlow.querySelector('.rw-skill-branch-list').textContent===beforeText);
+  const graphText=firstFlow.querySelector('[data-flow-graph="tree"]').textContent;
+  check('Direction change keeps every condition and effect',['环境存在','回复精力','回复 PP','消耗 PP','第 2 回合','追加效果','天气存在','效果甲','血脉生效','效果乙'].every(text=>graphText.includes(text)));
   let copied='';Object.defineProperty(w.navigator,'clipboard',{configurable:true,value:{writeText:async text=>{copied=text}}});
   await click('复制为 Mermaid',first);
   check('Wide-view copy uses LR and preserves graph',copied===horizontal.mermaid);
@@ -179,7 +177,7 @@ async function main() {
   check('Font rejection and late loading share a guarded scheduler',runtimeSource.includes('document.fonts?.ready?.then(schedule, schedule)')&&runtimeSource.includes('document.addEventListener("load", schedule, true)'));
   check('Height measurement is coalesced per animation frame',runtimeSource.includes('queued !== null')&&runtimeSource.includes('requestAnimationFrame(measure)'));
   check('Direction observer uses owner document, not global viewport dimensions',viewSource.includes('element.ownerDocument.defaultView')&&!viewSource.includes('window.innerWidth'));
-  check('Horizontal styling is scoped to one skill flow and retains rounded cards',css.includes('[data-flow-direction=horizontal]')&&css.includes('border-radius:20px')&&css.includes('minmax(170px,.75fr) minmax(0,1.5fr)'));
+  check('Horizontal styling is scoped to one skill flow and retains rounded cards',css.includes('[data-flow-direction=horizontal]')&&css.includes('border-radius:20px')&&css.includes('.rw-flow-horizontal-node'));
   check('Vertical styling has no two-column root layout',css.includes('[data-flow-direction=vertical]>.rw-skill-branch-list{grid-template-columns:minmax(0,1fr)}'));
   const editorSource=fs.readFileSync(path.join(project,'src/wiki/editing/SectionEditor.jsx'),'utf8');
   check('Section editor and Mermaid fallback use bounded textarea controls',!editorSource.includes('<textarea')&&editorSource.includes('<BoundedTextarea')&&!viewSource.includes('<textarea')&&viewSource.includes('<BoundedTextarea'));

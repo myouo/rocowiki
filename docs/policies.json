@@ -5,21 +5,20 @@
   "documents": [
     {
       "id": "overview",
-      "version": 3,
+      "version": 4,
       "zh": "README.md",
       "en": "README.en.md",
       "sections": [
-        "status",
-        "setup",
-        "verify",
-        "workflow",
+        "about",
+        "reading",
+        "contributing",
         "community",
         "license"
       ]
     },
     {
       "id": "security",
-      "version": 1,
+      "version": 2,
       "zh": "SECURITY.md",
       "en": "SECURITY.en.md",
       "sections": [
@@ -32,7 +31,7 @@
     },
     {
       "id": "contributing",
-      "version": 2,
+      "version": 3,
       "zh": "CONTRIBUTING.md",
       "en": "CONTRIBUTING.en.md",
       "sections": [
@@ -59,7 +58,7 @@
     },
     {
       "id": "governance",
-      "version": 1,
+      "version": 2,
       "zh": "GOVERNANCE.md",
       "en": "GOVERNANCE.en.md",
       "sections": [
@@ -82,23 +81,8 @@
       ]
     },
     {
-      "id": "standards",
-      "version": 1,
-      "zh": "docs/standards.md",
-      "en": "docs/standards.en.md",
-      "sections": [
-        "structure",
-        "code",
-        "security",
-        "changes",
-        "tests",
-        "docs",
-        "release"
-      ]
-    },
-    {
       "id": "repository-instructions",
-      "version": 1,
+      "version": 2,
       "zh": "AGENTS.md",
       "en": "AGENTS.en.md",
       "sections": [
@@ -110,7 +94,7 @@
     },
     {
       "id": "rights",
-      "version": 2,
+      "version": 3,
       "zh": "THIRD_PARTY_NOTICES.md",
       "en": "THIRD_PARTY_NOTICES.en.md",
       "sections": [
@@ -131,19 +115,6 @@
         "contributions",
         "rights-reports",
         "maintenance"
-      ]
-    },
-    {
-      "id": "security-model",
-      "version": 2,
-      "zh": "docs/security-model.md",
-      "en": "docs/security-model.en.md",
-      "sections": [
-        "assets",
-        "boundaries",
-        "threats",
-        "limits",
-        "validation"
       ]
     }
   ]

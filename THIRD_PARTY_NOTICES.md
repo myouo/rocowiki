@@ -1,6 +1,6 @@
 # 许可与第三方权利
 [English](THIRD_PARTY_NOTICES.en.md) · [LICENSE](LICENSE)
-<!-- rocowiki-policy: rights; version: 2; lang: zh-CN -->
+<!-- rocowiki-policy: rights; version: 3; lang: zh-CN -->
 
 <a id="scope"></a>
 ## 项目许可范围
@@ -16,7 +16,7 @@
 
 本地 Noto Serif SC / Noto Sans SC 子集保留 OFL-1.1 与 FONT-SOURCE 证据，继续使用 OFL，不改成 GPL。游戏图片来源见 apps/web/content/asset-sources.json 与 pet-sources.json；来源 URL 只证明出处，不能替代授权。其再分发权尚未在本项目核验，公开发行前由有权限的维护者确认、替换或移除。
 
-导入的 V7.3.1 界面与历史文件的迁移来源见 docs/web-v731-integration.md；保留现有作者与来源记录，不把第三方归属改写为本项目原创。
+V7.3.1 界面来自用户提供的 RocoWiki_Docusaurus_V7_3_1 项目；保留现有作者与来源记录，不把第三方归属改写为本项目原创。
 
 <a id="changes"></a>
 ## 更新与发行

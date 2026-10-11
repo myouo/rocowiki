@@ -1,6 +1,6 @@
 # Licensing and third-party rights
 [中文](THIRD_PARTY_NOTICES.md) · [LICENSE](LICENSE)
-<!-- rocowiki-policy: rights; version: 2; lang: en -->
+<!-- rocowiki-policy: rights; version: 3; lang: en -->
 
 <a id="scope"></a>
 ## Project license scope
@@ -16,7 +16,7 @@ The inventory records direct dependencies, versions and package-declared license
 
 Local Noto Serif SC/Noto Sans SC subsets retain OFL-1.1 and FONT-SOURCE evidence and remain OFL rather than GPL. Game-image provenance is recorded in apps/web/content/asset-sources.json and pet-sources.json. A source URL proves origin rather than permission; redistribution rights have not been verified here. An authorized maintainer must confirm, replace or remove such assets before public distribution.
 
-The V7.3.1 interface/import history is documented in docs/web-v731-integration.md. Preserve existing author and provenance records without presenting third-party work as project-original.
+The V7.3.1 interface was imported from the user-provided RocoWiki_Docusaurus_V7_3_1 project. Preserve existing author and provenance records without presenting third-party work as project-original.
 
 <a id="changes"></a>
 ## Updates and distribution

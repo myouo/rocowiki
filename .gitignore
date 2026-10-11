@@ -22,3 +22,6 @@ backups/
 *.age
 *.tgz
 .DS_Store
+
+# Generated validation reports; fixtures remain tracked.
+/apps/web/validation/*.json

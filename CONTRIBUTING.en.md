@@ -1,6 +1,6 @@
 # Contributing
 [中文](CONTRIBUTING.md) · [Code of conduct](CODE_OF_CONDUCT.en.md) · [Security](SECURITY.en.md)
-<!-- rocowiki-policy: contributing; version: 2; lang: en -->
+<!-- rocowiki-policy: contributing; version: 3; lang: en -->
 
 <a id="entry"></a>
 ## Choose an entry point
@@ -19,14 +19,16 @@ Submit only original material you can provide or material with appropriate permi
 <a id="setup"></a>
 ## Local development
 
-Use Node.js 24.15.0+, npm ci for locked dependencies, and npm run db:migrate for the local database. Run npm run dev:api and npm run dev:web separately. Use localhost:3000 and localhost:8787 consistently, without mixing 127.0.0.1. Configure public development values and the untracked apps/api/.dev.vars. See [README](README.en.md) for real account integration.
+Use Node.js 24.15.0+, npm ci for locked dependencies, and npm run db:migrate for the local database. Run npm run dev:api and npm run dev:web separately. Use localhost:3000 and localhost:8787 consistently, without mixing 127.0.0.1. Configure public development values and the untracked apps/api/.dev.vars. Configure public API values in apps/api/wrangler.jsonc and use apps/api/.dev.vars.example for private settings. OIDC requires verified email, PKCE and auth_time; the development callback is http://localhost:8787/auth/callback. GitHub binding uses a separate OAuth app with callback http://localhost:8787/auth/github/callback. Install the publisher App only on the Wiki repository with Contents write and Pull requests write permissions. Set production secrets through interactive Wrangler prompts, never source files or command arguments.
 
-Offline/browser demos provide neither authentication bypass nor production publishing. Regenerate outputs from their sources; do not patch build, dist, docs-generated, src/generated or archived designs to fix current behavior.
+Offline/browser demos provide neither authentication bypass nor production publishing. Regenerate outputs from their sources; do not patch build, dist, docs-generated, or src/generated to fix current behavior.
 
 <a id="change"></a>
 ## Code and documentation
 
-Follow [project standards](docs/standards.en.md) and [AGENTS.md](AGENTS.md). Keep PRs focused and reviewable. Use TypeScript for new business logic and expand type coverage module by module when editing legacy JavaScript. Contract, identity, content, transaction and lifecycle regressions must exercise real boundaries rather than two mutually compatible mocks.
+Follow [repository instructions](AGENTS.en.md) and [the security policy](SECURITY.en.md). Keep PRs focused and reviewable. Use TypeScript for new business logic and expand type coverage module by module when editing legacy JavaScript. Contract, identity, content, transaction and lifecycle regressions must exercise real boundaries rather than two mutually compatible mocks.
+
+Validate external data before use. Dispose of component requests, timers, observers, events and portals with their lifecycle. Reuse soft backgrounds, rounded corners and consistent widths; check narrow screens, long content, keyboard use and empty/error states. Update frontend and backend contracts together. Append numbered database migrations without changing applied migrations, and preserve idempotency keys and failure records across retries.
 
 Update Chinese and English policy documents together, with matching revision and sections. Preserve third-party licenses and provenance and update [third-party notices](THIRD_PARTY_NOTICES.en.md). Original code and repository policy-document contributions use GPL-3.0-only. No CLA, copyright assignment or DCO sign-off is required.
 

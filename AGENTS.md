@@ -1,11 +1,11 @@
 # Repository instructions
-[English](AGENTS.en.md) · [完整规范](docs/standards.md)
-<!-- rocowiki-policy: repository-instructions; version: 1; lang: zh-CN -->
+[English](AGENTS.en.md) · [贡献指南](CONTRIBUTING.md)
+<!-- rocowiki-policy: repository-instructions; version: 2; lang: zh-CN -->
 
 <a id="scope"></a>
 ## 范围与授权
 
-本文件适用于整个仓库，与 CONTRIBUTING.md、SECURITY.md、docs/standards.md 一起使用。用户对任务的有效授权和更高优先级指令优先。规范中的独立审核/生产审批适用于合并和生产操作，不应阻止已授权的本地调查、实现和验证。不要编造已部署状态、维护账号或联系方式。
+本文件适用于整个仓库，与 CONTRIBUTING.md、SECURITY.md 一起使用。用户对任务的有效授权和更高优先级指令优先。规范中的独立审核/生产审批适用于合并和生产操作，不应阻止已授权的本地调查、实现和验证。不要编造已部署状态、维护账号或联系方式。
 
 <a id="git"></a>
 ## Git
