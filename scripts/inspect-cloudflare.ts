@@ -20,12 +20,29 @@ const dnsQueries:readonly [string,()=>Promise<string[]>][]=[
 ];
 const publicDns=Object.fromEntries(await Promise.all(dnsQueries.map(async([name,run])=>{try{return [name,await run()] as const;}catch(error){return [name,{error:(error as NodeJS.ErrnoException).code||'DNS_QUERY_FAILED'}] as const;}})));
 const summary=(result:Awaited<ReturnType<typeof api>>)=>({status:result.status,success:result.success,codes:result.codes});
+const publicHttp=await Promise.all(['wiki-direct.rocoai.app','wiki.rocoai.app'].map(async(hostname)=>{
+  try{
+    const url=new URL(`https://${hostname}/version.json`);url.searchParams.set('verify',String(Date.now()));
+    const response=await fetch(url,{cache:'no-store',redirect:'error',signal:AbortSignal.timeout(10000)});
+    const contentType=response.headers.get('content-type');
+    let sourceSha:string|null=null;
+    if(response.ok&&contentType?.includes('application/json')){
+      const value=await response.json() as {source_commit_sha?:unknown};
+      if(typeof value.source_commit_sha==='string'&&/^[a-f0-9]{40}$/.test(value.source_commit_sha))sourceSha=value.source_commit_sha;
+    }else await response.body?.cancel();
+    return {hostname,status:response.status,contentType,sourceSha,mitigation:response.headers.get('cf-mitigated')};
+  }catch(error){
+    const cause=error instanceof Error?error.cause:undefined;
+    const code=cause&&typeof cause==='object'&&'code' in cause?cause.code:undefined;
+    return {hostname,error:typeof code==='string'&&/^[A-Z0-9_]+$/.test(code)?code:'PUBLIC_HTTP_FAILED'};
+  }
+}));
 console.log(JSON.stringify({
   zoneLookup:{...summary(zones),returned:objects(zones.result).length,zones:selected.map(zone=>({id:zone.id,name:zone.name,status:zone.status,accountId:zone.account&&typeof zone.account==='object'?(zone.account as Record<string,unknown>).id:null,nameServers:zone.name_servers}))},
   accounts:{...summary(accounts),ids:objects(accounts.result).map(account=>account.id),pagination:accounts.resultInfo},
   memberships:{...summary(memberships),accounts:objects(memberships.result).map(row=>({status:row.status,account:row.account&&typeof row.account==='object'?(row.account as Record<string,unknown>).id:null}))},
   tokenVerification:{...summary(verification),state:verification.result&&typeof verification.result==='object'?(verification.result as Record<string,unknown>).status:null},
-  publicDns,probeLocation:'GitHub-hosted runner; DNS inspection only, not a mainland latency measurement',
+  publicDns,publicHttp,probeLocation:'GitHub-hosted runner; DNS and public-version inspection, not a mainland latency measurement',
 },null,2));
 for(const zone of selected){
   if(typeof zone.id!=='string'||!/^[a-f0-9]{32}$/.test(zone.id))continue;

@@ -38,15 +38,27 @@ export async function inspectArtifact(root:string,expectedSha:string):Promise<Re
   return version;
 }
 export async function verifyPublicRelease(version:Release,origin:string,http:Http=fetch,wait:Wait=pause,attempts=60):Promise<void> {
+  let failure='NO_ATTEMPTS';
   for(let attempt=0;attempt<attempts;attempt++){
     try{
       const url=new URL('/version.json',origin);url.searchParams.set('verify',`${Date.now()}-${attempt}`);
       const response=await http(url,{cache:'no-store',redirect:'error',signal:AbortSignal.timeout(10000)});
-      if(response.ok){const found=await response.json() as Partial<Release>;if(found.release_id===version.release_id&&found.source_commit_sha===version.source_commit_sha&&found.artifact_digest===version.artifact_digest)return;}
-    }catch{}
+      failure=`HTTP_${response.status}`;
+      if(response.ok){
+        const found=await response.json() as Partial<Release>;
+        if(found.release_id!==version.release_id)failure='RELEASE_ID_MISMATCH';
+        else if(found.source_commit_sha!==version.source_commit_sha)failure='SOURCE_SHA_MISMATCH';
+        else if(found.artifact_digest!==version.artifact_digest)failure='ARTIFACT_DIGEST_MISMATCH';
+        else return;
+      }
+    }catch(error){
+      const cause=error instanceof Error?error.cause:undefined;
+      const code=cause&&typeof cause==='object'&&'code' in cause?cause.code:undefined;
+      failure=typeof code==='string'&&/^[A-Z0-9_]+$/.test(code)?code:error instanceof SyntaxError?'INVALID_VERSION_JSON':error instanceof Error&&['TimeoutError','AbortError'].includes(error.name)?'NETWORK_TIMEOUT':'NETWORK_ERROR';
+    }
     if(attempt+1<attempts)await wait(3000);
   }
-  throw Error('PUBLIC_VERSION_VERIFICATION_FAILED');
+  throw Error(`PUBLIC_VERSION_VERIFICATION_FAILED (${new URL(origin).hostname}: ${failure})`);
 }
 export async function sendReceipt(version:Release,origin:string,secret:string,http:Http=fetch,wait:Wait=pause):Promise<void> {
   const body=JSON.stringify(version);

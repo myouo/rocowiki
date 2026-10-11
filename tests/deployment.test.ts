@@ -109,6 +109,11 @@ it('fails public verification after bounded network errors instead of reporting 
   await expect(verifyPublicRelease(version,'https://wiki.rocoai.app',http,noWait,2)).rejects.toThrow('PUBLIC_VERSION_VERIFICATION_FAILED');
   expect(calls).toBe(2);
 });
+it('identifies HTTP and DNS verification failures without logging upstream bodies or error messages',async()=>{
+  await expect(verifyPublicRelease(version,'https://wiki.rocoai.app',async()=>new Response('private diagnostic text',{status:403}),noWait,1)).rejects.toThrow('wiki.rocoai.app: HTTP_403');
+  const http:typeof fetch=async()=>{throw new TypeError('private diagnostic text',{cause:{code:'ENOTFOUND'}});};
+  await expect(verifyPublicRelease(version,'https://wiki.rocoai.app',http,noWait,1)).rejects.toThrow('wiki.rocoai.app: ENOTFOUND');
+});
 it('retries a lost receipt response with the same immutable release and a valid timestamped signature',async()=>{
   let calls=0;
   const http:typeof fetch=async(input,options)=>{
