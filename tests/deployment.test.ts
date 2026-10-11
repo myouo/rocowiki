@@ -4,9 +4,27 @@ import {tmpdir} from 'node:os';
 import path from 'node:path';
 import {createHmac} from 'node:crypto';
 import {artifactDigest} from '../scripts/version-manifest.mjs';
-import {inspectArtifact,verifyPublicRelease,sendReceipt,bindWorkerDomain,configurePreferredRoute,type Release} from '../scripts/deploy-workers';
+import {inspectArtifact,verifyPublicRelease,sendReceipt,bindWorkerDomain,configurePreferredRoute,ensureWorkerExists,type Release} from '../scripts/deploy-workers';
 const version:Release={release_id:'test-release',source_commit_sha:'1'.repeat(40),artifact_digest:'2'.repeat(64),built_at:'2026-10-11T00:00:00Z'};
 const noWait=async()=>{};
+it('initializes only a confirmed missing Worker through the upload API',async()=>{
+  let calls=0;
+  const http:typeof fetch=async(input,options)=>{
+    if(++calls===1)return new Response(JSON.stringify({success:false,errors:[{code:10090}]}),{status:404});
+    expect(String(input)).toContain('/workers/scripts/rocowiki-web');expect(options?.method).toBe('PUT');
+    const body=options?.body as FormData;
+    expect(JSON.parse(await (body.get('metadata') as Blob).text()).main_module).toBe('index.mjs');
+    expect(await (body.get('index.mjs') as Blob).text()).toContain('status:503');
+    return new Response(JSON.stringify({success:true}));
+  };
+  await ensureWorkerExists('a'.repeat(32),'fixture-worker-token',http);
+  expect(calls).toBe(2);
+});
+it('does not bootstrap over an existing Worker or convert a permission error into a missing resource',async()=>{
+  await ensureWorkerExists('a'.repeat(32),'fixture-worker-token',async(_input,options)=>{expect(options?.method).toBeUndefined();return new Response(JSON.stringify({success:true}));});
+  const http:typeof fetch=async(_input,options)=>{expect(options?.method).toBeUndefined();return new Response(JSON.stringify({success:false,errors:[{code:10000}]}),{status:403});};
+  await expect(ensureWorkerExists('a'.repeat(32),'fixture-worker-token',http)).rejects.toThrow('WORKER_LOOKUP_FAILED (403)');
+});
 it('uses separate credentials and creates the exact Worker route before preferred DNS',async()=>{
   const calls:{url:string;method:string;body:unknown}[]=[],zone='b'.repeat(32);
   const http:typeof fetch=async(input,options)=>{

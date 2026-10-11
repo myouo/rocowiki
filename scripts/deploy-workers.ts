@@ -12,6 +12,22 @@ type Http = typeof fetch;
 type Wait = (milliseconds:number)=>Promise<void>;
 const pause:Wait=milliseconds=>new Promise(resolve=>setTimeout(resolve,milliseconds));
 
+export async function ensureWorkerExists(accountId:string,token:string,http:Http=fetch):Promise<void>{
+  if(!/^[a-f0-9]{32}$/.test(accountId)||!token)throw Error('INVALID_WORKER_BOOTSTRAP_CONFIGURATION');
+  const base=`https://api.cloudflare.com/client/v4/accounts/${accountId}/workers`;
+  const options={headers:{Authorization:`Bearer ${token}`},signal:AbortSignal.timeout(15000),redirect:'error' as const};
+  const existing=await http(`${base}/services/rocowiki-web`,options);
+  const found=await existing.json() as {success:boolean;errors?:{code:number}[]};
+  if(existing.ok&&found.success)return;
+  if(existing.status!==404||!found.errors?.some(error=>error.code===10090))throw Error(`WORKER_LOOKUP_FAILED (${existing.status})`);
+  const body=new FormData();
+  body.append('metadata',new Blob([JSON.stringify({main_module:'index.mjs',compatibility_date:'2026-10-11',bindings:[]})],{type:'application/json'}));
+  body.append('index.mjs',new Blob(['export default {fetch(){return new Response("Wiki deployment in progress",{status:503});}};'],{type:'application/javascript+module'}),'index.mjs');
+  const response=await http(`${base}/scripts/rocowiki-web`,{...options,method:'PUT',body});
+  const result=await response.json() as {success:boolean;errors?:{code:number}[]};
+  if(!response.ok||!result.success)throw Error(`WORKER_BOOTSTRAP_FAILED (${response.status}; codes: ${(result.errors??[]).map(error=>error.code).join(',')})`);
+}
+
 export async function inspectArtifact(root:string,expectedSha:string):Promise<Release> {
   const version:Release=JSON.parse(await readFile(`${root}/version.json`,'utf8'));
   if(!/^[a-f0-9]{40}$/.test(expectedSha)||/^0+$/.test(expectedSha)||version.source_commit_sha!==expectedSha)throw Error('SOURCE_SHA_MISMATCH');
@@ -84,6 +100,7 @@ async function main(){
   if(enabled==='true'&&(!env.API_ORIGIN||!env.DEPLOY_WEBHOOK_SECRET))throw Error('MISSING_RECEIPT_CONFIGURATION');
   const sha=env.GITHUB_SHA||execFileSync('git',['rev-parse','HEAD'],{encoding:'utf8'}).trim();
   const version=await inspectArtifact('apps/web/build',sha);
+  await ensureWorkerExists(env.CLOUDFLARE_ACCOUNT_ID!,env.CLOUDFLARE_API_TOKEN!);
   // Account and DNS credentials may have deliberately separate permissions.
   // Upload with the account token; bind the verified zone through its explicit ID.
   const parsed=ts.parseConfigFileTextToJson('wrangler.jsonc',await readFile('apps/web/wrangler.jsonc','utf8'));
