@@ -112,7 +112,7 @@ it('fails public verification after bounded network errors instead of reporting 
 it('retries a lost receipt response with the same immutable release and a valid timestamped signature',async()=>{
   let calls=0;
   const http:typeof fetch=async(input,options)=>{
-    expect(String(input)).toBe('https://api.rocoai.app/webhooks/deploy');
+    expect(String(input)).toBe('https://api.wiki.rocoai.app/webhooks/deploy');
     const headers=new Headers(options?.headers),body=String(options?.body),timestamp=headers.get('X-Webhook-Timestamp');
     expect(JSON.parse(body)).toEqual(version);
     expect(headers.get('X-Signature')).toBe('sha256='+createHmac('sha256','fixture-secret').update(`${timestamp}.${body}`).digest('hex'));
@@ -120,6 +120,6 @@ it('retries a lost receipt response with the same immutable release and a valid 
     if(++calls===1)throw Error('response lost');
     return new Response('{}');
   };
-  await sendReceipt(version,'https://api.rocoai.app','fixture-secret',http,noWait);
+  await sendReceipt(version,'https://api.wiki.rocoai.app','fixture-secret',http,noWait);
   expect(calls).toBe(2);
 });
