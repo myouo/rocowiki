@@ -1,12 +1,18 @@
 /* V7.2 keeps the reference-card vocabulary from the home page. */
-.rw-pet-pagination {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 1rem;
-  margin: 1.5rem 0;
-}
-.rw-pet-pagination button:disabled { opacity: .45; cursor: default; }
+.rw-pet-collections { display: flex; flex-wrap: wrap; gap: 8px; margin: 15px 0 10px; }
+.rw-pet-collections button { padding: 7px 13px; border: 1px solid #dfe6ef; border-radius: 999px; background: #fffaf5; color: #687991; font: inherit; font-size: 12px; cursor: pointer; }
+.rw-pet-collections button[aria-pressed="true"] { color: #486f9e; border-color: #bfd0e5; background: #eaf1fb; }
+.rw-pet-collections button span { font-size: 10px; margin-left: 4px; opacity: .8; }
+.rw-pet-collection-note { padding: 12px 16px; border-radius: 13px; background: #fff6e9; color: #8c7452; font-size: 12px; line-height: 1.8; }
+.rw .rw-pet-feed-row { margin-top: 0; }
+.rw-pet-feed-card { min-width: 0; position: relative; }
+.rw .rw-pet-feed-card > .rw-petcard { height: 100%; box-sizing: border-box; }
+.rw .rw-pet-feed-card .rw-petcard h3 { height: 3.2em; overflow: hidden; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; }
+.rw .rw-pet-feed-card .rw-petcard-types { min-height: 25px; }
+.rw-pet-record-label { position: absolute; top: 48px; left: 12px; border-radius: 7px; background: #fff3db; color: #9a7950; padding: 2px 6px; font-size: 10px; pointer-events: none; }
+.rw-pet-feed-more { text-align: center; padding: 22px 0; min-height: 100px; }
+.rw-pet-feed-more p { margin: 0 0 12px; color: #718096; font-size: 12px; }
+#pet-catalog-results { scroll-margin-top: 120px; }
 .rw-official-pet-source { margin-bottom: 1.5rem; }
 .rw-official-pet-source p { margin: .6rem 0; }
 .rw-official-pet-hash { overflow-wrap: anywhere; }

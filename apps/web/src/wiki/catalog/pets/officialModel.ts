@@ -49,14 +49,6 @@ export function buildOfficialPetCatalog(snapshot: OfficialPetSnapshot, existing:
   return result;
 }
 
-export function paginatePets<T>(pets: readonly T[], requested: string | null, pageSize = 60) {
-  const count = Math.max(1, Math.ceil(pets.length / pageSize));
-  const number = requested && /^\d+$/.test(requested) ? Number(requested) : 1;
-  const page = Math.min(count, Math.max(1, Number.isSafeInteger(number) ? number : 1));
-  const start = (page - 1) * pageSize;
-  return { page, count, start, items: pets.slice(start, start + pageSize) };
-}
-
 export function petCatalogHref(pet: { slug?: string; localEntry?: boolean; catalogEntry?: boolean }) {
   const slug = encodeURIComponent(pet.slug || '');
   return pet.localEntry || pet.catalogEntry ? `/pets/?entry=${slug}` : `/pets/${slug}/`;

@@ -131,7 +131,8 @@ function PetAppearanceGallery({ pet }) {
   </div>;
 }
 
-function PetCard({ pet, onCompare, compared = false }) {
+/** @param {{pet: import('./pets/officialTypes').WikiPet, onCompare?: (slug: string) => void, compared?: boolean, href?: string, onOpen?: () => void}} props */
+function PetCard({ pet, onCompare, compared = false, href, onOpen }) {
   return (
     <article className="rw-petcard rw-petcard-v6">
       <div className="rw-petcard-top">
@@ -152,7 +153,9 @@ function PetCard({ pet, onCompare, compared = false }) {
         )}
       </div>
       <MagicCostBadge pet={pet} />
-      <Link to={petDetailHref(pet)} className="rw-petcard-main">
+      <Link to={href || petDetailHref(pet)} className="rw-petcard-main" onClick={(event) => {
+        if (event.button === 0 && !event.metaKey && !event.ctrlKey && !event.shiftKey && !event.altKey) onOpen?.();
+      }}>
         <PetPortrait pet={pet} />
         <h3>{pet.name}</h3>
         <div className="rw-petcard-types">

@@ -3,7 +3,7 @@ import PetStatsMini from "../../PetStatsMini";
 import { bloodlineDetailHref } from "../../catalogBloodlines";
 import { petDetailHref } from "../../catalogPublished";
 import EditEntry from "../../editing/EditEntry";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { GitCompareArrows, BookOpen, ChevronDown, ExternalLink, Shield } from "lucide-react";
 import { Link, Badge, PageHeader, Section, Notice, EmptyState, Contribution, BookmarkButton, DocGrid, DataPair, TextLink } from "../../core";
 import { haifuSource } from "../../data";
@@ -14,8 +14,19 @@ import { AcquisitionTimeline } from "./Acquisition.jsx";
 import { PetMatchups } from "./Matchups.jsx";
 import { officialPetData } from "../../content/bundled.js";
 import OfficialPetSource from "./OfficialSource";
+import { useLocation } from "@docusaurus/router";
+import { petCollection, safePetListReturnTo } from "./feedModel";
 
 function PetPage({ slug }) {
+  const location = useLocation();
+  const returnTarget = new URLSearchParams(location.search).get("returnTo");
+  const listReturn = safePetListReturnTo(returnTarget);
+  useEffect(() => {
+    if (!returnTarget) return;
+    if (location.hash) {
+      try { document.getElementById(decodeURIComponent(location.hash.slice(1)))?.scrollIntoView(); } catch {}
+    } else window.scrollTo({ top: 0, behavior: "instant" });
+  }, [slug]);
   const pets = usePublishedPets();
   const skills = usePublishedSkills();
   const pet = pets.find((p) => p.slug === slug);
@@ -25,13 +36,13 @@ function PetPage({ slug }) {
       <>
         <PageHeader
           title="宠物资料待收录"
-          back="/pets/"
-          crumbs={[{ label: "宠物图鉴", to: "/pets/" }, { label: "待收录" }]}
+          back={listReturn}
+          crumbs={[{ label: "宠物图鉴", to: listReturn }, { label: "待收录" }]}
         />
         <EmptyState
           title="这只宠物还没有完整条目"
           action={
-            <Link className="rw-button" to="/pets/">
+            <Link className="rw-button" to={listReturn}>
               浏览已收录图鉴
             </Link>
           }
@@ -41,12 +52,12 @@ function PetPage({ slug }) {
       </>
     );
   if (pet.deleted) return <div className="rw-pet-detail-v6">
-    <PageHeader title={pet.name} back="/pets/" edit={false} crumbs={[{ label: "宠物图鉴", to: "/pets/" }, { label: pet.name }]} />
+    <PageHeader title={pet.name} back={listReturn} edit={false} crumbs={[{ label: "宠物图鉴", to: listReturn }, { label: pet.name }]} />
     <Notice title="这条图鉴已在本机审核流程中移除" tone="gold">
       {pet.deletionReason || "条目维护决定已发布。"} 历史引用仍然保留，关联技能和活动记录未被删除。
     </Notice>
     {/^\/(?!\/)[^\s<>\\]*$/.test(pet.redirectTo || "") && <TextLink to={pet.redirectTo}>前往关联条目</TextLink>}
-    <TextLink to="/pets/">返回宠物图鉴</TextLink>
+    <TextLink to={listReturn}>返回宠物图鉴</TextLink>
   </div>;
   const petReturnBase = petDetailHref(pet);
   const mainSkills = skills.filter((s) => s.ownerSlug === pet.slug || s.learners?.some((row) => row.petSlug === pet.slug));
@@ -65,8 +76,8 @@ function PetPage({ slug }) {
     <div className="rw-pet-detail-v6">
       <PageHeader
         title={pet.name}
-        back="/pets/"
-        crumbs={[{ label: "宠物图鉴", to: "/pets/" }, { label: pet.name }]}
+        back={listReturn}
+        crumbs={[{ label: "宠物图鉴", to: listReturn }, { label: pet.name }]}
         actions={
           <>
             <BookmarkButton
@@ -89,6 +100,9 @@ function PetPage({ slug }) {
           </>
         }
       />
+      {petCollection(pet) !== "regular" && <Notice title={petCollection(pet) === "placeholder" ? "资料待定" : "特殊编号资料"} tone="gold">
+        {petCollection(pet) === "placeholder" ? "官方配置中的名称或说明尚为占位内容，不作为正式发布记录。" : "这条源表记录与普通图鉴编号分开展示，请核对具体形态与适用数据。"}
+      </Notice>}
       {pet.publishedRevision && <p className="rw-catalog-local-revision-v7">正在阅读本机已发布的宠物资料 · {pet.publishedAt?.slice(0, 10) || "本次会话"}</p>}
       <DocGrid toc={toc}>
         <section className="rw-pet-overview rw-pet-overview-v72" id="overview">

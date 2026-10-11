@@ -7,7 +7,7 @@ import { createRequire } from 'node:module';
 import { deflateSync } from 'node:zlib';
 import { readFileSync } from 'node:fs';
 import { decodeAngelConfig, officialPetSnapshot, parseOfficialPets } from '../scripts/angel-config';
-import { buildOfficialPetCatalog, paginatePets, petCatalogHref } from '../apps/web/src/wiki/catalog/pets/officialModel';
+import { buildOfficialPetCatalog, petCatalogHref } from '../apps/web/src/wiki/catalog/pets/officialModel';
 import type { OfficialPetSnapshot } from '../apps/web/src/wiki/catalog/pets/officialTypes';
 import { useHydratedSearch } from '../apps/web/src/wiki/catalog/pets/useHydratedSearch';
 
@@ -79,14 +79,6 @@ describe('official pet catalogue integration', () => {
     const [imported] = buildOfficialPetCatalog(snapshot, [], {});
     expect(petCatalogHref(imported)).toBe('/pets/?entry=official-1');
     expect(imported.image).toBe('https://res.17roco.qq.com/res/combat/icons/001-.png?B6041');
-  });
-  it('bounds rendering and clamps pages after filtering', () => {
-    const rows = Array.from({ length: 3387 }, (_, index) => index);
-    expect(paginatePets(rows, '2').items).toEqual(rows.slice(60, 120));
-    expect(paginatePets(rows, '999').items.length).toBeLessThanOrEqual(60);
-    expect(paginatePets([1], '999').page).toBe(1);
-    expect(paginatePets([], '-1')).toMatchObject({ page: 1, count: 1, items: [] });
-    expect(paginatePets(rows, 'invalid').page).toBe(1);
   });
   it('hydrates static HTML before applying a direct detail or filtered query', async () => {
     const { JSDOM } = createRequire(import.meta.url)('jsdom');

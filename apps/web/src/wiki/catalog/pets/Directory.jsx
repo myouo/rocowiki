@@ -2,7 +2,7 @@ import CustomSelect from "../../Select";
 import EditEntry from "../../editing/EditEntry";
 import { petMetadata, officialPetData } from "../../content/bundled.js";
 import { weekly } from "../../content/bundled.js";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useHistory, useLocation } from "@docusaurus/router";
 import { Search, ArrowRight, X, GitCompareArrows, Swords, ArrowUp, ArrowDown } from "lucide-react";
 import { Link, Badge, PageHeader, EmptyState, Contribution, setQuery } from "../../core";
@@ -10,8 +10,9 @@ import { PetPage } from "./Detail.jsx";
 import { UNKNOWN, catalogTypes, compareCatalogPets, matchesCatalogMetadata, normalType, petMeta, sortFields } from "../model.js";
 import { usePublishedPets } from "../hooks.js";
 import { AttributeBadge, PetCard } from "../components.jsx";
-import { paginatePets } from "./officialModel";
-import PetPagination from "./Pagination";
+import { PetFeed } from "./PetFeed";
+import { collectionRank, petCollection, petFeedScope, petHrefWithReturnTo, readPetCollection, requestedPetCount } from "./feedModel";
+import { petCatalogHref } from "./officialModel";
 import { useHydratedSearch } from "./useHydratedSearch";
 
 function PetsPage({ query }) {
@@ -38,9 +39,16 @@ function PetCatalogPage({ query }) {
       ? "desc"
       : q.get("order") === "asc"
         ? "asc"
-        : ["number", "name"].includes(sort)
+        : sort === "name"
           ? "asc"
           : "desc";
+  const collection = readPetCollection(q.get("collection"));
+  const collections = [
+    { value: "regular", label: "图鉴条目", count: pets.filter(p => petCollection(p) === "regular").length },
+    { value: "placeholder", label: "资料待定", count: pets.filter(p => petCollection(p) === "placeholder").length },
+    { value: "internal", label: "特殊编号", count: pets.filter(p => petCollection(p) === "internal").length },
+    { value: "all", label: "全部资料", count: pets.length },
+  ];
   const group = q.get("group") || "",
     series = q.get("series") || "",
     experience = q.get("experience") || "",
@@ -60,7 +68,9 @@ function PetCatalogPage({ query }) {
     ) || weekly.pvp.typeTournament.periods[0];
   const [compare, setCompare] = useState([]),
     [message, setMessage] = useState("");
-  const changeFilters = (changes) => setQuery(history, location, { ...changes, page: null });
+  /** @type {import('react').RefObject<import('./PetFeed').PetFeedHandle | null>} */
+  const feed = useRef(null);
+  const changeFilters = (changes) => setQuery(history, location, { ...changes, page: null, loaded: null });
   useEffect(() => {
     try {
       const value = JSON.parse(
@@ -93,6 +103,7 @@ function PetCatalogPage({ query }) {
   }
   let result = pets.filter(
     (p) =>
+      (collection === "all" || petCollection(p) === collection) &&
       (!type ||
         (typeMode === "primary"
           ? normalType(p.types[0]) === normalType(type)
@@ -111,9 +122,13 @@ function PetCatalogPage({ query }) {
           ))),
   );
   result = [...result].sort((a, b) =>
-    compareCatalogPets(a, b, sort, direction),
+    collectionRank(a) - collectionRank(b) || compareCatalogPets(a, b, sort, direction),
   );
-  const pagination = paginatePets(result, q.get("page"));
+  const scope = petFeedScope(q);
+  const requested = requestedPetCount(q, result.length);
+  const returnParams = new URLSearchParams(scope);
+  for (const key of ["loaded", "page"]) if (q.has(key)) returnParams.set(key, q.get(key));
+  const returnTo = "/pets/" + (returnParams.size ? "?" + returnParams.toString() : "");
   const valuesFor = (key) =>
     [
       ...new Set(
@@ -189,6 +204,7 @@ function PetCatalogPage({ query }) {
       bloodline: null,
       magic: null,
       page: null,
+      loaded: null,
     });
   return (
     <div className="rw-pets-v5 rw-catalog-v6">
@@ -215,7 +231,7 @@ function PetCatalogPage({ query }) {
       />
       <div className="rw-catalog-tabs">
         <strong>
-          全部宠物 <span>{pets.length}</span>
+          收录资料 <span>{pets.length}</span>
         </strong>
         <div>
           <Link to="/skills/">
@@ -226,10 +242,17 @@ function PetCatalogPage({ query }) {
           </Link>
         </div>
       </div>
+      <div className="rw-pet-collections" role="group" aria-label="收录类别">
+        {collections.map(item => <button key={item.value} type="button" aria-pressed={collection === item.value} onClick={() => changeFilters({ collection: item.value === "regular" ? null : item.value })}>
+          {item.label} <span>{item.count}</span>
+        </button>)}
+      </div>
       <p className="rw-subnote">
         官方图鉴基础资料采集于 {officialPetData.source.retrievedAt.slice(0, 10)}。
         技能、血脉与活动记录按各自来源补充。
       </p>
+      {collection === "placeholder" && <p className="rw-pet-collection-note">名称或说明仍为占位内容，尚未确认正式发布；条目保留官方配置原文。</p>}
+      {collection === "internal" && <p className="rw-pet-collection-note">这些源表特殊编号与普通图鉴分开展示，请核对具体形态与适用数据。</p>}
       {pvp && (
         <div className="rw-pvp-filter-note">
           <Swords size={21} />
@@ -347,7 +370,7 @@ function PetCatalogPage({ query }) {
           </div>
         )}
       </section>
-      <div className="rw-results-meta">
+      <div className="rw-results-meta" id="pet-catalog-results">
         <span>
           <b>{result.length}</b> 只宠物{" "}
           <small>· 已收录 {pets.length} 只；未知值始终排在末尾</small>
@@ -394,16 +417,25 @@ function PetCatalogPage({ query }) {
         {message}
       </div>
       {result.length ? (
-        <div className="rw-petgrid">
-          {pagination.items.map((p) => (
+        <PetFeed
+          ref={feed}
+          items={result}
+          scope={scope}
+          version={officialPetData.source.sha256}
+          ready={q.toString() === new URLSearchParams(location.search).toString()}
+          requested={requested}
+          onCountChange={(loaded) => setQuery(history, location, { loaded, page: null })}
+          renderPet={(p) => <>
             <PetCard
-              key={p.slug}
               pet={p}
+              href={petHrefWithReturnTo(petCatalogHref(p), returnTo)}
+              onOpen={() => feed.current?.remember(p.slug)}
               onCompare={toggle}
               compared={compare.includes(p.slug)}
             />
-          ))}
-        </div>
+            {petCollection(p) !== "regular" && <span className="rw-pet-record-label">{petCollection(p) === "placeholder" ? "资料待定" : "特殊编号"}</span>}
+          </>}
+        />
       ) : (
         <EmptyState
           action={
@@ -412,10 +444,9 @@ function PetCatalogPage({ query }) {
             </button>
           }
         >
-          当前收录范围内没有匹配项；未收录的宠物不等于游戏内不存在。
+          当前分类没有匹配项；也可切换到“全部资料”查找待定或特殊编号条目。
         </EmptyState>
       )}
-      <PetPagination {...pagination} onPage={(page) => setQuery(history, location, { page })} />
       {compare.length > 0 && (
         <div className="rw-comparebar">
           <GitCompareArrows size={20} />
