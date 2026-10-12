@@ -29,15 +29,17 @@
 
 解码格式参考 [open-roco-conn 的 QueueConfs](https://github.com/fangtiancheng/open-roco-conn/blob/main/reference/main.swf/scripts/com/QQ/angel/install/config/QueueConfs.as) 与 `SpiritDesProxy.as`，导入器以 TypeScript 独立实现。官方基础资料与现有攻略、血脉和活动来源分别保留；配置中的获取文字不代表活动正在开放。普通检查与构建读取已提交快照，不访问官方服务。新增条目通过 `/pets/?entry=official-ID` 阅读，既有条目的 URL 保留。
 
-`Update official pet snapshot` 工作流每 3 小时检查一次（UTC 每个 3 小时周期的第 23 分钟），也可手动运行。配置及解析结果不变时保留原采集时间，不写空提交；需要显式重新记录采集时间时使用 `npm run pets:import -- --force`。数据变化后校验、重建章节快照，并生成基于数据摘要和主分支基线的 `chore/official-pets-*` PR；同一基线与数据的重试复用候选，不强推、不自动合并。合并后由现有发布工作流处理。
+更新模块集中在 `scripts/updates/`，统一入口为 `npm run data:update`，CI 为 `.github/workflows/update.yml`（`Update source snapshots`）。现有宠物、天梯模块每 3 小时检查一次（UTC 每个 3 小时周期的第 23 分钟）。配置及解析结果不变时保留原采集时间，不写空提交；需要显式重新记录采集时间时仍可使用 `npm run pets:import -- --force`。数据变化后校验、重建章节快照，并生成基于数据摘要和主分支基线的 `chore/data-update-*` PR；同一基线与数据的重试复用候选，不强推、不自动合并。合并后由现有发布工作流处理。
 
-工作流进入 `main` 后定时触发才会生效；仓库 Actions 设置需允许创建 PR，使用内置 `GITHUB_TOKEN`，不新增私密配置。因为该令牌的 push 不触发普通 CI，更新器显式 dispatch `Validate` 在候选分支执行完整只读检查。远程权限、定时运行及实际发布仍需在 GitHub 验收；`isInBook="0"` 只代表客户端图鉴标记，不证明宠物已发布或可获得。
+工作流进入 `main` 后定时触发才会生效；仓库 Actions 设置需允许创建 PR，使用内置 `GITHUB_TOKEN`，不新增私密配置。因为该令牌的 push 不触发普通 CI，更新器显式 dispatch `Validate` 在候选分支执行完整只读检查；同一候选提交已有成功或未结束的 dispatch 时跳过重复触发，失败或取消后可以重试。远程权限、定时运行及实际发布仍需在 GitHub 验收；`isInBook="0"` 只代表客户端图鉴标记，不证明宠物已发布或可获得。
 
 图鉴默认按编号倒序，以每批 60 条连续加载；长列表只渲染视口附近的等高卡片，键盘可继续访问相邻条目，自动加载不可用时保留手动按钮。纯字母占位名同时配有待定说明的记录归入“资料待定”，源表 ID ≥ 10000 的记录归入“特殊编号”，仍可通过独立分类或“全部资料”查阅；这些规则不推断正式名称宠物的发布状态。过滤条件和已加载深度保留在 URL，详情返回链接携带原目录地址，滚动位置只存于当前标签页的 sessionStorage（最多 8 组）；资料版本变化或存储不可用时保留查询入口并从可用位置开始。
 
 `npm run ladder:import` 读取线上 `plugins/LadderMatch/LadderMatchConfig.xml`，校验后重建 `apps/web/content/official-ladder.json`；离线复现使用 `--input /path/to/LadderMatchConfig.xml --retrieved-at 实际采集时间`。费用按 `SpiritCost/spirit` 的编号匹配，未列出的编号按官方客户端合计逻辑默认 1 费；禁赛单独读取 `LimitSpirit/id`，不能用禁赛标记把费用改为 0。页面保留 XML URL、采集时间和 SHA-256，不把采集时间虚构成生效日期；服务端临时禁赛、获取开放和完整阵容条件仍需另核。官方费用优先于历史样本及本机修改，费用排序与筛选使用同一来源。
 
-每 3 小时的更新工作流依次刷新宠物和天梯快照，任一导入失败则停止发布；即使 Angel.config 未变化，费用 XML 单独变化也能生成更新 PR。候选分支摘要同时包含两份快照，时间变化仍不产生空提交；只允许这两份数据及重建的章节基线变化。费用资料版本也参与浏览位置缓存校验，避免费用排序调整后错误恢复。
+更新器按 `tasks.ts` 中各模块的 `schedules` 选择任务，使用 GitHub 事件携带的原始 cron，避免排队延迟改变任务选择。新增日更或周更模块时，在注册表填写独立编号、规则、脚本、输出文件、检查项与说明，并在 `update.yml` 添加相应 cron；不同周期可共用工作流，输出文件由单个模块拥有。活动等资料尚未接入自动导入，不预设其更新周期。手动运行工作流可填写 `target=ladder` 或逗号分隔的模块编号；`all` 显式运行全部模块。本地使用 `npm run data:update -- --only ladder`、`--schedule '23 */3 * * *'` 或 `--plan` 查看计划；保留两个独立导入命令以便离线复现。
+
+同一触发选中的模块依次执行，任一导入失败则停止发布；各模块仍可全量拉取自身来源，但不会带动其他周期的模块。任一已注册数据变化都可生成更新 PR；候选摘要覆盖已注册快照，时间变化不产生空提交，只允许注册的输出及重建的章节基线变化。费用资料版本仍参与浏览位置缓存校验，避免费用排序调整后错误恢复。
 
 ### 邮箱密码与发信配置
 

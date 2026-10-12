@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: GPL-3.0-only
 import { createHash } from 'node:crypto';
 import { SaxesParser } from 'saxes';
-import type { OfficialLadderSnapshot } from '../apps/web/src/wiki/catalog/pets/ladderTypes';
+import type { OfficialLadderSnapshot } from '../../apps/web/src/wiki/catalog/pets/ladderTypes';
 
 export const LADDER_CONFIG_URL = 'https://res.17roco.qq.com/plugins/LadderMatch/LadderMatchConfig.xml';
 export const MAX_LADDER_BYTES = 2 * 1024 * 1024;

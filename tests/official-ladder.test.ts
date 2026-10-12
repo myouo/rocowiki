@@ -3,13 +3,13 @@ import { describe, expect, it } from 'vitest';
 import { readFileSync } from 'node:fs';
 import { renderToString } from 'react-dom/server';
 import { createElement } from 'react';
-import { ladderSnapshot } from '../scripts/ladder-config';
+import { ladderSnapshot } from '../scripts/updates/ladder-config';
 import { officialLadderCost, petMetadataWithOfficialLadder } from '../apps/web/src/wiki/catalog/pets/ladderModel';
 import LadderCostBadge, { ladderCostDescription } from '../apps/web/src/wiki/catalog/pets/LadderCostBadge';
 import { buildOfficialPetCatalog } from '../apps/web/src/wiki/catalog/pets/officialModel';
 import type { OfficialLadderSnapshot } from '../apps/web/src/wiki/catalog/pets/ladderTypes';
 import type { OfficialPetSnapshot } from '../apps/web/src/wiki/catalog/pets/officialTypes';
-import { sameOfficialPetSnapshot } from '../scripts/official-pet-snapshot';
+import { sameSnapshot } from '../scripts/updates/snapshot';
 
 const capture = '2026-10-12T00:00:00Z';
 const xml = (costs = '<spirit id="3092" cost="5"/><spirit id="3362" cost="4"/>', bans = '<id>3362</id>') => `<LadderMatchConfig><SpiritCost>${costs}</SpiritCost><LimitSpirit>${bans}</LimitSpirit></LadderMatchConfig>`;
@@ -34,8 +34,8 @@ describe('official ladder XML', () => {
   });
   it('does not churn a snapshot when only retrieval time changes', () => {
     const data = parse(xml());
-    expect(sameOfficialPetSnapshot(data, { ...data, source: { ...data.source, retrievedAt: '2026-10-13T00:00:00Z' } })).toBe(true);
-    expect(sameOfficialPetSnapshot(data, { ...data, costs: { ...data.costs, '3092': 4 } })).toBe(false);
+    expect(sameSnapshot(data, { ...data, source: { ...data.source, retrievedAt: '2026-10-13T00:00:00Z' } })).toBe(true);
+    expect(sameSnapshot(data, { ...data, costs: { ...data.costs, '3092': 4 } })).toBe(false);
   });
 });
 

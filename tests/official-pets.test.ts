@@ -6,7 +6,7 @@ import { hydrateRoot } from 'react-dom/client';
 import { createRequire } from 'node:module';
 import { deflateSync } from 'node:zlib';
 import { readFileSync } from 'node:fs';
-import { decodeAngelConfig, officialPetSnapshot, parseOfficialPets } from '../scripts/angel-config';
+import { decodeAngelConfig, officialPetSnapshot, parseOfficialPets } from '../scripts/updates/angel-config';
 import { buildOfficialPetCatalog, petCatalogHref } from '../apps/web/src/wiki/catalog/pets/officialModel';
 import type { OfficialPetSnapshot } from '../apps/web/src/wiki/catalog/pets/officialTypes';
 import { useHydratedSearch } from '../apps/web/src/wiki/catalog/pets/useHydratedSearch';

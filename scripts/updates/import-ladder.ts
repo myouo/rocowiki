@@ -2,7 +2,7 @@
 import { readFile } from 'node:fs/promises';
 import { parseArgs } from 'node:util';
 import { LADDER_CONFIG_URL, MAX_LADDER_BYTES, ladderSnapshot } from './ladder-config';
-import { saveOfficialPetSnapshot } from './official-pet-snapshot';
+import { saveSnapshot } from './snapshot';
 
 const { values } = parseArgs({ options: {
   input: { type: 'string' }, 'retrieved-at': { type: 'string' }, force: { type: 'boolean', default: false },
@@ -26,5 +26,5 @@ async function download(): Promise<Buffer> {
 }
 const bytes = values.input ? await readFile(values.input) : await download();
 const snapshot = ladderSnapshot(bytes, values['retrieved-at'] || new Date().toISOString());
-const changed = await saveOfficialPetSnapshot(new URL('../apps/web/content/official-ladder.json', import.meta.url), snapshot, values.force);
+const changed = await saveSnapshot(new URL('../../apps/web/content/official-ladder.json', import.meta.url), snapshot, values.force);
 console.log(`${changed ? 'Imported' : 'Unchanged:'} ${Object.keys(snapshot.costs).length} configured ladder costs; ${snapshot.bannedPetIds.length} banned pet IDs; unlisted IDs use the official client default ${snapshot.defaultCost}. SHA-256: ${snapshot.source.sha256}`);

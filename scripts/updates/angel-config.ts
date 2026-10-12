@@ -2,7 +2,7 @@
 import { createHash } from 'node:crypto';
 import { inflateSync } from 'node:zlib';
 import { SaxesParser } from 'saxes';
-import type { OfficialPetRecord, OfficialPetSnapshot, PetStats } from '../apps/web/src/wiki/catalog/pets/officialTypes';
+import type { OfficialPetRecord, OfficialPetSnapshot, PetStats } from '../../apps/web/src/wiki/catalog/pets/officialTypes';
 
 export const ANGEL_CONFIG_URL = 'https://res.17roco.qq.com/conf/Angel.config';
 export const MAX_CONFIG_BYTES = 8 * 1024 * 1024;
