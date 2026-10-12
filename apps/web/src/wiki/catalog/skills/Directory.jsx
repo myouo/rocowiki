@@ -138,7 +138,7 @@ function SkillCatalogPage({ query }) {
           <button type="button" className="rw-sort-direction-v6" aria-label={"技能当前" + (direction === "asc" ? "升序，切换降序" : "降序，切换升序")} onClick={() => setQuery(history, location, { order: direction === "asc" ? "desc" : "asc" })}>{direction === "asc" ? <ArrowUp size={14} /> : <ArrowDown size={14} />}{direction === "asc" ? "升序" : "降序"}</button>
         </div>
       </div>
-      <p className="rw-catalog-key-v6">官方技能表 {officialSkillData.skills.length} 条，采集于 {officialSkillData.source.retrievedAt.slice(0, 10)}。速度编码与已核验基础先手分别保留；学习关系按各自来源整理。</p>
+      <p className="rw-catalog-key-v6">官方技能表 {officialSkillData.skills.length} 条，采集于 {officialSkillData.source.retrievedAt.slice(0, 10)}。先手值直接读取官方配置；学习关系按各自来源整理。</p>
       {result.length ? (
         <SkillList items={result} scope={q.toString()} renderTable={items => <SkillTable items={items} />} />
       ) : (
@@ -158,7 +158,7 @@ function SkillCatalogPage({ query }) {
           进入技能详情，查看已关联的学习宠物。未收录学习关系不会显示成“没有宠物会”。
         </Notice>
         <Notice title="先手与命中有条件">
-          列表显示基础先手；战斗中的修正与条件必中在详情解释。
+          列表显示官方先手值；战斗中的修正与条件必中在详情解释。
         </Notice>
       </div>
       <Contribution

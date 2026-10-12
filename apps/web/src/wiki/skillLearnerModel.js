@@ -25,7 +25,7 @@ export function petLearnsSkill(pet, skill) {
 function knownLearning(row = {}) {
   const method = text(row.learningMethod || row.learnMethod || row.method);
   const value = row.learnLevel ?? row.learningLevel ?? row.level;
-  const level = value !== "" && value != null && Number.isInteger(Number(value)) && Number(value) >= 1 && Number(value) <= 100 ? Number(value) : null;
+  const level = value !== "" && value != null && Number.isInteger(Number(value)) && Number(value) >= 0 && Number(value) <= 100 ? Number(value) : null;
   return { method, level };
 }
 

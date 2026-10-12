@@ -100,14 +100,14 @@ export const skillSortFields = [
   { value: "category", label: "技能类别", group: "基本资料" },
   { value: "power", label: "基础威力", group: "数值参数" },
   { value: "pp", label: "PP", group: "数值参数" },
-  { value: "priority", label: "基础先手", group: "数值参数" },
+  { value: "priority", label: "先手值", group: "数值参数" },
 ];
 
 export function availableSkillSortFields(skills) {
   const fields = skills.some((skill) => Number.isFinite(skill.number))
     ? [{ value: "number", label: "技能编号", group: "基本资料" }, ...skillSortFields]
     : skillSortFields;
-  return skills.some(skill => Number.isFinite(skill.speedCode)) ? [...fields, { value: 'speedCode', label: '配置速度编码', group: '官方参数' }] : fields;
+  return fields;
 }
 
 export function getSkillSortValue(skill, field) {

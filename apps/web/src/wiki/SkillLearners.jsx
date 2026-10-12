@@ -6,6 +6,7 @@ import { ArrowRight, Check, ChevronDown, ExternalLink, PawPrint, Search, Trash2,
 import { pets as sourcePets, skills as sourceSkills } from "./data";
 import { petSkillPoolHref, resolvePublishedCatalogPets, resolvePublishedCatalogSkills } from "./catalogPublished";
 import { MAX_LEARNER_EDITS, resolveSkillLearners } from "./skillLearnerModel";
+import { learningLabel } from "./catalog/skills/learningPresentation";
 import "./SkillLearners.css";
 
 const searchPet = (pet, query) => !query || [pet.name, pet.slug, pet.number, ...(pet.aliases || [])].some((value) => String(value ?? "").toLocaleLowerCase().includes(query));
@@ -27,7 +28,7 @@ export default function SkillLearners({ skill = {}, pets = [], initialCount = 12
     <div className="rw-learner-toolbar-v73"><p><UsersRound size={16} aria-hidden="true" /><strong>已关联 {result.rows.length} 只宠物</strong><span>按已收录资料整理</span></p><SearchField label="搜索学习宠物" value={query} onChange={search} /></div>
     <div className="rw-learner-grid-v73">{rows.slice(0, limit).map((row) => <article className="rw-learner-card-v73" key={row.pet.slug}>
       <Link className="rw-learner-main-v73" to={petSkillPoolHref(row.pet)}><Portrait pet={row.pet} /><span><small>{row.pet.number ? `No. ${row.pet.number}` : "编号待补"}</small><strong>{row.pet.name}</strong></span><ArrowRight size={14} aria-hidden="true" /></Link>
-      <div className="rw-learner-detail-v73"><span>{row.method || "学习方式待补"}{row.level != null ? ` · ${row.level} 级` : ""}</span><small>{row.origins.join(" · ")}</small>{row.sources.length > 0 && <span className="rw-learner-sources-v73">{row.sources.map((source, index) => <a key={source.url} href={source.url} target="_blank" rel="noreferrer" title={source.title}>{row.sources.length > 1 ? `来源 ${index + 1}` : "资料来源"} <ExternalLink size={10} aria-hidden="true" /></a>)}</span>}</div>
+      <div className="rw-learner-detail-v73"><span>{learningLabel(row.method, row.level)}</span><small>{row.origins.join(" · ")}</small>{row.sources.length > 0 && <span className="rw-learner-sources-v73">{row.sources.map((source, index) => <a key={source.url} href={source.url} target="_blank" rel="noreferrer" title={source.title}>{row.sources.length > 1 ? `来源 ${index + 1}` : "资料来源"} <ExternalLink size={10} aria-hidden="true" /></a>)}</span>}</div>
     </article>)}</div>
     {!rows.length && <p className="rw-learner-empty-v73">{query ? "没有找到对应宠物。试试编号或其他别名。" : "尚未关联已收录宠物，可以通过「编辑学习关系」补充。"}</p>}
     <div className="rw-learner-bottom-v73"><span aria-live="polite">{query ? `搜索结果 ${rows.length} 只` : "未收录学习关系，不表示这只宠物不能学习。"}</span>{rows.length > limit && <button type="button" onClick={() => setLimit((value) => value + initialCount)}>显示更多（还有 {rows.length - limit} 只）<ChevronDown size={13} aria-hidden="true" /></button>}{limit > initialCount && rows.length > initialCount && <button type="button" onClick={() => setLimit(initialCount)}>收起列表</button>}</div>

@@ -37,10 +37,10 @@ describe('official skill catalogue identities', () => {
   it('preserves historical URLs and interpretations while using current official basic fields', () => {
     const snapshot = { ...data, skills: data.skills.filter(skill => skill.id === 3044 || skill.id === 87) };
     const catalog = buildOfficialSkillCatalog(snapshot, [{ slug: 'xiazi', name: '霞姿月韵', pp: 99, priority: 7, common: ['独立解析'], source: 'https://example.test/guide' }]);
-    expect(catalog.find(skill => skill.slug === 'xiazi')).toMatchObject({ number: 3044, pp: 6, priority: 7, common: ['独立解析'], curatedSource: 'https://example.test/guide' });
+    expect(catalog.find(skill => skill.slug === 'xiazi')).toMatchObject({ number: 3044, pp: 6, priority: 15, common: ['独立解析'], curatedSource: 'https://example.test/guide' });
     expect(skillCatalogHref(catalog.find(skill => skill.slug === 'xiazi')!)).toBe('/skills/xiazi/');
     expect(skillCatalogHref(catalog.find(skill => skill.number === 87)!)).toBe('/skills/?entry=official-skill-87');
-    expect(catalog.find(skill => skill.number === 87)?.priority).toBeNull();
+    expect(catalog.find(skill => skill.number === 87)?.priority).toBe(8);
   });
   it('keeps same-name variants separate and preserves unmatched historical entries', () => {
     const first = data.skills[0];

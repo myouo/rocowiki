@@ -5,6 +5,7 @@ import { petMetadata } from "../content/bundled.js";
 import { petAppearances } from "../content/bundled.js";
 import React, { useState, useEffect } from "react";
 import LadderCostBadge from "./pets/LadderCostBadge";
+import { learningLabel } from "./skills/learningPresentation";
 import { GitCompareArrows, ExternalLink, Check } from "lucide-react";
 import { Link } from "../core";
 import { skills } from "../data";
@@ -200,14 +201,9 @@ function SkillTable({
               <td className="rw-num">{s.power ?? "—"}</td>
               <td className="rw-num">{s.pp}</td>
               <td className="rw-num rw-priority">
-                {!Number.isFinite(s.priority)
-                  ? "待核"
-                  : s.priority > 0
-                    ? "+" + s.priority
-                    : s.priority}
-                {Number.isFinite(s.speedCode) && <small>编码 {s.speedCode}</small>}
+                {Number.isFinite(s.priority) ? s.priority : "待核"}
               </td>
-              {petContext && <td>{s.learning?.learningMethod || '方式待补'}{s.learning?.learnLevel != null ? ` · ${s.learning.learnLevel} 级` : ''}</td>}
+              {petContext && <td>{learningLabel(s.learning?.learningMethod, s.learning?.learnLevel)}</td>}
               <td>
                 <span className="rw-cell-summary"><EntityText text={s.summary} path={skillDetailHref(s)} /></span>
               </td>

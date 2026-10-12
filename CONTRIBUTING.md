@@ -37,9 +37,9 @@
 
 `npm run ladder:import` 读取线上 `plugins/LadderMatch/LadderMatchConfig.xml`，校验后重建 `apps/web/content/official-ladder.json`；离线复现使用 `--input /path/to/LadderMatchConfig.xml --retrieved-at 实际采集时间`。费用按 `SpiritCost/spirit` 的编号匹配，未列出的编号按官方客户端合计逻辑默认 1 费；禁赛单独读取 `LimitSpirit/id`，不能用禁赛标记把费用改为 0。页面保留 XML URL、采集时间和 SHA-256，不把采集时间虚构成生效日期；服务端临时禁赛、获取开放和完整阵容条件仍需另核。官方费用优先于历史样本及本机修改，费用排序与筛选使用同一来源。
 
-`npm run skills:import` 从同一份 Angel.config 解码 `spiritSkill_conf`，生成 `official-skills.json`。属性引用 `spirit_conf` 的元素定义，类别按 `damageType`，无 `attackType` 的状态、效果和捕捉球不当作技能。重复编号依照官方客户端的源表顺序取最后定义，并记录覆盖字段。速度编码独立保留，不直接当作已核验的 +N 基础先手；历史网址与独立结构化解析保留。统一任务同次选中宠物和技能时，只下载一次配置包并共享采集时间，临时输入在任务结束时清理。
+`npm run skills:import` 从同一份 Angel.config 解码 `spiritSkill_conf`，生成 `official-skills.json`。属性引用 `spirit_conf` 的元素定义，类别按 `damageType`，无 `attackType` 的状态、效果和捕捉球不当作技能。重复编号依照官方客户端的源表顺序取最后定义，并记录覆盖字段。`speed` 编码直接作为先手值显示和排序，例如普通技能为 8、霞姿月韵为 15；历史网址与独立结构化解析保留。统一任务同次选中宠物和技能时，只下载一次配置包并共享采集时间，临时输入在任务结束时清理。
 
-`npm run skill-relations:import` 读取公开 roco-desc 仓库的 `pet/` 数据，核对宠物身份后以技能名称、属性和类别匹配官方编号，同名候选再用参数消歧，不能唯一匹配的关系留待核。社区 `skill_id` 是数据库键，不能当游戏编号；`rank` 不当学习等级，未注明方式不能默认推成升级学习。不导入社区解析正文或账号字段。rocoai 的 `lineup_query_skill_pool` 则依赖已登录会话与背包位置，查询的是服务器授权的单宠技能池，不能作为公开批量图鉴来源。
+`npm run skill-relations:import` 读取公开 roco-desc 仓库的 `pet/` 数据，核对宠物身份后以技能名称、属性和类别匹配官方编号，同名候选再用参数消歧，不能唯一匹配的关系留待核。社区 `skill_id` 是数据库键，不能当游戏编号；`rank` 对应学习等级，0 显示为初始，1～100 为升级等级，-1 或缺失保留未知。`from_stone`、`from_heredity` 标明技能石或遗传时优先保留相应方式及已知等级，不用 `stage` 代替学习等级。等级对应关系可对照[喵喵的资料表](https://roco.dvg.cn/spirit_info.php?id=1)。不导入社区解析正文或账号字段。rocoai 的 `lineup_query_skill_pool` 则依赖已登录会话与背包位置，查询的是服务器授权的单宠技能池，不能作为公开批量图鉴来源。
 
 关联模块每天北京时间 09:41 检查，来源提交、官方编号快照和解析器版本均未变时跳过克隆；有变化才浅克隆，以长度受限的 Git blob 读取 JSON，不检出或执行外部代码。部分记录缺失或无效时保留此前已核对关联并标记过期，整批无效则保留原快照且停止发布。解析匹配规则变化需递增 `SKILL_RELATION_RESOLVER_VERSION`。离线复现可指定 `--repository /path/to/public-source-clone`；新来源、数据摘要和待核数量写入 `pet-skill-relations.json`。宠物技能池与技能反向查阅使用同一编号关系；技能目录按 60 条分批显示。
 

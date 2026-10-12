@@ -36,7 +36,7 @@ export function attachSkillRelations(pets: WikiPet[], skills: WikiSkill[], snaps
         if (!learningSources.some(source => source && typeof source === 'object' && 'sourceUrl' in source && source.sourceUrl === sourceUrl)) learningSources.push({ sourceUrl, sourceTitle: details.sourceTitle });
         Object.assign(existing, { ...details,
           learningMethod: method || details.learningMethod,
-          learnLevel: typeof level === 'number' && Number.isInteger(level) && level >= 1 && level <= 100 ? level : details.learnLevel,
+          learnLevel: typeof level === 'number' && Number.isInteger(level) && level >= 0 && level <= 100 ? level : details.learnLevel,
           sourceUrl: existing.sourceUrl || sourceUrl, sourceTitle: existing.sourceTitle || '独立技能池资料', learningSources,
         });
       } else links.push(details);

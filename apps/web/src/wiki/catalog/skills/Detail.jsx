@@ -101,16 +101,15 @@ function SkillPage({ slug }) {
             <strong>{skill.pp}</strong>
           </div>
           <div>
-            <span>基础先手</span>
+            <span>先手值</span>
             <strong>
-              {!Number.isFinite(skill.priority) ? "待核" : skill.priority > 0 ? "+" + skill.priority : skill.priority}
+              {Number.isFinite(skill.priority) ? skill.priority : "待核"}
             </strong>
           </div>
           <div className="rw-hit-parameter">
             <span>命中规则</span>
             <strong>{skill.hit}</strong>
           </div>
-          {Number.isFinite(skill.speedCode) && <div><span>配置速度编码</span><strong>{skill.speedCode}</strong></div>}
         </section>
         <div className="rw-skill-summary">
           <div className="rw-catalog-section-edit-v7">
@@ -199,8 +198,7 @@ function SkillPage({ slug }) {
             <div>
               <strong>资料站技能描述</strong>
               <p>
-                保留原始出处，与社区结构化解读分开。基础先手以正文“先手
-                +N”读取，不把源表内部速度编码当作先手。
+                保留资料站原始出处与社区结构化解读，技能基础参数以官方配置为准。
               </p>
             </div>
             <a href={skill.curatedSource || skill.source} target="_blank" rel="noreferrer">

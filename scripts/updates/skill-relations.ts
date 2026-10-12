@@ -6,7 +6,7 @@ import type { PetSkillPool, SkillRelationSnapshot } from '../../apps/web/src/wik
 
 export const SKILL_RELATION_REPO = 'https://gitcode.com/rocoai-dev/roco-desc.git';
 export const SKILL_RELATION_URL = 'https://gitcode.com/rocoai-dev/roco-desc';
-export const SKILL_RELATION_RESOLVER_VERSION = 1;
+export const SKILL_RELATION_RESOLVER_VERSION = 2;
 export const MAX_RELATION_FILE_BYTES = 2 * 1024 * 1024;
 export const MAX_RELATION_TOTAL_BYTES = 128 * 1024 * 1024;
 const object = (value: unknown): value is Record<string, unknown> => Boolean(value && typeof value === 'object' && !Array.isArray(value));
@@ -37,9 +37,11 @@ export function parsePetSkillPool(value: unknown, pet: OfficialPetRecord, skills
     if (candidates.length !== 1) { result.unresolved.push({ name, reason: candidates.length > 1 ? 'ambiguous' : reason }); continue; }
     // Community skill_id values are database keys, not official game IDs. Never use them as IDs.
     const official = candidates[0];
-    const levelValue = entry.learnLevel ?? entry.learn_level ?? entry.learningLevel;
-    const learnLevel = typeof levelValue === 'number' && Number.isInteger(levelValue) && levelValue >= 1 && levelValue <= 100 ? levelValue : null;
-    const learningMethod = [entry.from_stone === true ? '技能石' : '', entry.from_heredity === true ? '遗传' : ''].filter(Boolean).join(' / ');
+    // rank is the source's learning level; zero means initial and -1 is unspecified.
+    const levelValue = entry.rank ?? entry.learnLevel ?? entry.learn_level ?? entry.learningLevel;
+    const learnLevel = typeof levelValue === 'number' && Number.isInteger(levelValue) && levelValue >= 0 && levelValue <= 100 ? levelValue : null;
+    const methods = [entry.from_stone === true ? '技能石' : '', entry.from_heredity === true ? '遗传' : ''].filter(Boolean);
+    const learningMethod = methods.length ? methods.join(' / ') : learnLevel === 0 ? '初始' : learnLevel !== null ? '升级' : '';
     const previous = result.skills.find(row => row.skillId === official.id);
     if (!previous) result.skills.push({ skillId: official.id, name: official.name, learningMethod, learnLevel });
     else {

@@ -19,8 +19,7 @@ export function buildOfficialSkillCatalog(snapshot: OfficialSkillSnapshot, exist
       slug: previous?.slug || `official-skill-${official.id}`, number: official.id,
       name: official.name, type: official.type, category: official.category,
       power: official.power, pp: official.pp, speedCode: official.speedCode,
-      // Preserve separately sourced initiative; the configuration's speed code is not +N initiative.
-      priority: previous?.priority ?? null, hit: previous?.hit || '配置未提供独立命中规则',
+      priority: official.speedCode, hit: previous?.hit || '配置未提供独立命中规则',
       tags: previous?.tags || [], owner: previous?.owner || '学习关系待补', ownerSlug: previous?.ownerSlug || null,
       source: snapshot.source.url, curatedSource: previous?.source,
       summary: official.description, common: previous?.common || [], phases: previous?.phases || [],

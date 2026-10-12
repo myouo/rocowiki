@@ -6,6 +6,7 @@ import { buildSkillRelationSnapshot, parsePetSkillPool, readRelationBlobs } from
 import { attachSkillRelations } from '../apps/web/src/wiki/catalog/skills/relationModel';
 import { buildOfficialSkillCatalog } from '../apps/web/src/wiki/catalog/skills/officialModel';
 import { buildOfficialPetCatalog } from '../apps/web/src/wiki/catalog/pets/officialModel';
+import { learningLabel } from '../apps/web/src/wiki/catalog/skills/learningPresentation';
 import type { OfficialPetSnapshot } from '../apps/web/src/wiki/catalog/pets/officialTypes';
 import type { OfficialSkillSnapshot, OfficialSkillRecord } from '../apps/web/src/wiki/catalog/skills/officialTypes';
 import type { SkillRelationSnapshot } from '../apps/web/src/wiki/catalog/skills/relationTypes';
@@ -19,9 +20,9 @@ const entry = (info: Record<string, unknown> = { name: skill.name, race: '光系
 const document = (rows: unknown[] = [entry()]) => ({ success: true, data: { skill_pet_id: pet.id, name: pet.name, skill_list: rows } });
 
 describe('public skill-pool matching', () => {
-  it('checks pet identity and uses official IDs without treating community keys or rank as game fields', () => {
+  it('checks pet identity and resolves official skill IDs separately from learning ranks', () => {
     const pool = parsePetSkillPool(document(), pet, [skill]);
-    expect(pool.skills).toEqual([{ skillId: 1, name: skill.name, learningMethod: '', learnLevel: null }]);
+    expect(pool.skills).toEqual([{ skillId: 1, name: skill.name, learningMethod: '升级', learnLevel: 40 }]);
     expect(() => parsePetSkillPool({ ...document(), data: { ...document().data, skill_pet_id: 999 } }, pet, [skill])).toThrow();
     expect(() => parsePetSkillPool(document([{ ...entry(), pet_id: 999 }]), pet, [skill])).toThrow();
   });
@@ -31,8 +32,23 @@ describe('public skill-pool matching', () => {
     expect(parsePetSkillPool(document([entry({ ...entry().info, power: '80' })]), pet, [skill, variant]).skills[0].skillId).toBe(2);
     expect(parsePetSkillPool(document([entry({ name: 'missing', race: '光系', type_: '物理' })]), pet, [skill]).unresolved[0].reason).toBe('not-found');
   });
-  it('retains explicit learning methods and levels, but never infers upgrade learning', () => {
-    expect(parsePetSkillPool(document([{ ...entry(), from_stone: true, from_heredity: true, learnLevel: 30 }]), pet, [skill]).skills[0]).toMatchObject({ learningMethod: '技能石 / 遗传', learnLevel: 30 });
+  it('reads rank zero as initial and keeps negative, missing and invalid levels unknown', () => {
+    expect(parsePetSkillPool(document([{ ...entry(), rank: 0 }]), pet, [skill]).skills[0]).toMatchObject({ learningMethod: '初始', learnLevel: 0 });
+    for (const rank of [-1, undefined, 101, 1.5, '40']) {
+      expect(parsePetSkillPool(document([{ ...entry(), rank, stage: 40 }]), pet, [skill]).skills[0]).toMatchObject({ learningMethod: '', learnLevel: null });
+    }
+  });
+  it('retains stone and inherited methods with known levels or without inventing a level', () => {
+    expect(parsePetSkillPool(document([{ ...entry(), from_stone: true, rank: 30 }]), pet, [skill]).skills[0]).toMatchObject({ learningMethod: '技能石', learnLevel: 30 });
+    expect(parsePetSkillPool(document([{ ...entry(), from_heredity: true, rank: -1 }]), pet, [skill]).skills[0]).toMatchObject({ learningMethod: '遗传', learnLevel: null });
+    expect(parsePetSkillPool(document([{ ...entry(), from_stone: true, from_heredity: true, rank: 30 }]), pet, [skill]).skills[0]).toMatchObject({ learningMethod: '技能石 / 遗传', learnLevel: 30 });
+  });
+  it('presents initial, level-up and unknown learning consistently in both readers', () => {
+    expect(learningLabel('初始', 0)).toBe('初始');
+    expect(learningLabel('升级', 60)).toBe('升级 · 60 级');
+    expect(learningLabel('技能石', 30)).toBe('技能石 · 30 级');
+    expect(learningLabel('遗传', null)).toBe('遗传');
+    expect(learningLabel('', null)).toBe('学习方式待补');
   });
   it('preserves prior valid records when a source entry fails and refuses a wholly invalid update', () => {
     const subset = { ...pets, pets: [pet, pets.pets[0]] }, subsetSkills = { ...skills, skills: [skill] };
@@ -57,8 +73,12 @@ describe('bidirectional skill-pool projections', () => {
     attachSkillRelations(catalogPets, catalogSkills, relations);
     const haifu = catalogPets.find(pet => pet.number === 3092)!;
     const xiazi = catalogSkills.find(skill => skill.number === 3044)!;
-    expect(petLearnsSkill(haifu, xiazi)).toHaveLength(1);
-    expect(resolveSkillLearners({ skill: xiazi, pets: catalogPets }).rows.some((row: { pet: { number: number } }) => row.pet.number === 3092)).toBe(true);
+    expect(petLearnsSkill(haifu, xiazi)).toMatchObject([{ learnLevel: 60, learningMethod: '升级' }]);
+    expect(resolveSkillLearners({ skill: xiazi, pets: catalogPets }).rows.find((row: { pet: { number: number } }) => row.pet.number === 3092)).toMatchObject({ level: 60, method: '升级' });
+    const miaomiao = catalogPets.find(pet => pet.number === 1)!;
+    const tackle = catalogSkills.find(skill => skill.name === '猛烈撞击')!;
+    expect(petLearnsSkill(miaomiao, tackle)).toMatchObject([{ learnLevel: 0, learningMethod: '初始' }]);
+    expect(resolveSkillLearners({ skill: tackle, pets: catalogPets }).rows.find((row: { pet: { number: number } }) => row.pet.number === 1)).toMatchObject({ level: 0, method: '初始' });
     const official = new Map(skills.skills.map(skill => [skill.id, skill.name]));
     for (const pool of Object.values(relations.pets)) for (const row of pool.skills) expect(official.get(row.skillId)).toBe(row.name);
     expect(catalogSkills.find(skill => skill.name === '猛烈撞击')!.ownerNames!.length).toBeGreaterThan(100);
