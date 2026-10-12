@@ -1,10 +1,10 @@
-import { petSourceData, petMetadata, officialPetData, publicSearchRecords } from "./content/bundled.js";
+import { petSourceData, petMetadata, officialPetData, officialLadderData, publicSearchRecords } from "./content/bundled.js";
 import { buildOfficialPetCatalog, petCatalogHref } from "./catalog/pets/officialModel";
 
 const sourcePets = Array.isArray(petSourceData)
   ? petSourceData
   : petSourceData.pets || [];
-export const pets = buildOfficialPetCatalog(officialPetData, sourcePets, petMetadata.pets);
+export const pets = buildOfficialPetCatalog(officialPetData, sourcePets, petMetadata.pets, officialLadderData);
 export const skillSource = "https://news.4399.com/luoke/jinengsearch/";
 export const haifuSource = "https://roco.dvg.cn/spirit_info.php?id=3092";
 export const skills = [

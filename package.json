@@ -15,6 +15,7 @@
     "db:migrate": "npm run db:migrate -w @rocowiki/api",
     "generate": "node --import tsx scripts/generate-pages.ts",
     "pets:import": "node --import tsx scripts/import-official-pets.ts",
+    "ladder:import": "node --import tsx scripts/import-official-ladder.ts",
     "check:content": "node --import tsx scripts/check-schema.ts",
     "check:architecture": "node scripts/check-web-architecture.mjs",
     "licenses:refresh": "node scripts/refresh-license-inventory.mjs",

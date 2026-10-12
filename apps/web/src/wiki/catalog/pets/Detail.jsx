@@ -16,6 +16,7 @@ import { officialPetData } from "../../content/bundled.js";
 import OfficialPetSource from "./OfficialSource";
 import { useLocation } from "@docusaurus/router";
 import { petCollection, safePetListReturnTo } from "./feedModel";
+import LadderSource from "./LadderSource";
 
 function PetPage({ slug }) {
   const location = useLocation();
@@ -128,6 +129,7 @@ function PetPage({ slug }) {
               <Badge>页游图鉴</Badge>
             </div>
             <dl className="rw-facts-grid">
+              <DataPair label="天梯费用" value={meta.ladderMagic?.value != null ? <span>{meta.ladderMagic.value} 魔力{meta.ladderMagic.banned ? " · 配置禁赛" : ""}</span> : "待核"} />
               <DataPair label="组别" value={meta.group || "待核"} />
               <DataPair
                 label="所属系列"
@@ -326,6 +328,7 @@ function PetPage({ slug }) {
           </div>
         </Section>
         <Section title="来源与修订" id="sources">
+          <LadderSource magic={pet.officialLadder} />
           <OfficialPetSource pet={pet.official} source={officialPetData.source} />
           {pet.sourceUrl !== officialPetData.source.url && <div className="rw-source-row">
             <BookOpen size={18} />

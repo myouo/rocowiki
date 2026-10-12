@@ -3,7 +3,8 @@ import { EntityText } from "../EntityReference";
 import { petDetailHref, skillDetailHref } from "../catalogPublished";
 import { petMetadata } from "../content/bundled.js";
 import { petAppearances } from "../content/bundled.js";
-import React, { useState, useEffect, useId } from "react";
+import React, { useState, useEffect } from "react";
+import LadderCostBadge from "./pets/LadderCostBadge";
 import { GitCompareArrows, ExternalLink, Check } from "lucide-react";
 import { Link } from "../core";
 import { skills } from "../data";
@@ -40,40 +41,7 @@ function AttributeBadge({ type, iconOnly = false }) {
 }
 
 function MagicCostBadge({ pet }) {
-  const id = useId();
-  const [open, setOpen] = useState(false);
-  const magic = petMeta(pet).ladderMagic;
-  const known = Number.isFinite(magic?.value);
-  const description = known
-    ? `${pet.name} · 天梯组队魔力值 ${magic.value}。记录生效日 ${magic.effectiveFrom}，后续调整请核对赛规。`
-    : `${pet.name} · 天梯组队魔力值尚未收录，不按 0 计算。`;
-  return (
-    <>
-      <button
-        type="button"
-        className={"rw-magic-cost-v6" + (!known ? " unknown" : "")}
-        title={description}
-        aria-label={description}
-        aria-expanded={open}
-        aria-describedby={open ? id : undefined}
-        onClick={(event) => {
-          event.currentTarget.focus();
-          setOpen(!open);
-        }}
-        onBlur={() => setOpen(false)}
-        onKeyDown={(event) => {
-          if (event.key === "Escape") setOpen(false);
-        }}
-      >
-        {known ? magic.value : "?"}
-      </button>
-      {open && (
-        <span className="rw-magic-tooltip-v6" id={id} role="tooltip">
-          {description}
-        </span>
-      )}
-    </>
-  );
+  return <LadderCostBadge name={pet.name} magic={petMeta(pet).ladderMagic} />;
 }
 
 function PetPortrait({ pet, size = "", className = "" }) {

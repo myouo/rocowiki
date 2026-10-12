@@ -1,4 +1,5 @@
 // SPDX-License-Identifier: GPL-3.0-only
+import type { OfficialLadderCost } from './ladderTypes';
 export type PetStats = [number, number, number, number, number, number];
 
 export interface OfficialPetRecord {
@@ -48,4 +49,5 @@ export interface WikiPet {
   catalogEntry?: boolean;
   metadata?: Record<string, unknown>;
   official?: OfficialPetRecord;
+  officialLadder?: OfficialLadderCost;
 }

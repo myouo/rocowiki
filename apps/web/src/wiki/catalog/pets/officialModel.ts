@@ -1,5 +1,7 @@
 // SPDX-License-Identifier: GPL-3.0-only
 import type { OfficialPetSnapshot, WikiPet, PetStats } from './officialTypes';
+import type { OfficialLadderSnapshot } from './ladderTypes';
+import { officialLadderCost } from './ladderModel';
 
 interface ExistingPet {
   slug: string;
@@ -19,7 +21,7 @@ const aliases: Record<string, string[]> = {
   碧水灵兽: ['碧水'], 魔神武王: ['武王'], 皇家圣光迪莫: ['圣光迪莫'],
 };
 
-export function buildOfficialPetCatalog(snapshot: OfficialPetSnapshot, existing: ExistingPet[], metadata: Record<string, Record<string, unknown>>): WikiPet[] {
+export function buildOfficialPetCatalog(snapshot: OfficialPetSnapshot, existing: ExistingPet[], metadata: Record<string, Record<string, unknown>>, ladder?: OfficialLadderSnapshot): WikiPet[] {
   const byNumber = new Map(existing.map(pet => [pet.number, pet]));
   const result: WikiPet[] = snapshot.pets.map(official => {
     const previous = byNumber.get(official.id);
@@ -45,6 +47,10 @@ export function buildOfficialPetCatalog(snapshot: OfficialPetSnapshot, existing:
   for (const previous of existing) {
     if (result.some(pet => pet.number === previous.number)) continue;
     result.push({ ...previous, types: previous.type || previous.types || [], aliases: previous.aliases || [], skills: previous.skills || [], stats: previous.stats as PetStats | null, metadata: metadata[previous.slug] || {} });
+  }
+  if (ladder) for (const pet of result) {
+    pet.officialLadder = officialLadderCost(ladder, pet.number);
+    pet.metadata = { ...pet.metadata, ladderMagic: pet.officialLadder };
   }
   return result;
 }

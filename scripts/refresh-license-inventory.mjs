@@ -35,7 +35,8 @@ const inventory={schema:1,projectLicense:policies.projectLicense,wikiContentLice
   {id:'serif-font',status:'notice-retained',license:'OFL-1.1',file:'apps/web/static/fonts/roco-wiki-serif-600.woff2',notice:'apps/web/static/fonts/OFL-Noto-Serif-SC.txt',evidence:'apps/web/static/fonts/FONT-SOURCE.json'},
   {id:'sans-font',status:'notice-retained',license:'OFL-1.1',file:'apps/web/static/fonts/roco-wiki-sans-v7.woff2',notice:'apps/web/static/fonts/OFL-Noto-Sans-SC.txt',evidence:'apps/web/static/fonts/FONT-SOURCE-V7.json'},
   {id:'game-images',status:'permission-unverified',license:'Not established by this repository',directory:'apps/web/static/img',evidence:['apps/web/content/asset-sources.json','apps/web/content/pet-sources.json']},
-  {id:'official-pet-data',status:'permission-unverified',license:'Not established by this repository',file:'apps/web/content/official-pets.json',source:'https://res.17roco.qq.com/conf/Angel.config',evidence:['apps/web/content/official-pets.json']}
+  {id:'official-pet-data',status:'permission-unverified',license:'Not established by this repository',file:'apps/web/content/official-pets.json',source:'https://res.17roco.qq.com/conf/Angel.config',evidence:['apps/web/content/official-pets.json']},
+  {id:'official-ladder-data',status:'permission-unverified',license:'Not established by this repository',file:'apps/web/content/official-ladder.json',source:'https://res.17roco.qq.com/plugins/LadderMatch/LadderMatchConfig.xml',evidence:['apps/web/content/official-ladder.json']}
 ]};
 fs.writeFileSync('docs/license-inventory.json',JSON.stringify(inventory,null,2)+'\n');
 console.log(`License inventory: ${rows.length} direct packages; ${rows.filter(row=>row.status==='metadata-only').length} metadata-only entries. Game-image permissions remain unverified.`);

@@ -1,8 +1,12 @@
 import { petMetadata } from "../content/bundled.js";
+import { petMetadataWithOfficialLadder } from "./pets/ladderModel";
 
 const UNKNOWN = "__unknown";
 
-const petMeta = (pet) => pet?.metadata || petMetadata.pets[pet?.slug] || {};
+const petMeta = (pet) => {
+  const metadata = pet?.metadata || petMetadata.pets[pet?.slug] || {};
+  return petMetadataWithOfficialLadder(metadata, pet?.officialLadder);
+};
 
 const normalType = (type) => (type === "幽" ? "幽灵" : type?.replace("系", ""));
 
@@ -21,7 +25,7 @@ const sortFields = [
   { value: "spDef", label: "魔抗", group: "种族值" },
   { value: "speed", label: "速度", group: "种族值" },
   { value: "total", label: "种族总和", group: "种族值" },
-  { value: "magic", label: "天梯魔力值", group: "补充资料" },
+  { value: "magic", label: "天梯费用", group: "补充资料" },
   { value: "experienceType", label: "经验类型", group: "补充资料" },
   { value: "heightM", label: "身高", group: "补充资料" },
   { value: "weightKg", label: "体重", group: "补充资料" },

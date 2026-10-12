@@ -7,6 +7,7 @@ import { join, resolve } from 'node:path';
 import { tmpdir } from 'node:os';
 import { officialPetUpdateBranch, saveOfficialPetSnapshot } from '../scripts/official-pet-snapshot';
 import type { OfficialPetSnapshot } from '../apps/web/src/wiki/catalog/pets/officialTypes';
+import type { OfficialLadderSnapshot } from '../apps/web/src/wiki/catalog/pets/ladderTypes';
 
 const temporary: string[] = [];
 afterEach(async () => { for (const directory of temporary.splice(0)) await rm(directory, { recursive: true, force: true }); });
@@ -16,6 +17,7 @@ const snapshot = (time = '2026-10-11T00:00:00Z'): OfficialPetSnapshot => ({
   source: { url: 'https://example.test/Angel.config', retrievedAt: time, sha256: 'a'.repeat(64), configVersion: 'test', objectCount: 1, spiritCount: 1, excludedCount: 0, duplicateIds: [] },
   pets: [],
 });
+const ladderSnapshot = (): OfficialLadderSnapshot => ({ schemaVersion: 1, source: { url: 'https://example.test/LadderMatchConfig.xml', retrievedAt: '2026-10-11T00:00:00Z', sha256: 'a'.repeat(64), costEntryCount: 0, banEntryCount: 0 }, defaultCost: 1, costs: {}, bannedPetIds: [] });
 
 describe('scheduled official pet refresh', () => {
   it('does not rewrite a snapshot or change its branch when only the check time changes', async () => {
@@ -60,6 +62,9 @@ describe('scheduled official pet refresh', () => {
     expect(credentialSteps).toHaveLength(1);
     expect(credentialSteps[0].run).toBe('node --import tsx scripts/publish-official-pet-update.ts');
     expect(JSON.stringify(workflow)).not.toContain('secrets.');
+    const refresh = job.steps.find((step: { name?: string }) => step.name === 'Refresh from the public official configuration');
+    expect(refresh.run).toContain('npm run ladder:import');
+    expect(job.steps.find((step: { id?: string }) => step.id === 'data').run).toContain('apps/web/content/official-ladder.json');
     const validation = load(await readFile('.github/workflows/validate.yml', 'utf8'));
     expect(validation.on).toHaveProperty('workflow_dispatch');
     expect(validation.permissions).toEqual({ contents: 'read' });
@@ -70,7 +75,7 @@ describe('official pet PR publication through real Git', () => {
   const script = resolve('scripts/publish-official-pet-update.ts');
   const tsx = resolve('node_modules/tsx/dist/loader.mjs');
   const git = (cwd: string, ...args: string[]) => execFileSync('git', args, { cwd, encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'] }).trim();
-  async function fixture() {
+  async function fixture(kind: 'pets' | 'ladder' = 'pets') {
     const root = await directory(), remote = join(root, 'remote.git'), work = join(root, 'work'), bin = join(root, 'bin');
     await mkdir(work); await mkdir(bin);
     git(root, 'init', '--bare', '--initial-branch=main', remote);
@@ -79,20 +84,23 @@ describe('official pet PR publication through real Git', () => {
     git(work, 'config', 'commit.gpgsign', 'false');
     await mkdir(join(work, 'apps/web/content'), { recursive: true });
     await writeFile(join(work, 'apps/web/content/official-pets.json'), JSON.stringify(snapshot()));
+    await writeFile(join(work, 'apps/web/content/official-ladder.json'), JSON.stringify(ladderSnapshot()));
     await writeFile(join(work, 'apps/web/content/published-sections-v7.json'), '{}');
     await writeFile(join(work, 'code.txt'), 'reviewed code');
     git(work, 'add', '.'); git(work, 'commit', '-m', 'fixture base'); git(work, 'remote', 'add', 'origin', remote); git(work, 'push', '-u', 'origin', 'main');
     await writeFile(join(bin, 'gh'), `#!/usr/bin/env node\nconst fs=require('node:fs');fs.appendFileSync(process.env.GH_TEST_LOG,JSON.stringify(process.argv.slice(2))+'\\n');if(process.argv[2]==='pr'&&process.argv[3]==='list'&&process.env.GH_TEST_EXISTING)process.stdout.write(process.env.GH_TEST_EXISTING);if(process.argv[2]==='pr'&&process.argv[3]==='create')process.stdout.write('https://github.com/example/fixture/pull/1');\n`, { mode: 0o755 });
-    const next = { ...snapshot('2026-10-12T00:00:00Z'), source: { ...snapshot().source, retrievedAt: '2026-10-12T00:00:00Z', sha256: 'b'.repeat(64) } };
+    const next = kind === 'pets' ? { ...snapshot('2026-10-12T00:00:00Z'), source: { ...snapshot().source, retrievedAt: '2026-10-12T00:00:00Z', sha256: 'b'.repeat(64) } } : snapshot();
+    const ladder = kind === 'ladder' ? { ...ladderSnapshot(), costs: { '137': 2 }, source: { ...ladderSnapshot().source, sha256: 'b'.repeat(64), costEntryCount: 1 } } : ladderSnapshot();
     await writeFile(join(work, 'apps/web/content/official-pets.json'), JSON.stringify(next));
+    await writeFile(join(work, 'apps/web/content/official-ladder.json'), JSON.stringify(ladder));
     await writeFile(join(work, 'apps/web/content/published-sections-v7.json'), '{"updated":true}');
     const log = join(root, 'gh.log');
     const env = { ...process.env, PATH: `${bin}:${process.env.PATH}`, GITHUB_ACTIONS: 'true', GITHUB_REPOSITORY: 'example/fixture', GH_TOKEN: 'synthetic-actions-token', RUNNER_TEMP: root, GH_TEST_LOG: log, GH_TEST_EXISTING: '' };
     const publish = (overrides = {}) => execFileSync(process.execPath, ['--import', tsx, script], { cwd: work, env: { ...env, ...overrides }, encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'] });
-    return { work, remote, log, next, publish };
+    return { work, remote, log, next, ladder, publish };
   }
   it('pushes only data to a new branch, creates a PR, dispatches checks, and reuses the candidate on retry', async () => {
-    const f = await fixture(), main = git(f.remote, 'rev-parse', 'main'), branch = officialPetUpdateBranch(f.next, main);
+    const f = await fixture(), main = git(f.remote, 'rev-parse', 'main'), branch = officialPetUpdateBranch(f.next, main, f.ladder);
     expect(f.publish()).toContain('ready for review');
     const head = git(f.remote, 'rev-parse', branch);
     expect(git(f.remote, 'rev-parse', 'main')).toBe(main);
@@ -112,8 +120,15 @@ describe('official pet PR publication through real Git', () => {
     expect(() => f.publish()).toThrow();
     await expect(readFile(f.log, 'utf8')).rejects.toMatchObject({ code: 'ENOENT' });
   });
+  it('publishes a ladder-only update even when Angel.config did not change', async () => {
+    const f = await fixture('ladder'), main = git(f.remote, 'rev-parse', 'main'), branch = officialPetUpdateBranch(f.next, main, f.ladder);
+    expect(f.publish()).toContain('ready for review');
+    expect(git(f.remote, 'rev-parse', 'main')).toBe(main);
+    expect(git(f.remote, 'diff', '--name-only', `main...${branch}`).split('\n').sort()).toEqual(['apps/web/content/official-ladder.json', 'apps/web/content/published-sections-v7.json']);
+    expect(branch).not.toBe(officialPetUpdateBranch(f.next, main, ladderSnapshot()));
+  });
   it('refuses to reuse a branch containing code changes even when the snapshot matches', async () => {
-    const f = await fixture(), branch = officialPetUpdateBranch(f.next, git(f.work, 'rev-parse', 'HEAD'));
+    const f = await fixture(), branch = officialPetUpdateBranch(f.next, git(f.work, 'rev-parse', 'HEAD'), f.ladder);
     git(f.work, 'switch', '-c', branch); await writeFile(join(f.work, 'code.txt'), 'unexpected code');
     git(f.work, 'add', '.'); git(f.work, 'commit', '-m', 'unexpected branch'); git(f.work, 'push', 'origin', branch);
     git(f.work, 'switch', 'main');

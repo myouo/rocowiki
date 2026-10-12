@@ -20,6 +20,8 @@ V7.3.1 界面来自用户提供的 RocoWiki_Docusaurus_V7_3_1 项目；保留现
 
 官方宠物基础资料来自公开 `https://res.17roco.qq.com/conf/Angel.config`；`apps/web/content/official-pets.json` 记录采集时间、版本与原包 SHA-256，图标直接引用官方资源。该游戏资料不纳入本项目的 GPL 或 CC 授权，原权利仍归原权利人，再分发许可尚未核验。新增 XML 解析依赖 saxes 6.0.0 声明使用 ISC，但安装包未附完整许可文本，台账标记为 metadata-only；格式调查参考 open-roco-conn，未复制其 C++ 实现或反编译代码。
 
+天梯费用和配置禁赛来自公开 `https://res.17roco.qq.com/plugins/LadderMatch/LadderMatchConfig.xml`，出处、采集时间和原 XML SHA-256 保留于 `apps/web/content/official-ladder.json`。未列明编号默认 1 费的规则参考官方客户端的费用合计与说明逻辑，调查入口为 open-roco-conn 的 LadderMatch 反编译资料；未复制其代码。该游戏配置同样不纳入项目 GPL 或 CC 授权，再分发许可仍待核验。
+
 <a id="changes"></a>
 ## 更新与发行
 

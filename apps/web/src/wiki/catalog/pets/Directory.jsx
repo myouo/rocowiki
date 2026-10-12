@@ -1,6 +1,6 @@
 import CustomSelect from "../../Select";
 import EditEntry from "../../editing/EditEntry";
-import { petMetadata, officialPetData } from "../../content/bundled.js";
+import { petMetadata, officialPetData, officialLadderData } from "../../content/bundled.js";
 import { weekly } from "../../content/bundled.js";
 import React, { useState, useEffect, useRef } from "react";
 import { useHistory, useLocation } from "@docusaurus/router";
@@ -14,6 +14,7 @@ import { PetFeed } from "./PetFeed";
 import { collectionRank, petCollection, petFeedScope, petHrefWithReturnTo, readPetCollection, requestedPetCount } from "./feedModel";
 import { petCatalogHref } from "./officialModel";
 import { useHydratedSearch } from "./useHydratedSearch";
+import { ladderDate } from "./LadderCostBadge";
 
 function PetsPage({ query }) {
   const location = useLocation();
@@ -185,7 +186,7 @@ function PetCatalogPage({ query }) {
     },
     {
       key: "magic",
-      label: "天梯魔力值",
+      label: "天梯费用",
       value: magic,
       options: fieldOptions("magic", "魔力值"),
     },
@@ -411,7 +412,8 @@ function PetCatalogPage({ query }) {
       </div>
       <p className="rw-catalog-key-v6">
         <span className="rw-magic-key-v6">5</span>
-        圆圈为天梯组队魔力值，点按可查看记录日期；<b>?</b> 表示尚未核实。
+        圆圈为天梯费用（魔力），带“禁”表示列入配置禁赛名单。
+        费用按 <a href={officialLadderData.source.url} target="_blank" rel="noreferrer">线上官方 XML</a> 标注，未列出的编号按客户端默认 1 费；采集于 {ladderDate(officialLadderData.source.retrievedAt)}。
       </p>
       <div className="rw-comparison-message" role="status" aria-live="polite">
         {message}
@@ -421,7 +423,7 @@ function PetCatalogPage({ query }) {
           ref={feed}
           items={result}
           scope={scope}
-          version={officialPetData.source.sha256}
+          version={officialPetData.source.sha256 + ":" + officialLadderData.source.sha256}
           ready={q.toString() === new URLSearchParams(location.search).toString()}
           requested={requested}
           onCountChange={(loaded) => setQuery(history, location, { loaded, page: null })}

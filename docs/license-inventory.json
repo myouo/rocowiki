@@ -719,6 +719,16 @@
       "evidence": [
         "apps/web/content/official-pets.json"
       ]
+    },
+    {
+      "id": "official-ladder-data",
+      "status": "permission-unverified",
+      "license": "Not established by this repository",
+      "file": "apps/web/content/official-ladder.json",
+      "source": "https://res.17roco.qq.com/plugins/LadderMatch/LadderMatchConfig.xml",
+      "evidence": [
+        "apps/web/content/official-ladder.json"
+      ]
     }
   ]
 }

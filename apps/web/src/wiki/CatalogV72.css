@@ -16,6 +16,8 @@
 .rw-official-pet-source { margin-bottom: 1.5rem; }
 .rw-official-pet-source p { margin: .6rem 0; }
 .rw-official-pet-hash { overflow-wrap: anywhere; }
+.rw .rw-magic-cost-v6.is-banned { color: #a75f59; border-color: #dfb8b0; background: #fff1eb; }
+.rw-ladder-ban-dot { position: absolute; top: -6px; right: -7px; width: 15px; height: 15px; border-radius: 50%; background: #b87065; color: #fff; font-size: 9px; line-height: 15px; }
 .rw .rw-pet-detail-v6 .rw-pet-overview-v72 {
   grid-template-columns: minmax(180px, .8fr) minmax(280px, 1.35fr) minmax(220px, 1fr);
   align-items: stretch;
