@@ -16,7 +16,7 @@ if (process.env.GITHUB_EVENT_NAME === 'schedule' && !values.schedule && !process
 const tasks = selectUpdateTasks(updateTasks, {
   schedule: values.schedule ?? (process.env.GITHUB_EVENT_NAME === 'schedule' ? process.env.UPDATE_SCHEDULE : undefined),
   only: values.only ?? process.env.UPDATE_TARGET,
-});
+}, process.env);
 async function output(name: string, value: string) {
   if (process.env.GITHUB_OUTPUT) await appendFile(process.env.GITHUB_OUTPUT, `${name}=${value}\n`);
 }

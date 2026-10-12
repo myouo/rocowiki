@@ -8,6 +8,7 @@ export interface UpdateTask {
   tests: readonly string[];
   description: string;
   disabledReason?: string;
+  requiresOneOf?: readonly string[];
   input?: { url: string; maxBytes: number };
 }
 
@@ -40,9 +41,16 @@ export const updateTasks: readonly UpdateTask[] = [
     description: 'Public roco-desc learning relations matched to official pet identities and skill IDs; unresolved names stay unlinked.',
     disabledReason: 'Historical roco-desc snapshots are corroboration only; new collection must use official game data.',
   },
+  {
+    id: 'game-skill-relations', label: 'Game-observed pet skill pools', schedules: ['41 1 * * *'],
+    script: 'scripts/updates/import-game-skill-relations.ts', files: ['apps/web/content/game-skill-relations.json'],
+    tests: ['tests/game-skill-pool.test.ts', 'tests/game-skill-collection.test.ts'],
+    description: 'Read a configured, already-online headless bag or sanitized game captures; preserve unknown learning levels.',
+    requiresOneOf: ['ROCO_GAME_RUNTIME', 'ROCO_GAME_SKILL_CAPTURE_FILE'],
+  },
 ];
 
-export function selectUpdateTasks(tasks: readonly UpdateTask[], selection: { schedule?: string; only?: string }) {
+export function selectUpdateTasks(tasks: readonly UpdateTask[], selection: { schedule?: string; only?: string }, environment: Record<string, string | undefined> = {}) {
   const ids = new Set<string>(), files = new Set<string>();
   for (const task of tasks) {
     if (!/^[a-z][a-z0-9-]*$/.test(task.id) || ids.has(task.id)) throw new Error('Invalid or duplicate update task ID');
@@ -51,23 +59,26 @@ export function selectUpdateTasks(tasks: readonly UpdateTask[], selection: { sch
     if (![task.script, ...task.files, ...task.tests].every(file => /^[\w./-]+$/.test(file) && !file.split('/').includes('..') && !file.startsWith('/'))) throw new Error(`Invalid path for ${task.id}`);
     if (!task.files.length || !task.tests.length) throw new Error(`Missing outputs or tests for ${task.id}`);
     if (task.input && (!task.input.url.startsWith('https://') || !Number.isSafeInteger(task.input.maxBytes) || task.input.maxBytes <= 0)) throw new Error(`Invalid source for ${task.id}`);
+    if (task.requiresOneOf && (!task.requiresOneOf.length || task.requiresOneOf.some(name => !/^[A-Z][A-Z0-9_]+$/.test(name)))) throw new Error(`Invalid input configuration for ${task.id}`);
     for (const file of task.files) {
       if (files.has(file)) throw new Error(`Multiple tasks own ${file}`);
       files.add(file);
     }
   }
+  const configured = (task: UpdateTask) => !task.requiresOneOf || task.requiresOneOf.some(name => environment[name]?.trim());
   if (selection.schedule) {
     if (selection.only && selection.only !== 'all') throw new Error('Choose a schedule or explicit tasks, not both');
     // Use the cron supplied by GitHub, rather than wall-clock time: queued jobs may start late.
-    return tasks.filter(task => !task.disabledReason && task.schedules.includes(selection.schedule!));
+    return tasks.filter(task => !task.disabledReason && configured(task) && task.schedules.includes(selection.schedule!));
   }
   const only = selection.only || 'all';
-  if (only === 'all') return tasks.filter(task => !task.disabledReason);
+  if (only === 'all') return tasks.filter(task => !task.disabledReason && configured(task));
   const selected = only.split(',');
   if (selected.some(id => !ids.has(id)) || new Set(selected).size !== selected.length) throw new Error(`Unknown or duplicate update task: ${only}`);
   for (const id of selected) {
     const task = tasks.find(task => task.id === id)!;
     if (task.disabledReason) throw new Error(`Update task ${id} is disabled: ${task.disabledReason}`);
+    if (!configured(task)) throw new Error(`Update task ${id} requires ${task.requiresOneOf!.join(' or ')}; collection is not configured`);
   }
   return tasks.filter(task => selected.includes(task.id));
 }

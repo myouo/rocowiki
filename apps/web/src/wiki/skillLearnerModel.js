@@ -1,4 +1,5 @@
 /** Skill learning is a many-to-many relation. An owner hint is never exclusivity. */
+import { mergeLearningEvidence } from './catalog/skills/learningEvidence.ts';
 const plain = (value) => value && typeof value === "object" && !Array.isArray(value);
 const text = (value, limit = 200) => typeof value === "string" ? value.trim().slice(0, limit) : "";
 const slug = (value) => typeof value === "string" && /^[a-z0-9][a-z0-9_-]{0,119}$/i.test(value) ? value : "";
@@ -26,7 +27,7 @@ function knownLearning(row = {}) {
   const method = text(row.learningMethod || row.learnMethod || row.method);
   const value = row.learnLevel ?? row.learningLevel ?? row.level;
   const level = value !== "" && value != null && Number.isInteger(Number(value)) && Number(value) >= 0 && Number(value) <= 100 ? Number(value) : null;
-  return { method, level };
+  return { method, level, gameObserved: row.evidence === 'game' };
 }
 
 /** Keep imported skill-pool links while overlaying explicitly maintained details. */
@@ -35,7 +36,7 @@ export function resolveSkillLearners({ skill = {}, pets = [], learners = skill.l
   const add = (pet, details, origin, sourceUrl, sourceTitle) => {
     const previous = byPet.get(pet.slug) || { pet, method: "", level: null, origins: [], sources: [] };
     const source = learnerSourceUrl(sourceUrl);
-    const next = { ...previous, method: details.method || previous.method, level: details.level ?? previous.level, origins: [...new Set([...previous.origins, origin])], sources: [...previous.sources] };
+    const next = { ...previous, ...mergeLearningEvidence(previous, { method: details.method || '', level: details.level ?? null, gameObserved: details.gameObserved }), origins: [...new Set([...previous.origins, origin])], sources: [...previous.sources] };
     if (source && !next.sources.some((row) => row.url === source)) next.sources.push({ url: source, title: text(sourceTitle) || "学习关系来源" });
     byPet.set(pet.slug, next);
   };
@@ -53,7 +54,7 @@ export function resolveSkillLearners({ skill = {}, pets = [], learners = skill.l
     add(pet, entry, "社区补充", entry.sourceUrl, entry.sourceTitle);
   }
   const rows = [...byPet.values()].sort((a, b) => (Number.isFinite(a.pet.number) ? a.pet.number : Infinity) - (Number.isFinite(b.pet.number) ? b.pet.number : Infinity) || a.pet.name.localeCompare(b.pet.name, "zh-CN") || a.pet.slug.localeCompare(b.pet.slug));
-  const unknownOwner = skill.owner && !available.has(skill.ownerSlug) && !rows.some((row) => row.pet.name === skill.owner) && !/待补|待收录|未关联/.test(skill.owner) ? skill.owner : "";
+  const unknownOwner = skill.owner && !available.has(skill.ownerSlug) && !rows.some((row) => row.pet.name === skill.owner) && !/待补|待收录|未关联|只已关联宠物/.test(skill.owner) ? skill.owner : "";
   return { rows, unresolved, unknownOwner };
 }
 

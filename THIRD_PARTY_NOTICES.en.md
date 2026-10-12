@@ -26,6 +26,8 @@ Skill base data comes from Angel.config's `spiritSkill_conf`; `apps/web/content/
 
 `apps/web/content/pet-skill-relations.json` projects public `pet/` records from [roco-desc](https://gitcode.com/rocoai-dev/roco-desc), retaining identity-checked skill names, learning methods, explicit learning levels, source commit and source-data digest, then matching official skill IDs. Community interpretation prose, author-account fields and HTML are not copied. These public reference relations do not represent an account's server-authorized skill pool and are outside the project's GPL/CC grant; source licensing and redistribution permission remain unverified.
 
+Game observations are stored in `apps/web/content/game-skill-relations.json`, retaining only game-confirmed pet IDs, skill IDs, inheritance flags, instance level at collection and a response-body digest. Account IDs, instance identities, credentials, packet headers and raw traffic are excluded. An empty snapshot does not claim collection; a record describes available skills for that bag instance at that time, without claiming every learning path for its species. This game data is outside the project's GPL/CC grant and redistribution permission remains unverified. The collector independently implements RocoAI's public headless interface and the game protocol without copying its source.
+
 <a id="changes"></a>
 ## Updates and distribution
 

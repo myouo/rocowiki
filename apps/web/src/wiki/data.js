@@ -1,7 +1,8 @@
-import { petSourceData, petMetadata, officialPetData, officialLadderData, officialSkillData, skillRelationData, publicSearchRecords } from "./content/bundled.js";
+import { petSourceData, petMetadata, officialPetData, officialLadderData, officialSkillData, skillRelationData, gameSkillRelationData, publicSearchRecords } from "./content/bundled.js";
 import { buildOfficialPetCatalog, petCatalogHref } from "./catalog/pets/officialModel";
 import { buildOfficialSkillCatalog, skillCatalogHref } from './catalog/skills/officialModel';
 import { attachSkillRelations } from './catalog/skills/relationModel';
+import { attachGameSkillRelations } from './catalog/skills/gameModel';
 
 const sourcePets = Array.isArray(petSourceData)
   ? petSourceData
@@ -256,6 +257,7 @@ for (const p of pets.filter((p) => p.slug === "bishui"))
     });
 export const skills = buildOfficialSkillCatalog(officialSkillData, curatedSkills);
 attachSkillRelations(pets, skills, skillRelationData);
+attachGameSkillRelations(pets, skills, gameSkillRelationData);
 export const historicalEvent = {
   slug: "fun-chess-20251128",
   title: "趣味对弈",

@@ -52,5 +52,6 @@ export interface WikiPet {
   metadata?: Record<string, unknown>;
   official?: OfficialPetRecord;
   officialLadder?: OfficialLadderCost;
-  skillPool?: { status: 'available' | 'missing' | 'invalid' | 'stale'; sourceUrl: string; recordedAt: string; commit: string; unresolvedCount: number };
+  skillPool?: { status: 'available' | 'missing' | 'invalid' | 'stale'; sourceUrl: string; recordedAt: string; commit: string; unresolvedCount: number;
+    game?: { recordedAt: string; observedLevel: number; bodySha256: string; verifiedCount: number; auxiliaryCount: number } };
 }

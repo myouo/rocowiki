@@ -195,7 +195,7 @@ function SkillTable({
               <td className="rw-num rw-priority">
                 {Number.isFinite(s.priority) ? s.priority : "待核"}
               </td>
-              {petContext && <td>{learningLabel(s.learning?.learningMethod, s.learning?.learnLevel)}</td>}
+              {petContext && <td>{learningLabel(s.learning?.learningMethod, s.learning?.learnLevel)}<small>{s.learning?.evidence === 'game' ? '游戏采集' : '辅证'}</small></td>}
               <td>
                 <span className="rw-cell-summary"><EntityText text={s.summary} path={skillDetailHref(s)} /></span>
               </td>

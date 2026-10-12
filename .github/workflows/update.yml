@@ -3,7 +3,7 @@ on:
   schedule:
     # UTC 00:23, 03:23, ...; China time 02:23, 05:23, ..., 23:23.
     - cron: '23 */3 * * *'
-    # Daily cadence reserved; historical third-party relation collection is disabled.
+    # Daily game collection runs only when its runtime or sanitized input is configured.
     - cron: '41 1 * * *'
   workflow_dispatch:
     inputs:
@@ -29,6 +29,11 @@ jobs:
       # Select by the triggering cron, even when GitHub starts a scheduled job late.
       UPDATE_SCHEDULE: ${{ github.event.schedule }}
       UPDATE_TARGET: ${{ inputs.target || 'all' }}
+      # A loopback runtime requires a supervised/self-hosted runner or an SSH tunnel.
+      ROCO_GAME_RUNTIME: ${{ vars.ROCO_GAME_RUNTIME }}
+      ROCO_GAME_SKILL_CAPTURE_FILE: ${{ vars.ROCO_GAME_SKILL_CAPTURE_FILE }}
+      ROCO_GAME_SKILL_PETS: ${{ vars.ROCO_GAME_SKILL_PETS }}
+      ROCO_GAME_SKILL_POSITIONS: ${{ vars.ROCO_GAME_SKILL_POSITIONS }}
     steps:
       - uses: actions/checkout@v4
         with:
@@ -46,6 +51,8 @@ jobs:
       - name: Refresh selected public sources
         if: steps.plan.outputs.has_tasks == 'true'
         run: npm run data:update
+        env:
+          ROCO_GAME_RUNTIME_TOKEN: ${{ secrets.ROCO_GAME_RUNTIME_TOKEN }}
       - name: Detect a data change
         id: data
         if: steps.plan.outputs.has_tasks == 'true'

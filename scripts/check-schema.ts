@@ -3,6 +3,8 @@ import { catalog,contentPath,sourceSchema } from '../packages/wiki-schema/src/in
 import { validateStoredContent } from '../packages/content-validator/src/index';
 import { z } from 'zod';
 import {createHash} from 'node:crypto';
+import { validateGameSkillSnapshot } from './updates/game-skill-snapshot';
+validateGameSkillSnapshot(JSON.parse(await readFile('apps/web/content/game-skill-relations.json', 'utf8')));
 z.object({external_image_hosts:z.array(z.string().regex(/^[a-z0-9.-]+$/)).max(100)}).strict().parse(JSON.parse(await readFile('content/policy.json','utf8')));
 const expected=new Set(catalog.map(contentPath));
 async function scan(dir:string):Promise<string[]> {

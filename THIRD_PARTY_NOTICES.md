@@ -26,6 +26,8 @@ V7.3.1 界面来自用户提供的 RocoWiki_Docusaurus_V7_3_1 项目；保留现
 
 宠物技能关联快照 `apps/web/content/pet-skill-relations.json` 来自公开 [roco-desc](https://gitcode.com/rocoai-dev/roco-desc) 的 `pet/` 记录，仅提取身份核对后的技能名称、学习方式和明确学习等级，并匹配官方技能编号；保留来源提交及原始数据摘要。没有复制社区解析正文、署名账号字段或 HTML。该来源是公开资料整理，不能冒充游戏服务器的账号技能池，也不纳入本项目 GPL 或 CC 授权；来源自身许可及再分发授权尚未核验。
 
+游戏实采关联保存在 `apps/web/content/game-skill-relations.json`，仅保留游戏响应确认的宠物编号、技能编号、遗传标记、采集时实例等级及响应体摘要，不保存账号、实例身份、凭据、协议头或原始流量。空快照不代表已经实采；记录是指定背包实例当时的可选技能，不声明覆盖该物种全部学习途径。该游戏资料不纳入本项目 GPL 或 CC 授权，再分发许可仍待核验。采集器根据 RocoAI 的公开 headless 接口和游戏协议独立实现，未复制其源码。
+
 <a id="changes"></a>
 ## 更新与发行
 

@@ -749,6 +749,16 @@
       "evidence": [
         "apps/web/content/pet-skill-relations.json"
       ]
+    },
+    {
+      "id": "game-observed-skill-pools",
+      "status": "permission-unverified",
+      "license": "Not established by this repository",
+      "file": "apps/web/content/game-skill-relations.json",
+      "source": "https://17roco.qq.com/",
+      "evidence": [
+        "apps/web/content/game-skill-relations.json"
+      ]
     }
   ]
 }

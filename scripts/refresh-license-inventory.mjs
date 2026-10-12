@@ -38,7 +38,8 @@ const inventory={schema:1,projectLicense:policies.projectLicense,wikiContentLice
   {id:'official-pet-data',status:'permission-unverified',license:'Not established by this repository',file:'apps/web/content/official-pets.json',source:'https://res.17roco.qq.com/conf/Angel.config',evidence:['apps/web/content/official-pets.json']},
   {id:'official-ladder-data',status:'permission-unverified',license:'Not established by this repository',file:'apps/web/content/official-ladder.json',source:'https://res.17roco.qq.com/plugins/LadderMatch/LadderMatchConfig.xml',evidence:['apps/web/content/official-ladder.json']},
   {id:'official-skill-data',status:'permission-unverified',license:'Not established by this repository',file:'apps/web/content/official-skills.json',source:'https://res.17roco.qq.com/conf/Angel.config',evidence:['apps/web/content/official-skills.json']},
-  {id:'public-skill-pools',status:'permission-unverified',license:'Not established by this repository',file:'apps/web/content/pet-skill-relations.json',source:'https://gitcode.com/rocoai-dev/roco-desc',evidence:['apps/web/content/pet-skill-relations.json']}
+  {id:'public-skill-pools',status:'permission-unverified',license:'Not established by this repository',file:'apps/web/content/pet-skill-relations.json',source:'https://gitcode.com/rocoai-dev/roco-desc',evidence:['apps/web/content/pet-skill-relations.json']},
+  {id:'game-observed-skill-pools',status:'permission-unverified',license:'Not established by this repository',file:'apps/web/content/game-skill-relations.json',source:'https://17roco.qq.com/',evidence:['apps/web/content/game-skill-relations.json']}
 ]};
 fs.writeFileSync('docs/license-inventory.json',JSON.stringify(inventory,null,2)+'\n');
 console.log(`License inventory: ${rows.length} direct packages; ${rows.filter(row=>row.status==='metadata-only').length} metadata-only entries. Game-image permissions remain unverified.`);

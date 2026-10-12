@@ -21,6 +21,7 @@ const ladderSnapshot = (): OfficialLadderSnapshot => ({ schemaVersion: 1, source
 const extraSnapshots = {
   'apps/web/content/official-skills.json': { schemaVersion: 1, source: { url: 'https://example.test/Angel.config', retrievedAt: '2026-10-11T00:00:00Z', sha256: 'a'.repeat(64) }, skills: [] },
   'apps/web/content/pet-skill-relations.json': { schemaVersion: 1, source: { url: 'https://example.test/public-pools', retrievedAt: '2026-10-11T00:00:00Z', sha256: 'a'.repeat(64) }, pets: {} },
+  'apps/web/content/game-skill-relations.json': { schemaVersion: 1, source: null, pets: {} },
 };
 const branchFor = (pets: OfficialPetSnapshot, base = '', ladder?: OfficialLadderSnapshot) => updateBranch({ ...extraSnapshots, 'apps/web/content/official-pets.json': pets, ...(ladder ? { 'apps/web/content/official-ladder.json': ladder } : {}) }, base);
 
@@ -66,9 +67,11 @@ describe('scheduled official pet refresh', () => {
     const credentialSteps = job.steps.filter((step: { env?: { GH_TOKEN?: string } }) => step.env?.GH_TOKEN);
     expect(credentialSteps).toHaveLength(1);
     expect(credentialSteps[0].run).toBe('node --import tsx scripts/updates/publish.ts');
-    expect(JSON.stringify(workflow)).not.toContain('secrets.');
+    expect(JSON.stringify(workflow).match(/secrets\.[A-Z_]+/g)).toEqual(['secrets.ROCO_GAME_RUNTIME_TOKEN']);
+    expect(JSON.stringify(job.env)).not.toContain('secrets.');
     const refresh = job.steps.find((step: { name?: string }) => step.name === 'Refresh selected public sources');
     expect(refresh.run).toBe('npm run data:update');
+    expect(refresh.env).toEqual({ ROCO_GAME_RUNTIME_TOKEN: '${{ secrets.ROCO_GAME_RUNTIME_TOKEN }}' });
     expect(job.steps.find((step: { id?: string }) => step.id === 'data').run).toBe('npm run data:update -- --changes');
     const validation = load(await readFile('.github/workflows/validate.yml', 'utf8'));
     expect(validation.on).toHaveProperty('workflow_dispatch');

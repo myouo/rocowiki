@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: GPL-3.0-only
 import { createHash } from 'node:crypto';
+import type { GameSkillObservation } from '../../apps/web/src/wiki/catalog/skills/gameTypes';
 
 export const GAME_SKILL_POOL_COMMAND = 0x0b000d;
 const MAX_BODY_BYTES = 64 * 1024;
@@ -41,7 +42,7 @@ export function decodeGameSkillPoolBody(bytes: Buffer): GameSkillPoolBody {
 }
 
 /** The server can echo a requested ID while returning the actual bag slot's skills. */
-export function verifyGameSkillPool(bytes: Buffer, requested: { petId: number; bagPosition: number }, before: GameBagIdentity, after: GameBagIdentity, retrievedAt: string) {
+export function verifyGameSkillPool(bytes: Buffer, requested: { petId: number; bagPosition: number }, before: GameBagIdentity, after: GameBagIdentity, retrievedAt: string): GameSkillObservation {
   for (const identity of [before, after]) {
     if (!Number.isSafeInteger(identity.petId) || identity.petId < 1 ||
       !Number.isInteger(identity.bagPosition) || identity.bagPosition < 1 || identity.bagPosition > 12 ||
