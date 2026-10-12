@@ -4,7 +4,7 @@ import Link from "@docusaurus/Link";
 import useBaseUrl from "@docusaurus/useBaseUrl";
 import { ArrowRight, Check, ChevronDown, ExternalLink, PawPrint, Search, Trash2, UsersRound, X } from "lucide-react";
 import { pets as sourcePets, skills as sourceSkills } from "./data";
-import { petDetailHref, resolvePublishedCatalogPets, resolvePublishedCatalogSkills } from "./catalogPublished";
+import { petSkillPoolHref, resolvePublishedCatalogPets, resolvePublishedCatalogSkills } from "./catalogPublished";
 import { MAX_LEARNER_EDITS, resolveSkillLearners } from "./skillLearnerModel";
 import "./SkillLearners.css";
 
@@ -26,7 +26,7 @@ export default function SkillLearners({ skill = {}, pets = [], initialCount = 12
   return <div className="rw-skill-learners-v73" data-skill-learners={skill.slug || skill.name}>
     <div className="rw-learner-toolbar-v73"><p><UsersRound size={16} aria-hidden="true" /><strong>已关联 {result.rows.length} 只宠物</strong><span>按已收录资料整理</span></p><SearchField label="搜索学习宠物" value={query} onChange={search} /></div>
     <div className="rw-learner-grid-v73">{rows.slice(0, limit).map((row) => <article className="rw-learner-card-v73" key={row.pet.slug}>
-      <Link className="rw-learner-main-v73" to={petDetailHref(row.pet) + "#skills"}><Portrait pet={row.pet} /><span><small>{row.pet.number ? `No. ${row.pet.number}` : "编号待补"}</small><strong>{row.pet.name}</strong></span><ArrowRight size={14} aria-hidden="true" /></Link>
+      <Link className="rw-learner-main-v73" to={petSkillPoolHref(row.pet)}><Portrait pet={row.pet} /><span><small>{row.pet.number ? `No. ${row.pet.number}` : "编号待补"}</small><strong>{row.pet.name}</strong></span><ArrowRight size={14} aria-hidden="true" /></Link>
       <div className="rw-learner-detail-v73"><span>{row.method || "学习方式待补"}{row.level != null ? ` · ${row.level} 级` : ""}</span><small>{row.origins.join(" · ")}</small>{row.sources.length > 0 && <span className="rw-learner-sources-v73">{row.sources.map((source, index) => <a key={source.url} href={source.url} target="_blank" rel="noreferrer" title={source.title}>{row.sources.length > 1 ? `来源 ${index + 1}` : "资料来源"} <ExternalLink size={10} aria-hidden="true" /></a>)}</span>}</div>
     </article>)}</div>
     {!rows.length && <p className="rw-learner-empty-v73">{query ? "没有找到对应宠物。试试编号或其他别名。" : "尚未关联已收录宠物，可以通过「编辑学习关系」补充。"}</p>}

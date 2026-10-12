@@ -1,5 +1,7 @@
 import { normalizeSkillLearners } from "./skillLearnerModel";
 import { petCatalogHref } from "./catalog/pets/officialModel";
+export { petSkillPoolHref } from './catalog/pets/officialModel';
+import { skillCatalogHref } from './catalog/skills/officialModel';
 /* Published catalogue projections. Drafts and deletion proposals stay out of the reader. */
 const plain = (value) => value && typeof value === "object" && !Array.isArray(value);
 const text = (value, fallback = "") => typeof value === "string" ? value.slice(0, 15000) : fallback;
@@ -27,9 +29,7 @@ export function petDetailHref(pet) {
 }
 
 export function skillDetailHref(skill) {
-  return skill?.localEntry
-    ? "/skills/?entry=" + encodeURIComponent(skill.slug)
-    : "/skills/" + encodeURIComponent(skill?.slug || "") + "/";
+  return skillCatalogHref(skill || {});
 }
 
 export function resolvePublishedCatalogPets({ pets = [], metadata = {}, submissions = [] } = {}) {

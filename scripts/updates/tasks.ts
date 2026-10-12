@@ -7,6 +7,7 @@ export interface UpdateTask {
   files: readonly string[];
   tests: readonly string[];
   description: string;
+  input?: { url: string; maxBytes: number };
 }
 
 // Each source owns its cadence. Add its cron to update.yml when registering a new cadence.
@@ -16,12 +17,26 @@ export const updateTasks: readonly UpdateTask[] = [
     script: 'scripts/updates/import-pets.ts', files: ['apps/web/content/official-pets.json'],
     tests: ['tests/official-pets.test.ts'],
     description: 'Angel.config book entries; a catalogue flag does not establish release or acquisition availability.',
+    input: { url: 'https://res.17roco.qq.com/conf/Angel.config', maxBytes: 8 * 1024 * 1024 },
   },
   {
     id: 'ladder', label: 'Official ladder costs and bans', schedules: ['23 */3 * * *'],
     script: 'scripts/updates/import-ladder.ts', files: ['apps/web/content/official-ladder.json'],
     tests: ['tests/official-ladder.test.ts'],
     description: 'LadderMatchConfig.xml cost overrides and separate banned IDs; unlisted costs default to one under the official client rule.',
+  },
+  {
+    id: 'skills', label: 'Official skills', schedules: ['23 */3 * * *'],
+    script: 'scripts/updates/import-skills.ts', files: ['apps/web/content/official-skills.json'],
+    tests: ['tests/official-skills.test.ts'],
+    description: 'Angel.config spiritSkill_conf definitions with official IDs; skill pools have separate provenance.',
+    input: { url: 'https://res.17roco.qq.com/conf/Angel.config', maxBytes: 8 * 1024 * 1024 },
+  },
+  {
+    id: 'skill-relations', label: 'Public pet skill pools', schedules: ['41 1 * * *'],
+    script: 'scripts/updates/import-skill-relations.ts', files: ['apps/web/content/pet-skill-relations.json'],
+    tests: ['tests/skill-relations.test.ts'],
+    description: 'Public roco-desc learning relations matched to official pet identities and skill IDs; unresolved names stay unlinked.',
   },
 ];
 
@@ -33,6 +48,7 @@ export function selectUpdateTasks(tasks: readonly UpdateTask[], selection: { sch
     if (!task.schedules.length || task.schedules.some(cron => !cron.trim())) throw new Error(`Missing schedule for ${task.id}`);
     if (![task.script, ...task.files, ...task.tests].every(file => /^[\w./-]+$/.test(file) && !file.split('/').includes('..') && !file.startsWith('/'))) throw new Error(`Invalid path for ${task.id}`);
     if (!task.files.length || !task.tests.length) throw new Error(`Missing outputs or tests for ${task.id}`);
+    if (task.input && (!task.input.url.startsWith('https://') || !Number.isSafeInteger(task.input.maxBytes) || task.input.maxBytes <= 0)) throw new Error(`Invalid source for ${task.id}`);
     for (const file of task.files) {
       if (files.has(file)) throw new Error(`Multiple tasks own ${file}`);
       files.add(file);

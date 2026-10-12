@@ -1,5 +1,7 @@
-import { petSourceData, petMetadata, officialPetData, officialLadderData, publicSearchRecords } from "./content/bundled.js";
+import { petSourceData, petMetadata, officialPetData, officialLadderData, officialSkillData, skillRelationData, publicSearchRecords } from "./content/bundled.js";
 import { buildOfficialPetCatalog, petCatalogHref } from "./catalog/pets/officialModel";
+import { buildOfficialSkillCatalog, skillCatalogHref } from './catalog/skills/officialModel';
+import { attachSkillRelations } from './catalog/skills/relationModel';
 
 const sourcePets = Array.isArray(petSourceData)
   ? petSourceData
@@ -7,7 +9,7 @@ const sourcePets = Array.isArray(petSourceData)
 export const pets = buildOfficialPetCatalog(officialPetData, sourcePets, petMetadata.pets, officialLadderData);
 export const skillSource = "https://news.4399.com/luoke/jinengsearch/";
 export const haifuSource = "https://roco.dvg.cn/spirit_info.php?id=3092";
-export const skills = [
+const curatedSkills = [
   {
     slug: "xiazi",
     name: "霞姿月韵",
@@ -236,7 +238,7 @@ export const skills = [
 ];
 for (const p of pets.filter((p) => p.slug === "bishui"))
   for (const [i, s] of (p.skills || []).entries())
-    skills.push({
+    curatedSkills.push({
       ...s,
       slug: s.slug,
       owner: p.name,
@@ -252,6 +254,8 @@ for (const p of pets.filter((p) => p.slug === "bishui"))
       common: [s.summary],
       phases: [],
     });
+export const skills = buildOfficialSkillCatalog(officialSkillData, curatedSkills);
+attachSkillRelations(pets, skills, skillRelationData);
 export const historicalEvent = {
   slug: "fun-chess-20251128",
   title: "趣味对弈",
@@ -496,9 +500,9 @@ export function getSearchRecords() {
     ...skills.map((s) => ({
       title: s.name,
       kind: "技能",
-      to: "/skills/" + s.slug + "/",
+      to: skillCatalogHref(s),
       meta: s.type + " · " + s.category + " · " + s.owner,
-      keywords: s.tags.join(" ") + " " + s.owner,
+      keywords: [s.tags.join(' '), s.owner, ...(s.ownerNames || []), s.summary].join(' '),
     })),
     ...places.map((p) => ({
       title: p.name,

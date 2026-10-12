@@ -18,7 +18,11 @@ const snapshot = (time = '2026-10-11T00:00:00Z'): OfficialPetSnapshot => ({
   pets: [],
 });
 const ladderSnapshot = (): OfficialLadderSnapshot => ({ schemaVersion: 1, source: { url: 'https://example.test/LadderMatchConfig.xml', retrievedAt: '2026-10-11T00:00:00Z', sha256: 'a'.repeat(64), costEntryCount: 0, banEntryCount: 0 }, defaultCost: 1, costs: {}, bannedPetIds: [] });
-const branchFor = (pets: OfficialPetSnapshot, base = '', ladder?: OfficialLadderSnapshot) => updateBranch({ 'apps/web/content/official-pets.json': pets, ...(ladder ? { 'apps/web/content/official-ladder.json': ladder } : {}) }, base);
+const extraSnapshots = {
+  'apps/web/content/official-skills.json': { schemaVersion: 1, source: { url: 'https://example.test/Angel.config', retrievedAt: '2026-10-11T00:00:00Z', sha256: 'a'.repeat(64) }, skills: [] },
+  'apps/web/content/pet-skill-relations.json': { schemaVersion: 1, source: { url: 'https://example.test/public-pools', retrievedAt: '2026-10-11T00:00:00Z', sha256: 'a'.repeat(64) }, pets: {} },
+};
+const branchFor = (pets: OfficialPetSnapshot, base = '', ladder?: OfficialLadderSnapshot) => updateBranch({ ...extraSnapshots, 'apps/web/content/official-pets.json': pets, ...(ladder ? { 'apps/web/content/official-ladder.json': ladder } : {}) }, base);
 
 describe('scheduled official pet refresh', () => {
   it('does not rewrite a snapshot or change its branch when only the check time changes', async () => {
@@ -52,7 +56,7 @@ describe('scheduled official pet refresh', () => {
   it('schedules eight daily checks, isolates credentials, and dispatches validation without production secrets', async () => {
     const { load } = createRequire(import.meta.url)('js-yaml');
     const workflow = load(await readFile('.github/workflows/update.yml', 'utf8'));
-    expect(workflow.on.schedule).toEqual([{ cron: '23 */3 * * *' }]);
+    expect(workflow.on.schedule).toEqual([{ cron: '23 */3 * * *' }, { cron: '41 1 * * *' }]);
     expect(workflow.on).toHaveProperty('workflow_dispatch');
     expect(workflow.concurrency['cancel-in-progress']).toBe(false);
     const job = workflow.jobs.refresh;
@@ -86,6 +90,7 @@ describe('official pet PR publication through real Git', () => {
     await mkdir(join(work, 'apps/web/content'), { recursive: true });
     await writeFile(join(work, 'apps/web/content/official-pets.json'), JSON.stringify(snapshot()));
     await writeFile(join(work, 'apps/web/content/official-ladder.json'), JSON.stringify(ladderSnapshot()));
+    for (const [file, value] of Object.entries(extraSnapshots)) await writeFile(join(work, file), JSON.stringify(value));
     await writeFile(join(work, 'apps/web/content/published-sections-v7.json'), '{}');
     await writeFile(join(work, 'code.txt'), 'reviewed code');
     git(work, 'add', '.'); git(work, 'commit', '-m', 'fixture base'); git(work, 'remote', 'add', 'origin', remote); git(work, 'push', '-u', 'origin', 'main');

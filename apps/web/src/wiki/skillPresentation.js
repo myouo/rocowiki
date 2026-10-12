@@ -104,14 +104,15 @@ export const skillSortFields = [
 ];
 
 export function availableSkillSortFields(skills) {
-  return skills.some((skill) => Number.isFinite(skill.number))
+  const fields = skills.some((skill) => Number.isFinite(skill.number))
     ? [{ value: "number", label: "技能编号", group: "基本资料" }, ...skillSortFields]
     : skillSortFields;
+  return skills.some(skill => Number.isFinite(skill.speedCode)) ? [...fields, { value: 'speedCode', label: '配置速度编码', group: '官方参数' }] : fields;
 }
 
 export function getSkillSortValue(skill, field) {
   const value = skill[field];
-  if (["number", "power", "pp", "priority"].includes(field)) return Number.isFinite(value) ? value : null;
+  if (["number", "power", "pp", "priority", "speedCode"].includes(field)) return Number.isFinite(value) ? value : null;
   return typeof value === "string" && value.trim() ? value.trim() : null;
 }
 

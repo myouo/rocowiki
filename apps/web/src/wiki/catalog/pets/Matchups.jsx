@@ -2,7 +2,7 @@ import CounterVotes from "../../CounterVotes";
 import CounterBloodlineSides from "../../CounterBloodlineSides";
 import { EntityText } from "../../EntityReference";
 import { counterClaimKey } from "../../counterVoteState";
-import { petDetailHref } from "../../catalogPublished";
+import { petDetailHref, skillDetailHref } from "../../catalogPublished";
 import EditEntry from "../../editing/EditEntry";
 import React, { useState } from "react";
 import { Swords, ExternalLink, Clock, Info, CornerDownRight, Flag, UsersRound } from "lucide-react";
@@ -219,7 +219,7 @@ function PetMatchups({ pet }) {
                       skill && (
                         <Link
                           key={slug}
-                          to={"/skills/" + slug + "/?pet=" + pet.slug}
+                          to={skillDetailHref(skill) + (skillDetailHref(skill).includes('?') ? '&pet=' : '?pet=') + encodeURIComponent(pet.slug)}
                         >
                           {skill.name}
                         </Link>

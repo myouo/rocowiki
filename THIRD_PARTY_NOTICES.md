@@ -22,6 +22,10 @@ V7.3.1 界面来自用户提供的 RocoWiki_Docusaurus_V7_3_1 项目；保留现
 
 天梯费用和配置禁赛来自公开 `https://res.17roco.qq.com/plugins/LadderMatch/LadderMatchConfig.xml`，出处、采集时间和原 XML SHA-256 保留于 `apps/web/content/official-ladder.json`。未列明编号默认 1 费的规则参考官方客户端的费用合计与说明逻辑，调查入口为 open-roco-conn 的 LadderMatch 反编译资料；未复制其代码。该游戏配置同样不纳入项目 GPL 或 CC 授权，再分发许可仍待核验。
 
+技能基础资料同样来自 Angel.config 的 `spiritSkill_conf`，保留版本、原包 SHA-256、原始描述和重复编号覆盖记录于 `apps/web/content/official-skills.json`。解析参考官方客户端 SpiritSkillDesProxy 的字段与源表顺序语义，以 TypeScript 独立实现，不复制反编译代码；游戏资料授权范围仍待核验。
+
+宠物技能关联快照 `apps/web/content/pet-skill-relations.json` 来自公开 [roco-desc](https://gitcode.com/rocoai-dev/roco-desc) 的 `pet/` 记录，仅提取身份核对后的技能名称、学习方式和明确学习等级，并匹配官方技能编号；保留来源提交及原始数据摘要。没有复制社区解析正文、署名账号字段或 HTML。该来源是公开资料整理，不能冒充游戏服务器的账号技能池，也不纳入本项目 GPL 或 CC 授权；来源自身许可及再分发授权尚未核验。
+
 <a id="changes"></a>
 ## 更新与发行
 

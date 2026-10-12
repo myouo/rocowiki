@@ -16,6 +16,8 @@
     "generate": "node --import tsx scripts/generate-pages.ts",
     "data:update": "node --import tsx scripts/updates/run.ts",
     "pets:import": "node --import tsx scripts/updates/import-pets.ts",
+    "skills:import": "node --import tsx scripts/updates/import-skills.ts",
+    "skill-relations:import": "node --import tsx scripts/updates/import-skill-relations.ts",
     "ladder:import": "node --import tsx scripts/updates/import-ladder.ts",
     "check:content": "node --import tsx scripts/check-schema.ts",
     "check:architecture": "node scripts/check-web-architecture.mjs",

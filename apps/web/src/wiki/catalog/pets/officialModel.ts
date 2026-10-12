@@ -59,3 +59,8 @@ export function petCatalogHref(pet: { slug?: string; localEntry?: boolean; catal
   const slug = encodeURIComponent(pet.slug || '');
   return pet.localEntry || pet.catalogEntry ? `/pets/?entry=${slug}` : `/pets/${slug}/`;
 }
+
+export function petSkillPoolHref(pet: { slug?: string; localEntry?: boolean; catalogEntry?: boolean }) {
+  const href = petCatalogHref(pet);
+  return pet.localEntry || pet.catalogEntry ? `${href}&section=skills` : `${href}#skills`;
+}

@@ -23,13 +23,13 @@
 
 离线/浏览器演示不提供认证绕过或生产发布。生成文件从来源重建，不手工修改 build、dist、docs-generated或 src/generated来修复当前业务。
 
-### 官方宠物基础资料
+### 官方宠物、技能与关联资料
 
 `npm run pets:import` 从 `https://res.17roco.qq.com/conf/Angel.config` 下载公开配置，校验包头、解压 zlib 并解码 AMF3 XML，重建 `apps/web/content/official-pets.json`。离线复现使用 `npm run pets:import -- --input /path/to/Angel.config --retrieved-at 2026-10-11T15:35:45.354Z`，时间填写实际采集时间。快照保留原包 SHA-256、配置版本、重复 ID 与排除数量；只取 `spirit_conf` 中 `isInBook="0"` 的条目，同 ID 同内容去重，冲突则停止导入。客户端的种族值 `int()` 转换按截断处理，缺失数值保留未知。
 
 解码格式参考 [open-roco-conn 的 QueueConfs](https://github.com/fangtiancheng/open-roco-conn/blob/main/reference/main.swf/scripts/com/QQ/angel/install/config/QueueConfs.as) 与 `SpiritDesProxy.as`，导入器以 TypeScript 独立实现。官方基础资料与现有攻略、血脉和活动来源分别保留；配置中的获取文字不代表活动正在开放。普通检查与构建读取已提交快照，不访问官方服务。新增条目通过 `/pets/?entry=official-ID` 阅读，既有条目的 URL 保留。
 
-更新模块集中在 `scripts/updates/`，统一入口为 `npm run data:update`，CI 为 `.github/workflows/update.yml`（`Update source snapshots`）。现有宠物、天梯模块每 3 小时检查一次（UTC 每个 3 小时周期的第 23 分钟）。配置及解析结果不变时保留原采集时间，不写空提交；需要显式重新记录采集时间时仍可使用 `npm run pets:import -- --force`。数据变化后校验、重建章节快照，并生成基于数据摘要和主分支基线的 `chore/data-update-*` PR；同一基线与数据的重试复用候选，不强推、不自动合并。合并后由现有发布工作流处理。
+更新模块集中在 `scripts/updates/`，统一入口为 `npm run data:update`，CI 为 `.github/workflows/update.yml`（`Update source snapshots`）。现有宠物、天梯、技能模块每 3 小时检查一次（UTC 每个 3 小时周期的第 23 分钟）。配置及解析结果不变时保留原采集时间，不写空提交；需要显式重新记录采集时间时仍可使用 `npm run pets:import -- --force`。数据变化后校验、重建章节快照，并生成基于数据摘要和主分支基线的 `chore/data-update-*` PR；同一基线与数据的重试复用候选，不强推、不自动合并。合并后由现有发布工作流处理。
 
 工作流进入 `main` 后定时触发才会生效；仓库 Actions 设置需允许创建 PR，使用内置 `GITHUB_TOKEN`，不新增私密配置。因为该令牌的 push 不触发普通 CI，更新器显式 dispatch `Validate` 在候选分支执行完整只读检查；同一候选提交已有成功或未结束的 dispatch 时跳过重复触发，失败或取消后可以重试。远程权限、定时运行及实际发布仍需在 GitHub 验收；`isInBook="0"` 只代表客户端图鉴标记，不证明宠物已发布或可获得。
 
@@ -37,7 +37,13 @@
 
 `npm run ladder:import` 读取线上 `plugins/LadderMatch/LadderMatchConfig.xml`，校验后重建 `apps/web/content/official-ladder.json`；离线复现使用 `--input /path/to/LadderMatchConfig.xml --retrieved-at 实际采集时间`。费用按 `SpiritCost/spirit` 的编号匹配，未列出的编号按官方客户端合计逻辑默认 1 费；禁赛单独读取 `LimitSpirit/id`，不能用禁赛标记把费用改为 0。页面保留 XML URL、采集时间和 SHA-256，不把采集时间虚构成生效日期；服务端临时禁赛、获取开放和完整阵容条件仍需另核。官方费用优先于历史样本及本机修改，费用排序与筛选使用同一来源。
 
-更新器按 `tasks.ts` 中各模块的 `schedules` 选择任务，使用 GitHub 事件携带的原始 cron，避免排队延迟改变任务选择。新增日更或周更模块时，在注册表填写独立编号、规则、脚本、输出文件、检查项与说明，并在 `update.yml` 添加相应 cron；不同周期可共用工作流，输出文件由单个模块拥有。活动等资料尚未接入自动导入，不预设其更新周期。手动运行工作流可填写 `target=ladder` 或逗号分隔的模块编号；`all` 显式运行全部模块。本地使用 `npm run data:update -- --only ladder`、`--schedule '23 */3 * * *'` 或 `--plan` 查看计划；保留两个独立导入命令以便离线复现。
+`npm run skills:import` 从同一份 Angel.config 解码 `spiritSkill_conf`，生成 `official-skills.json`。属性引用 `spirit_conf` 的元素定义，类别按 `damageType`，无 `attackType` 的状态、效果和捕捉球不当作技能。重复编号依照官方客户端的源表顺序取最后定义，并记录覆盖字段。速度编码独立保留，不直接当作已核验的 +N 基础先手；历史网址与独立结构化解析保留。统一任务同次选中宠物和技能时，只下载一次配置包并共享采集时间，临时输入在任务结束时清理。
+
+`npm run skill-relations:import` 读取公开 roco-desc 仓库的 `pet/` 数据，核对宠物身份后以技能名称、属性和类别匹配官方编号，同名候选再用参数消歧，不能唯一匹配的关系留待核。社区 `skill_id` 是数据库键，不能当游戏编号；`rank` 不当学习等级，未注明方式不能默认推成升级学习。不导入社区解析正文或账号字段。rocoai 的 `lineup_query_skill_pool` 则依赖已登录会话与背包位置，查询的是服务器授权的单宠技能池，不能作为公开批量图鉴来源。
+
+关联模块每天北京时间 09:41 检查，来源提交、官方编号快照和解析器版本均未变时跳过克隆；有变化才浅克隆，以长度受限的 Git blob 读取 JSON，不检出或执行外部代码。部分记录缺失或无效时保留此前已核对关联并标记过期，整批无效则保留原快照且停止发布。解析匹配规则变化需递增 `SKILL_RELATION_RESOLVER_VERSION`。离线复现可指定 `--repository /path/to/public-source-clone`；新来源、数据摘要和待核数量写入 `pet-skill-relations.json`。宠物技能池与技能反向查阅使用同一编号关系；技能目录按 60 条分批显示。
+
+更新器按 `tasks.ts` 中各模块的 `schedules` 选择任务，使用 GitHub 事件携带的原始 cron，避免排队延迟改变任务选择。新增日更或周更模块时，在注册表填写独立编号、规则、脚本、输出文件、检查项与说明，并在 `update.yml` 添加相应 cron；不同周期可共用工作流，输出文件由单个模块拥有。活动等资料尚未接入自动导入，不预设其更新周期。手动运行工作流可填写 `target=ladder` 或逗号分隔的模块编号；`all` 显式运行全部模块。本地使用 `npm run data:update -- --only ladder`、`--schedule '23 */3 * * *'` 或 `--plan` 查看计划；保留各模块独立导入命令以便离线复现。
 
 同一触发选中的模块依次执行，任一导入失败则停止发布；各模块仍可全量拉取自身来源，但不会带动其他周期的模块。任一已注册数据变化都可生成更新 PR；候选摘要覆盖已注册快照，时间变化不产生空提交，只允许注册的输出及重建的章节基线变化。费用资料版本仍参与浏览位置缓存校验，避免费用排序调整后错误恢复。
 

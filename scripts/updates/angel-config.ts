@@ -10,7 +10,7 @@ const MAX_XML_BYTES = 64 * 1024 * 1024;
 type Attributes = Record<string, string>;
 
 /** XML is parsed as data only: no DOM, external entities, scripts or network. */
-function visitXml(xml: string, visit: (name: string, attributes: Attributes, depth: number) => void) {
+export function visitXml(xml: string, visit: (name: string, attributes: Attributes, depth: number) => void) {
   const parser = new SaxesParser({ xmlns: false });
   let depth = 0;
   parser.on('doctype', () => { throw new Error('Angel.config: XML DOCTYPE is unsupported'); });

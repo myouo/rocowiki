@@ -3,7 +3,7 @@ import SkillLearners from "../../SkillLearners";
 import { resolveSkillLearners } from "../../skillLearnerModel";
 import { EntityText } from "../../EntityReference";
 import { skillRulePresentation } from "../../skillPresentation";
-import { petDetailHref, skillDetailHref } from "../../catalogPublished";
+import { petSkillPoolHref, skillDetailHref } from "../../catalogPublished";
 import EditEntry from "../../editing/EditEntry";
 import React, { useState } from "react";
 import { useLocation } from "@docusaurus/router";
@@ -11,11 +11,16 @@ import { ArrowRight, BookOpen, ChevronDown, ExternalLink } from "lucide-react";
 import { Link, PageHeader, Section, Notice, EmptyState, Contribution, BookmarkButton, DocGrid } from "../../core";
 import { usePublishedPets, usePublishedSkills } from "../hooks.js";
 import { AttributeBadge, PetPortrait, SkillKind } from "../components.jsx";
+import { officialSkillData } from '../../content/bundled.js';
+import OfficialSkillSource from './OfficialSource';
+import { useHydratedSearch } from '../pets/useHydratedSearch';
+import { skillCollection } from './officialModel';
 
 function SkillPage({ slug }) {
   const skills = usePublishedSkills();
   const pets = usePublishedPets();
   const location = useLocation();
+  const search = useHydratedSearch(location.search);
   const skill = skills.find((s) => s.slug === slug);
   const [expand, setExpand] = useState(true);
   if (!skill)
@@ -25,17 +30,17 @@ function SkillPage({ slug }) {
         <EmptyState action={<Link to="/skills/">查看技能目录</Link>} />
       </>
     );
-  const requestedPet = new URLSearchParams(location.search).get("pet");
+  const requestedPet = new URLSearchParams(search).get("pet");
   const learningPets = resolveSkillLearners({ skill, pets }).rows.map((row) => row.pet);
   const contextPet = learningPets.find((pet) => pet.slug === requestedPet);
   const rules = skillRulePresentation(skill);
   const skillReturnBase = skillDetailHref(skill) +
-    (contextPet ? (skill.localEntry ? "&pet=" : "?pet=") + contextPet.slug : "");
+    (contextPet ? (skill.localEntry || skill.catalogEntry ? "&pet=" : "?pet=") + encodeURIComponent(contextPet.slug) : "");
   return (
     <div className="rw-skill-detail-v6">
       <PageHeader
         title={skill.name}
-        back={contextPet ? petDetailHref(contextPet) + "#skills" : "/skills/"}
+        back={contextPet ? petSkillPoolHref(contextPet) : "/skills/"}
         crumbs={[{ label: "技能查询", to: "/skills/" }, { label: skill.name }]}
         actions={
           <>
@@ -60,7 +65,7 @@ function SkillPage({ slug }) {
           <PetPortrait pet={contextPet} />
           <div>
             <span>正在查阅 {contextPet.name} 的技能</span>
-            <Link to={petDetailHref(contextPet) + "#skills"}>
+            <Link to={petSkillPoolHref(contextPet)}>
               返回 {contextPet.name} 技能池
               <ArrowRight size={13} />
             </Link>
@@ -68,6 +73,7 @@ function SkillPage({ slug }) {
           <Link to={skillDetailHref(skill)}>查看独立条目</Link>
         </div>
       )}
+      {skillCollection(skill) === 'placeholder' && <Notice title="资料待定">官方配置中的名称与描述仍为占位内容，请核对后续资料。</Notice>}
       <DocGrid
         toc={[
           ["parameters", "基础参数"],
@@ -104,6 +110,7 @@ function SkillPage({ slug }) {
             <span>命中规则</span>
             <strong>{skill.hit}</strong>
           </div>
+          {Number.isFinite(skill.speedCode) && <div><span>配置速度编码</span><strong>{skill.speedCode}</strong></div>}
         </section>
         <div className="rw-skill-summary">
           <div className="rw-catalog-section-edit-v7">
@@ -186,7 +193,8 @@ function SkillPage({ slug }) {
           <SkillLearners skill={skill} pets={pets} />
         </Section>
         <Section title="来源与待核" id="sources">
-          <div className="rw-source-row">
+          <OfficialSkillSource skill={skill.official} source={officialSkillData.source} />
+          {(skill.curatedSource || !skill.official) && <div className="rw-source-row">
             <BookOpen size={18} />
             <div>
               <strong>资料站技能描述</strong>
@@ -195,10 +203,10 @@ function SkillPage({ slug }) {
                 +N”读取，不把源表内部速度编码当作先手。
               </p>
             </div>
-            <a href={skill.source} target="_blank" rel="noreferrer">
+            <a href={skill.curatedSource || skill.source} target="_blank" rel="noreferrer">
               打开原文 <ExternalLink size={13} />
             </a>
-          </div>
+          </div>}
           <Contribution entity={skill.name} source={skill.source} />
         </Section>
       </DocGrid>

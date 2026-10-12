@@ -169,6 +169,7 @@ function SkillTable({
             <th>威力</th>
             <th>PP</th>
             <th>先手</th>
+            {petContext && <th>学习方式 / 等级</th>}
             <th>技能描述</th>
           </tr>
         </thead>
@@ -182,7 +183,7 @@ function SkillTable({
                     to={
                       skillDetailHref(s) +
                       (petContext
-                        ? (s.localEntry ? "&pet=" : "?pet=") + encodeURIComponent(petContext)
+                        ? (s.localEntry || s.catalogEntry ? "&pet=" : "?pet=") + encodeURIComponent(petContext)
                         : "")
                     }
                   >
@@ -204,7 +205,9 @@ function SkillTable({
                   : s.priority > 0
                     ? "+" + s.priority
                     : s.priority}
+                {Number.isFinite(s.speedCode) && <small>编码 {s.speedCode}</small>}
               </td>
+              {petContext && <td>{s.learning?.learningMethod || '方式待补'}{s.learning?.learnLevel != null ? ` · ${s.learning.learnLevel} 级` : ''}</td>}
               <td>
                 <span className="rw-cell-summary"><EntityText text={s.summary} path={skillDetailHref(s)} /></span>
               </td>

@@ -17,7 +17,10 @@ export function normalizeSkillLearners(value) {
 }
 export function petLearnsSkill(pet, skill) {
   const names = new Set([skill?.name, ...(skill?.catalogNames || [])].filter(Boolean));
-  return (pet?.skills || []).filter((row) => (row.slug && row.slug === skill?.slug) || names.has(row.name));
+  const id = skill?.official?.id ?? skill?.number;
+  return (pet?.skills || []).filter((row) => Number.isFinite(row.skillId) && Number.isFinite(id)
+    ? row.skillId === id
+    : (row.slug && row.slug === skill?.slug) || names.has(row.name));
 }
 function knownLearning(row = {}) {
   const method = text(row.learningMethod || row.learnMethod || row.method);
@@ -37,8 +40,11 @@ export function resolveSkillLearners({ skill = {}, pets = [], learners = skill.l
     byPet.set(pet.slug, next);
   };
   for (const pet of available.values()) {
-    for (const entry of petLearnsSkill(pet, skill)) add(pet, knownLearning(entry), "宠物技能池", entry.sourceUrl || pet.sourceUrl, entry.sourceTitle || "宠物技能池来源");
-    if (pet.slug === skill.ownerSlug) add(pet, {}, "技能原始资料", skill.source, "技能资料来源");
+    for (const entry of petLearnsSkill(pet, skill)) {
+      add(pet, knownLearning(entry), "宠物技能池", entry.sourceUrl || pet.sourceUrl, entry.sourceTitle || "宠物技能池来源");
+      for (const source of Array.isArray(entry.learningSources) ? entry.learningSources : []) if (plain(source)) add(pet, knownLearning(entry), "公开关联补充", source.sourceUrl, source.sourceTitle);
+    }
+    if (pet.slug === skill.ownerSlug) add(pet, {}, "技能原始资料", skill.curatedSource || skill.source, "技能资料来源");
   }
   const unresolved = [];
   for (const entry of normalizeSkillLearners(learners)) {

@@ -17,17 +17,24 @@ import OfficialPetSource from "./OfficialSource";
 import { useLocation } from "@docusaurus/router";
 import { petCollection, safePetListReturnTo } from "./feedModel";
 import LadderSource from "./LadderSource";
+import { petLearnsSkill } from '../../skillLearnerModel';
+import SkillPoolSource from '../skills/PoolSource';
 
 function PetPage({ slug }) {
   const location = useLocation();
   const returnTarget = new URLSearchParams(location.search).get("returnTo");
+  const requestedSection = new URLSearchParams(location.search).get('section');
   const listReturn = safePetListReturnTo(returnTarget);
   useEffect(() => {
+    if (requestedSection === 'skills') {
+      document.getElementById('skills')?.scrollIntoView({ block: 'start' });
+      return;
+    }
     if (!returnTarget) return;
     if (location.hash) {
       try { document.getElementById(decodeURIComponent(location.hash.slice(1)))?.scrollIntoView(); } catch {}
     } else window.scrollTo({ top: 0, behavior: "instant" });
-  }, [slug]);
+  }, [slug, requestedSection]);
   const pets = usePublishedPets();
   const skills = usePublishedSkills();
   const pet = pets.find((p) => p.slug === slug);
@@ -61,7 +68,7 @@ function PetPage({ slug }) {
     <TextLink to={listReturn}>返回宠物图鉴</TextLink>
   </div>;
   const petReturnBase = petDetailHref(pet);
-  const mainSkills = skills.filter((s) => s.ownerSlug === pet.slug || s.learners?.some((row) => row.petSlug === pet.slug));
+  const mainSkills = skills.filter((s) => petLearnsSkill(pet, s).length || s.ownerSlug === pet.slug || s.learners?.some((row) => row.petSlug === pet.slug)).map(skill => ({ ...skill, learning: petLearnsSkill(pet, skill)[0] }));
   const meta = petMeta(pet);
   const toc = [
     ["overview", "基础资料"],
@@ -212,7 +219,7 @@ function PetPage({ slug }) {
                 className={skillMode === "key" ? "active" : ""}
                 onClick={() => setSkillMode("key")}
               >
-                重点技能
+                已关联技能
               </button>
               <button
                 className={skillMode === "source" ? "active" : ""}
@@ -234,19 +241,12 @@ function PetPage({ slug }) {
             <Notice
               title={
                 mainSkills.length
-                  ? "已收录 " + mainSkills.length + " 个重点技能"
+                  ? "已收录 " + mainSkills.length + " 个关联技能"
                   : "技能池尚待补全"
               }
             >
               预览不以空白代表“不会该技能”。
-              <a
-                href={pet.sourceUrl || haifuSource}
-                target="_blank"
-                rel="noreferrer"
-              >
-                {" "}
-                查看完整来源 <ExternalLink size={12} />
-              </a>
+              <a href={pet.skillPool?.sourceUrl || pet.sourceUrl || haifuSource} target="_blank" rel="noreferrer">查看关联来源 <ExternalLink size={12} /></a>
             </Notice>
           )}
         </Section>
@@ -328,6 +328,7 @@ function PetPage({ slug }) {
           </div>
         </Section>
         <Section title="来源与修订" id="sources">
+          <SkillPoolSource pet={pet} />
           <LadderSource magic={pet.officialLadder} />
           <OfficialPetSource pet={pet.official} source={officialPetData.source} />
           {pet.sourceUrl !== officialPetData.source.url && <div className="rw-source-row">

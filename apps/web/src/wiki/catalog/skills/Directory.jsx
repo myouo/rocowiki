@@ -9,27 +9,40 @@ import { PageHeader, Notice, EmptyState, Contribution, Subnav, setQuery } from "
 import { SkillPage } from "./Detail.jsx";
 import { usePublishedSkills } from "../hooks.js";
 import { SkillTable } from "../components.jsx";
+import { useHydratedSearch } from '../pets/useHydratedSearch';
+import SkillList from './SkillList';
+import { officialSkillData } from '../../content/bundled.js';
+import { skillCollection } from './officialModel';
 
-function SkillsPage() {
+function SkillsPage({ query }) {
   const location = useLocation();
-  const entry = new URLSearchParams(location.search).get("entry");
-  return entry ? <SkillPage slug={entry} /> : <SkillCatalogPage />;
+  const search = useHydratedSearch(location.search);
+  const params = query || new URLSearchParams(search);
+  const entry = params.get('entry');
+  return entry ? <SkillPage slug={entry} /> : <SkillCatalogPage query={params} />;
 }
 
-function SkillCatalogPage() {
+function SkillCatalogPage({ query }) {
   const skills = usePublishedSkills();
   const history = useHistory(),
     location = useLocation(),
-    q = new URLSearchParams(location.search);
+    q = query;
   const term = q.get("q") || "",
     kind = q.get("kind") || "",
     effect = q.get("effect") || "";
+  const collection = ['all', 'placeholder'].includes(q.get('collection')) ? q.get('collection') : 'regular';
+  const collections = [
+    { value: 'regular', label: '技能条目', count: skills.filter(skill => skillCollection(skill) === 'regular').length },
+    { value: 'placeholder', label: '资料待定', count: skills.filter(skill => skillCollection(skill) === 'placeholder').length },
+    { value: 'all', label: '全部资料', count: skills.length },
+  ];
   const sortFields = availableSkillSortFields(skills);
-  const sort = sortFields.some((field) => field.value === q.get("sort")) ? q.get("sort") : "name";
-  const direction = q.get("order") === "desc" ? "desc" : "asc";
+  const sort = sortFields.some((field) => field.value === q.get("sort")) ? q.get("sort") : 'number';
+  const direction = q.get('order') === 'asc' ? 'asc' : q.get('order') === 'desc' ? 'desc' : sort === 'name' ? 'asc' : 'desc';
   const result = sortCatalogSkills(skills.filter(
     (s) =>
-      (!term || (s.name + " " + s.owner).includes(term)) &&
+      (collection === 'all' || skillCollection(s) === collection) &&
+      (!term || [s.name, s.number, s.owner, ...(s.ownerNames || []), s.summary].join(' ').toLowerCase().includes(term.toLowerCase())) &&
       (!kind || s.category === kind) &&
       (!effect || s.tags.includes(effect)),
   ), sort, direction);
@@ -65,6 +78,10 @@ function SkillCatalogPage() {
           ["/bloodlines/", "血脉资料"],
         ]}
       />
+      <div className="rw-pet-collections" role="group" aria-label="技能收录类别">
+        {collections.map(item => <button key={item.value} type="button" aria-pressed={collection === item.value} onClick={() => setQuery(history, location, { collection: item.value === 'regular' ? null : item.value })}>{item.label} <span>{item.count}</span></button>)}
+      </div>
+      {collection === 'placeholder' && <p className="rw-pet-collection-note">这些名称及描述仍为源表占位内容，保留配置原文供核对。</p>}
       <div className="rw-filterbox">
         <div className="rw-filtertop">
           <label className="rw-input-icon">
@@ -121,9 +138,9 @@ function SkillCatalogPage() {
           <button type="button" className="rw-sort-direction-v6" aria-label={"技能当前" + (direction === "asc" ? "升序，切换降序" : "降序，切换升序")} onClick={() => setQuery(history, location, { order: direction === "asc" ? "desc" : "asc" })}>{direction === "asc" ? <ArrowUp size={14} /> : <ArrowDown size={14} />}{direction === "asc" ? "升序" : "降序"}</button>
         </div>
       </div>
-      <p className="rw-catalog-key-v6">基础参数与技能描述；未收录或不适用的数值始终排在末尾。条件变化进入详情查阅。</p>
+      <p className="rw-catalog-key-v6">官方技能表 {officialSkillData.skills.length} 条，采集于 {officialSkillData.source.retrievedAt.slice(0, 10)}。速度编码与已核验基础先手分别保留；学习关系按各自来源整理。</p>
       {result.length ? (
-        <SkillTable items={result} />
+        <SkillList items={result} scope={q.toString()} renderTable={items => <SkillTable items={items} />} />
       ) : (
         <EmptyState
           action={

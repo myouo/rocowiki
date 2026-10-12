@@ -22,6 +22,10 @@ Official pet base data comes from the public `https://res.17roco.qq.com/conf/Ang
 
 Ladder fees and configuration bans come from public `https://res.17roco.qq.com/plugins/LadderMatch/LadderMatchConfig.xml`; `apps/web/content/official-ladder.json` retains provenance, retrieval time and the original XML SHA-256. The one-point default for unlisted IDs follows official client summation and explanatory behavior, researched through open-roco-conn's decompiled LadderMatch resources without copying code. This game configuration is also outside the project's GPL/CC grant, and redistribution permission remains unverified.
 
+Skill base data comes from Angel.config's `spiritSkill_conf`; `apps/web/content/official-skills.json` retains version, package SHA-256, original descriptions and duplicate-ID overrides. The independent TypeScript parser follows official SpiritSkillDesProxy field and source-order semantics without copying decompiled code. Permission for this game data remains unverified.
+
+`apps/web/content/pet-skill-relations.json` projects public `pet/` records from [roco-desc](https://gitcode.com/rocoai-dev/roco-desc), retaining identity-checked skill names, learning methods, explicit learning levels, source commit and source-data digest, then matching official skill IDs. Community interpretation prose, author-account fields and HTML are not copied. These public reference relations do not represent an account's server-authorized skill pool and are outside the project's GPL/CC grant; source licensing and redistribution permission remain unverified.
+
 <a id="changes"></a>
 ## Updates and distribution
 

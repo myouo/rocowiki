@@ -95,7 +95,7 @@ export function PageContent({ path, query }) {
   if (path === "/mechanics/relations/") return <EffectRelations />;
   if (path === "/pets/") return <PetsPage query={query} />;
   if (path.startsWith("/pets/")) return <PetPage slug={path.split("/")[2]} />;
-  if (path === "/skills/") return <SkillsPage />;
+  if (path === "/skills/") return <SkillsPage query={query} />;
   if (path.startsWith("/skills/"))
     return <SkillPage slug={path.split("/")[2]} />;
   if (["/bloodlines/", "/bloodlines/haifu/"].includes(path))
@@ -152,7 +152,7 @@ export default function WikiPage({ routeData }) {
   const query = new URLSearchParams(useHydratedSearch(location.search));
   const title =
     pets.find((p) => path === "/pets/" + p.slug + "/" || (path === "/pets/" && query.get("entry") === p.slug))?.name ||
-    skills.find((s) => path === "/skills/" + s.slug + "/")?.name ||
+    skills.find((s) => path === "/skills/" + s.slug + "/" || (path === '/skills/' && query.get('entry') === s.slug))?.name ||
     {
       "/": "洛克王国资料库",
       "/pets/": "宠物图鉴",

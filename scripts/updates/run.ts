@@ -1,8 +1,11 @@
 // SPDX-License-Identifier: GPL-3.0-only
 import { execFileSync } from 'node:child_process';
-import { appendFile } from 'node:fs/promises';
+import { appendFile, mkdtemp, rm, writeFile } from 'node:fs/promises';
+import { join } from 'node:path';
+import { tmpdir } from 'node:os';
 import { parseArgs } from 'node:util';
 import { selectUpdateTasks, updateTasks } from './tasks';
+import { downloadSource } from './download';
 
 const { values } = parseArgs({ options: {
   only: { type: 'string' }, schedule: { type: 'string' },
@@ -28,9 +31,25 @@ if (values.plan) {
 } else if (values.validate) {
   if (tasks.length) execFileSync('npx', ['vitest', 'run', ...new Set([...tasks.flatMap(task => task.tests), 'tests/official-pet-refresh.test.ts', 'tests/data-updates.test.ts'])], { stdio: 'inherit' });
 } else {
-  for (const task of tasks) {
-    console.log(`Updating ${task.id}: ${task.label}`);
-    execFileSync(process.execPath, ['--import', 'tsx', task.script], { stdio: 'inherit' });
-  }
+  const inputs = new Map<string, { path: string; retrievedAt: string }>();
+  const directory = tasks.some(task => task.input) ? await mkdtemp(join(tmpdir(), 'rocowiki-update-')) : null;
+  try {
+    for (const task of tasks) {
+      const args = ['--import', 'tsx', task.script];
+      if (task.input && directory) {
+        let input = inputs.get(task.input.url);
+        if (!input) {
+          const peers = tasks.filter(peer => peer.input?.url === task.input!.url);
+          console.log(`Downloading shared source for ${peers.map(peer => peer.id).join(', ')}: ${task.input.url}`);
+          const bytes = await downloadSource({ url: task.input.url, maxBytes: Math.min(...peers.map(peer => peer.input!.maxBytes)) });
+          input = { path: join(directory, `${inputs.size}.bin`), retrievedAt: new Date().toISOString() };
+          await writeFile(input.path, bytes); inputs.set(task.input.url, input);
+        }
+        args.push('--input', input.path, '--retrieved-at', input.retrievedAt);
+      }
+      console.log(`Updating ${task.id}: ${task.label}`);
+      execFileSync(process.execPath, args, { stdio: 'inherit' });
+    }
+  } finally { if (directory) await rm(directory, { recursive: true, force: true }); }
   if (!tasks.length) console.log('No update tasks match this schedule.');
 }

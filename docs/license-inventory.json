@@ -729,6 +729,26 @@
       "evidence": [
         "apps/web/content/official-ladder.json"
       ]
+    },
+    {
+      "id": "official-skill-data",
+      "status": "permission-unverified",
+      "license": "Not established by this repository",
+      "file": "apps/web/content/official-skills.json",
+      "source": "https://res.17roco.qq.com/conf/Angel.config",
+      "evidence": [
+        "apps/web/content/official-skills.json"
+      ]
+    },
+    {
+      "id": "public-skill-pools",
+      "status": "permission-unverified",
+      "license": "Not established by this repository",
+      "file": "apps/web/content/pet-skill-relations.json",
+      "source": "https://gitcode.com/rocoai-dev/roco-desc",
+      "evidence": [
+        "apps/web/content/pet-skill-relations.json"
+      ]
     }
   ]
 }
