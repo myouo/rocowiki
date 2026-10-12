@@ -7,6 +7,7 @@ export interface UpdateTask {
   files: readonly string[];
   tests: readonly string[];
   description: string;
+  disabledReason?: string;
   input?: { url: string; maxBytes: number };
 }
 
@@ -37,6 +38,7 @@ export const updateTasks: readonly UpdateTask[] = [
     script: 'scripts/updates/import-skill-relations.ts', files: ['apps/web/content/pet-skill-relations.json'],
     tests: ['tests/skill-relations.test.ts'],
     description: 'Public roco-desc learning relations matched to official pet identities and skill IDs; unresolved names stay unlinked.',
+    disabledReason: 'Historical roco-desc snapshots are corroboration only; new collection must use official game data.',
   },
 ];
 
@@ -57,12 +59,16 @@ export function selectUpdateTasks(tasks: readonly UpdateTask[], selection: { sch
   if (selection.schedule) {
     if (selection.only && selection.only !== 'all') throw new Error('Choose a schedule or explicit tasks, not both');
     // Use the cron supplied by GitHub, rather than wall-clock time: queued jobs may start late.
-    return tasks.filter(task => task.schedules.includes(selection.schedule!));
+    return tasks.filter(task => !task.disabledReason && task.schedules.includes(selection.schedule!));
   }
   const only = selection.only || 'all';
-  if (only === 'all') return [...tasks];
+  if (only === 'all') return tasks.filter(task => !task.disabledReason);
   const selected = only.split(',');
   if (selected.some(id => !ids.has(id)) || new Set(selected).size !== selected.length) throw new Error(`Unknown or duplicate update task: ${only}`);
+  for (const id of selected) {
+    const task = tasks.find(task => task.id === id)!;
+    if (task.disabledReason) throw new Error(`Update task ${id} is disabled: ${task.disabledReason}`);
+  }
   return tasks.filter(task => selected.includes(task.id));
 }
 

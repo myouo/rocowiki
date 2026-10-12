@@ -3,7 +3,7 @@ on:
   schedule:
     # UTC 00:23, 03:23, ...; China time 02:23, 05:23, ..., 23:23.
     - cron: '23 */3 * * *'
-    # Daily at 09:41 China time for separately maintained public learning relations.
+    # Daily cadence reserved; historical third-party relation collection is disabled.
     - cron: '41 1 * * *'
   workflow_dispatch:
     inputs:
