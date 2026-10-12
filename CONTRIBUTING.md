@@ -35,6 +35,10 @@
 
 图鉴默认按编号倒序，以每批 60 条连续加载；长列表只渲染视口附近的等高卡片，键盘可继续访问相邻条目，自动加载不可用时保留手动按钮。纯字母占位名同时配有待定说明的记录归入“资料待定”，源表 ID ≥ 10000 的记录归入“特殊编号”，仍可通过独立分类或“全部资料”查阅；这些规则不推断正式名称宠物的发布状态。过滤条件和已加载深度保留在 URL，详情返回链接携带原目录地址，滚动位置只存于当前标签页的 sessionStorage（最多 8 组）；资料版本变化或存储不可用时保留查询入口并从可用位置开始。
 
+宠物预览默认引用官方 H5 的 `https://res.17roco.qq.com/h5/cdn/sprite-full-avatar/{编号}/{编号}-big.png`；实测为 720×720 高清全身图，编号不补零。失败后依次尝试 `-720.png`（实测 200×200）、既有图片、配置中的官方图标，全部失败才显示占位。卡片延迟加载，详情大图立即加载；切换宠物后重新从高清图开始。已收录的其他外观使用其独立图片，未核对皮肤编号时不套用原始宠物图片。入口参考[官方 H5 的 getSpiritFullAvatar](https://res.17roco.qq.com/h5/assets/main/index.js)，不下载生成新的本地素材。
+
+图片索引方案暂缓，预留 `WikiPet.previewSources` 作为有序候选地址接口：未填写时按编号直引，空数组跳过自动拼接地址，既有图片与图标回退仍保留；独立外观不套用该宠物的候选地址。目前没有图片索引快照或图片定时任务。若未来启用，在 `scripts/updates/tasks.ts` 注册独立模块即可复用 3 小时周期与更新 PR 流程；宠物数据现有的 3 小时更新继续使用。
+
 `npm run ladder:import` 读取线上 `plugins/LadderMatch/LadderMatchConfig.xml`，校验后重建 `apps/web/content/official-ladder.json`；离线复现使用 `--input /path/to/LadderMatchConfig.xml --retrieved-at 实际采集时间`。费用按 `SpiritCost/spirit` 的编号匹配，未列出的编号按官方客户端合计逻辑默认 1 费；禁赛单独读取 `LimitSpirit/id`，不能用禁赛标记把费用改为 0。页面保留 XML URL、采集时间和 SHA-256，不把采集时间虚构成生效日期；服务端临时禁赛、获取开放和完整阵容条件仍需另核。官方费用优先于历史样本及本机修改，费用排序与筛选使用同一来源。
 
 `npm run skills:import` 从同一份 Angel.config 解码 `spiritSkill_conf`，生成 `official-skills.json`。属性引用 `spirit_conf` 的元素定义，类别按 `damageType`，无 `attackType` 的状态、效果和捕捉球不当作技能。重复编号依照官方客户端的源表顺序取最后定义，并记录覆盖字段。`speed` 编码直接作为先手值显示和排序，例如普通技能为 8、霞姿月韵为 15；历史网址与独立结构化解析保留。统一任务同次选中宠物和技能时，只下载一次配置包并共享采集时间，临时输入在任务结束时清理。

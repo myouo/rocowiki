@@ -1,18 +1,17 @@
 import {useDemoSubmissions} from "./community/useDemoSubmissions";
 import React, { useEffect, useMemo, useState } from "react";
 import Link from "@docusaurus/Link";
-import useBaseUrl from "@docusaurus/useBaseUrl";
 import { ArrowRight, Check, ChevronDown, ExternalLink, PawPrint, Search, Trash2, UsersRound, X } from "lucide-react";
 import { pets as sourcePets, skills as sourceSkills } from "./data";
 import { petSkillPoolHref, resolvePublishedCatalogPets, resolvePublishedCatalogSkills } from "./catalogPublished";
 import { MAX_LEARNER_EDITS, resolveSkillLearners } from "./skillLearnerModel";
 import { learningLabel } from "./catalog/skills/learningPresentation";
+import PetImage from "./catalog/pets/PetImage";
 import "./SkillLearners.css";
 
 const searchPet = (pet, query) => !query || [pet.name, pet.slug, pet.number, ...(pet.aliases || [])].some((value) => String(value ?? "").toLocaleLowerCase().includes(query));
 function Portrait({ pet }) {
-  const image = useBaseUrl(pet?.image || "");
-  return <span className="rw-learner-portrait-v73">{pet?.image ? <img src={image} alt="" loading="lazy" decoding="async" /> : <PawPrint size={23} aria-hidden="true" />}</span>;
+  return <span className="rw-learner-portrait-v73"><PetImage pet={pet} alt="" fallback={<PawPrint size={23} aria-hidden="true" />} /></span>;
 }
 function SearchField({ value, onChange, label }) {
   return <label className="rw-learner-search-v73"><Search size={15} aria-hidden="true" /><input type="search" aria-label={label} value={value} onChange={(event) => onChange(event.target.value)} placeholder="宠物名、编号或别名" />{value && <button type="button" aria-label={`清除${label}`} onClick={() => onChange("")}><X size={13} aria-hidden="true" /></button>}</label>;

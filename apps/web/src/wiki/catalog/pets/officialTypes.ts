@@ -43,6 +43,8 @@ export interface WikiPet {
   types: string[];
   aliases: string[];
   image: string;
+  /** Optional ordered candidates supplied by a future image index; omitted by current importers. */
+  previewSources?: readonly string[];
   stats: PetStats | null;
   skills: unknown[];
   sourceUrl: string;

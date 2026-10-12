@@ -5,6 +5,7 @@ import { petMetadata } from "../content/bundled.js";
 import { petAppearances } from "../content/bundled.js";
 import React, { useState, useEffect } from "react";
 import LadderCostBadge from "./pets/LadderCostBadge";
+import PetImage, { officialPetImageUrl } from "./pets/PetImage";
 import { learningLabel } from "./skills/learningPresentation";
 import { GitCompareArrows, ExternalLink, Check } from "lucide-react";
 import { Link } from "../core";
@@ -45,25 +46,16 @@ function MagicCostBadge({ pet }) {
   return <LadderCostBadge name={pet.name} magic={petMeta(pet).ladderMagic} />;
 }
 
-function PetPortrait({ pet, size = "", className = "" }) {
-  const imageUrl = useBaseUrl(pet.image || "");
-  const [failed, setFailed] = useState(false);
-  useEffect(() => setFailed(false), [pet.image]);
+function PetPortrait({ pet, size = "", className = "", preferOfficial = true }) {
   return (
     <div className={"rw-portrait " + size + " " + className}>
-      {pet.image && !failed ? (
-        <img
-          src={imageUrl}
-          alt={pet.name + "正面图"}
-          loading={size === "hero" ? "eager" : "lazy"}
-          onError={() => setFailed(true)}
-        />
-      ) : (
+      <PetImage pet={pet} preferOfficial={preferOfficial} alt={pet.name + "正面图"}
+        loading={size === "hero" ? "eager" : "lazy"} fallback={
         <div className="rw-image-unavailable">
           <span>{pet.name}</span>
           <small>原图暂不可用</small>
         </div>
-      )}
+      } />
     </div>
   );
 }
@@ -71,7 +63,7 @@ function PetPortrait({ pet, size = "", className = "" }) {
 function PetAppearanceGallery({ pet }) {
   const [selected, setSelected] = useState("original");
   const appearances = [
-    { id: "original", name: pet.name, label: "原始外观", image: pet.image, sourceUrl: pet.sourceUrl },
+    { id: "original", name: pet.name, label: "原始外观", image: pet.image, sourceUrl: officialPetImageUrl(pet.official?.id ?? pet.number) || pet.sourceUrl },
     ...(petAppearances.pets[pet.slug] || []),
   ];
   const current = appearances.find((item) => item.id === selected) || appearances[0];
@@ -86,7 +78,7 @@ function PetAppearanceGallery({ pet }) {
   }
   return <div className="rw-pet-identity rw-pet-identity-v72">
     <div className="rw-pet-gallery-image-v72">
-      <PetPortrait pet={{ ...pet, image: current.image, name: current.name }} size="hero" />
+      <PetPortrait pet={{ ...pet, image: current.image, name: current.name }} size="hero" preferOfficial={current.id === "original"} />
       <div className="rw-pet-hero-magic-v72"><MagicCostBadge pet={pet} /></div>
     </div>
     <div className="rw-number">No. {pet.number ?? "待录入"} · {current.label}</div>
@@ -95,7 +87,7 @@ function PetAppearanceGallery({ pet }) {
     </div>
     <div className="rw-pet-appearance-caption-v72" aria-live="polite">
       <span>{appearances.length > 1 ? current.name : "其他外观图片待收录"}</span>
-      {externalSource(current.sourceUrl) && <a href={externalSource(current.sourceUrl)} target="_blank" rel="noreferrer">图片出处 <ExternalLink size={10} /></a>}
+      {externalSource(current.sourceUrl) && <a href={externalSource(current.sourceUrl)} target="_blank" rel="noreferrer">{current.id === "original" && officialPetImageUrl(pet.official?.id ?? pet.number) ? "官方大图" : "图片出处"} <ExternalLink size={10} /></a>}
     </div>
   </div>;
 }
