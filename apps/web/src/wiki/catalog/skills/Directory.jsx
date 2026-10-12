@@ -1,4 +1,5 @@
 import CustomSelect from "../../Select";
+import QueryInput from "../../QueryInput";
 import { availableSkillSortFields, sortCatalogSkills } from "../../skillPresentation";
 import EditEntry from "../../editing/EditEntry";
 import React from "react";
@@ -68,10 +69,10 @@ function SkillCatalogPage() {
         <div className="rw-filtertop">
           <label className="rw-input-icon">
             <Search size={17} />
-            <input
+            <QueryInput
               value={term}
-              onChange={(e) =>
-                setQuery(history, location, { q: e.target.value })
+              onValueChange={(value) =>
+                setQuery(history, location, { q: value })
               }
               aria-label="搜索技能或学习宠物"
               placeholder="技能名称 / 学习宠物"

@@ -10,6 +10,7 @@ import { ColorIcon, pageVisual } from "./visuals";
 import { HeaderProfileAvatar } from "./AccountIdentity";
 import PageCommunityFooter from "./PageCommunityFooter";
 import {useWikiRuntime} from "./runtime/useWikiRuntime";
+import { useInputComposition } from './inputComposition';
 import {
   ArrowLeft,
   ArrowRight,
@@ -398,6 +399,7 @@ export function Subnav({ items, current }) {
 }
 
 export function SearchLauncher() {
+  const ime = useInputComposition();
   const searchRoute = useBaseUrl("/search/");
   const [open, setOpen] = useState(false),
     [value, setValue] = useState("");
@@ -425,6 +427,7 @@ export function SearchLauncher() {
   }, [open]);
   function submit(e) {
     e.preventDefault();
+    if (ime.composing.current) return;
     setOpen(false);
     history.push(searchRoute + "?q=" + encodeURIComponent(value));
   }
@@ -442,7 +445,7 @@ export function SearchLauncher() {
       <dialog
         className="rw-search-dialog"
         ref={dialog}
-        onCancel={() => setOpen(false)}
+        onCancel={event => { if (ime.composing.current) event.preventDefault(); else setOpen(false); }}
         onClose={() => { if (!dialog.current?.open) setOpen(false); }}
         onClick={(e) => {
           if (e.target === e.currentTarget) setOpen(false);
@@ -462,6 +465,7 @@ export function SearchLauncher() {
         <form onSubmit={submit} className="rw-searchform">
           <Search size={20} />
           <input
+            {...ime.handlers}
             aria-label="搜索词"
             autoFocus
             value={value}

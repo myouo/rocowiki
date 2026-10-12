@@ -24,6 +24,7 @@ async function main() {
       export {SearchPage} from './src/wiki/catalog/SearchPage.jsx';
       export {GlobalFeedback} from './src/wiki/Feedback.jsx';
       export {SearchLauncher} from './src/wiki/core.jsx';
+      export {DirectorySearch} from './src/wiki/DirectoryPanel.jsx';
       export {PreviewFooter} from './src/wiki/core.jsx';
       export {ReadPreviewFrame} from './src/wiki/editing/PreviewContent.jsx';
       export {contributionEntries,emptySocialState} from './src/wiki/communitySocialModel.js';
@@ -144,6 +145,36 @@ async function main() {
   await render(React.createElement(React.StrictMode,null,React.createElement(C.GlobalFeedback),React.createElement(C.SearchLauncher)));
   await click('反馈问题');check('Unsupported native dialog methods use a safe fallback',d.querySelector('.rw-feedback-dialog').hasAttribute('open'));
   await click('关闭反馈');await click('搜索全站');check('The search dialog can open without showModal support',d.querySelector('.rw-search-dialog').hasAttribute('open'));await click('关闭搜索');
+
+  const inputValueSetter=Object.getOwnPropertyDescriptor(w.HTMLInputElement.prototype,'value').set;
+  async function inputText(input,value,isComposing){await act(async()=>{
+    inputValueSetter.call(input,value);
+    input.dispatchEvent(new w.InputEvent('input',{bubbles:true,data:value,inputType:isComposing?'insertCompositionText':'insertText',isComposing}));
+  });}
+  let directorySubmitted=null;
+  for(const fixture of [
+    {name:'Search launcher',node:React.createElement(C.SearchLauncher),form:'.rw-search-dialog form',expected:()=>globalThis.__navigation==='/search/?q='+encodeURIComponent('迪莫'),open:true},
+    {name:'Search page',node:React.createElement(C.SearchPage),form:'.rw-searchform.large',expected:()=>globalThis.__navigation==='/search/?q='+encodeURIComponent('迪莫')},
+    {name:'Directory search',node:React.createElement(C.DirectorySearch,{query:new URLSearchParams(),onSubmit:value=>{directorySubmitted=value;}}),form:'.rw-directory-search',expected:()=>directorySubmitted==='迪莫'},
+  ]){
+    globalThis.__wikiLocation={pathname:'/search/',search:'',hash:''};globalThis.__navigation=null;directorySubmitted=null;
+    await render(fixture.node);if(fixture.open)await click('搜索全站');
+    const form=d.querySelector(fixture.form),input=form.querySelector('input');
+    await act(async()=>input.dispatchEvent(new w.CompositionEvent('compositionstart',{bubbles:true})));
+    await inputText(input,'dimo',true);
+    const key=new w.KeyboardEvent('keydown',{key:'Enter',keyCode:229,isComposing:true,bubbles:true,cancelable:true});
+    await act(async()=>{input.dispatchEvent(key);form.dispatchEvent(new w.Event('submit',{bubbles:true,cancelable:true}));});
+    check(`${fixture.name} keeps IME candidate Enter from navigating or submitting`,key.defaultPrevented&&!globalThis.__navigation&&directorySubmitted===null);
+    await inputText(input,'迪莫',true);
+    await act(async()=>input.dispatchEvent(new w.CompositionEvent('compositionend',{bubbles:true,data:'迪莫'})));
+    await inputText(input,'迪莫',false);
+    const trailingKey=new w.KeyboardEvent('keydown',{key:'Enter',keyCode:229,isComposing:false,bubbles:true,cancelable:true});
+    await act(async()=>input.dispatchEvent(trailingKey));
+    check(`${fixture.name} ignores the post-composition keyCode 229 Enter`,trailingKey.defaultPrevented&&!globalThis.__navigation&&directorySubmitted===null);
+    await act(async()=>form.dispatchEvent(new w.Event('submit',{bubbles:true,cancelable:true})));
+    check(`${fixture.name} submits the complete Chinese query afterward`,fixture.expected());
+  }
+  globalThis.__wikiLocation={pathname:'/',search:'',hash:''};
 
   const frameTree=()=>React.createElement(React.StrictMode,null,React.createElement('textarea',{'data-parent-draft':true,defaultValue:'unsaved draft'}),React.createElement(C.ReadPreviewFrame,{mode:'article',data:{markdown:'# Preview\n\nSafe body.'},context:{entity:'Test'}}));
   for(let i=0;i<6;i++){

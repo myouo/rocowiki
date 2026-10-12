@@ -5,8 +5,10 @@ import { Search, ArrowRight } from "lucide-react";
 import { Link, Badge, PageHeader, EmptyState, Contribution, setQuery } from "../core";
 import { getSearchRecords } from "../data";
 import {searchRecords,matchedExcerpt} from './searchModel';
+import { useInputComposition } from '../inputComposition';
 
 function SearchPage() {
+  const ime = useInputComposition();
   const searchRoute = useBaseUrl("/search/");
   const history = useHistory(),
     location = useLocation(),
@@ -27,11 +29,13 @@ function SearchPage() {
         className="rw-searchform large"
         onSubmit={(e) => {
           e.preventDefault();
+          if (ime.composing.current) return;
           setQuery(history, location, { q: draft });
         }}
       >
         <Search size={22} />
         <input
+          {...ime.handlers}
           value={draft}
           onChange={(e) => setDraft(e.target.value)}
           aria-label="全站搜索词"

@@ -1,5 +1,6 @@
 import React, { useEffect, useId, useMemo, useRef, useState } from "react";
 import { Check, ChevronDown, Search } from "lucide-react";
+import { isCompositionKey } from './inputComposition';
 
 /** A shared, fully styled select-only combobox; no native select popup. */
 export default function CustomSelect({
@@ -154,7 +155,7 @@ export default function CustomSelect({
     setActive(enabled[(cursor + direction + enabled.length) % enabled.length]);
   }
   function keyDown(event) {
-    if (event.isComposing || event.nativeEvent?.isComposing) return;
+    if (isCompositionKey(event)) return;
     if (event.key === "Escape") {
       if (open) {
         event.preventDefault();

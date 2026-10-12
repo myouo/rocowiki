@@ -10,6 +10,7 @@ import { haifuSource } from "../../data";
 import { useCatalogSubmissions, usePublishedPets } from "../hooks.js";
 import { PetPortrait } from "../components.jsx";
 import { externalSource } from "../model.js";
+import QueryInput from "../../QueryInput";
 
 function BloodlinePage({ detail = false }) {
   const publishedPets = usePublishedPets();
@@ -42,7 +43,7 @@ function BloodlinePage({ detail = false }) {
             ]}
           />
           <div className="rw-bloodline-index-toolbar-v72">
-            <label className="rw-input-icon"><Search size={17} /><input value={query.get("q") || ""} aria-label="搜索血脉名称或关联宠物" placeholder="血脉名称 / 关联宠物" onChange={(event) => setQuery(history, location, { q: event.target.value })} /></label>
+            <label className="rw-input-icon"><Search size={17} /><QueryInput value={query.get("q") || ""} aria-label="搜索血脉名称或关联宠物" placeholder="血脉名称 / 关联宠物" onValueChange={(value) => setQuery(history, location, { q: value })} /></label>
             <span>已收录 <b>{bloodlineRows.length}</b> 种血脉</span>
           </div>
           <div className="rw-bloodline-grid-v72">

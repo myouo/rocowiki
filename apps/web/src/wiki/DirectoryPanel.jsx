@@ -2,6 +2,7 @@ import React, { useEffect, useId, useRef, useState } from "react";
 import Link from "@docusaurus/Link";
 import { ArrowRight, Search, X } from "lucide-react";
 import { ColorIcon } from "./visuals";
+import { useInputComposition } from './inputComposition';
 
 /** Shared directory surface. Search state and destination ownership stay with each page. */
 export default function DirectoryPanel({ directory, title, Icon, tone = "blue", summary, filters, search, children }) {
@@ -20,15 +21,16 @@ export default function DirectoryPanel({ directory, title, Icon, tone = "blue", 
 }
 
 export function DirectorySearch({ query, onSubmit, placeholder = "输入名称或关键词", label = "搜索资料", extra }) {
+  const ime = useInputComposition();
   const current = query?.get("q") || "";
   const [text, setText] = useState(current);
   const input = useRef(null);
   useEffect(() => setText(current), [current]);
   return <form className={`rw-directory-search${extra ? " has-extra" : ""}`} role="search" aria-label={label}
-    onSubmit={event => { event.preventDefault(); onSubmit(text.trim()); }}>
+    onSubmit={event => { event.preventDefault(); if (!ime.composing.current) onSubmit(text.trim()); }}>
     <div className="rw-directory-input">
       <Search size={18} aria-hidden="true" />
-      <input ref={input} name="q" aria-label={label} placeholder={placeholder} value={text} enterKeyHint="search"
+      <input {...ime.handlers} ref={input} name="q" aria-label={label} placeholder={placeholder} value={text} enterKeyHint="search"
         onChange={event => setText(event.target.value)} />
       {text && <button type="button" className="rw-directory-clear" aria-label="清空搜索" onClick={() => { setText(""); onSubmit(""); input.current?.focus(); }}><X size={16} aria-hidden="true" /></button>}
     </div>

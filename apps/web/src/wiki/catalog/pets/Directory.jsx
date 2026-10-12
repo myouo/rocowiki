@@ -15,6 +15,7 @@ import { collectionRank, petCollection, petFeedScope, petHrefWithReturnTo, readP
 import { petCatalogHref } from "./officialModel";
 import { useHydratedSearch } from "./useHydratedSearch";
 import { ladderDate } from "./LadderCostBadge";
+import QueryInput from "../../QueryInput";
 
 function PetsPage({ query }) {
   const location = useLocation();
@@ -278,10 +279,10 @@ function PetCatalogPage({ query }) {
         <div className="rw-filtertop">
           <label className="rw-input-icon">
             <Search size={18} />
-            <input
+            <QueryInput
               value={term}
-              onChange={(e) =>
-                changeFilters({ q: e.target.value })
+              onValueChange={(value) =>
+                changeFilters({ q: value })
               }
               aria-label="筛选宠物"
               placeholder="输入宠物名、图鉴编号或别名"
