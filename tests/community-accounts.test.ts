@@ -114,6 +114,15 @@ it('uses authenticated comment authors, preserves idempotency and derives likes 
   const activity=activityResponseSchema.parse(await (await request('/community/activity?view=commentLikes&period=all',undefined,a)).json());expect(activity.rows[0]).toMatchObject({actor_uid:bob,href:'/skills/?entry=official-skill-3806#comment-'+id});
   expect((await request('/community/comments/'+id,undefined,b,'DELETE')).status).toBe(403);
   expect((await request('/community/comments/'+id,undefined,a,'DELETE')).status).toBe(200);
+  expect((await request('/community/comments/'+id,undefined,a,'DELETE')).status).toBe(200);
+  expect(db.sql.prepare("SELECT count(*) AS n FROM audit_events WHERE action='community_comment_removed'").get()!.n).toBe(1);
+  expect((await request('/community/comments',body,a,'POST',key)).status).toBe(409);
   expect(communitySnapshotSchema.parse(await (await request('/community/me',undefined,a)).json()).stats.comment_likes).toBe(0);
   for(const page of ['/account/','/%61ccount/','//attacker.test/','/api/','/img/test.png'])expect((await request('/community/discussion?page='+encodeURIComponent(page))).status).toBe(400);
+});
+it('does not display a contribution achievement after its publication evidence is withdrawn',async()=>{
+  db.sql.prepare("INSERT INTO community_profiles(uid,badge,updated_at) VALUES(?,'achievement-first',?)").run(alice,now());
+  const me=await (await request('/me',undefined,await session())).json();
+  expect(me).toMatchObject({profile:{badge:''}});
+  expect(await (await request('/users/'+alice)).json()).toMatchObject({profile:{badge:''}});
 });

@@ -24,7 +24,12 @@ function sqlError(error:unknown):never {
   throw error;
 }
 export async function communityProfile(env:ApiEnv,uid:string):Promise<CommunityProfile> {
-  return await env.DB.prepare('SELECT avatar,bio,badge,frame FROM community_profiles WHERE uid=?').bind(uid).first<CommunityProfile>()??{avatar:'dimo',bio:'',badge:'',frame:''};
+  const profile=await env.DB.prepare('SELECT avatar,bio,badge,frame FROM community_profiles WHERE uid=?').bind(uid).first<CommunityProfile>()??{avatar:'dimo',bio:'',badge:'',frame:''};
+  if(profile.badge){
+    const permitted=await env.DB.prepare(`SELECT EXISTS(SELECT 1 FROM community_purchases WHERE uid=? AND item_id=?) OR (?='achievement-week' AND coalesce((SELECT max(streak) FROM community_checkins WHERE uid=?),0)>=7) OR (? IN ('achievement-first','achievement-three') AND (SELECT count(*) FROM (${publishedSql}) WHERE uid=?)>=CASE WHEN ?='achievement-first' THEN 1 ELSE 3 END) AS permitted`).bind(uid,profile.badge,profile.badge,uid,profile.badge,uid,profile.badge).first<{permitted:number}>();
+    if(!permitted?.permitted)profile.badge='';
+  }
+  return profile;
 }
 export async function communitySnapshot(env:ApiEnv,uid:string):Promise<CommunitySnapshot> {
   const time=now(),today=communityDay(time);
@@ -146,15 +151,19 @@ export function registerCommunityRoutes(app:Hono<Bindings>,http:HttpHelpers) {
     await http.rate(c.env,`community-comment:${uid}`,20,3600);
     const key=z.string().min(16).max(100).regex(/^[a-z0-9_-]+$/iu).parse(c.req.header('Idempotency-Key')),requestHash=await hash(JSON.stringify(input));
     await c.env.DB.prepare('INSERT INTO community_comments(comment_id,author_uid,page,title,body,created_at,request_key,request_hash) VALUES(?,?,?,?,?,?,?,?) ON CONFLICT(author_uid,request_key) DO NOTHING').bind(newId('cmt'),uid,input.page,input.title,input.body,now(),key,requestHash).run();
-    const comment=await c.env.DB.prepare('SELECT comment_id,request_hash FROM community_comments WHERE author_uid=? AND request_key=?').bind(uid,key).first<{comment_id:string;request_hash:string}>();
+    const comment=await c.env.DB.prepare('SELECT comment_id,request_hash,removed_at FROM community_comments WHERE author_uid=? AND request_key=?').bind(uid,key).first<{comment_id:string;request_hash:string;removed_at:number|null}>();
     if(!comment)throw new CommunityError('COMMUNITY_RECORD_UNCONFIRMED',503);
     if(comment.request_hash!==requestHash)throw new CommunityError('IDEMPOTENCY_MISMATCH',409);
+    if(comment.removed_at!==null)throw new CommunityError('COMMENT_REMOVED',409);
     return c.json({owner_uid:uid,comment_id:comment.comment_id},201);
   });
   app.delete('/community/comments/:id',async c=>{
     const uid=c.get('session').uid,id=c.req.param('id'),role=c.get('session').role;
-    const result=await c.env.DB.prepare('UPDATE community_comments SET removed_at=? WHERE comment_id=? AND removed_at IS NULL AND (author_uid=? OR ? IN (\'reviewer\',\'admin\'))').bind(now(),id,uid,role).run();
-    if(!result.meta.changes){const comment=await c.env.DB.prepare('SELECT author_uid,removed_at FROM community_comments WHERE comment_id=?').bind(id).first<{author_uid:string;removed_at:number|null}>();if(!comment)throw new CommunityError('COMMENT_NOT_FOUND',404);if(comment.author_uid!==uid&&!['reviewer','admin'].includes(role))throw new CommunityError('FORBIDDEN',403);}
+    const result=await c.env.DB.batch([
+      c.env.DB.prepare('UPDATE community_comments SET removed_at=? WHERE comment_id=? AND removed_at IS NULL AND (author_uid=? OR ? IN (\'reviewer\',\'admin\'))').bind(now(),id,uid,role),
+      c.env.DB.prepare("INSERT INTO audit_events(event_id,actor_uid,action,target_id,ts) SELECT ?,?,'community_comment_removed',?,? WHERE changes()>0").bind(newId('evt'),uid,id,now()),
+    ]);
+    if(!result[0].meta.changes){const comment=await c.env.DB.prepare('SELECT author_uid,removed_at FROM community_comments WHERE comment_id=?').bind(id).first<{author_uid:string;removed_at:number|null}>();if(!comment)throw new CommunityError('COMMENT_NOT_FOUND',404);if(comment.author_uid!==uid&&!['reviewer','admin'].includes(role))throw new CommunityError('FORBIDDEN',403);}
     return c.json({owner_uid:uid,ok:true});
   });
   app.post('/community/likes',async c=>{
