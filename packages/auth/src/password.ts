@@ -3,6 +3,7 @@ import {registerSchema,loginSchema,changePasswordSchema} from '../../wiki-schema
 import {hash,now,newId,randomToken,createSession} from './index';
 import type {ApiEnv,AuthSession} from '../../../apps/api/src/types';
 import {mailConfigured,sendAccountMessage,MailDeliveryError} from './mail';
+import {buildAccountEmail,type AccountEmailPurpose} from './account-email';
 export {mailConfigured} from './mail';
 
 export class AccountError extends Error {constructor(public code:string,public status=400,public deliveryUncertain=false){super(code);}}
@@ -64,7 +65,7 @@ export async function registerPassword(env:ApiEnv,input:unknown){
       env.DB.prepare('DELETE FROM pending_registrations WHERE email=?').bind(value.email),
       env.DB.prepare('INSERT INTO pending_registrations(email,registration_id,username,display_name,password_hash,token_hash,expires_at,created_at) VALUES(?,?,?,?,?,?,?,?)').bind(value.email,registrationId,value.username,value.display_name,passwordHash,tokenHash,ts+86400,ts)
     ]);
-    try{await sendTokenEmail(env,value.email,token,'verify_email');}catch(error){if(error instanceof AccountError&&!error.deliveryUncertain)await env.DB.prepare('DELETE FROM pending_registrations WHERE registration_id=?').bind(registrationId).run();throw error;}
+    try{await sendTokenEmail(env,value.email,token,'verify_email',ts+86400);}catch(error){if(error instanceof AccountError&&!error.deliveryUncertain)await env.DB.prepare('DELETE FROM pending_registrations WHERE registration_id=?').bind(registrationId).run();throw error;}
     return {verification_required:true};
   }
   try {await env.DB.batch([
@@ -87,15 +88,14 @@ export async function changePassword(env:ApiEnv,session:AuthSession,input:unknow
 
 export async function sendAccountToken(env:ApiEnv,record:Credential,purpose:'verify_email'|'reset_password'){
   if(!mailConfigured(env))throw new AccountError('MAIL_NOT_CONFIGURED',503);
-  const token=randomToken(),tokenHash=await hash(token),ts=now();
-  await env.DB.prepare('INSERT INTO account_tokens(token_hash,uid,purpose,credential_version,expires_at) VALUES(?,?,?,?,?)').bind(tokenHash,record.uid,purpose,record.credential_version,ts+(purpose==='verify_email'?86400:1800)).run();
-  try{await sendTokenEmail(env,record.email,token,purpose);}catch(error){if(error instanceof AccountError&&!error.deliveryUncertain)await env.DB.prepare('DELETE FROM account_tokens WHERE token_hash=? AND consumed_at IS NULL').bind(tokenHash).run();throw error;}
+  const token=randomToken(),tokenHash=await hash(token),ts=now(),expiresAt=ts+(purpose==='verify_email'?86400:1800);
+  await env.DB.prepare('INSERT INTO account_tokens(token_hash,uid,purpose,credential_version,expires_at) VALUES(?,?,?,?,?)').bind(tokenHash,record.uid,purpose,record.credential_version,expiresAt).run();
+  try{await sendTokenEmail(env,record.email,token,purpose,expiresAt);}catch(error){if(error instanceof AccountError&&!error.deliveryUncertain)await env.DB.prepare('DELETE FROM account_tokens WHERE token_hash=? AND consumed_at IS NULL').bind(tokenHash).run();throw error;}
 }
-async function sendTokenEmail(env:ApiEnv,email:string,token:string,purpose:'verify_email'|'reset_password'){
+async function sendTokenEmail(env:ApiEnv,email:string,token:string,purpose:AccountEmailPurpose,expiresAt:number){
   const tokenHash=await hash(token),url=new URL('/workbench/',env.WEB_ORIGIN);url.hash=`${purpose==='verify_email'?'verify':'reset'}=${token}`;
-  const subject=purpose==='verify_email'?'验证你的 RocoWiki 邮箱':'重置你的 RocoWiki 密码';
   try {
-    await sendAccountMessage(env,{email,subject,idempotencyKey:`account-${tokenHash}`,text:`${subject}\n\n请在 RocoWiki 中确认操作：${url}\n${purpose==='verify_email'?'确认时还需要输入注册密码。':''}\n若非本人操作，请忽略此邮件。`,html:`<p>${subject}</p><p><a href="${url}">在 RocoWiki 中确认</a></p><p>${purpose==='verify_email'?'确认时还需要输入注册密码。':''}</p><p>若非本人操作，请忽略此邮件。</p>`});
+    await sendAccountMessage(env,{email,idempotencyKey:`account-${tokenHash}`,...buildAccountEmail({purpose,actionUrl:url,expiresAt})});
   }catch(error){throw new AccountError('MAIL_DELIVERY_FAILED',503,error instanceof MailDeliveryError?error.deliveryUncertain:true);}
 }
 export async function requestAccountEmail(env:ApiEnv,input:unknown,purpose:'verify_email'|'reset_password'){
@@ -111,7 +111,7 @@ export async function requestAccountEmail(env:ApiEnv,input:unknown,purpose:'veri
       const token=randomToken(),tokenHash=await hash(token);
       // Every delivered link remains valid for this registration, even when mail arrives out of order.
       const changed=await env.DB.prepare('INSERT INTO pending_registration_tokens(token_hash,registration_id) SELECT ?,registration_id FROM pending_registrations WHERE registration_id=? AND expires_at>?').bind(tokenHash,pending.registration_id,now()).run();
-      if(changed.meta.changes)try{await sendTokenEmail(env,pending.email,token,purpose);}catch(error){if(error instanceof AccountError&&!error.deliveryUncertain)await env.DB.prepare('DELETE FROM pending_registration_tokens WHERE token_hash=?').bind(tokenHash).run();throw error;}
+      if(changed.meta.changes)try{await sendTokenEmail(env,pending.email,token,purpose,pending.expires_at);}catch(error){if(error instanceof AccountError&&!error.deliveryUncertain)await env.DB.prepare('DELETE FROM pending_registration_tokens WHERE token_hash=?').bind(tokenHash).run();throw error;}
     }
   }
   return {ok:true};

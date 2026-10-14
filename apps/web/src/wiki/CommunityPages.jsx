@@ -13,6 +13,7 @@ import { HistoryPage } from "./community/demo/HistoryPage.jsx";
 import { useWikiRuntime } from "./runtime/useWikiRuntime";
 import ServerWorkflowRoute from "./runtime/ServerWorkflowRoute";
 import RequireRole from "./auth/RequireRole";
+import AccountCenter from "../features/account/AccountCenter";
 
 function DemoCommunityPages({ path = "/community/", query }) {
   const state = useWorkspace();
@@ -53,6 +54,6 @@ function DemoCommunityPages({ path = "/community/", query }) {
 
 export default function CommunityPages(props) {
   const {demo} = useWikiRuntime();
-  const content = demo ? <DemoCommunityPages {...props} /> : <ServerWorkflowRoute {...props} />;
+  const content = demo ? <DemoCommunityPages {...props} /> : props.path === "/account/" ? <AccountCenter /> : <ServerWorkflowRoute {...props} />;
   return ["/edit/", "/review/"].includes(props.path) ? <RequireRole review={props.path === "/review/"}>{content}</RequireRole> : content;
 }

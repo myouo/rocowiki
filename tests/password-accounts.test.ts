@@ -20,13 +20,13 @@ function request(path:string,body?:unknown,session?:{token:string;csrf:string},m
 async function register(value=registration){const r=await request('/auth/register',value);expect(r.status).toBe(201);return credentialFor(env,value.email.toLowerCase());}
 async function login(identifier='player_01',value=password){const r=await request('/auth/login',{identifier,password:value});expect(r.status).toBe(200);const token=/roco_session=([a-f0-9]{64})/.exec(r.headers.get('set-cookie')!)![1];const csrf=await sessionCsrf(new Request('http://localhost',{headers:{Cookie:`roco_session=${token}`}}),env);return {token,csrf};}
 function mailFixture(){
-  const sent:{to:string;token:string;url:URL}[]=[];
+  const sent:{to:string;token:string;url:URL;text:string;html:string}[]=[];
   env={...env,EMAIL_VERIFICATION_REQUIRED:'true',MAIL_PROVIDER:'resend',MAIL_FROM:'accounts@example.test',RESEND_API_KEY:'fixture-mail-key'};
   vi.stubGlobal('fetch',vi.fn(async(url:string,init:RequestInit)=>{
     expect(url).toBe('https://api.resend.com/emails');
     const input=JSON.parse(String(init.body)),text=input.text;
     const link=new URL(text.match(/https?:\/\/\S+/)[0]);
-    sent.push({to:input.to[0],token:link.hash.split('=')[1],url:link});
+    sent.push({to:input.to[0],token:link.hash.split('=')[1],url:link,text,html:input.html});
     // The provider receives confirmation links, never the account password.
     expect(String(init.body)).not.toContain(password);
     return Response.json({id:'fixture-delivery'});
@@ -147,6 +147,19 @@ it('preserves earlier verification links on resend and consumes all links togeth
   expect((await request('/auth/email/verify',{token:sent[1].token,password})).status).toBe(400);
   expect(db.sql.prepare('SELECT count(*) AS n FROM pending_registration_tokens').get()!.n).toBe(0);
   await login();
+});
+it('shows the original registration deadline on a resend rather than advertising another 24 hours',async()=>{
+  const clock=vi.spyOn(Date,'now').mockReturnValue(Date.UTC(2026,9,14,10,30));
+  try{
+    const sent=mailFixture();await register();
+    clock.mockReturnValue(Date.UTC(2026,9,15,10,20));
+    expect((await request('/auth/email/resend',{identifier:'player_01'})).status).toBe(200);
+    for(const message of sent){
+      expect(message.html).toContain('2026年10月15日 18:30（北京时间）');
+      expect(message.text).toContain('2026年10月15日 18:30（北京时间）');
+    }
+    expect(sent).toHaveLength(2);
+  }finally{clock.mockRestore();}
 });
 it('allows overlapping resends to complete out of order without invalidating their links',async()=>{
   const sent=mailFixture();await register();
