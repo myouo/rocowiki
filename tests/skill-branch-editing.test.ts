@@ -1,7 +1,10 @@
 // SPDX-License-Identifier: GPL-3.0-only
 import { expect, it } from 'vitest';
+import { createRequire } from 'node:module';
 import { branchMoveError, moveSkillBranch, wrapSkillBranch } from '../apps/web/src/wiki/editing/skillBranchEditing';
 import { skillBranchLocations, type NavigableBranch } from '../apps/web/src/wiki/skillBranchNavigation';
+
+const { validateSkillBranches } = createRequire(import.meta.url)('../apps/web/src/wiki/skillConditions.js');
 
 const fixture = () => [
   { label: '命中前提', when: '本次技能命中', effect: '基础效果', extra: { source: '公开来源' }, children: [
@@ -105,4 +108,25 @@ it('enforces the maximum depth for the entire moved or wrapped subtree', () => {
   expect(branchMoveError(rows, '1', { parentPath: leaf.path, route: 'children' })).toContain('层级过深');
   expect(moveSkillBranch(rows, '0', { parentPath: '1', route: 'children' })).toBeNull();
   expect(wrapSkillBranch(rows, '1', {})).not.toBeNull();
+});
+
+it('accepts the editor maximum depth when leaf nodes have no further matched or alternate children', () => {
+  for (const route of ['matched', 'otherwise']) {
+    let branch: NavigableBranch = { when: '合成叶条件', effect: '叶条件效果' };
+    for (let depth = 0; depth < 5; depth++) branch = route === 'matched'
+      ? { when: `合成父条件 ${depth}`, children: [branch] }
+      : { when: `合成父条件 ${depth}`, effect: '成立效果', otherwiseBranch: { relation: 'else', effect: '否则效果', children: [branch] } };
+    expect(skillBranchLocations([branch]).at(-1)!.depth).toBe(5);
+    expect(validateSkillBranches([branch]).errors).toEqual({});
+    expect(branchMoveError([branch, { when: '另一个条件', effect: '另一个效果' }], '0', { parentPath: null, route: 'children' })).toBe('');
+  }
+});
+
+it('still rejects a real child beyond the maximum branch depth', () => {
+  let branch: NavigableBranch = { when: '合成叶条件', effect: '叶条件效果' };
+  for (let depth = 0; depth < 6; depth++) branch = { when: `合成父条件 ${depth}`, children: [branch] };
+  const errors = validateSkillBranches([branch]).errors;
+  expect(Object.keys(errors)).toEqual(['phases.0.children.0.children.0.children.0.children.0.children.0.children']);
+  expect(Object.values(errors)[0]).toContain('最多嵌套 5 层');
+  expect(branchMoveError([branch], '0', { parentPath: null, route: 'children' })).toContain('层级过深');
 });
