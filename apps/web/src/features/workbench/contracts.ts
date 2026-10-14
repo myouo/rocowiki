@@ -1,11 +1,13 @@
 import {z} from 'zod';
 import {editorKinds, states, type SubmissionState} from '../../../../../packages/wiki-schema/src/protocol';
+import {communityProfileSchema} from '../../../../../packages/wiki-schema/src/community';
 
 export const source = z.object({title:z.string(),url:z.string(),level:z.enum(['official','tested','inferred','unverified'])});
 export type Source = z.infer<typeof source>;
 export const freshSource=():Source=>({title:'',url:'',level:'unverified'});
 export const me = z.object({
   user:z.object({uid:z.string().min(1),username:z.string().min(1),display_name:z.string(),role:z.enum(['viewer','contributor','reviewer','admin'])}),
+  profile:communityProfileSchema.optional(),
   account:z.object({email:z.string().email(),email_verified:z.boolean()}).nullable().optional(),
   csrf_token:z.string().min(1),consent_version:z.string(),
   github:z.object({login:z.string(),coauthor_email:z.string().nullable(),enabled:z.number()}).nullable(),
@@ -32,6 +34,7 @@ export const job = z.object({job_id:z.string(),revision_id:z.string(),stage:z.st
 export type Job = z.infer<typeof job>;
 export const publicProfile = z.object({
   user:z.object({uid:z.string(),display_name:z.string()}),github:z.object({login:z.string()}).nullable(),
+  profile:communityProfileSchema.optional(),
   contributions:z.array(z.object({revision_id:z.string(),page_id:z.string(),edit_summary:z.string(),content_commit_sha:z.string().regex(/^[a-f0-9]{40}$/)})),
 });
 export type PublicProfile = z.infer<typeof publicProfile>;

@@ -10,6 +10,7 @@ import { startGithub, finishGithub, requireRecent, consentVersion } from './gith
 import {AccountError,passwordLogin,passwordReauthenticate,registerPassword,changePassword,mailConfigured,requestAccountEmail,consumeAccountToken} from '../../../packages/auth/src/password';
 import {profileSchema} from '../../../packages/wiki-schema/src/account';
 import type { ApiEnv, Bindings, AuthSession } from './types';
+import {CommunityError,communityProfile,registerCommunityRoutes} from './community';
 
 export class ApiError extends Error {constructor(public code:string,public status=400){super(code);}}
 export const app=new Hono<Bindings>();
@@ -56,18 +57,21 @@ app.use('*',async(c,next)=>{
   const s=await getSession(c.req.raw,c.env);
   if(s)c.set('session',s);
   const publicAuth=['/auth/login','/auth/register','/auth/email/resend','/auth/email/verify','/auth/password/request-reset','/auth/password/reset'];
-  const publicRoute=path==='/health'||path==='/pages'||path.startsWith('/users/')||path==='/mirror'||publicAuth.includes(path)||path==='/auth/callback'||path==='/auth/github/callback';
+  const publicCommunity=c.req.method==='GET'&&['/community/rankings','/community/discussion','/community/guide-like'].includes(path);
+  const publicRoute=publicCommunity||path==='/health'||path==='/pages'||path.startsWith('/users/')||path==='/mirror'||publicAuth.includes(path)||path==='/auth/callback'||path==='/auth/github/callback';
   if(!publicRoute&&!s)throw new ApiError('UNAUTHORIZED',401);
   if(isMutation&&s&&!publicAuth.includes(path)) {
     if(!await verifyCsrf(c.req.raw,c.env,s))throw new ApiError('CSRF_REJECTED',403);
   }
   await next();
 });
+registerCommunityRoutes(app,{body:jsonBody,rate});
 app.get('/health',c=>c.json({status:'ok',schema:1,registration:c.env.AUTH_MODE,
   authentication_configured:c.env.AUTH_MODE==='password'||Boolean(c.env.OIDC_ISSUER&&c.env.OIDC_CLIENT_ID&&c.env.OIDC_CLIENT_SECRET),
   registration_enabled:c.env.REGISTRATION_ENABLED==='true'&&(c.env.EMAIL_VERIFICATION_REQUIRED!=='true'||mailConfigured(c.env)),
   email_verification_required:c.env.EMAIL_VERIFICATION_REQUIRED==='true',password_reset_available:mailConfigured(c.env),
   submissions:c.env.SUBMISSIONS_ENABLED==='true',publishing:c.env.PUBLISH_ENABLED==='true',
+  community:true,
   source_commit_sha:c.env.API_SOURCE_COMMIT_SHA||null,
 }));
 app.get('/pages',c=>c.json({pages:catalog}));
@@ -96,9 +100,16 @@ app.post('/auth/logout',async c=>{await c.env.DB.prepare('UPDATE sessions SET re
 app.get('/me',async c=>{
   const s=c.get('session'),github=await c.env.DB.prepare('SELECT login,github_numeric_id,coauthor_email,enabled,consent_version FROM github_identities WHERE uid=?').bind(s.uid).first();
   const credential=await c.env.DB.prepare('SELECT email,email_verified_at FROM password_credentials WHERE uid=?').bind(s.uid).first<{email:string;email_verified_at:number|null}>();
-  return c.json({user:{uid:s.uid,username:s.username,display_name:s.display_name,role:s.role},account:credential?{email:credential.email,email_verified:credential.email_verified_at!==null}:null,csrf_token:await sessionCsrf(c.req.raw,c.env),github,consent_version:consentVersion});
+  return c.json({user:{uid:s.uid,username:s.username,display_name:s.display_name,role:s.role},profile:await communityProfile(c.env,s.uid),account:credential?{email:credential.email,email_verified:credential.email_verified_at!==null}:null,csrf_token:await sessionCsrf(c.req.raw,c.env),github,consent_version:consentVersion});
 });
-app.patch('/me',async c=>{const input=profileSchema.parse(await jsonBody(c.req.raw,4096));await c.env.DB.prepare('UPDATE users SET display_name=? WHERE uid=?').bind(input.display_name,c.get('session').uid).run();return c.json({ok:true});});
+app.patch('/me',async c=>{
+  const input=profileSchema.parse(await jsonBody(c.req.raw,4096)),uid=c.get('session').uid;
+  await c.env.DB.batch([
+    c.env.DB.prepare('UPDATE users SET display_name=? WHERE uid=?').bind(input.display_name,uid),
+    c.env.DB.prepare("INSERT INTO community_profiles(uid,avatar,bio,updated_at) VALUES(?,?,?,?) ON CONFLICT(uid) DO UPDATE SET avatar=coalesce(?,community_profiles.avatar),bio=coalesce(?,community_profiles.bio),updated_at=excluded.updated_at").bind(uid,input.avatar??'dimo',input.bio??'',now(),input.avatar??null,input.bio??null),
+  ]);
+  return c.json({ok:true});
+});
 app.post('/auth/github/start',async c=>{const start=await startGithub(c.env,c.get('session'));c.header('Set-Cookie',cookie(c.env,'github',start.browser,600));return c.json({redirect_url:start.url});});
 app.get('/auth/github/callback',async c=>{await finishGithub(c.env,c.req.raw);c.header('Set-Cookie',cookie(c.env,'github','',0));return c.redirect(`${c.env.WEB_ORIGIN}/workbench?github=bound`);});
 app.post('/me/github/consent',async c=>{
@@ -192,7 +203,7 @@ app.post('/admin/jobs/:id/retry',async c=>{
 app.get('/users/:uid',async c=>{
   const uid=c.req.param('uid');const user=await c.env.DB.prepare('SELECT uid,username,display_name,created_at FROM users WHERE uid=? AND disabled_at IS NULL').bind(uid).first();if(!user)throw new ApiError('NOT_FOUND',404);
   const github=await c.env.DB.prepare('SELECT login FROM github_identities WHERE uid=?').bind(uid).first();
-  const contributions=await c.env.DB.prepare("SELECT s.revision_id,s.page_id,s.edit_summary,g.content_commit_sha,g.merge_sha FROM submissions s JOIN git_links g USING(revision_id) WHERE s.uid=? AND s.status='published' ORDER BY s.created_at DESC LIMIT 100").bind(uid).all();return c.json({user,github,contributions:contributions.results});
+  const contributions=await c.env.DB.prepare("SELECT s.revision_id,s.page_id,s.edit_summary,g.content_commit_sha,g.merge_sha FROM submissions s JOIN git_links g USING(revision_id) WHERE s.uid=? AND s.status='published' ORDER BY s.created_at DESC LIMIT 100").bind(uid).all();return c.json({user,profile:await communityProfile(c.env,uid),github,contributions:contributions.results});
 });
 app.post('/webhooks/github',async c=>{
   const body=await rawBody(c.req.raw,200000);if(!await verifyHmac(c.env.GITHUB_WEBHOOK_SECRET,body,c.req.header('X-Hub-Signature-256')??null))throw new ApiError('INVALID_SIGNATURE',401);
@@ -221,8 +232,8 @@ app.post('/webhooks/mirror',async c=>{
 app.notFound(c=>c.json({error:{code:'NOT_FOUND',correlation_id:c.get('correlationId')}},404));
 app.onError((error,c)=>{
   const invalid=error instanceof Error&&/^(UNSAFE_|MDX_|FRONT_MATTER_|TOO_MANY_|DUPLICATE_REFERENCE_DEFINITION|ENTITY_ID_|UNKNOWN_SKILL|KIND_MISMATCH|INVALID_CONTENT)/.test(error.message);
-  const code=error instanceof ApiError||error instanceof AccountError?error.code:error instanceof GitError?error.code:error instanceof ZodError||invalid?'INVALID_CONTENT':error instanceof Error&&/^[A-Z_]+$/.test(error.message)?error.message:'INTERNAL_ERROR';
-  const status=error instanceof ApiError||error instanceof AccountError?error.status:error instanceof GitError?error.status===409?409:503:error instanceof ZodError||invalid?400:code==='CREDENTIALS_CHANGED'?409:code.endsWith('NOT_CONFIGURED')?503:code==='REAUTH_REQUIRED'||code==='INVALID_OIDC_TOKEN'?401:code.includes('OAUTH')||code.includes('IDENTITY')?401:500;
+  const code=error instanceof ApiError||error instanceof AccountError||error instanceof CommunityError?error.code:error instanceof GitError?error.code:error instanceof ZodError||invalid?'INVALID_CONTENT':error instanceof Error&&/^[A-Z_]+$/.test(error.message)?error.message:'INTERNAL_ERROR';
+  const status=error instanceof ApiError||error instanceof AccountError||error instanceof CommunityError?error.status:error instanceof GitError?error.status===409?409:503:error instanceof ZodError||invalid?400:code==='CREDENTIALS_CHANGED'?409:code.endsWith('NOT_CONFIGURED')?503:code==='REAUTH_REQUIRED'||code==='INVALID_OIDC_TOKEN'?401:code.includes('OAUTH')||code.includes('IDENTITY')?401:500;
   if(status>=500)console.error(JSON.stringify({event:'api_error',code,correlation_id:c.get('correlationId')}));
   return c.json({error:{code,correlation_id:c.get('correlationId')}},status as 400);
 });

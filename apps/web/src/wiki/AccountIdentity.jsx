@@ -8,6 +8,7 @@ import HonorSymbol from "./HonorSymbols";
 import "./CommunityHonors.css";
 import { PROFILE_AVATARS, normalizeAvatar } from "./community/profileModel";
 import { useWikiRuntime } from "./runtime/useWikiRuntime";
+import {useHeaderProfile} from '../features/account/useHeaderProfile';
 
 export { PROFILE_AVATARS, normalizeAvatar };
 export function GithubMark({ size = 18 }) {
@@ -29,9 +30,10 @@ export function RegistrationUid({ uid, compact = false, example = false }) {
   </div>;
 }
 export function HeaderProfileAvatar() {
-  const {demo} = useWikiRuntime();
-  return demo ? <DemoHeaderProfileAvatar /> : <ProfileAvatar avatar="dimo" size={27} />;
+  const {demo,apiOrigin} = useWikiRuntime();
+  return demo ? <DemoHeaderProfileAvatar /> : <ServerHeaderProfileAvatar origin={String(apiOrigin||'')} />;
 }
+function ServerHeaderProfileAvatar({origin}) {const {me}=useHeaderProfile(origin);return <ProfileAvatar avatar={me?.profile?.avatar||'dimo'} frame={me?.profile?.frame||''} size={27} />;}
 function DemoHeaderProfileAvatar() {
   const social = useCommunitySocial();
   return <ProfileAvatar avatar={social.identity.avatar} size={27} frame={social.state.equipped[social.identity.uuid]?.frame} />;

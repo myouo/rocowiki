@@ -4,19 +4,26 @@ import Link from '@docusaurus/Link';
 import useBaseUrl from '@docusaurus/useBaseUrl';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import {useHistory, useLocation} from '@docusaurus/router';
-import {ArrowRight, Bookmark, BookOpen, FilePenLine, House, Link2, LockKeyhole, LogOut, PencilLine, UserRound, X} from 'lucide-react';
+import {ArrowRight, Award, Bookmark, BookOpen, FilePenLine, History, House, Link2, LockKeyhole, LogOut, PencilLine, UserRound, X} from 'lucide-react';
 import {AuthenticationPanel} from '../workbench/AuthenticationPanel';
 import {AccountSettings} from '../workbench/AccountSettings';
 import {statuses} from '../workbench/contracts';
 import {useBookmarks} from '../../wiki/community/useBookmarks';
 import catalog from '../../generated/catalog.json';
 import {useAccountCenter} from './useAccountCenter';
+import {useCommunityAccount} from './useCommunityAccount';
+import CommunityOverview from './CommunityOverview';
+import CommunityHonors from './CommunityHonors';
+import CommunityActivity from './CommunityActivity';
+import {ProfileAvatar} from '../../wiki/AccountIdentity';
+import HonorSymbol from '../../wiki/HonorSymbols';
+import {HONOR_ITEMS,ACHIEVEMENTS} from '../../../../../packages/wiki-schema/src/community';
 import '../../css/workbench.css';
 import './AccountCenter.css';
 
 const tabs = [
   ['overview', '我的首页', House], ['submissions', '草稿与投稿', FilePenLine],
-  ['bookmarks', '我的收藏', Bookmark], ['profile', '个人资料', UserRound], ['security', '账号与安全', LockKeyhole],
+  ['bookmarks', '我的收藏', Bookmark], ['activity', '社区足迹', History], ['honors', '社区荣誉', Award], ['profile', '个人资料', UserRound], ['security', '账号与安全', LockKeyhole],
 ] as const;
 type Tab = typeof tabs[number][0];
 const roles = {viewer: '只读用户', contributor: '贡献者', reviewer: '审核员', admin: '管理员'};
@@ -27,6 +34,7 @@ export default function AccountCenter() {
   const {siteConfig} = useDocusaurusContext();
   const origin = typeof siteConfig.customFields?.apiOrigin === 'string' ? siteConfig.customFields.apiOrigin : '';
   const state = useAccountCenter(origin);
+  const community=useCommunityAccount(origin,state.me,state.invalidateSession);
   const {me, booting, busy, notice, sessionError, recheck, setNotice, drafts, submissions, draftState, submissionState, collectionState, collectionError, service, refresh, action, login, logout, loadCollections} = state;
   const {bookmarks, remove, error: bookmarkError} = useBookmarks();
   const location = useLocation(), history = useHistory(), accountPath = useBaseUrl('/account/');
@@ -34,11 +42,13 @@ export default function AccountCenter() {
   const tab: Tab = requested === 'drafts' ? 'submissions' : tabs.some(item => item[0] === requested) ? requested as Tab : 'overview';
   const [consent, setConsent] = useState(false);
   useEffect(() => { setConsent(false); }, [me?.user.uid, me?.github?.login]);
-  const open = (next: Tab) => history.push(accountPath + (next === 'overview' ? '' : `?tab=${next}`));
+  const open = (next: Tab,view?:string) => history.push(accountPath + (next === 'overview' ? '' : '?'+new URLSearchParams({tab:next,...(view?{view}:{})})));
   const workbench = (params: Record<string, string>) => `/workbench/?${new URLSearchParams(params)}`;
   const draftReady=draftState==='ready', submissionReady=submissionState==='ready';
   const canContribute = me && me.user.role !== 'viewer';
   const published = submissions.filter(row => row.status === 'published');
+  const profile=community.data?.profile??me?.profile;
+  const equipped=[...HONOR_ITEMS,...ACHIEVEMENTS].find(item=>item.id===profile?.badge);
 
   const savedItems = <section className="cm-paper account-shelf">
     <div className="cm-section-heading"><h2><Bookmark size={19} />我的收藏</h2><small>保存在这台浏览器中</small></div>
@@ -58,13 +68,16 @@ export default function AccountCenter() {
       <div><div className="account-welcome-icon"><BookOpen size={30} /></div><h2>让每一次发现都有自己的署名</h2><p>登录后管理你的资料与账号安全，查看私有草稿和投稿进度。</p><Link className="cm-button" to="/pets/">先逛逛资料库<ArrowRight size={14} /></Link></div>
       <AuthenticationPanel service={service} busy={busy} action={action} login={login} notice={setNotice} />
     </div> : <>
-      <section className="account-identity" aria-label="我的身份"><div className="account-avatar"><UserRound size={34} /></div><div className="account-identity-main">
+      <section className="account-identity rw-account-identity-v71" aria-label="我的身份"><button type="button" className="rw-account-avatar-button" aria-label="设置头像与昵称" onClick={()=>open('profile')}><ProfileAvatar avatar={me.profile?.avatar??profile?.avatar??'dimo'} frame={profile?.frame} size={86}/><span><PencilLine size={13}/></span></button><div className="account-identity-main rw-account-name-v71">
         <span className="account-eyebrow">我的 RocoWiki</span><h2>{me.user.display_name}</h2><div className="account-tags"><span>{roles[me.user.role]}</span>{me.account && <span>{me.account.email_verified ? '邮箱已验证' : '邮箱待验证'}</span>}</div>
         <p>用户名：{me.user.username}<span className="account-uid">Wiki UID：<code>{me.user.uid}</code></span></p>
+        <p className="account-biography">{(me.profile?.bio??profile?.bio)||'设置头像与简介，让每次贡献都有自己的署名。'}</p>
+        <button type="button" className={`rw-profile-honor-v72${equipped?' is-equipped':''}`} onClick={()=>open('honors','badges')}>{equipped?<HonorSymbol item={equipped} size={15}/>:<Award size={15}/>} {equipped?.title??'选择展示徽章'}</button>
       </div><button type="button" className="cm-button" onClick={() => open('profile')}><PencilLine size={15} />编辑个人资料</button></section>
       <div className="ev7-account-shell"><nav className="ev7-account-nav" aria-label="个人中心分区">{tabs.map(([id, label, Icon]) => <button type="button" key={id} className={tab === id ? 'is-active' : ''} aria-pressed={tab === id} onClick={() => open(id)}><Icon size={18} /><span>{label}</span></button>)}</nav>
         <div className="ev7-account-main">
           {tab === 'overview' && <>
+            <CommunityOverview state={community} onHonors={view=>open('honors',view)} onActivity={view=>open('activity',view)}/>
             <div className="cm-account-stats account-stats">{[
               [FilePenLine, draftReady ? String(drafts.length) : '—', '私有草稿', 'submissions'],
               [BookOpen, submissionReady ? String(submissions.length) : '—', '最近投稿', 'submissions'],
@@ -83,6 +96,8 @@ export default function AccountCenter() {
             </section>
           </>}
           {tab === 'bookmarks' && savedItems}
+          {tab === 'honors' && <CommunityHonors origin={origin} me={me} query={new URLSearchParams(location.search)} state={community} onIdentityError={state.invalidateSession}/>}
+          {tab === 'activity' && <CommunityActivity origin={origin} me={me} query={new URLSearchParams(location.search)} state={community} onIdentityError={state.invalidateSession}/>}
           {tab === 'profile' && <section className="cm-paper"><h2>个人资料</h2><p className="account-muted">昵称用于公开展示，用户名和 Wiki UID 保持不变。邮箱仅自己可见。</p><AccountSettings key={me.user.uid} section="profile" me={me} service={service} busy={busy} action={action} refresh={refresh} notice={setNotice} /></section>}
           {tab === 'security' && <>
             <section className="cm-paper"><h2>账号与安全</h2><AccountSettings key={me.user.uid} section="security" me={me} service={service} busy={busy} action={action} refresh={refresh} notice={setNotice} /></section>
