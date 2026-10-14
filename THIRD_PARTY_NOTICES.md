@@ -18,6 +18,8 @@
 
 V7.3.1 界面来自用户提供的 RocoWiki_Docusaurus_V7_3_1 项目；保留现有作者与来源记录，不把第三方归属改写为本项目原创。
 
+技能解析中的能力与状态图标保留官方 H5 `combatIcon` 的原始 PNG 字节，路径、尺寸与 SHA-256 见 `apps/web/static/img/combat/sources.json`。当前展示使用能力 202–206 系列与异常 101–109 的 `_bak` 透明底原图，按同一公开配置中的资源名称及图形核对；此前保留的原图与来源记录不删除，展示词表不再使用有底色的版本。未找到已核对透明对应图的术语保留文字链接；未复制客户端代码。这些既有游戏素材不纳入项目 GPL 或 CC 授权，再分发许可尚未核验。
+
 官方宠物基础资料来自公开 `https://res.17roco.qq.com/conf/Angel.config`；`apps/web/content/official-pets.json` 记录采集时间、版本与原包 SHA-256，图标直接引用官方资源。该游戏资料不纳入本项目的 GPL 或 CC 授权，原权利仍归原权利人，再分发许可尚未核验。新增 XML 解析依赖 saxes 6.0.0 声明使用 ISC，但安装包未附完整许可文本，台账标记为 metadata-only；格式调查参考 open-roco-conn，未复制其 C++ 实现或反编译代码。
 
 天梯费用和配置禁赛来自公开 `https://res.17roco.qq.com/plugins/LadderMatch/LadderMatchConfig.xml`，出处、采集时间和原 XML SHA-256 保留于 `apps/web/content/official-ladder.json`。未列明编号默认 1 费的规则参考官方客户端的费用合计与说明逻辑，调查入口为 open-roco-conn 的 LadderMatch 反编译资料；未复制其代码。该游戏配置同样不纳入项目 GPL 或 CC 授权，再分发许可仍待核验。
@@ -27,6 +29,8 @@ V7.3.1 界面来自用户提供的 RocoWiki_Docusaurus_V7_3_1 项目；保留现
 宠物技能关联快照 `apps/web/content/pet-skill-relations.json` 来自公开 [roco-desc](https://gitcode.com/rocoai-dev/roco-desc) 的 `pet/` 记录，仅提取身份核对后的技能名称、学习方式和明确学习等级，并匹配官方技能编号；保留来源提交及原始数据摘要。没有复制社区解析正文、署名账号字段或 HTML。该来源是公开资料整理，不能冒充游戏服务器的账号技能池，也不纳入本项目 GPL 或 CC 授权；来源自身许可及再分发授权尚未核验。
 
 游戏实采关联保存在 `apps/web/content/game-skill-relations.json`，仅保留游戏响应确认的宠物编号、技能编号、遗传标记、采集时实例等级及响应体摘要，不保存账号、实例身份、凭据、协议头或原始流量。空快照不代表已经实采；记录是指定背包实例当时的可选技能，不声明覆盖该物种全部学习途径。该游戏资料不纳入本项目 GPL 或 CC 授权，再分发许可仍待核验。采集器根据 RocoAI 的公开 headless 接口和游戏协议独立实现，未复制其源码。
+
+技能解析样板 `skill-analysis-notes.json` 以 roco-desc 的详细描述为依据重述数值、公式及条件事实，生成 `skill-analyses.json` 时保留固定来源提交、原文摘要、来源公开署名与记录日期。不复制原 HTML 或账号字段，不将其作为本站独立游戏实测。此资料的来源权利仍归原权利人，不因事实整理自动取得原作者作品的 GPL 或 CC 授权；来源自身许可及再分发授权尚未核验。
 
 <a id="changes"></a>
 ## 更新与发行

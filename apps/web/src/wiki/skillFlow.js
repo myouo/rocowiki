@@ -1,4 +1,5 @@
 import { conditionText, normalizeSkillBranch } from "./skillConditions";
+import { skillBranchPresentation, UNSPECIFIED_MISS_EFFECT } from "./skillBranchPresentation";
 
 export function effectLines(value) {
   return (Array.isArray(value) ? value : String(value || "").split(/\r?\n/)).map((line) => String(line).trim()).filter(Boolean);
@@ -22,48 +23,64 @@ export function mermaidLabel(value) {
 export function buildSkillFlowGraph(input = {}, options = {}) {
   const data = normalizeSkillFlow(input), nodes = [], edges = [];
   const node = (label, type = "effect", role = "", reading = {}) => { const id = `n${nodes.length + 1}`; nodes.push({ id, label, type, role, ...reading }); return id; };
-  const edge = (from, to, label = "") => edges.push({ from, to, label });
+  const edge = (from, to, label = "", unspecified = false) => edges.push({ from, to, label, ...(unspecified ? { unspecified: true } : {}) });
   function effects(value, from, label = "", role = "effect") {
+    const lines = effectLines(value);
+    if (options.groupEffects && lines.length) {
+      const id = node(lines.join("\n"), "effect", role, { effectLines: lines });
+      edge(from, id, label);
+      return id;
+    }
     let tail = from;
-    effectLines(value).forEach((text, index) => { const id = node(text, "effect", role, { stepNumber: index + 1 }); edge(tail, id, index ? "随后" : label); tail = id; });
+    lines.forEach((text, index) => { const id = node(text, "effect", role, { stepNumber: index + 1 }); edge(tail, id, index ? "随后" : label); tail = id; });
     return tail;
   }
-  function children(rows, from, label) {
+  function children(rows, from, label, parentPath) {
     if (!rows.length) return;
+    if (options.concise) { rows.forEach((row, index) => branch(row, from, undefined, `${parentPath}.children.${index}`, label === "继续" ? "" : label)); return; }
     const hub = node(rows.length > 1 ? "分别判断 · 可同时成立" : "继续判断", "group", "child-context");
     edge(from, hub, label);
-    rows.forEach((row) => branch(row, hub));
+    rows.forEach((row, index) => branch(row, hub, undefined, `${parentPath}.children.${index}`));
   }
-  function branch(input, from, branchIndex) {
+  function branch(input, from, branchIndex, branchPath = String(branchIndex), incomingLabel = "") {
     const row = normalizeSkillBranch(input), alternate = row.otherwiseBranch;
     let entry = from;
     if (alternate?.conditionTree && alternate.relation !== "else-if") { entry = node("并列条件 · 可同时成立", "group", "independent-alternate"); edge(from, entry); }
-    const decision = node(`${row.label ? row.label + " · " : ""}${conditionText(row.conditionTree)}`, "decision", "condition", { conditionTree: row.conditionTree, branchLabel: row.label, ...(branchIndex === undefined ? {} : { branchIndex }) });
-    edge(entry, decision);
-    const end = effects(row.effect, decision, "成立", "true-effect");
-    children(row.children, end, end === decision ? "成立" : "继续");
-    if (!alternate) return;
+    const reading = skillBranchPresentation(row, conditionText(row.conditionTree)), scope = options.concise && reading.scope;
+    const decision = node(options.concise ? reading.caption : `${row.label ? row.label + " · " : ""}${conditionText(row.conditionTree)}`, scope ? "group" : "decision", scope ? "scope" : "condition", { conditionTree: row.conditionTree, branchLabel: row.label, branchPath, hitCheck: !!options.concise && reading.hitCheck, ...(branchIndex === undefined ? {} : { branchIndex }) });
+    edge(entry, decision, incomingLabel);
+    const trueLabel = options.concise && reading.hitCheck ? "命中" : options.concise && !alternate ? "" : "成立";
+    const end = effects(row.effect, decision, trueLabel, "true-effect");
+    children(row.children, end, end === decision ? trueLabel : "继续", branchPath);
+    if (!alternate) {
+      if (options.concise && reading.missingMiss) {
+        const missing = node(UNSPECIFIED_MISS_EFFECT, "note", "unrecorded-outcome");
+        edge(decision, missing, "未命中", true);
+      }
+      return;
+    }
     if (alternate.conditionTree) {
       const alternativeDecision = node(conditionText(alternate.conditionTree), "decision", alternate.relation === "else-if" ? "else-if-condition" : "independent-condition", { conditionTree: alternate.conditionTree });
       edge(alternate.relation === "else-if" ? decision : entry, alternativeDecision, alternate.relation === "else-if" ? "不成立" : "独立判断");
       const otherEnd = effects(alternate.effect, alternativeDecision, "成立", "alternate-effect");
-      children(alternate.children, otherEnd, otherEnd === alternativeDecision ? "成立" : "继续");
+      children(alternate.children, otherEnd, otherEnd === alternativeDecision ? "成立" : "继续", `${branchPath}.otherwiseBranch`);
     } else {
-      const otherEnd = effects(alternate.effect, decision, "不成立", "else-effect");
-      children(alternate.children, otherEnd, otherEnd === decision ? "不成立" : "继续");
+      const falseLabel = options.concise && reading.hitCheck ? "未命中" : "不成立";
+      const otherEnd = effects(alternate.effect, decision, falseLabel, "else-effect");
+      children(alternate.children, otherEnd, otherEnd === decision ? falseLabel : "继续", `${branchPath}.otherwiseBranch`);
     }
   }
-  const start = node(data.name + " · 效果结构", "group", "root");
+  const start = node(data.name + (options.concise ? "" : " · 效果结构"), "group", "root");
   if (data.base.length) {
-    const base = node("基础效果 · 按资料顺序", "group", "base"); edge(start, base, "不依赖分支的效果"); effects(data.base, base);
+    const base = node(options.concise ? "基础效果" : "基础效果 · 按资料顺序", "group", "base"); edge(start, base, options.concise ? "" : "不依赖分支的效果"); effects(data.base, base);
   }
   if (data.branches.length) {
-    const hub = node("各条件分别判断 · 可同时成立", "group", "branches"); edge(start, hub, "触发条件"); data.branches.forEach((row, index) => branch(row, hub, index));
+    const hub = options.concise ? start : node("各条件分别判断 · 可同时成立", "group", "branches"); if (hub !== start) edge(start, hub, "触发条件"); data.branches.forEach((row, index) => branch(row, hub, index));
   }
   const syntax = nodes.map((row) => `  ${row.id}${row.type === "decision" ? `{\"${mermaidLabel(row.label)}\"}` : `[\"${mermaidLabel(row.label)}\"]`}`);
-  const connections = edges.map(({from,to,label}) => `  ${from} -->${label ? `|\"${mermaidLabel(label)}\"|` : ""} ${to}`);
+  const connections = edges.map(({from,to,label,unspecified}) => `  ${from} ${unspecified ? "-.->" : "-->"}${label ? `|\"${mermaidLabel(label)}\"|` : ""} ${to}`);
   const direction = mermaidFlowDirection(options);
-  return { nodes, edges, direction, mermaid: [`flowchart ${direction}`, "  %% 实线只表达已录入的条件、分支和局部顺序；不同根分支可同时成立。", ...syntax, ...connections].join("\n") };
+  return { nodes, edges, direction, mermaid: [`flowchart ${direction}`, "  %% 实线只表达已录入的条件、分支和局部顺序；不同根分支可同时成立。", ...(edges.some(row => row.unspecified) ? ["  %% 虚线表示效果说明待补，不能据此认定无效果。"] : []), ...syntax, ...connections].join("\n") };
 }
 export function skillToMermaid(data, options = {}) { return buildSkillFlowGraph(data, options).mermaid; }
 

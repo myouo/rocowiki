@@ -1,0 +1,863 @@
+{
+  "schemaVersion": 1,
+  "source": {
+    "repository": "https://gitcode.com/rocoai-dev/roco-desc",
+    "commit": "8c2c6e04c15baee930bd843c1b3d0f8af1a358fb",
+    "sha256": "964b94d5bef11faf0298fe9ee15986c57652cfdd185f7dea86ee59241b2b0cd5",
+    "officialDefinitionsSha256": "069d1af18269911eba8064c50bfd9246a36d9c653c236a072753ead07ef4a220",
+    "petId": 3361,
+    "petName": "赑瑞玄龟",
+    "url": "https://gitcode.com/rocoai-dev/roco-desc/tree/8c2c6e04c15baee930bd843c1b3d0f8af1a358fb/pet/pet_info_3361.json",
+    "retrievedAt": "2026-10-13T09:04:41.925Z"
+  },
+  "records": [
+    {
+      "skillId": 332,
+      "name": "钢贝壳",
+      "hitRule": null,
+      "common": [
+        "自身物防强化增加 1 级。"
+      ],
+      "phases": [],
+      "notes": [],
+      "expectedOfficial": {
+        "id": 332,
+        "name": "钢贝壳",
+        "type": "水",
+        "category": "变化",
+        "power": null,
+        "pp": 40,
+        "speedCode": 8,
+        "attackType": 1,
+        "damageType": 3,
+        "description": "提升自身1级物防。",
+        "description2": ""
+      },
+      "source": {
+        "url": "https://api.gitcode.com/api/v5/repos/rocoai-dev/roco-desc/raw/pet%2Fpet_info_3361.json?ref=8c2c6e04c15baee930bd843c1b3d0f8af1a358fb",
+        "commit": "8c2c6e04c15baee930bd843c1b3d0f8af1a358fb",
+        "petId": 3361,
+        "petName": "赑瑞玄龟",
+        "field": "cur_best_test",
+        "textSha256": "dfe7bbf95c1010d5406e02ec3e8329c002cf6229927e32072a6376046c166cbe",
+        "authors": [
+          "网络"
+        ],
+        "reportedAt": "2022-11-19T00:00:00.000Z",
+        "originalUrl": null
+      }
+    },
+    {
+      "skillId": 345,
+      "name": "寄生种子",
+      "hitRule": "普通命中判定；未命中时无效果",
+      "common": [],
+      "phases": [
+        {
+          "label": "命中判定",
+          "when": "本次技能命中对手",
+          "effect": "赋予对手寄生，持续 8 回合。\n每回合扣除精力 = floor(被寄生者最大精力 / 8)。\n将本次扣除量回复给寄生者。",
+          "otherwise": "未命中时无任何效果（来源明确记载）。"
+        }
+      ],
+      "notes": [],
+      "expectedOfficial": {
+        "id": 345,
+        "name": "寄生种子",
+        "type": "草",
+        "category": "变化",
+        "power": null,
+        "pp": 10,
+        "speedCode": 8,
+        "attackType": 1,
+        "damageType": 3,
+        "description": "在对手体内寄生一颗种子，每回合吸取一定精力。",
+        "description2": ""
+      },
+      "source": {
+        "url": "https://api.gitcode.com/api/v5/repos/rocoai-dev/roco-desc/raw/pet%2Fpet_info_3361.json?ref=8c2c6e04c15baee930bd843c1b3d0f8af1a358fb",
+        "commit": "8c2c6e04c15baee930bd843c1b3d0f8af1a358fb",
+        "petId": 3361,
+        "petName": "赑瑞玄龟",
+        "field": "cur_best_test",
+        "textSha256": "ea5d4a86b445b0e8c57852da5405769318cab19076a1e8e2ca52cd32a317e0db",
+        "authors": [
+          "网络"
+        ],
+        "reportedAt": "2020-02-26T00:00:00.000Z",
+        "originalUrl": null
+      }
+    },
+    {
+      "skillId": 653,
+      "name": "慢镜头",
+      "hitRule": "非必中",
+      "common": [],
+      "phases": [
+        {
+          "label": "无负面速度",
+          "when": "对手速度强化等级 ≥ 0",
+          "effect": "本次威力为 100。"
+        },
+        {
+          "label": "速度降低 1～2 级",
+          "when": "对手速度强化等级为 -1 或 -2",
+          "effect": "本次威力为 160。"
+        },
+        {
+          "label": "速度降低 3～5 级",
+          "when": "对手速度强化等级为 -3、-4 或 -5",
+          "effect": "本次威力为 200。"
+        },
+        {
+          "label": "速度降低 6 级",
+          "when": "对手速度强化等级为 -6",
+          "effect": "来源记载本次威力回到 100。"
+        }
+      ],
+      "notes": [
+        "这里比较的是速度强化等级，不是宠物的速度能力值。",
+        "来源将 -6 级对应威力 100 标为疑似 bug，尚未独立复测。"
+      ],
+      "expectedOfficial": {
+        "id": 653,
+        "name": "慢镜头",
+        "type": "水",
+        "category": "物理",
+        "power": 100,
+        "pp": 5,
+        "speedCode": 8,
+        "attackType": 2,
+        "damageType": 1,
+        "description": "对手速度等级越低，造成的伤害越高。",
+        "description2": ""
+      },
+      "source": {
+        "url": "https://api.gitcode.com/api/v5/repos/rocoai-dev/roco-desc/raw/pet%2Fpet_info_3361.json?ref=8c2c6e04c15baee930bd843c1b3d0f8af1a358fb",
+        "commit": "8c2c6e04c15baee930bd843c1b3d0f8af1a358fb",
+        "petId": 3361,
+        "petName": "赑瑞玄龟",
+        "field": "cur_best_test",
+        "textSha256": "bb7354d468dabe07a327af360d0d3ed999ed88899fd64d58fc2e6e84cc7efcf0",
+        "authors": [
+          "超级楚的無頭"
+        ],
+        "reportedAt": "2021-06-26T00:00:00.000Z",
+        "originalUrl": null
+      }
+    },
+    {
+      "skillId": 713,
+      "name": "石破天惊",
+      "hitRule": "非必中；命中后结算固伤",
+      "common": [],
+      "phases": [
+        {
+          "label": "命中判定",
+          "when": "本次技能命中",
+          "effect": "固伤 = floor((70 × |自身物防强化等级 − 对手物防强化等级| + 35) × 自身等级 / 100)。",
+          "otherwise": "按命中前提，本次不结算该固伤。其他未命中效果，来源未说明。"
+        }
+      ],
+      "notes": [
+        "物防等级差按绝对值计算。来源另记：100 级且等级差为 3 或 6 时有 1 点误差，公式不能据此冒充逐点精确的游戏模拟器。"
+      ],
+      "expectedOfficial": {
+        "id": 713,
+        "name": "石破天惊",
+        "type": "石",
+        "category": "变化",
+        "power": null,
+        "pp": 10,
+        "speedCode": 8,
+        "attackType": 1,
+        "damageType": 3,
+        "description": "根据双方物防强化等级差值造成固伤，相差越大伤害越高。",
+        "description2": ""
+      },
+      "source": {
+        "url": "https://api.gitcode.com/api/v5/repos/rocoai-dev/roco-desc/raw/pet%2Fpet_info_3361.json?ref=8c2c6e04c15baee930bd843c1b3d0f8af1a358fb",
+        "commit": "8c2c6e04c15baee930bd843c1b3d0f8af1a358fb",
+        "petId": 3361,
+        "petName": "赑瑞玄龟",
+        "field": "cur_best_test",
+        "textSha256": "889a8f037075b50a2dcbeb30682ebbd8adc790d085118fa63f7dcf87ae844b34",
+        "authors": [
+          "网络"
+        ],
+        "reportedAt": "2025-05-18T16:00:00.000Z",
+        "originalUrl": null
+      }
+    },
+    {
+      "skillId": 2810,
+      "name": "敲金击石",
+      "hitRule": null,
+      "common": [
+        "净化自身，回复自身 60% 精力。",
+        "免疫异常和负面强化 5 回合，并尝试召唤陨石天气 5 回合。"
+      ],
+      "phases": [
+        {
+          "label": "回复与必中增强",
+          "when": "本次没有净化掉任何异常或负面强化，或者召唤陨石天气失败",
+          "effect": "本次回复比例提高到 100%。\n本次免疫持续期间，自身所有技能必中。"
+        }
+      ],
+      "notes": [],
+      "expectedOfficial": {
+        "id": 2810,
+        "name": "敲金击石",
+        "type": "石",
+        "category": "变化",
+        "power": null,
+        "pp": 6,
+        "speedCode": 12,
+        "attackType": 1,
+        "damageType": 3,
+        "description": "净化自身并回复精力，免疫异常和负面并召唤陨石天气均持续5回合，净化失败或召唤天气失败则提升回复精力效果并在免疫回合内令自身技能必中。",
+        "description2": ""
+      },
+      "source": {
+        "url": "https://api.gitcode.com/api/v5/repos/rocoai-dev/roco-desc/raw/pet%2Fpet_info_3361.json?ref=8c2c6e04c15baee930bd843c1b3d0f8af1a358fb",
+        "commit": "8c2c6e04c15baee930bd843c1b3d0f8af1a358fb",
+        "petId": 3361,
+        "petName": "赑瑞玄龟",
+        "field": "cur_best_test",
+        "textSha256": "b2ff657fdd89d128316807862a639c4e2275f1ff75eaa50358e6d6bc0badf4cd",
+        "authors": [
+          "B站本质桑"
+        ],
+        "reportedAt": "2022-05-31T05:16:29.000Z",
+        "originalUrl": "https://www.bilibili.com/read/cv16873862?spm_id_from=444.41.list.card_article.click"
+      }
+    },
+    {
+      "skillId": 521,
+      "name": "大地宽恕",
+      "hitRule": "非必中；闪避效果须命中后生效",
+      "common": [],
+      "phases": [
+        {
+          "label": "命中判定",
+          "when": "本次技能命中",
+          "effect": "连续 2 回合闪避对手后手使用的非必中技能。\n第 2 回合可以使用其他技能，仍带出该闪避效果。",
+          "otherwise": "按命中前提，本次使用不触发该闪避效果。其他未命中效果，来源未说明。"
+        }
+      ],
+      "notes": [
+        "不会据此推成闪避全部技能；对手先手或必中技能不属于该闪避条件。",
+        "来源记载连续使用会跳过动画；动画表现与闪避规则分别看待。"
+      ],
+      "expectedOfficial": {
+        "id": 521,
+        "name": "大地宽恕",
+        "type": "土",
+        "category": "变化",
+        "power": null,
+        "pp": 5,
+        "speedCode": 12,
+        "attackType": 1,
+        "damageType": 3,
+        "description": "2回合内闪避后手非必中技能。",
+        "description2": ""
+      },
+      "source": {
+        "url": "https://api.gitcode.com/api/v5/repos/rocoai-dev/roco-desc/raw/pet%2Fpet_info_3361.json?ref=8c2c6e04c15baee930bd843c1b3d0f8af1a358fb",
+        "commit": "8c2c6e04c15baee930bd843c1b3d0f8af1a358fb",
+        "petId": 3361,
+        "petName": "赑瑞玄龟",
+        "field": "cur_best_test",
+        "textSha256": "4e0f669316acd8a27ac5e0b9015cef41b5cf65b73ce2190c80536a103346d49c",
+        "authors": [
+          "B站西圆无名"
+        ],
+        "reportedAt": null,
+        "originalUrl": null
+      }
+    },
+    {
+      "skillId": 567,
+      "name": "三清化土",
+      "hitRule": "非必中",
+      "common": [],
+      "phases": [
+        {
+          "label": "命中判定",
+          "when": "本次技能命中",
+          "effect": "通常造成 200 点固伤。",
+          "otherwise": "按命中前提，本次不结算此处记载的固伤。其他未命中效果，来源未说明。"
+        }
+      ],
+      "notes": [
+        "来源记载部分 Boss 仅受到 100 点固伤，未提供完整适用名单。"
+      ],
+      "expectedOfficial": {
+        "id": 567,
+        "name": "三清化土",
+        "type": "土",
+        "category": "变化",
+        "power": null,
+        "pp": 1,
+        "speedCode": 8,
+        "attackType": 1,
+        "damageType": 3,
+        "description": "造成巨大伤害。",
+        "description2": ""
+      },
+      "source": {
+        "url": "https://api.gitcode.com/api/v5/repos/rocoai-dev/roco-desc/raw/pet%2Fpet_info_3361.json?ref=8c2c6e04c15baee930bd843c1b3d0f8af1a358fb",
+        "commit": "8c2c6e04c15baee930bd843c1b3d0f8af1a358fb",
+        "petId": 3361,
+        "petName": "赑瑞玄龟",
+        "field": "cur_best_test",
+        "textSha256": "5d18a6507135f20b681916574d17f5fe1fd6110c5d8736973e51c6e6b3636b4e",
+        "authors": [
+          "网络"
+        ],
+        "reportedAt": null,
+        "originalUrl": null
+      }
+    },
+    {
+      "skillId": 1942,
+      "name": "海草律动",
+      "hitRule": null,
+      "common": [
+        "净化自身异常，获得 5 回合异常免疫，并召唤 5 回合芬芳环境。"
+      ],
+      "phases": [
+        {
+          "label": "持续回合",
+          "when": "处于本次持续效果回合内",
+          "effect": "每回合回复精力 = 15% × 自身最大精力。\n倒置自身除物攻、魔攻以外的负面强化。"
+        }
+      ],
+      "notes": [
+        "倒置的范围排除了双攻，不能写成反转自身全部负面强化。"
+      ],
+      "expectedOfficial": {
+        "id": 1942,
+        "name": "海草律动",
+        "type": "草",
+        "category": "变化",
+        "power": null,
+        "pp": 6,
+        "speedCode": 12,
+        "attackType": 1,
+        "damageType": 3,
+        "description": "海草之舞，治愈万物。净化自身异常。免疫异常并召唤芬芳环境均持续5回合，回合内回复自身精力且反转除双攻以外的负面强化。",
+        "description2": ""
+      },
+      "source": {
+        "url": "https://api.gitcode.com/api/v5/repos/rocoai-dev/roco-desc/raw/pet%2Fpet_info_3361.json?ref=8c2c6e04c15baee930bd843c1b3d0f8af1a358fb",
+        "commit": "8c2c6e04c15baee930bd843c1b3d0f8af1a358fb",
+        "petId": 3361,
+        "petName": "赑瑞玄龟",
+        "field": "cur_best_test",
+        "textSha256": "5c450d47b7ce845468972c57c16d02ff384ae7fe3f7050b16b3c2b059b09b4d8",
+        "authors": [
+          "洛克王国官方论坛"
+        ],
+        "reportedAt": "2023-07-10T16:00:00.000Z",
+        "originalUrl": "https://17roco.gamebbs.qq.com/forum.php?mod=viewthread&tid=102563&extra=&page=1"
+      }
+    },
+    {
+      "skillId": 1949,
+      "name": "萝卜打击",
+      "hitRule": "必中（来源记载）",
+      "common": [
+        "固伤 = 80 + 30 × 自身最高正面强化等级。"
+      ],
+      "phases": [],
+      "notes": [
+        "取最高的一项正面强化等级，而非全部强化等级之和。"
+      ],
+      "expectedOfficial": {
+        "id": 1949,
+        "name": "萝卜打击",
+        "type": "草",
+        "category": "物理",
+        "power": null,
+        "pp": 10,
+        "speedCode": 8,
+        "attackType": 2,
+        "damageType": 1,
+        "description": "根据自身强化情况，给对手造成伤害。",
+        "description2": ""
+      },
+      "source": {
+        "url": "https://api.gitcode.com/api/v5/repos/rocoai-dev/roco-desc/raw/pet%2Fpet_info_3361.json?ref=8c2c6e04c15baee930bd843c1b3d0f8af1a358fb",
+        "commit": "8c2c6e04c15baee930bd843c1b3d0f8af1a358fb",
+        "petId": 3361,
+        "petName": "赑瑞玄龟",
+        "field": "cur_best_test",
+        "textSha256": "5503b9f1fc2d0d13ad629dbc5841bc3565e72fd6af41355ea45faa90716ebc2e",
+        "authors": [
+          "幻灵"
+        ],
+        "reportedAt": "2022-09-18T01:53:44.000Z",
+        "originalUrl": null
+      }
+    },
+    {
+      "skillId": 3185,
+      "name": "朽化",
+      "hitRule": "非必中",
+      "common": [
+        "连续发动 3 回合。",
+        "每回合随机降低对手一项强化 1 级，此降低不是强制效果。"
+      ],
+      "phases": [
+        {
+          "label": "优势攻击",
+          "when": "计入强化后的自身魔攻能力值高于物攻能力值",
+          "effect": "威力伤害改用自身魔攻与对手魔防结算。"
+        },
+        {
+          "label": "首回合",
+          "when": "本次连续技能的第 1 回合",
+          "effect": "额外尝试令对手沉睡。"
+        },
+        {
+          "label": "末回合",
+          "when": "本次连续技能的最后一回合",
+          "effect": "额外召唤芬芳环境 3 回合。"
+        }
+      ],
+      "notes": [],
+      "expectedOfficial": {
+        "id": 3185,
+        "name": "朽化",
+        "type": "草",
+        "category": "物理",
+        "power": 80,
+        "pp": 8,
+        "speedCode": 9,
+        "attackType": 1,
+        "damageType": 1,
+        "description": "根据自身优势攻击决定威力类型。连续3回合攻击对手并随机降低其1级强化。首回合额外睡眠对手，末回合额外召唤芬芳环境3回合。",
+        "description2": ""
+      },
+      "source": {
+        "url": "https://api.gitcode.com/api/v5/repos/rocoai-dev/roco-desc/raw/pet%2Fpet_info_3361.json?ref=8c2c6e04c15baee930bd843c1b3d0f8af1a358fb",
+        "commit": "8c2c6e04c15baee930bd843c1b3d0f8af1a358fb",
+        "petId": 3361,
+        "petName": "赑瑞玄龟",
+        "field": "cur_best_test",
+        "textSha256": "780a794c072f06dcd5f18f0341a988ee3875a3b726123c81b41d2b6724d53b1f",
+        "authors": [
+          "洛克王国官方论坛"
+        ],
+        "reportedAt": "2023-09-17T16:00:00.000Z",
+        "originalUrl": "https://17roco.gamebbs.qq.com/forum.php?mod=viewthread&tid=152843&extra=page%3D1%26filter%3Dtypeid%26typeid%3D8%26typeid%3D8"
+      }
+    },
+    {
+      "skillId": 3805,
+      "name": "甘棠瑶草",
+      "hitRule": "首回合非必中；后续回合在自身先手时必中",
+      "common": [
+        "速度能力值的比较、威力提升和固伤计算都计入速度强化。"
+      ],
+      "phases": [
+        {
+          "label": "命中判定",
+          "when": "本次技能命中",
+          "effect": "",
+          "otherwise": "按命中前提，本回合不触发上述效果。未命中后是否继续连续发动，来源未说明。",
+          "children": [
+            {
+              "label": "追加连续回合",
+              "when": "本次连续技能的第 1 回合，双方速度强化等级差 ≥ 2 级",
+              "effect": "再追加 2 回合发动，并回复自身 50 点精力。"
+            },
+            {
+              "label": "首回合",
+              "when": "本次连续技能的第 1 回合",
+              "effect": "首回合至少连续发动 2 回合。",
+              "children": [
+                {
+                  "label": "速度差增威",
+                  "when": "计入强化后的自身速度能力值低于对手",
+                  "effect": "增加 min(20% × (对手速度能力值 − 自身速度能力值), 180) 点威力。"
+                },
+                {
+                  "label": "行动先后",
+                  "when": "自身先手",
+                  "effect": "降低自身速度强化 1 级。",
+                  "otherwise": "自身后手时，提升对手速度强化 1 级。"
+                }
+              ],
+              "presentation": "scope"
+            },
+            {
+              "label": "后续回合",
+              "when": "本次连续技能进入第 2 回合或之后的回合",
+              "effect": "不再结算威力伤害。\n降低自身速度强化 1 级，此降低不是强制效果。",
+              "children": [
+                {
+                  "label": "速度差固伤",
+                  "when": "计入强化后的自身速度能力值低于对手",
+                  "effect": "造成 min(40% × (对手速度能力值 − 自身速度能力值), 200) 点固伤。"
+                }
+              ],
+              "presentation": "action"
+            },
+            {
+              "label": "末回合",
+              "when": "本次连续技能的最后一回合",
+              "effect": "召唤芬芳环境 6 回合。"
+            }
+          ]
+        }
+      ],
+      "notes": [
+        "只发动 2 回合时，第 2 回合同时属于后续回合和末回合，两组效果都适用。",
+        "追加回合比较速度强化等级，增威和固伤比较速度能力值；这两种数值不能混用。",
+        "不能把后续回合的先手必中扩大成全程必中。"
+      ],
+      "expectedOfficial": {
+        "id": 3805,
+        "name": "甘棠瑶草",
+        "type": "草",
+        "category": "物理",
+        "power": 120,
+        "pp": 10,
+        "speedCode": 10,
+        "attackType": 1,
+        "damageType": 1,
+        "description": "折疏麻兮瑶华，将以遗兮离居。连续发动技能2回合。首回合：据双方速度差提升威力；先手时降低自身1级速度，否则强化对手1级速度。若双方速度等级差不低于2级则额外发动2回合并回复自身精力。后续回合：威力伤害失效且先手时必中，降低自身速度强化并据双方速度差追加固伤。末回合：召唤芬芳环境。",
+        "description2": ""
+      },
+      "source": {
+        "url": "https://api.gitcode.com/api/v5/repos/rocoai-dev/roco-desc/raw/pet%2Fpet_info_3361.json?ref=8c2c6e04c15baee930bd843c1b3d0f8af1a358fb",
+        "commit": "8c2c6e04c15baee930bd843c1b3d0f8af1a358fb",
+        "petId": 3361,
+        "petName": "赑瑞玄龟",
+        "field": "cur_best_test",
+        "textSha256": "b585bddf6002be06aaa75dcff6ba4b59d614eb576ed7a7ede54058f82cde9d5d",
+        "authors": [
+          "洛克王国官方论坛"
+        ],
+        "reportedAt": "2026-03-12T16:00:00.000Z",
+        "originalUrl": "https://17roco.gamebbs.qq.com/forum.php?mod=viewthread&tid=152843&extra=&page=1"
+      }
+    },
+    {
+      "skillId": 3806,
+      "name": "阴阳众莫",
+      "hitRule": "对手青蚨至少 2 层时必中，其余情况非必中",
+      "common": [],
+      "phases": [
+        {
+          "label": "命中判定",
+          "when": "本次技能命中",
+          "effect": "威力增加 = 15 × 青蚨层数。\n删除对手所有技能各 1 PP。",
+          "otherwise": "按命中前提，此分支的增威、PP 删除、强化重置及追加效果不触发。其他未命中效果，来源未说明。",
+          "children": [
+            {
+              "label": "重置强化",
+              "when": "威力伤害前，自身存在正面或负面强化",
+              "effect": "强制重置自身正负面强化。",
+              "children": [
+                {
+                  "label": "降低物防",
+                  "when": "重置总等级 ≥ 1",
+                  "effect": "尝试降低对手物防，物防降低级数 = ceil(重置总等级 / 2)，降低不是强制效果。",
+                  "children": [
+                    {
+                      "label": "陨石与速度强化",
+                      "when": "本次降低对手物防失败",
+                      "effect": "召唤陨石天气 3 回合，并提升对手速度强化 1 级。"
+                    }
+                  ]
+                },
+                {
+                  "label": "追加删 PP",
+                  "when": "重置总等级 ≥ 3",
+                  "effect": "本次对手各技能的 PP 删除量再加 1，即各删除 2 PP。"
+                }
+              ],
+              "presentation": "action"
+            }
+          ]
+        }
+      ],
+      "notes": [
+        "两项附加判定可以同时触发：重置总等级达到 3 时，降低物防和追加删 PP 都适用。"
+      ],
+      "terms": [
+        {
+          "name": "青蚨层数",
+          "description": "对手当前持有的青蚨，最多 4 层，全局有效。"
+        },
+        {
+          "name": "重置总等级",
+          "description": "本次重置掉的正、负强化等级绝对值之和。例如 +2 物攻和 -1 速度合计为 3。"
+        }
+      ],
+      "expectedOfficial": {
+        "id": 3806,
+        "name": "阴阳众莫",
+        "type": "石",
+        "category": "物理",
+        "power": 110,
+        "pp": 12,
+        "speedCode": 9,
+        "attackType": 2,
+        "damageType": 1,
+        "description": "壹阴兮壹阳，众莫知兮余所为。据对手身上青蚨数提升威力，若不低于2层则必中。删除对手全技能PP并重置自身正负面强化且据此降低其物防强化，降低失败时召唤陨石天气并为其强化1级速度。本次重置的强化之和不低于3级时，额外删除对手全技能PP。",
+        "description2": ""
+      },
+      "source": {
+        "url": "https://api.gitcode.com/api/v5/repos/rocoai-dev/roco-desc/raw/pet%2Fpet_info_3361.json?ref=8c2c6e04c15baee930bd843c1b3d0f8af1a358fb",
+        "commit": "8c2c6e04c15baee930bd843c1b3d0f8af1a358fb",
+        "petId": 3361,
+        "petName": "赑瑞玄龟",
+        "field": "cur_best_test",
+        "textSha256": "3d4e583de894b77c3b6d61b4359d9fec1d50aac02efda4f6cb3c7f18ee3ad622",
+        "authors": [
+          "洛克王国官方论坛",
+          "b站风云花语"
+        ],
+        "reportedAt": "2026-02-26T16:00:00.000Z",
+        "originalUrl": "https://17roco.gamebbs.qq.com/forum.php?mod=viewthread&tid=152843&extra=&page=1"
+      }
+    },
+    {
+      "skillId": 3807,
+      "name": "济寿散蚨",
+      "hitRule": null,
+      "common": [
+        "净化自身异常及除速度外的负面强化。",
+        "回复精力 = 40% × 自身最大精力 + 50 × 回收次数。",
+        "获得 6 回合异常免疫，并召唤陨石天气 6 回合。",
+        "该技能的 PP 不会被删除；只能由鬻财血脉回收青蚨来回复。"
+      ],
+      "phases": [
+        {
+          "label": "持续减伤",
+          "when": "处于本次持续效果回合内",
+          "effect": "自身受到的任意伤害降低 25%。",
+          "children": [
+            {
+              "label": "低精力增强",
+              "when": "自身当前精力 ≤ 最大精力的 50%",
+              "effect": "减伤比例提高到 40%，而非在 25% 上额外叠加 40%。"
+            }
+          ]
+        },
+        {
+          "label": "携带被动",
+          "when": "携带济寿散蚨",
+          "effect": "被动免疫冰冻。",
+          "children": [
+            {
+              "label": "芬芳下增伤",
+              "when": "自身在场，且场上为芬芳环境",
+              "effect": "双方威力伤害增幅 = 30% + 5% × 回收次数。"
+            },
+            {
+              "label": "陨石下增伤",
+              "when": "自身在场，且场上为陨石天气",
+              "effect": "双方固伤增加 = 30 + 5 × 回收次数。"
+            },
+            {
+              "label": "主动技能后回复",
+              "when": "自身主动使用任意技能后",
+              "effect": "回复精力 = 20 × 青蚨层数。"
+            },
+            {
+              "label": "阵亡追加伤害",
+              "when": "自身阵亡",
+              "effect": "对手所受固伤 = 自身最大精力 × (15% + 5% × 回收次数)。"
+            }
+          ],
+          "presentation": "scope"
+        }
+      ],
+      "notes": [
+        "青蚨层数最多 4 层；回收次数计数最多 6 次，达到 6 次后仍可回收，但不再增加计数。两种计数均全局有效。",
+        "血脉如何赋予和回收青蚨属于另一份规则，不能仅从本技能的回复限制反推完整血脉效果。"
+      ],
+      "terms": [
+        {
+          "name": "青蚨层数",
+          "description": "对手当前持有的青蚨，最多 4 层，全局有效。"
+        },
+        {
+          "name": "回收次数",
+          "description": "鬻财回收青蚨的累计次数，最多计为 6；之后仍可回收，但计数不再增加，全局有效。"
+        }
+      ],
+      "expectedOfficial": {
+        "id": 3807,
+        "name": "济寿散蚨",
+        "type": "石",
+        "category": "变化",
+        "power": null,
+        "pp": 6,
+        "speedCode": 15,
+        "attackType": 1,
+        "damageType": 3,
+        "description": "纷总总兮九州，何寿夭兮在予。净化自身异常及除速度外的负面强化并回复精力且据回收青蚨次数提升本次回复的精力值。免疫异常并召唤陨石天气均持续6回合。回合内：降低所受伤害，自身精力不超过一半时提升降低伤害效果。被动免疫冰冻且阵亡时据自身精力值额外追加固伤。芬芳下双方受到的威力伤害提升，陨石下双方受到的固伤提升。使用任意技能时据对手身上青蚨数额外回复自身精力。本技能免疫PP删除且仅能通过回收青蚨时回复。",
+        "description2": ""
+      },
+      "source": {
+        "url": "https://api.gitcode.com/api/v5/repos/rocoai-dev/roco-desc/raw/pet%2Fpet_info_3361.json?ref=8c2c6e04c15baee930bd843c1b3d0f8af1a358fb",
+        "commit": "8c2c6e04c15baee930bd843c1b3d0f8af1a358fb",
+        "petId": 3361,
+        "petName": "赑瑞玄龟",
+        "field": "cur_best_test",
+        "textSha256": "360497b84a3a0258167c19befe027b714223835d1a981e5127d6d67166827af6",
+        "authors": [
+          "洛克王国官方论坛"
+        ],
+        "reportedAt": "2026-03-05T16:00:00.000Z",
+        "originalUrl": "https://17roco.gamebbs.qq.com/forum.php?mod=viewthread&tid=152843&extra=&page=1"
+      }
+    },
+    {
+      "skillId": 3808,
+      "name": "结桂伫芳",
+      "hitRule": "必中（来源记载）",
+      "common": [
+        "本次获得 min(20% × 自身已损精力, 150) 点护盾；护盾可叠加，总上限为 300。",
+        "删除对手最近使用技能 2 PP。",
+        "固伤 = 80 + 15 × 青蚨层数。"
+      ],
+      "phases": [
+        {
+          "label": "满层青蚨",
+          "when": "对手持有 4 层青蚨",
+          "effect": "再追加一段与本次固伤等量的伤害。\n回复自身威力技能各 1 PP，并回复场下存活队友各 80 点精力。"
+        },
+        {
+          "label": "先手",
+          "when": "自身先手使用本技能",
+          "effect": "提升对手速度强化 1 级。"
+        },
+        {
+          "label": "后手",
+          "when": "自身后手使用本技能",
+          "effect": "",
+          "children": [
+            {
+              "label": "环境",
+              "when": "场上存在任意环境",
+              "effect": "环境持续时间减少 3 回合。\n增威作用于本次在场期间、下一次主动使用的威力技能。\n威力提升 = 20 × 减少回合数。"
+            },
+            {
+              "label": "天气",
+              "when": "场上存在任意天气",
+              "effect": "尝试召唤陨石天气 3 回合。\n本次在场期间，下一次主动威力技能使用后，追加一段按 70 威力、石系物理伤害计算的固伤：将自身最大精力视为物攻能力值，波动系数为 0.8～1。"
+            }
+          ],
+          "presentation": "scope"
+        }
+      ],
+      "notes": [
+        "环境与天气的追加效果从属于后手分支，不能拆成不受先后手约束的顶层效果。",
+        "增威使用实际减少的环境回合数；环境剩余不足 3 回合时，不能直接固定写成增加 60 威力。",
+        "青蚨为全局有效的计数，每只宠物最多 4 层。"
+      ],
+      "terms": [
+        {
+          "name": "青蚨层数",
+          "description": "对手当前持有的青蚨，最多 4 层，全局有效。"
+        },
+        {
+          "name": "减少回合数",
+          "description": "本次实际减少的环境回合数；环境剩余不足 3 回合时，按实际减少值计算。"
+        }
+      ],
+      "expectedOfficial": {
+        "id": 3808,
+        "name": "结桂伫芳",
+        "type": "草",
+        "category": "变化",
+        "power": null,
+        "pp": 10,
+        "speedCode": 11,
+        "attackType": 1,
+        "damageType": 3,
+        "description": "结桂枝兮延伫，羌愈思兮愁人。据已损精力获得护盾。删除对手最近使用技能PP并追加固伤且据对手身上青蚨数提升造成的固伤，若其身上青蚨已达4层则额外追加一段等额固伤并回复自身威力技能PP且回复场下队友精力。先手时，为对手强化1级速度；后手时，若场上为环境，则减少场上环境回合数并提升下次技能威力；若为天气，则召唤陨石天气并使自身下次威力技能追加一段以自身精力值计算物攻能力值的石属性物理威力固伤。",
+        "description2": ""
+      },
+      "source": {
+        "url": "https://api.gitcode.com/api/v5/repos/rocoai-dev/roco-desc/raw/pet%2Fpet_info_3361.json?ref=8c2c6e04c15baee930bd843c1b3d0f8af1a358fb",
+        "commit": "8c2c6e04c15baee930bd843c1b3d0f8af1a358fb",
+        "petId": 3361,
+        "petName": "赑瑞玄龟",
+        "field": "cur_best_test",
+        "textSha256": "8f6e3f29c4946a645dbbcbc9ef231641636657396c7b1fca6da3a333289daa7c",
+        "authors": [
+          "洛克王国官方论坛"
+        ],
+        "reportedAt": "2026-03-19T16:00:00.000Z",
+        "originalUrl": "https://17roco.gamebbs.qq.com/forum.php?mod=viewthread&tid=152843&extra=&page=1"
+      }
+    },
+    {
+      "skillId": 3809,
+      "name": "离舟疏影",
+      "hitRule": "必中（来源记载）",
+      "common": [
+        "威力伤害前，若自身物攻强化低于 1 级，则将其设为 1 级。",
+        "尝试恐惧对手，并删除其最近使用技能 3 PP。"
+      ],
+      "phases": [
+        {
+          "label": "低精力回复",
+          "when": "自身当前精力 ≤ 最大精力的 50%",
+          "effect": "额外造成 60 点固伤，并回复自身等量精力。"
+        },
+        {
+          "label": "重置与追伤",
+          "when": "对手青蚨 ≥ 3 层，或者对手存在正面的速度强化",
+          "effect": "强制重置对手的正面强化。\n按本次重置的正面强化等级总和，降低自身相应等级的速度强化。\n追加 min(50% × 本次威力伤害, 150) 点固伤。"
+        }
+      ],
+      "notes": [
+        "自身物攻设为 1 级属于下限修正，不能改写成无条件增加 1 级。",
+        "两个触发条件是或者关系，满足任意一项即可进入重置与追伤分支。",
+        "青蚨为全局有效的计数，每只宠物最多 4 层。"
+      ],
+      "expectedOfficial": {
+        "id": 3809,
+        "name": "离舟疏影",
+        "type": "石",
+        "category": "物理",
+        "power": 120,
+        "pp": 12,
+        "speedCode": 10,
+        "attackType": 2,
+        "damageType": 1,
+        "description": "老冉冉兮既极，不寖近兮愈疏。将自身低于1级的物攻强化置为1级。恐惧对手并删除其最近使用技能PP，若自身当前精力不超过一半则额外吸取对手精力回复自身。对手身上青蚨不低于3层或存在正面速度强化时，重置其全部正面强化并据此降低自身速度强化且额外据本次威力伤害追加固伤。",
+        "description2": ""
+      },
+      "source": {
+        "url": "https://api.gitcode.com/api/v5/repos/rocoai-dev/roco-desc/raw/pet%2Fpet_info_3361.json?ref=8c2c6e04c15baee930bd843c1b3d0f8af1a358fb",
+        "commit": "8c2c6e04c15baee930bd843c1b3d0f8af1a358fb",
+        "petId": 3361,
+        "petName": "赑瑞玄龟",
+        "field": "cur_best_test",
+        "textSha256": "c4908ed9dfc65ad76045a83c619be3063a13ccfa3ab7317115ebb6d05f361f76",
+        "authors": [
+          "洛克王国官方论坛"
+        ],
+        "reportedAt": "2026-03-05T16:00:00.000Z",
+        "originalUrl": "https://17roco.gamebbs.qq.com/forum.php?mod=viewthread&tid=152843&extra=&page=1"
+      }
+    }
+  ],
+  "unanalysed": [
+    {
+      "skillId": 35,
+      "name": "速度打击",
+      "reason": "本次未整理详细解析；继续显示官方描述。"
+    }
+  ]
+}

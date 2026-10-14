@@ -2,6 +2,7 @@ export function skillRulePresentation(skill) {
   const defaults = { base: skill.common || [], branches: skill.phases || [] };
   // A reviewed edit owns its condition tree; historical display overrides cannot hide it.
   if (skill.publishedRules) return defaults;
+  if (skill.analysisCurrent) return defaults;
   const overrides = {
     linghuo: {
       base: ["尝试令对手烧伤。"],

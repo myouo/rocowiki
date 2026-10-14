@@ -22,18 +22,19 @@ function target(href, path) {
   try { const url = new URL(value, "https://wiki.invalid" + (path || "/")); return url.origin === "https://wiki.invalid" ? url.pathname + url.search + url.hash : ""; } catch { return ""; }
 }
 /** Small fields share the same entity chips as document Markdown, without block wrappers. */
-export function EntityText({ text = "", path = "/", className = "" }) {
+export function EntityText({ text = "", path = "/", className = "", renderText }) {
   let serial = 0;
-  function render(tokens) { return tokens.map((token) => {
+  function render(tokens, withinLink = false) { return tokens.map((token) => {
     const key = serial++;
-    const content = token.tokens ? render(token.tokens) : token.text || "";
+    const content = token.tokens ? render(token.tokens, withinLink || token.type === "link") : token.text || "";
     if (token.type === "link") { const to = target(token.href, path); return !to ? <span key={key}>{content}</span> : to.startsWith("/") ? <EntityReference key={key} to={to}>{content}</EntityReference> : <a key={key} href={to} target="_blank" rel="noreferrer">{content}</a>; }
     if (token.type === "strong") return <strong key={key}>{content}</strong>;
     if (token.type === "em") return <em key={key}>{content}</em>;
     if (token.type === "del") return <del key={key}>{content}</del>;
     if (token.type === "codespan") return <code key={key}>{token.text}</code>;
     if (token.type === "br") return <br key={key} />;
-    return <React.Fragment key={key}>{content || token.raw || ""}</React.Fragment>;
+    const value = content || token.raw || "";
+    return <React.Fragment key={key}>{renderText && !withinLink && !token.tokens && token.type !== "html" ? renderText(String(value)) : value}</React.Fragment>;
   }); }
   return <span className={`rw-entity-text ${className}`}>{render(marked.Lexer.lexInline(String(text), { gfm: true }))}</span>;
 }

@@ -1,0 +1,6 @@
+/* SPDX-License-Identifier: GPL-3.0-only */
+.rw-combat-reference{color:inherit!important;text-decoration:none!important;border-bottom:1px dotted #b4a6ca;border-radius:2px;cursor:pointer}.rw-combat-reference:hover{color:#725190!important;background:#eee8f7}.rw-combat-reference:focus-visible{outline:2px solid #9c7cbd;outline-offset:3px}.rw-combat-definition{color:#567ba6!important;border-bottom-color:#a8bdd6}.rw-combat-icon-reference{display:inline-flex;vertical-align:middle;align-items:center;justify-content:center;min-width:22px;min-height:22px;border:0;border-radius:4px;margin:0 1px}.rw-combat-icon-reference img{display:block;width:20px;height:20px;object-fit:contain}.rw-combat-icon-label{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}.rw-analysis-definitions>div{scroll-margin-top:150px}.rw-analysis-definitions>div:target{background:#e6edf8;border-radius:5px;outline:2px solid #c0d0e6;outline-offset:5px}
+.rw-combat-icon-reference{gap:3px;white-space:nowrap}
+.rw-math-reference-token{display:inline-block;white-space:nowrap}
+.rw-combat-mechanic{white-space:nowrap}
+.rw-combat-icon-named .rw-combat-icon-label{position:static;width:auto;height:auto;overflow:visible;clip-path:none;white-space:nowrap}

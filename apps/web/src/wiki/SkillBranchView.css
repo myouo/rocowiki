@@ -86,3 +86,54 @@
 .rw-local-render-error-v73{display:flex;align-items:flex-start;gap:12px;padding:18px 20px;margin:12px 0;border:1px solid #ecdcce;border-radius:18px;background:#fff9f1;color:#8b6042;min-width:0;max-width:100%;box-sizing:border-box}
 .rw-local-render-error-v73>svg{flex-shrink:0;margin-top:2px}.rw-local-render-error-v73>div{min-width:0;flex:1}.rw-local-render-error-v73 strong{font-size:14px}.rw-local-render-error-v73 p{font-size:12px!important;line-height:1.8!important;color:#876f5d;margin:6px 0 11px!important}.rw-local-render-error-v73 button{display:inline-flex;align-items:center;gap:6px;border:1px solid #e4cfbc;border-radius:10px;background:#fff;padding:7px 11px;color:#926b4d;font:inherit;font-size:12px;cursor:pointer}.rw-local-render-error-v73 details{margin-top:11px;font-size:11px}.rw-local-render-error-v73 summary{cursor:pointer;color:#a08d7d}.rw-local-render-error-v73 pre{font:11px/1.75 ui-monospace,monospace;white-space:pre-wrap;overflow-wrap:anywhere;max-width:100%;margin:7px 0 0;background:#fff4e8;border-radius:9px;padding:10px}
 @media(max-width:560px){.rw-flow-tools-v73{width:100%;justify-content:flex-start}.rw-flow-tools-v73>.rw-flow-export{width:auto;flex:1;min-width:130px}.rw-flow-responsive-note-v73{padding:8px 10px}.rw-local-render-error-v73{padding:14px}}
+
+/* Keep the shared graph legible beside its branch directory. */
+.rw-flow-explorer-content>.rw-skill-branch-list{grid-template-columns:minmax(0,1fr)}
+.rw-skill-effect-flow[data-flow-direction=horizontal] .rw-flow-horizontal-scroll{width:100%;max-width:100%;min-width:0;overflow:auto;box-sizing:border-box;border:1px solid #e5deed;border-radius:16px;background:#faf8fd;overscroll-behavior-x:contain;scrollbar-width:thin;scrollbar-color:#c8b9d8 #f1ebf7}
+.rw-skill-flow-card .rw-skill-branch-nested{padding:0;border:0;border-radius:0;background:transparent}
+.rw-skill-flow-card .rw-skill-nested-branches{margin-top:10px;padding-left:14px;gap:14px}
+.rw-skill-branch-nested>.rw-skill-branch-heading{margin-bottom:7px}
+.rw-skill-branch-nested .rw-flow-decision{padding:9px 12px;border-radius:11px}
+.rw-skill-flow-card .rw-flow-effect-node{padding:10px 12px;border-radius:11px}
+.rw-skill-flow-card .rw-skill-nested-label{font-size:10px;line-height:1.6}
+.rw-skill-branch-nested .rw-flow-path{padding-top:20px}.rw-skill-branch-nested .rw-flow-path:before{height:19px}
+.rw-skill-branch-nested .rw-skill-branch-heading>h4,.rw-skill-branch-nested .rw-skill-branch-heading>h5,.rw-skill-branch-nested .rw-skill-branch-heading>h6{font-size:12px}
+.rw-flow-horizontal-scroll[data-flow-grouped=true] .rw-flow-horizontal-canvas{--rw-flow-link-space:48px;--rw-flow-fork-space:14px}
+.rw-flow-horizontal-scroll[data-flow-grouped=true] .rw-flow-horizontal-node{--rw-flow-node-width:220px;padding:12px}
+.rw-flow-horizontal-scroll[data-flow-grouped=true] .rw-flow-horizontal-node[data-flow-node-type=group]{--rw-flow-node-width:112px;min-height:54px;padding:9px 10px;border-radius:12px;font-size:11px}
+.rw-flow-horizontal-scroll[data-flow-grouped=true] .rw-flow-horizontal-node-head>strong{font-size:11px}
+.rw-flow-horizontal-scroll[data-flow-grouped=true] .rw-flow-horizontal-edge-label{font-size:10px;left:-6px;right:-6px;bottom:5px}
+.rw-flow-horizontal-node[data-flow-selected=true]{border-color:#9877b9;box-shadow:0 0 0 3px #cfb9e64d}
+.rw-flow-concise-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;flex-direction:row!important;min-width:0}.rw-flow-concise-head>h3,.rw-flow-concise-head>h4,.rw-flow-concise-head>h5,.rw-flow-concise-head>h6{font:inherit;font-weight:600;line-height:1.75;margin:0!important;min-width:0;color:inherit}.rw-flow-concise-head .rw-edit-entry{flex-shrink:0}
+.rw-flow-horizontal-node[data-flow-node-role=scope]{background:#f0f5fb;border-color:#d6e1ef;color:#527195}.rw-flow-horizontal-node[data-flow-node-role=scope] .rw-flow-horizontal-node-head{margin-bottom:0}
+
+/* Conditions and their dependent content share a card, without routing lines. */
+.rw-skill-flow-card.rw-flow-concise-card,.rw-skill-flow-card .rw-skill-branch-nested.rw-flow-concise-card{padding:0;border:1px solid #ded5e9;border-radius:14px;background:#fff}
+.rw-flow-concise-card>.rw-flow-concise-head,.rw-skill-branch-nested.rw-flow-concise-card>.rw-flow-concise-head{padding:11px 14px;border:0;border-bottom:1px solid #e4dceb;border-radius:13px 13px 0 0;background:#f4eef9;color:#59476f;font-size:13px;line-height:1.8}
+.rw-flow-concise-card[data-flow-presentation=scope]{background:#f6f9fd;border-color:#d6e2ef}
+.rw-flow-concise-card>.rw-flow-scope-head{background:#edf3fa;color:#527195;border-bottom-color:#d6e2ef}
+.rw-flow-reading-outcomes{min-width:0}.rw-flow-reading-outcome{padding:13px 14px;min-width:0}
+.rw-flow-reading-outcomes.is-paired{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;padding:12px}
+.rw-flow-reading-outcomes.is-paired>.rw-flow-reading-outcome{border:1px solid #dce8e1;border-radius:10px;background:#f8fbf9}
+.rw-flow-reading-outcomes.is-paired>[data-reading-outcome=otherwise]{background:#fffcf7;border-color:#ebdfcc}
+.rw-flow-reading-outcomes.is-hit-check{grid-template-columns:minmax(0,1fr)}
+.rw-flow-reading-outcomes.is-hit-check>.rw-flow-reading-outcome>.rw-flow-reading-outcome-label{font-size:13px!important}
+.rw-flow-reading-outcomes.is-paired>.rw-flow-reading-outcome.is-unrecorded{border-style:dashed}
+.rw-flow-reading-unrecorded{font-size:12px!important;line-height:1.8!important;color:#826f55;margin:0!important}
+.rw-flow-horizontal-node[data-flow-node-type=note]{background:#fffcf7;border:1px dashed #d8c6aa;color:#826f55}
+.rw-flow-horizontal-edge[data-flow-edge-kind=unrecorded]{--rw-flow-edge-color:#b69972;color:#94703b;background:repeating-linear-gradient(to right,var(--rw-flow-edge-color) 0 4px,transparent 4px 8px)}
+.rw-flow-reading-outcome-label{font-size:11px!important;line-height:1.6!important;font-weight:600;color:#597662;margin:0 0 9px!important}
+[data-reading-outcome=otherwise]>.rw-flow-reading-outcome-label{color:#99764b}
+.rw-flow-reading-independent>.rw-flow-vertical-group{padding:12px}
+.rw-flow-concise-card .rw-flow-step-number{flex-basis:5px;width:5px;height:5px;margin-top:10px;font-size:0;background:#9aacc4}
+.rw-flow-concise-card .rw-flow-effect-steps>li{gap:9px}
+.rw-flow-reading-heading{min-width:0;flex:1}
+.rw-flow-reading-heading>h3,.rw-flow-reading-heading>h4,.rw-flow-reading-heading>h5,.rw-flow-reading-heading>h6{font:inherit;font-size:14px;font-weight:650;line-height:1.7;color:inherit;margin:0!important;min-width:0}
+.rw-flow-reading-trigger{font-size:14px;line-height:1.75;font-weight:600;color:inherit;min-width:0}
+.rw-flow-reading-content{min-width:0}
+.rw-flow-concise-card[data-flow-presentation=action]>.rw-flow-concise-head{background:#f5f6fa;color:#4d5e78;border-bottom-color:#e2e6ef}
+@media(max-width:560px){
+  .rw-flow-concise-card>.rw-flow-concise-head,.rw-skill-branch-nested.rw-flow-concise-card>.rw-flow-concise-head{padding:10px}
+  .rw-flow-reading-outcome{padding:11px 10px}
+  .rw-flow-reading-outcomes.is-paired{grid-template-columns:minmax(0,1fr);padding:10px}
+}

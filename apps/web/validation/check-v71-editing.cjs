@@ -19,6 +19,7 @@ async function main() {
     import React, {useState} from 'react';
     import SectionEditor from './src/wiki/editing/SectionEditor';
     import SkillBranchEditor from './src/wiki/editing/SkillBranchEditor';
+    export {VerifiedIdentityContext} from './src/wiki/auth/RequireRole';
     export * from './src/wiki/editing/model';
     export * from './src/wiki/editing/registry';
     export * from './src/wiki/editing/publishedRecords';
@@ -34,7 +35,7 @@ async function main() {
       const update=React.useCallback(fn=>setValue(old=>{const next=fn(old);onWorkspace?.(next);return next}),[onWorkspace]);
       return <SectionEditor workspace={value} update={update} ready query={query} DiffViewer={({before,after})=><div data-test-diff>{before}<hr/>{after}</div>} />;
     }
-  ` }, outfile: path.join(temporary,'check.cjs'), bundle: true, format:'cjs', platform:'node', loader:{'.css':'empty'}, logLevel:'silent', plugins:[{name:'framework',setup(build){
+  ` }, outfile: path.join(temporary,'check.cjs'), bundle: true, format:'cjs', platform:'node', loader:{'.css':'empty'}, logLevel:'silent', plugins:[require('./runtime-context-plugin.cjs'),{name:'framework',setup(build){
     build.onResolve({filter:/^(react|react-dom|lucide-react)(\/.*)?$/}, args=>({path:require.resolve(args.path,{paths:[project]}),external:true}));
     build.onResolve({filter:/^@docusaurus\//}, args=>({path:args.path,namespace:'mock'}));
     build.onLoad({filter:/.*/,namespace:'mock'}, args=>({loader:'jsx',resolveDir:project,contents: args.path.endsWith("/useBrokenLinks") ? "export default function useBrokenLinks(){return {collectAnchor(value){if(value)globalThis.__rocoAnchorSet?.add(value)},collectLink(){}};}" : args.path.endsWith('/router') ? `export function useHistory(){return {replace(){},push(){}}};export function useLocation(){return {pathname:"/",search:""}}` : args.path.endsWith('/Link') ? `import React from 'react';export default function Link({to,children,...rest}){return <a href={to} {...rest}>{children}</a>}` : `export default function useBaseUrl(value){return value}`}));
@@ -48,7 +49,7 @@ async function main() {
   const {createRoot}=require('react-dom/client');
   const {renderToStaticMarkup}=require('react-dom/server');
   let root=createRoot(d.querySelector('#root'));
-  async function render(node){await act(async()=>root.unmount());root=createRoot(d.querySelector('#root'));await act(async()=>{root.render(node);await new Promise(r=>setTimeout(r,5))})}
+  async function render(node){await act(async()=>root.unmount());root=createRoot(d.querySelector('#root'));await act(async()=>{root.render(React.createElement(C.VerifiedIdentityContext.Provider,{value:{user:{role:'reviewer'},loading:false}},node));await new Promise(r=>setTimeout(r,5))})}
   async function click(label, scope=d){const button=[...scope.querySelectorAll('button')].find(el=>el.textContent.trim()===label||el.getAttribute('aria-label')===label);assert.ok(button,'button '+label);await act(async()=>button.click());return button}
   async function input(label,value){const el=d.querySelector(`[aria-label="${label}"]`);assert.ok(el,'input '+label);const proto=el.tagName==='TEXTAREA'?w.HTMLTextAreaElement.prototype:w.HTMLInputElement.prototype;await act(async()=>{Object.getOwnPropertyDescriptor(proto,'value').set.call(el,value);el.dispatchEvent(new w.Event('input',{bubbles:true}));});}
   const legacy={label:'来源中的阶段标题',when:'满足原文条件',effect:'原有成立效果',otherwiseWhen:'另有来源明确的条件',otherwise:'另一效果',input:true,extra:{source:'original'}};
@@ -85,11 +86,11 @@ async function main() {
   await click('模板计数依据');const basisOption=[...d.querySelectorAll('[role="option"]')].find(el=>el.textContent==='本次连续技能内的回合');await act(async()=>basisOption.click());
   await click('添加这组分支');
   check('The branch form appends a 1 / 2–5 / 6 schedule without erasing an existing effect',editedBranches.length===4&&editedBranches[0].effect===legacy.effect&&editedBranches[2].conditionTree.ranges[0].end===5);
-  await click('再加文字条件');
+  await click('加入条件');
   check('The branch form preserves the existing condition when combining it with another',editedBranches[0].conditionTree.kind==='group'&&editedBranches[0].conditionTree.children[0].text===legacy.when);
   await click('条件组判断方式 · 分支 1 · 条件');const anyOption=[...d.querySelectorAll('[role="option"]')].find(el=>el.textContent==='以下条件任一满足（或）');await act(async()=>anyOption.click());
   check('Editors can choose any instead of all for a condition group',editedBranches[0].conditionTree.operator==='any');
-  await click('在成立效果下添加嵌套分支');
+  await click('下级判断');
   check('The form supports effects nested below a satisfied parent condition',editedBranches[0].children.length===1);
   check('The visible form uses human field labels instead of schema paths',!d.body.textContent.includes('phases.')&&!d.body.textContent.includes('conditionTree'));
   const req={entity:'新增宠物',section:'宠物资料',mode:'pet',intent:'add',returnTo:'/pets/'};

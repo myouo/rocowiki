@@ -100,6 +100,7 @@ export function resolvePublishedCatalogSkills({ skills = [], submissions = [] } 
     for (const key of ["number", "power", "pp", "priority"]) if (own(data, key)) next[key] = number(data[key]);
     if (own(data, "common")) next.common = (Array.isArray(data.common) ? data.common : String(data.common || "").split(/\r?\n/)).filter((part) => typeof part === "string" && part.trim());
     if (Array.isArray(data.phases)) next.phases = data.phases;
+    if (Array.isArray(data.terms)) next.terms = data.terms;
     if (own(data, "sourceUrl")) next.source = text(data.sourceUrl);
     if (index >= 0) result[index] = next; else result.push(next);
   }

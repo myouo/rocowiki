@@ -233,6 +233,7 @@ function PetPage({ slug }) {
           {mainSkills.length && skillMode === "key" ? (
             <>
               <SkillTable items={mainSkills} compact petContext={pet.slug} />
+              {mainSkills.some(skill => skill.analysisCurrent) && <p className="rw-table-note">{mainSkills.filter(skill => skill.analysisCurrent).length} 个技能已整理详细解析，可点击技能名称阅读数值、触发条件和来源备注。未整理的技能继续显示官方描述。</p>}
               <div className="rw-table-note">
                 按基础参数查阅。完整规则与命中条件进入技能详情；候选技能不等同同时携带。
               </div>

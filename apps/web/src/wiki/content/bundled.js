@@ -3,6 +3,7 @@ export { default as petSourceData } from "../../../content/pet-sources.json";
 export { default as officialPetData } from "../../../content/official-pets.json";
 export { default as officialLadderData } from "../../../content/official-ladder.json";
 export { default as officialSkillData } from "../../../content/official-skills.json";
+export { default as skillAnalysisData } from "../../../content/skill-analyses.json";
 export { default as skillRelationData } from "../../../content/pet-skill-relations.json";
 export { default as gameSkillRelationData } from "../../../content/game-skill-relations.json";
 export { default as petMetadata } from "../../../content/pet-metadata-v6.json";

@@ -1,0 +1,19 @@
+/* SPDX-License-Identifier: GPL-3.0-only */
+.rw-flow-vertical-group{--rw-vertical-gap:14px;min-width:0;container-type:inline-size}
+.rw-flow-vertical-group.is-nested{margin-top:14px}
+.rw-flow-vertical-group-label{display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-size:11px;color:#756087;line-height:1.6;margin:0 0 9px!important}.rw-flow-vertical-group-label span{font-size:10px;color:#6b7c73;background:#edf4ef;border-radius:6px;padding:2px 6px}
+.rw-flow-vertical-rows{display:grid;gap:14px;min-width:0}.rw-flow-vertical-row{display:grid;grid-template-columns:minmax(0,1fr);gap:var(--rw-vertical-gap);align-items:start;min-width:0}
+.rw-flow-vertical-lane{min-width:0}.rw-flow-vertical-lane>.rw-skill-flow-card{margin:0}
+@container(min-width:640px){
+  .rw-flow-vertical-row[data-vertical-pair=true]{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+.rw-flow-vertical-group[data-vertical-layout=rules]>.rw-flow-vertical-rows{gap:12px}
+.rw-flow-vertical-group[data-vertical-layout=followups]{margin-top:10px}
+.rw-rule-column-headings{display:none}
+.rw-flow-vertical-group.is-nested[data-vertical-layout=rules]{--rw-branch-indent:22px;padding-left:var(--rw-branch-indent)}
+.rw-flow-vertical-group.is-nested[data-vertical-layout=rules]>.rw-flow-vertical-rows>.rw-flow-vertical-row{position:relative}
+.rw-flow-vertical-group.is-nested[data-vertical-layout=rules]>.rw-flow-vertical-rows>.rw-flow-vertical-row:before{content:"";position:absolute;left:calc(-1 * var(--rw-branch-indent));top:-12px;bottom:-12px;width:2px;background:#b9aecb}
+.rw-flow-vertical-group.is-nested[data-vertical-layout=rules]>.rw-flow-vertical-rows>.rw-flow-vertical-row:last-child:before{bottom:auto;height:36px}
+.rw-flow-vertical-group.is-nested[data-vertical-layout=rules]>.rw-flow-vertical-rows>.rw-flow-vertical-row:after{content:"";position:absolute;left:calc(-1 * var(--rw-branch-indent));top:22px;width:var(--rw-branch-indent);height:2px;background:#b9aecb}
+.rw-flow-vertical-group.is-nested[data-vertical-layout=rules]>.rw-flow-vertical-group-label{color:#766084;font-weight:500}
+@media(max-width:520px){.rw-flow-vertical-group.is-nested[data-vertical-layout=rules]{--rw-branch-indent:12px}}
