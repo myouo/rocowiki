@@ -18,7 +18,7 @@
     "d1_databases": [{"binding": "DB", "database_name": "rocowiki-production", "database_id": "6f870bb0-5dbf-45a7-8d4e-f23ab6833614", "migrations_dir": "../../database/migrations"}],
     "vars": {
       "ENVIRONMENT": "production", "WEB_ORIGIN": "https://wiki.rocoai.app", "API_ORIGIN": "https://api.wiki.rocoai.app", "SITE_URL": "https://wiki.rocoai.app",
-      "API_SOURCE_COMMIT_SHA": "", "AUTH_MODE": "password", "REGISTRATION_ENABLED": "true", "EMAIL_VERIFICATION_REQUIRED": "true", "MAIL_PROVIDER": "disabled", "MAIL_FROM": "", "OIDC_ISSUER": "", "OIDC_CLIENT_ID": "", "GITHUB_OWNER": "myouo", "GITHUB_REPO": "rocowiki", "GITHUB_DEFAULT_BRANCH": "main",
+      "API_SOURCE_COMMIT_SHA": "", "AUTH_MODE": "password", "REGISTRATION_ENABLED": "true", "EMAIL_VERIFICATION_REQUIRED": "true", "MAIL_PROVIDER": "resend", "MAIL_FROM": "noreply@wiki.rocoai.app", "OIDC_ISSUER": "", "OIDC_CLIENT_ID": "", "GITHUB_OWNER": "myouo", "GITHUB_REPO": "rocowiki", "GITHUB_DEFAULT_BRANCH": "main",
       "GITHUB_APP_ID": "", "GITHUB_INSTALLATION_ID": "", "GITHUB_OAUTH_CLIENT_ID": "", "GITCODE_REMOTE_URL": "",
       "SUBMISSIONS_ENABLED": "false", "PUBLISH_ENABLED": "false"
     }

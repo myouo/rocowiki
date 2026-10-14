@@ -49,7 +49,7 @@ export function productionApiConfig(input:unknown,databaseId:string,sourceSha:st
   if(production.vars.SUBMISSIONS_ENABLED!=='false'||production.vars.PUBLISH_ENABLED!=='false')throw Error('API_BOOTSTRAP_REQUIRES_CLOSED_CONTRIBUTIONS');
   for(const key of ['MAIL_PROVIDER','MAIL_FROM','OIDC_ISSUER','OIDC_CLIENT_ID','GITHUB_APP_ID','GITHUB_INSTALLATION_ID','GITHUB_OAUTH_CLIENT_ID']){const value=values[key];if(value)production.vars[key]=value;}
   if(production.vars.AUTH_MODE!=='password'||production.vars.EMAIL_VERIFICATION_REQUIRED!=='true')throw Error('PASSWORD_AUTH_CONFIGURATION_MISMATCH');
-  if(!['disabled','resend','brevo'].includes(production.vars.MAIL_PROVIDER))throw Error('INVALID_MAIL_PROVIDER');
+  if(!['disabled','resend'].includes(production.vars.MAIL_PROVIDER))throw Error('INVALID_MAIL_PROVIDER');
   if(production.vars.MAIL_PROVIDER!=='disabled'&&!z.string().email().safeParse(production.vars.MAIL_FROM).success)throw Error('INVALID_MAIL_FROM');
   production.vars.API_SOURCE_COMMIT_SHA=sourceSha;
   production.routes=[];
@@ -103,7 +103,7 @@ async function main(){
   try{
     const file=path.join(temporary,'wrangler.json'),secretFile=path.join(temporary,'secrets.json');
     await writeFile(file,JSON.stringify(config));
-    const names=['BREVO_API_KEY','RESEND_API_KEY','OIDC_CLIENT_SECRET','GITHUB_APP_PRIVATE_KEY','GITHUB_OAUTH_CLIENT_SECRET','GITHUB_WEBHOOK_SECRET','DEPLOY_WEBHOOK_SECRET'];
+    const names=['RESEND_API_KEY','OIDC_CLIENT_SECRET','GITHUB_APP_PRIVATE_KEY','GITHUB_OAUTH_CLIENT_SECRET','GITHUB_WEBHOOK_SECRET','DEPLOY_WEBHOOK_SECRET'];
     await writeFile(secretFile,JSON.stringify(Object.fromEntries(names.filter(name=>env[name]?.trim()).map(name=>[name,env[name]]))),{mode:0o600});
     const run=(args:string[])=>execFileSync(process.execPath,['node_modules/wrangler/bin/wrangler.js',...args,'--config',file,'--env','production'],{stdio:'inherit',env:{...env,CI:'true',WRANGLER_SEND_METRICS:'false'}});
     run(['d1','migrations','apply',databaseName,'--remote']);

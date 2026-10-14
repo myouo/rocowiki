@@ -53,6 +53,21 @@ it('builds an isolated runtime configuration without secrets or changes to the s
   expect(JSON.stringify(config)).not.toContain('private-fixture');expect(config.env.production.routes).toEqual([]);
   source.env.production.vars.PUBLISH_ENABLED='true';expect(()=>productionApiConfig(source,id,sha)).toThrow('API_BOOTSTRAP_REQUIRES_CLOSED_CONTRIBUTIONS');
 });
+it('uses the selected Resend sender while keeping missing credentials from enabling registration',async()=>{
+  const source=JSON.parse(readFileSync('apps/api/wrangler.jsonc','utf8'));
+  const config=productionApiConfig(source,id,sha,{},'/tmp/wiki-source');
+  expect(config.env.production.vars).toMatchObject({MAIL_PROVIDER:'resend',MAIL_FROM:'noreply@wiki.rocoai.app',EMAIL_VERIFICATION_REQUIRED:'true'});
+  expect(JSON.stringify(config)).not.toContain('RESEND_API_KEY');
+  const db=new TestDatabase();
+  try{
+    for(const key of [undefined,'synthetic-resend-key']){
+      const env=db.env({...config.env.production.vars,...(key?{RESEND_API_KEY:key}:{})});
+      const response=await app.request('https://api.wiki.rocoai.app/health',{},env);
+      expect(response.status).toBe(200);
+      expect(await response.json()).toMatchObject({registration_enabled:Boolean(key),password_reset_available:Boolean(key),email_verification_required:true,submissions:false,publishing:false});
+    }
+  }finally{db.close();}
+});
 it('does not accept a stale API release or open contribution endpoints as a bootstrap success',async()=>{
   let calls=0;
   const direct:typeof fetch=async(_input,options)=>{expect(options?.cache).toBe('no-store');return Response.json(++calls===1?{status:'ok',source_commit_sha:'old',submissions:false,publishing:false}:{status:'ok',source_commit_sha:sha,submissions:false,publishing:false});};

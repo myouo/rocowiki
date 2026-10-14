@@ -4,7 +4,7 @@ import {app} from '../apps/api/src/index';
 import {hash,now,createSession,getSession,sessionCsrf} from '../packages/auth/src/index';
 import {hashPassword,verifyPassword,credentialFor,consumeAccountToken} from '../packages/auth/src/password';
 import type {ApiEnv} from '../apps/api/src/types';
-import {sendAccountMessage} from '../packages/auth/src/mail';
+import {mailConfigured,sendAccountMessage} from '../packages/auth/src/mail';
 
 let db:TestDatabase,env:ApiEnv;
 const password='A long wiki passphrase 2026!';
@@ -21,7 +21,15 @@ async function login(identifier='player_01',value=password){const r=await reques
 function mailFixture(){
   const sent:{to:string;token:string;url:URL}[]=[];
   env={...env,EMAIL_VERIFICATION_REQUIRED:'true',MAIL_PROVIDER:'resend',MAIL_FROM:'accounts@example.test',RESEND_API_KEY:'fixture-mail-key'};
-  vi.stubGlobal('fetch',vi.fn(async(url:string,init:RequestInit)=>{expect(url).toBe('https://api.resend.com/emails');const input=JSON.parse(String(init.body));const link=new URL(input.text.match(/https?:\/\/\S+/)[0]);sent.push({to:input.to[0],token:link.hash.split('=')[1],url:link});return Response.json({id:'fixture-delivery'});}));
+  vi.stubGlobal('fetch',vi.fn(async(url:string,init:RequestInit)=>{
+    expect(url).toBe('https://api.resend.com/emails');
+    const input=JSON.parse(String(init.body)),text=input.text;
+    const link=new URL(text.match(/https?:\/\/\S+/)[0]);
+    sent.push({to:input.to[0],token:link.hash.split('=')[1],url:link});
+    // The provider receives confirmation links, never the account password.
+    expect(String(init.body)).not.toContain(password);
+    return Response.json({id:'fixture-delivery'});
+  }));
   return sent;
 }
 
@@ -115,6 +123,16 @@ it('does not reserve an account or username after email failure and permits a fr
   expect(db.sql.prepare('SELECT count(*) AS n FROM users').get()!.n).toBe(0);expect(db.sql.prepare('SELECT count(*) AS n FROM pending_registrations').get()!.n).toBe(0);
   expect((await request('/auth/register',registration)).status).toBe(201);expect(sent).toHaveLength(1);
 });
+it('resends pending verification and rejects the superseded confirmation link',async()=>{
+  const sent=mailFixture();await register();
+  const response=await request('/auth/email/resend',{identifier:'player_01'});
+  expect(await response.json()).toEqual({ok:true});expect(sent).toHaveLength(2);
+  expect(sent.map(message=>message.to)).toEqual(['player@example.test','player@example.test']);
+  expect(sent[1].token).not.toBe(sent[0].token);
+  expect((await request('/auth/email/verify',{token:sent[0].token,password})).status).toBe(400);
+  expect((await request('/auth/email/verify',{token:sent[1].token,password})).status).toBe(200);
+  await login();
+});
 it('does not let an unverified registration reserve a permanent username or hijack a later registration',async()=>{
   const sent=mailFixture();await register();
   expect((await request('/auth/register',{...registration,username:'chosen_name',password:'A different owner passphrase!'})).status).toBe(201);
@@ -122,15 +140,28 @@ it('does not let an unverified registration reserve a permanent username or hija
   expect((await request('/auth/email/verify',{token:sent[1].token,password:'A different owner passphrase!'})).status).toBe(200);
   expect(db.sql.prepare('SELECT username FROM users').get()!.username).toBe('chosen_name');
 });
-it.each(['resend','brevo'])('checks the %s HTTP contract and rejects a malformed delivery acknowledgment',async provider=>{
-  const configured={...env,MAIL_PROVIDER:provider,MAIL_FROM:'accounts@example.test',BREVO_API_KEY:'fixture-brevo-key',RESEND_API_KEY:'fixture-resend-key'};
+it('checks the Resend HTTP contract and rejects failed or malformed delivery acknowledgments',async()=>{
+  const configured={...env,MAIL_PROVIDER:'resend',MAIL_FROM:'accounts@example.test',RESEND_API_KEY:'fixture-resend-key'};
   const http=vi.fn(async(input:string,init:RequestInit)=>{
     const headers=new Headers(init.headers),body=JSON.parse(String(init.body));
-    if(provider==='brevo'){expect(input).toBe('https://api.brevo.com/v3/smtp/email');expect(headers.get('api-key')).toBe('fixture-brevo-key');expect(body).toMatchObject({sender:{email:configured.MAIL_FROM},to:[{email:'owner@example.test'}],textContent:'plain text',htmlContent:'<p>plain text</p>'});}
-    else {expect(input).toBe('https://api.resend.com/emails');expect(headers.get('Authorization')).toBe('Bearer fixture-resend-key');expect(body).toMatchObject({from:configured.MAIL_FROM,to:['owner@example.test'],text:'plain text',html:'<p>plain text</p>'});}
-    return Response.json(provider==='brevo'?{messageId:'<fixture@smtp.example.test>'}:{id:'fixture-message'});
+    expect(input).toBe('https://api.resend.com/emails');expect(headers.get('Authorization')).toBe('Bearer fixture-resend-key');
+    expect(headers.get('Idempotency-Key')).toBe('fixture-delivery');
+    expect(body).toMatchObject({from:`RocoWiki <${configured.MAIL_FROM}>`,to:['owner@example.test'],text:'plain text',html:'<p>plain text</p>'});
+    expect(init.redirect).toBe('manual');expect(init.signal).toBeInstanceOf(AbortSignal);
+    return Response.json({id:'fixture-message'});
   });vi.stubGlobal('fetch',http);
   const input={email:'owner@example.test',subject:'verify',text:'plain text',html:'<p>plain text</p>',idempotencyKey:'fixture-delivery'};
   await sendAccountMessage(configured,input);
-  http.mockResolvedValueOnce(Response.json({ok:true}));await expect(sendAccountMessage(configured,input)).rejects.toThrow('MAIL_DELIVERY_FAILED');
+  for(const response of [Response.json({ok:true}),Response.json(null),Response.json({id:''}),Response.json({id:' '}),Response.json({id:1}),new Response('{',{status:200}),Response.json({error:'synthetic'}, {status:403}),new Response(null,{status:302,headers:{Location:'https://untrusted.example.test'}})]){
+    http.mockResolvedValueOnce(response);await expect(sendAccountMessage(configured,input)).rejects.toThrow('MAIL_DELIVERY_FAILED');
+  }
+});
+it('rejects disabled, unsupported and incomplete mail configuration before contacting the provider',async()=>{
+  const http=vi.fn();vi.stubGlobal('fetch',http);
+  const configured={...env,MAIL_PROVIDER:'resend',MAIL_FROM:'accounts@example.test',RESEND_API_KEY:'fixture-resend-key'};
+  for(const partial of [{MAIL_PROVIDER:'disabled'},{MAIL_PROVIDER:'unsupported'},{MAIL_FROM:''},{MAIL_FROM:' '},{RESEND_API_KEY:undefined},{RESEND_API_KEY:' '}]){
+    const next={...configured,...partial};expect(mailConfigured(next)).toBe(false);
+    await expect(sendAccountMessage(next,{email:'owner@example.test',subject:'verify',text:'plain',html:'<p>plain</p>',idempotencyKey:'fixture'})).rejects.toThrow('MAIL_NOT_CONFIGURED');
+  }
+  expect(http).not.toHaveBeenCalled();
 });
