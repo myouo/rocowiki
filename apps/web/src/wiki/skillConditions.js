@@ -142,6 +142,7 @@ export function validateSkillBranches(branches = [], prefix = "phases") {
     } else if (condition.kind !== "clause" || !String(condition.text || "").trim()) errors[path] = "请填写可核验的条件。";
   }
   function visit(rows, path, depth = 0) {
+    if (!rows.length) return;
     if (depth > 5) { errors[path] = "效果分支最多嵌套 5 层，请将过深的分支拆开说明。"; return; }
     rows.forEach((input, i) => {
       const row = normalizeSkillBranch(input), key = `${path}.${i}`;
