@@ -2,10 +2,10 @@ import {scrypt,timingSafeEqual} from 'node:crypto';
 import {registerSchema,loginSchema,changePasswordSchema} from '../../wiki-schema/src/account';
 import {hash,now,newId,randomToken,createSession} from './index';
 import type {ApiEnv,AuthSession} from '../../../apps/api/src/types';
-import {mailConfigured,sendAccountMessage} from './mail';
+import {mailConfigured,sendAccountMessage,MailDeliveryError} from './mail';
 export {mailConfigured} from './mail';
 
-export class AccountError extends Error {constructor(public code:string,public status=400){super(code);}}
+export class AccountError extends Error {constructor(public code:string,public status=400,public deliveryUncertain=false){super(code);}}
 const options={N:16384,r:8,p:5,maxmem:32*1024*1024};
 // OWASP's 16 MiB scrypt profile. Parameters are versioned and bounded, including on reads.
 const prefix='scrypt:v1:16384:8:5';
@@ -60,8 +60,11 @@ export async function registerPassword(env:ApiEnv,input:unknown){
   const uid=newId('usr'),passwordHash=await hashPassword(value.password),ts=now();
   if(env.EMAIL_VERIFICATION_REQUIRED==='true'){
     const token=randomToken(),registrationId=randomToken(),tokenHash=await hash(token);
-    await env.DB.prepare('INSERT INTO pending_registrations(email,registration_id,username,display_name,password_hash,token_hash,expires_at,created_at) VALUES(?,?,?,?,?,?,?,?) ON CONFLICT(email) DO UPDATE SET registration_id=excluded.registration_id,username=excluded.username,display_name=excluded.display_name,password_hash=excluded.password_hash,token_hash=excluded.token_hash,expires_at=excluded.expires_at,created_at=excluded.created_at').bind(value.email,registrationId,value.username,value.display_name,passwordHash,tokenHash,ts+86400,ts).run();
-    try{await sendTokenEmail(env,value.email,token,'verify_email');}catch(error){await env.DB.prepare('DELETE FROM pending_registrations WHERE registration_id=?').bind(registrationId).run();throw error;}
+    await env.DB.batch([
+      env.DB.prepare('DELETE FROM pending_registrations WHERE email=?').bind(value.email),
+      env.DB.prepare('INSERT INTO pending_registrations(email,registration_id,username,display_name,password_hash,token_hash,expires_at,created_at) VALUES(?,?,?,?,?,?,?,?)').bind(value.email,registrationId,value.username,value.display_name,passwordHash,tokenHash,ts+86400,ts)
+    ]);
+    try{await sendTokenEmail(env,value.email,token,'verify_email');}catch(error){if(error instanceof AccountError&&!error.deliveryUncertain)await env.DB.prepare('DELETE FROM pending_registrations WHERE registration_id=?').bind(registrationId).run();throw error;}
     return {verification_required:true};
   }
   try {await env.DB.batch([
@@ -86,14 +89,14 @@ export async function sendAccountToken(env:ApiEnv,record:Credential,purpose:'ver
   if(!mailConfigured(env))throw new AccountError('MAIL_NOT_CONFIGURED',503);
   const token=randomToken(),tokenHash=await hash(token),ts=now();
   await env.DB.prepare('INSERT INTO account_tokens(token_hash,uid,purpose,credential_version,expires_at) VALUES(?,?,?,?,?)').bind(tokenHash,record.uid,purpose,record.credential_version,ts+(purpose==='verify_email'?86400:1800)).run();
-  try{await sendTokenEmail(env,record.email,token,purpose);}catch(error){await env.DB.prepare('DELETE FROM account_tokens WHERE token_hash=? AND consumed_at IS NULL').bind(tokenHash).run();throw error;}
+  try{await sendTokenEmail(env,record.email,token,purpose);}catch(error){if(error instanceof AccountError&&!error.deliveryUncertain)await env.DB.prepare('DELETE FROM account_tokens WHERE token_hash=? AND consumed_at IS NULL').bind(tokenHash).run();throw error;}
 }
 async function sendTokenEmail(env:ApiEnv,email:string,token:string,purpose:'verify_email'|'reset_password'){
   const tokenHash=await hash(token),url=new URL('/workbench/',env.WEB_ORIGIN);url.hash=`${purpose==='verify_email'?'verify':'reset'}=${token}`;
   const subject=purpose==='verify_email'?'验证你的 RocoWiki 邮箱':'重置你的 RocoWiki 密码';
   try {
     await sendAccountMessage(env,{email,subject,idempotencyKey:`account-${tokenHash}`,text:`${subject}\n\n请在 RocoWiki 中确认操作：${url}\n${purpose==='verify_email'?'确认时还需要输入注册密码。':''}\n若非本人操作，请忽略此邮件。`,html:`<p>${subject}</p><p><a href="${url}">在 RocoWiki 中确认</a></p><p>${purpose==='verify_email'?'确认时还需要输入注册密码。':''}</p><p>若非本人操作，请忽略此邮件。</p>`});
-  }catch{throw new AccountError('MAIL_DELIVERY_FAILED',503);}
+  }catch(error){throw new AccountError('MAIL_DELIVERY_FAILED',503,error instanceof MailDeliveryError?error.deliveryUncertain:true);}
 }
 export async function requestAccountEmail(env:ApiEnv,input:unknown,purpose:'verify_email'|'reset_password'){
   // The public response does not reveal accounts, email addresses or tokens.
@@ -104,7 +107,12 @@ export async function requestAccountEmail(env:ApiEnv,input:unknown,purpose:'veri
   await accountRate(env,`email:${record?.email??pending?.email??value.identifier}`,3,3600);
   if(record&&record.disabled_at===null&&(purpose==='verify_email'?record.email_verified_at===null:record.email_verified_at!==null))await sendAccountToken(env,record,purpose);
   if(!record&&purpose==='verify_email'){
-    if(pending){const token=randomToken();const changed=await env.DB.prepare('UPDATE pending_registrations SET token_hash=? WHERE registration_id=?').bind(await hash(token),pending.registration_id).run();if(changed.meta.changes)await sendTokenEmail(env,pending.email,token,purpose);}
+    if(pending){
+      const token=randomToken(),tokenHash=await hash(token);
+      // Every delivered link remains valid for this registration, even when mail arrives out of order.
+      const changed=await env.DB.prepare('INSERT INTO pending_registration_tokens(token_hash,registration_id) SELECT ?,registration_id FROM pending_registrations WHERE registration_id=? AND expires_at>?').bind(tokenHash,pending.registration_id,now()).run();
+      if(changed.meta.changes)try{await sendTokenEmail(env,pending.email,token,purpose);}catch(error){if(error instanceof AccountError&&!error.deliveryUncertain)await env.DB.prepare('DELETE FROM pending_registration_tokens WHERE token_hash=?').bind(tokenHash).run();throw error;}
+    }
   }
   return {ok:true};
 }
@@ -112,13 +120,14 @@ export async function consumeAccountToken(env:ApiEnv,token:string,purpose:'verif
   if(!/^[a-f0-9]{64}$/.test(token))throw new AccountError('INVALID_ACCOUNT_TOKEN',400);
   const tokenHash=await hash(token),claim=randomToken();let ts=now();
   if(purpose==='verify_email'){
-    const pending=await env.DB.prepare('SELECT * FROM pending_registrations WHERE token_hash=? AND expires_at>?').bind(tokenHash,ts).first<PendingRegistration>();
+    const tokenCondition='(token_hash=? OR EXISTS(SELECT 1 FROM pending_registration_tokens t WHERE t.registration_id=pending_registrations.registration_id AND t.token_hash=?))';
+    const pending=await env.DB.prepare(`SELECT * FROM pending_registrations WHERE ${tokenCondition} AND expires_at>?`).bind(tokenHash,tokenHash,ts).first<PendingRegistration>();
     if(pending){
       await accountRate(env,`verify:${pending.email}`);
       if(!await verifyPassword(loginSchema.shape.password.parse(password),pending.password_hash))throw new AccountError('INVALID_CREDENTIALS',401);
       ts=now();
-      const uid=newId('usr'),condition='registration_id=? AND token_hash=? AND password_hash=? AND expires_at>?';
-      const fence=[pending.registration_id,tokenHash,pending.password_hash,ts];
+      const uid=newId('usr'),condition=`registration_id=? AND password_hash=? AND expires_at>? AND ${tokenCondition}`;
+      const fence=[pending.registration_id,pending.password_hash,ts,tokenHash,tokenHash];
       let results:D1Result[];
       try{results=await env.DB.batch([
         env.DB.prepare(`INSERT INTO users(uid,username,display_name,created_at) SELECT ?,username,display_name,? FROM pending_registrations WHERE ${condition}`).bind(uid,ts,...fence),

@@ -13,6 +13,12 @@ const database=z.object({name:z.literal(databaseName),uuid});
 type Database=z.infer<typeof database>;
 const pause=(milliseconds:number)=>new Promise<void>(resolve=>setTimeout(resolve,milliseconds));
 
+export function obsoleteMailSecrets(input:unknown,values:Record<string,string|undefined>){
+  const existing=z.array(z.object({name:z.string(),type:z.string()})).parse(input);
+  // Keep a retirement rule so an old deployment cannot retain the removed provider's key.
+  return existing.filter(secret=>secret.name==='BREVO_API_KEY'||(secret.name==='RESEND_API_KEY'&&!values.RESEND_API_KEY?.trim())).map(secret=>secret.name);
+}
+
 export async function provisionApiDatabase(accountId:string,token:string,knownId?:string,http:Http=fetch):Promise<Database>{
   if(!/^[a-f0-9]{32}$/.test(accountId)||!token)throw Error('INVALID_D1_CONFIGURATION');
   if(knownId)uuid.parse(knownId);
@@ -108,6 +114,8 @@ async function main(){
     const run=(args:string[])=>execFileSync(process.execPath,['node_modules/wrangler/bin/wrangler.js',...args,'--config',file,'--env','production'],{stdio:'inherit',env:{...env,CI:'true',WRANGLER_SEND_METRICS:'false'}});
     run(['d1','migrations','apply',databaseName,'--remote']);
     run(['deploy','--secrets-file',secretFile]);
+    const secretList=execFileSync(process.execPath,['node_modules/wrangler/bin/wrangler.js','secret','list','--format','json','--config',file,'--env','production'],{encoding:'utf8',stdio:['ignore','pipe','inherit'],env:{...env,CI:'true',WRANGLER_SEND_METRICS:'false'}});
+    for(const name of obsoleteMailSecrets(JSON.parse(secretList),env))run(['secret','delete',name]);
   }finally{await rm(temporary,{recursive:true,force:true});}
   const response=await fetch(`https://api.cloudflare.com/client/v4/accounts/${account}/workers/domains`,{
     method:'PUT',headers:{Authorization:`Bearer ${token}`,'Content-Type':'application/json'},

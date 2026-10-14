@@ -1,11 +1,18 @@
 import {it,expect} from 'vitest';
 import {readFileSync} from 'node:fs';
-import {productionApiConfig,provisionApiDatabase,verifyApiRelease,verifyPasswordRuntime} from '../scripts/deploy-api';
+import {productionApiConfig,provisionApiDatabase,verifyApiRelease,verifyPasswordRuntime,obsoleteMailSecrets} from '../scripts/deploy-api';
 import {app} from '../apps/api/src/index';
 import {TestDatabase} from './d1';
 const account='a'.repeat(32),id='11111111-1111-4111-8111-111111111111',sha='1'.repeat(40);
 const database={name:'rocowiki-production',uuid:id};
 const response=(result:unknown)=>new Response(JSON.stringify({success:true,result}));
+it('removes retired mail credentials and omitted Resend keys while preserving unrelated secrets',()=>{
+  const secrets=['BREVO_API_KEY','RESEND_API_KEY','DEPLOY_WEBHOOK_SECRET','GITHUB_APP_PRIVATE_KEY'].map(name=>({name,type:'secret_text'}));
+  expect(obsoleteMailSecrets(secrets,{RESEND_API_KEY:'synthetic-key'})).toEqual(['BREVO_API_KEY']);
+  expect(obsoleteMailSecrets(secrets,{})).toEqual(['BREVO_API_KEY','RESEND_API_KEY']);
+  expect(obsoleteMailSecrets(secrets,{RESEND_API_KEY:' '})).toEqual(['BREVO_API_KEY','RESEND_API_KEY']);
+  expect(()=>obsoleteMailSecrets({success:false},{})).toThrow();
+});
 it('creates only the named Wiki database after a valid empty lookup',async()=>{
   const methods:string[]=[];
   const http:typeof fetch=async(input,options)=>{

@@ -46,3 +46,9 @@ Use QQ, 163, Gmail and Outlook mailboxes you control in the [workbench](https://
 The free daily allowance counts messages, including resends and recovery. Check [current pricing](https://resend.com/pricing) for allowances and plans.
 
 Report domain, Secret and deployment status without sharing keys, passwords, confirmation links or Cookies.
+
+## Upgrade and recovery
+
+Apply `0007_pending_registration_tokens.sql` to the local test database first. Production deployment also applies migrations before uploading code. This migration only adds a table for hashes of resent verification tokens; it does not change existing users or credentials. Confirmation, registration replacement and expiry cleanup remove the related tokens. Resending preserves earlier links for the same registration; one confirmation invalidates every link. Provider timeouts or malformed acknowledgments retain pending state so the user can resend. Only explicit rejection removes the token for that send.
+
+Deployment removes retired mail credentials and a Resend key omitted from the production Secret, while preserving credentials for other services. Retain the new table when rolling back code. Older code recognizes only the original registration link; links resent during the upgrade require a new verification email. Do not delete the database or replace real accounts with demonstration data.

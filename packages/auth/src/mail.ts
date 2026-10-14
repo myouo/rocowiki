@@ -1,5 +1,8 @@
 import type {ApiEnv} from '../../../apps/api/src/types';
 
+export class MailDeliveryError extends Error {
+  constructor(public deliveryUncertain:boolean){super('MAIL_DELIVERY_FAILED');}
+}
 export function mailConfigured(env:ApiEnv){return Boolean(env.MAIL_PROVIDER==='resend'&&env.MAIL_FROM?.trim()&&env.RESEND_API_KEY?.trim());}
 export async function sendAccountMessage(env:ApiEnv,message:{email:string;subject:string;text:string;html:string;idempotencyKey:string}){
   if(!mailConfigured(env))throw new Error('MAIL_NOT_CONFIGURED');
@@ -8,8 +11,8 @@ export async function sendAccountMessage(env:ApiEnv,message:{email:string;subjec
     body:JSON.stringify({from:`RocoWiki <${env.MAIL_FROM.trim()}>`,to:[message.email],subject:message.subject,text:message.text,html:message.html}),
     // Workers supports manual/follow; rejecting non-2xx prevents forwarding credentials.
     redirect:'manual',signal:AbortSignal.timeout(15000),
-  });
-  if(!response.ok)throw new Error('MAIL_DELIVERY_FAILED');
+  }).catch(()=>{throw new MailDeliveryError(true);});
+  if(!response.ok)throw new MailDeliveryError(response.status>=500||response.status===408);
   const result=await response.json().catch(()=>null) as {id?:unknown}|null;
-  if(!result||typeof result.id!=='string'||!result.id.trim())throw new Error('MAIL_DELIVERY_FAILED');
+  if(!result||typeof result.id!=='string'||!result.id.trim())throw new MailDeliveryError(true);
 }
