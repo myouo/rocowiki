@@ -37,6 +37,7 @@ function mailFixture(){
 it('separates immutable username, mutable nickname, email and Wiki UID, storing only a salted password hash',async()=>{
   const record=(await register())!;
   expect(record.uid).toMatch(/^usr_/);expect(record.email).toBe('player@example.test');
+  expect(db.sql.prepare('SELECT registration_number FROM user_registration_numbers WHERE uid=?').get(record.uid)!.registration_number).toBe(1);
   expect(db.sql.prepare('SELECT username,display_name FROM users').get()).toMatchObject({username:'player_01',display_name:'小洛克'});
   expect(record.password_hash).not.toContain(password);expect(await verifyPassword(password,record.password_hash)).toBe(true);
   expect(await verifyPassword('another long password',record.password_hash)).toBe(false);
@@ -44,23 +45,25 @@ it('separates immutable username, mutable nickname, email and Wiki UID, storing 
 });
 it('logs in by email or username without case sensitivity and returns private account information only to its session',async()=>{
   await register();const emailSession=await login('PLAYER@EXAMPLE.TEST'),nameSession=await login('PLAYER_01');
-  for(const session of [emailSession,nameSession]){const r=await request('/me',undefined,session);expect(r.status).toBe(200);expect(await r.json()).toMatchObject({user:{username:'player_01',display_name:'小洛克'},account:{email:'player@example.test',email_verified:false}});}
+  for(const session of [emailSession,nameSession]){const r=await request('/me',undefined,session);expect(r.status).toBe(200);expect(await r.json()).toMatchObject({user:{username:'player_01',display_name:'小洛克',registration_number:1},account:{email:'player@example.test',email_verified:false}});}
   expect((await request('/me')).status).toBe(401);
 });
 it('rejects duplicate normalized emails/usernames atomically without orphaning accounts',async()=>{
   await register();
   for(const input of [{...registration,email:'another@example.test'},{...registration,username:'other_name'}])expect((await request('/auth/register',input)).status).toBe(409);
   expect(db.sql.prepare('SELECT count(*) AS n FROM users').get()!.n).toBe(1);expect(db.sql.prepare('SELECT count(*) AS n FROM password_credentials').get()!.n).toBe(1);
+  expect(db.sql.prepare('SELECT count(*) AS n FROM user_registration_numbers').get()!.n).toBe(1);
 });
 it('enforces username and UID immutability in SQLite and exposes a strict nickname-only update',async()=>{
   const record=(await register())!,session=await login();
   for(const field of ['username','uid'])expect(()=>db.sql.prepare(`UPDATE users SET ${field}=? WHERE uid=?`).run('changed',record.uid)).toThrow('immutable user identity');
   expect((await request('/me',{display_name:'新昵称'},session,'PATCH')).status).toBe(200);
   expect((await request('/me',{display_name:'新昵称',username:'changed'},session,'PATCH')).status).toBe(400);
-  expect(await (await request('/me',undefined,session)).json()).toMatchObject({user:{username:'player_01',display_name:'新昵称'}});
+  expect((await request('/me',{display_name:'新昵称',registration_number:999},session,'PATCH')).status).toBe(400);
+  expect(await (await request('/me',undefined,session)).json()).toMatchObject({user:{username:'player_01',display_name:'新昵称',registration_number:1}});
 });
 it('rejects invalid usernames, weak passwords, controls and client-supplied privileges before creating accounts',async()=>{
-  for(const input of [{...registration,username:'admin'},{...registration,username:'12name'},{...registration,password:'short'},{...registration,display_name:'bad\u0000name'},{...registration,role:'admin'}])expect((await request('/auth/register',input)).status).toBe(400);
+  for(const input of [{...registration,username:'admin'},{...registration,username:'12name'},{...registration,password:'short'},{...registration,display_name:'bad\u0000name'},{...registration,role:'admin'},{...registration,registration_number:999}])expect((await request('/auth/register',input)).status).toBe(400);
   expect(db.sql.prepare('SELECT count(*) AS n FROM users').get()!.n).toBe(0);
 });
 it('returns the same credential error for unknown accounts, wrong passwords and disabled users',async()=>{
@@ -102,9 +105,12 @@ it('requires mailbox verification, uses a fragment token, stores only its hash a
   const blocked=await request('/auth/login',{identifier:'player_01',password});expect(blocked.status).toBe(403);expect(await blocked.json()).toMatchObject({error:{code:'EMAIL_VERIFICATION_REQUIRED'}});
   expect(db.sql.prepare('SELECT count(*) AS n FROM users').get()!.n).toBe(0);
   expect(sent[0].url.search).toBe('');expect(db.sql.prepare('SELECT token_hash FROM pending_registrations').get()!.token_hash).toBe(await hash(sent[0].token));
+  expect(db.sql.prepare('SELECT count(*) AS n FROM user_registration_numbers').get()!.n).toBe(0);
   expect((await request('/auth/email/verify',{token:sent[0].token,password:'wrong password'})).status).toBe(401);
   expect((await request('/auth/email/verify',{token:sent[0].token,password})).status).toBe(200);
   expect((await request('/auth/email/verify',{token:sent[0].token,password})).status).toBe(400);await login();
+  expect(db.sql.prepare('SELECT * FROM user_registration_numbers').all()).toHaveLength(1);
+  expect(db.sql.prepare('SELECT registration_number FROM user_registration_numbers').get()!.registration_number).toBe(1);
 });
 it('resets a verified account password once and rejects all earlier tokens and sessions',async()=>{
   const sent=mailFixture();await register();await consumeAccountToken(env,sent[0].token,'verify_email',password);const session=await login();

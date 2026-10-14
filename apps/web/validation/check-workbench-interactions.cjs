@@ -63,10 +63,12 @@ async function main(){
   }
   const base={commit_sha:'a'.repeat(40),blob_sha:'b'.repeat(40),content:'# Baseline'};
   C.GitHub.prototype.readPage=async()=>base;C.GitHub.prototype.contains=async()=>true;
+  let holdMe=null;
   global.fetch=async(input,init={})=>{
     const url=new URL(String(input)),headers=new Headers(init.headers);
     if(url.origin==='https://api.resend.com'){const message=JSON.parse(init.body);mail.push(new URL(message.text.match(/https?:\/\/\S+/)[0]));return Response.json({id:'fixture-delivery'});}
     requests.push({path:url.pathname,method:init.method??'GET',key:headers.get('Idempotency-Key'),body:init.body,credentials:init.credentials});
+    if(url.pathname==='/me'&&holdMe)await holdMe;
     if(switchOnCollections&&['/drafts','/submissions'].includes(url.pathname)){current='viewer';switchOnCollections=false;}
     if(url.pathname==='/me'&&failNextMe){failNextMe=false;return Response.json({error:{code:'UPSTREAM_RETRYING'}},{status:503});}
     if(url.pathname==='/submissions'&&init.method==='GET'&&failSubmissions)return Response.json({error:{code:'UPSTREAM_RETRYING'}},{status:503});
@@ -171,13 +173,21 @@ async function main(){
     current=role;dom.reconfigure({url:`https://wiki.test/account/${query}`});
     await act(async()=>{root.render(React.createElement(React.StrictMode,null,React.createElement(C.AccountCenter,{key:'account-'+(role||'guest')+'-'+(++accountMount)})));await pause();});
     await act(async()=>await pause(100));
-    await waitFor(()=>!d.body.textContent.includes('正在读取登录状态'),'account bootstrap');
+    await waitFor(()=>!d.querySelector('.account-loading'),'account bootstrap');
   }
+  let releaseMe;
+  holdMe=new Promise(resolve=>{releaseMe=resolve;});
+  current=null;dom.reconfigure({url:'https://wiki.test/account/'});
+  await act(async()=>{root.render(React.createElement(C.AccountCenter,{key:'account-loading-check'}));await pause();});
+  check('Pending session uses an accessible layout skeleton without an assumed identity or active account controls',d.querySelector('.account-loading[aria-busy="true"] [role="status"]')?.textContent.includes('正在确认登录状态')&&d.querySelector('.account-loading-shell')&&!d.querySelector('.rw-account-identity-v71')&&!d.querySelector('input[name="identifier"]')&&!d.body.textContent.includes('FORGED LOCAL ADMIN'));
+  holdMe=null;await act(async()=>{releaseMe();await pause();});await waitFor(()=>!d.querySelector('.account-loading'),'delayed guest session');
   await renderAccount(null);
   check('Account URL shows its own heading and login form without redirecting',d.querySelector('h1')?.textContent==='个人中心'&&w.location.pathname==='/account/'&&d.body.textContent.includes('登录 RocoWiki'));
   check('A visitor cannot promote the local demo identity',!d.body.textContent.includes('FORGED LOCAL ADMIN')&&!d.querySelector('.account-identity'));
   await fill('input[name="identifier"]','contributor');await fill('input[name="password"]','Fixture long password 2026!');await click('登录');await waitFor(()=>!!d.querySelector('.account-identity'),'personal-center login');
   check('Personal-center password login stays on the account URL with server identity',w.location.pathname==='/account/'&&d.querySelector('.account-identity')?.textContent.includes(identities.contributor.uid)&&!d.body.textContent.includes('FORGED LOCAL ADMIN'));
+  const registrationNumber=db.sql.prepare('SELECT registration_number FROM user_registration_numbers WHERE uid=?').get(identities.contributor.uid).registration_number;
+  check('Identity renders its immutable server registration number and keeps a basic access role separate from earned honors',d.querySelector('.account-registration strong')?.textContent===String(registrationNumber)&&d.querySelector('.account-tags')?.textContent.includes('社区成员')&&!d.querySelector('.account-tags')?.textContent.includes('贡献者')&&d.querySelector('.rw-profile-honor-v72')?.textContent.includes('选择展示徽章'));
   await waitFor(()=>!!d.querySelector('.rw-checkin-button-v72')&&!d.querySelector('.rw-checkin-button-v72').disabled,'community bootstrap');
   check('Formal community starts from the server empty ledger and exposes the original community sections',db.sql.prepare('SELECT count(*) AS n FROM community_ledger').get().n===0&&d.body.textContent.includes('社区荣誉')&&d.body.textContent.includes('社区足迹')&&d.body.textContent.includes('签到领印记'));
   await click('签到领印记');await waitFor(()=>d.body.textContent.includes('今日已签到'),'community check-in acknowledgment');
@@ -202,6 +212,7 @@ async function main(){
   check('The personal ranking renders its real earned check-ins without fabricated examples',d.querySelector('.rw-ranking-table-v72').textContent.includes('contributor')&&!d.querySelector('.rw-ranking-table-v72').textContent.includes('示例'));
   await click('个人资料');await fill('input[name="display_name"]','正式个人中心昵称');await click('保存个人资料');
   check('Personal profile edit updates the real owner without changing username or demo storage',db.sql.prepare('SELECT display_name,username FROM users WHERE uid=?').get(identities.contributor.uid).display_name==='正式个人中心昵称'&&d.body.textContent.includes('contributor')&&w.localStorage.getItem('roco-wiki-v4:community')===localIdentity);
+  check('Editing a nickname preserves the displayed server registration number',d.querySelector('.account-registration strong')?.textContent===String(registrationNumber));
   await click('草稿与投稿');
   const continueLink=[...d.querySelectorAll('a')].find(node=>node.textContent.includes('继续编辑'));
   check('Owner sees private drafts and submission state with a direct draft link',continueLink?.href.includes('draft=')&&d.body.textContent.includes('补充来源与实测结果')&&d.body.textContent.includes('已批准'));
