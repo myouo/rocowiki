@@ -44,7 +44,7 @@ export default function ServerPageCommunity({title}:{title:string}) {
     const scope=lifetime.current,captured=context;if(!scope||scope.signal.aborted)return;
     acting.current=true;setBusy(true);setNotice('');
     try{const value=await operation(createWorkspaceService(origin,me.csrf_token,scope.signal));if(scope===lifetime.current&&!scope.signal.aborted&&currentContext.current===captured){onSuccess?.();setNotice(value);setRetry(n=>n+1);}}
-    catch(reason){if(scope===lifetime.current&&!scope.signal.aborted&&currentContext.current===captured){setNotice(message(reason));if(reason instanceof RequestError&&['ACCOUNT_CHANGED','UNAUTHORIZED'].includes(reason.code))refresh();}}
+    catch(reason){if(scope===lifetime.current&&!scope.signal.aborted&&currentContext.current===captured){setNotice(message(reason));if(reason instanceof RequestError&&reason.code==='COMMENT_REMOVED')pending.current=null;if(reason instanceof RequestError&&['ACCOUNT_CHANGED','UNAUTHORIZED'].includes(reason.code))refresh();}}
     finally{if(scope===lifetime.current&&!scope.signal.aborted&&currentContext.current===captured){acting.current=false;setBusy(false);}}
   }
   if(!page)return null;

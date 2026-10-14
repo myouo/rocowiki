@@ -3,6 +3,7 @@ export const errorText:Record<string,string>={
   INSUFFICIENT_MARKS:'洛克印记还不够，继续积攒后再来兑换。',HONOR_NOT_OWNED:'先获得这件纪念物，再选择佩戴。',INVALID_HONOR_SLOT:'这件纪念物无法放在此位置。',UNKNOWN_HONOR_ITEM:'这件纪念物暂未收录。',
   COMMUNITY_DAY_CHANGED:'签到日期已经切换，请重新读取今天的状态后再试。',COMMUNITY_STREAK_CHANGED:'连签状态已经更新，请刷新后重试。',COMMUNITY_RECORD_UNCONFIRMED:'记录暂时无法确认，请重新读取状态；重试不会重复签到或兑换。',
   SELF_LIKE_FORBIDDEN:'自己的内容不计入自我点赞。',LIKE_TARGET_NOT_FOUND:'内容已被移除或尚未发布，暂时无法点赞。',COMMENT_NOT_FOUND:'这条评论已不存在。',INVALID_COMMUNITY_CURSOR:'记录位置已失效，请重新加载。',
+  COMMENT_REMOVED:'这条评论之前已被移除，请重新发表。',
   ACCOUNT_CHANGED:'账号已在其他页面切换，请重新检查登录状态。',
   INVALID_CREDENTIALS:'邮箱、用户名或密码不正确。',EMAIL_VERIFICATION_REQUIRED:'请先验证注册邮箱，再登录。',ACCOUNT_UNAVAILABLE:'这个用户名或邮箱无法用于注册，请换一个或尝试登录。',REGISTRATION_PAUSED:'注册暂未开放。',
   INVALID_REGISTRATION:'请检查邮箱、用户名、昵称和密码。用户名需 3–24 位，密码需 15–128 个字符。',INVALID_PASSWORD:'密码需 15–128 个字符，请避开常见弱密码。',PASSWORD_CONFIRMATION_MISMATCH:'两次输入的密码不一致。',INVALID_DISPLAY_NAME:'昵称需 1–80 个字符，不能包含控制字符或尖括号。',
