@@ -9,7 +9,7 @@
 .account-registration>strong{font-size:18px;color:#4969a2;font-variant-numeric:tabular-nums;line-height:1.3}
 .account-center .account-loading-status{display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin:0 0 18px;color:#4969a2;font-size:13px}
 .account-loading-status>span{color:#68758a;font-size:12px}
-.account-loading-identity{min-height:320px;background:radial-gradient(ellipse at top right,#f5e5d8a6,transparent 54%),linear-gradient(115deg,#fff,#faf8ff)}
+.account-loading-identity{display:flex;align-items:center;gap:22px;min-height:320px;background:radial-gradient(ellipse at top right,#f5e5d8a6,transparent 54%),linear-gradient(115deg,#fff,#faf8ff)}
 .account-loading-details{display:grid;gap:14px;flex:1;min-width:0}
 .account-skeleton{display:block;border-radius:9px;background:linear-gradient(100deg,#e6ebf2 20%,#f0f3f7 45%,#e6ebf2 70%);background-size:220% 100%;animation:account-loading-wave 2s ease-in-out infinite}
 .account-skeleton-avatar{flex:0 0 86px;height:86px;border-radius:26px}

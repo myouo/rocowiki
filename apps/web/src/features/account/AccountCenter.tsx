@@ -29,7 +29,7 @@ const tabs = [
 type Tab = typeof tabs[number][0];
 // These labels describe access. Earned honors come from the server-validated badge.
 const roles = {viewer: '只读成员', contributor: '社区成员', reviewer: '审核员', admin: '管理员'};
-const permissions = {viewer: '浏览资料与参与社区', contributor: '浏览资料、参与社区与准备投稿', reviewer: '准备投稿与审核修订', admin: '审核修订与管理站点'};
+const permissions = {viewer: '浏览资料与参与社区', contributor: '浏览资料、参与社区与准备投稿', reviewer: '准备投稿与审核修订', admin: '准备投稿、审核修订与管理站点'};
 function pageTitle(id: string) { return catalog.pages.find(page => page.id === id)?.title ?? id; }
 function internalHref(href: string) { return href.startsWith('/') && !href.startsWith('//') && !/[\\\u0000-\u001f]/.test(href) ? href : '/'; }
 
