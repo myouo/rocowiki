@@ -9,10 +9,13 @@ export function useAccountCenter(origin: string) {
   const [booting, setBooting] = useState(true);
   const [busy, setBusy] = useState(false);
   const [notice, setNotice] = useState('');
+  const [sessionError, setSessionError] = useState('');
   const [drafts, setDrafts] = useState<Draft[]>([]);
   const [submissions, setSubmissions] = useState<SubmissionRow[]>([]);
-  const [collectionState, setCollectionState] = useState<'loading' | 'ready' | 'error'>('loading');
-  const [collectionError, setCollectionError] = useState('');
+  const [draftState, setDraftState] = useState<'loading' | 'ready' | 'error'>('loading');
+  const [submissionState, setSubmissionState] = useState<'loading' | 'ready' | 'error'>('loading');
+  const [draftError, setDraftError] = useState('');
+  const [submissionError, setSubmissionError] = useState('');
   const lifetime = useRef<AbortController | null>(null);
   const identity = useRef<string | null>(null);
   const listVersion = useRef(0);
@@ -21,12 +24,13 @@ export function useAccountCenter(origin: string) {
 
   function clearCollections() {
     listVersion.current++;
-    setDrafts([]); setSubmissions([]); setCollectionError(''); setCollectionState('loading');
+    setDrafts([]); setSubmissions([]); setDraftError(''); setSubmissionError(''); setDraftState('loading'); setSubmissionState('loading');
   }
   function acceptIdentity(value: Me | null) {
     if (identity.current !== (value?.user.uid ?? null)) clearCollections();
     identity.current = value?.user.uid ?? null;
     setMe(value);
+    if(value)setSessionError('');
   }
   async function refresh() {
     const scope = lifetime.current;
@@ -40,7 +44,7 @@ export function useAccountCenter(origin: string) {
     try { await operation(); }
     catch (error) {
       if (scope === lifetime.current && !scope?.signal.aborted) {
-        if (error instanceof RequestError && error.code === 'UNAUTHORIZED') acceptIdentity(null);
+        if (error instanceof RequestError && error.code === 'UNAUTHORIZED') {acceptIdentity(null);setSessionError('');}
         setNotice(message(error));
       }
     } finally {
@@ -51,35 +55,47 @@ export function useAccountCenter(origin: string) {
     const scope = lifetime.current, uid = identity.current, version = ++listVersion.current;
     if (!uid) return;
     const current = () => scope === lifetime.current && !scope?.signal.aborted && identity.current === uid && listVersion.current === version;
-    setCollectionState('loading'); setCollectionError('');
-    try {
-      const [saved, posted] = await Promise.all([service.drafts(), service.mine()]);
-      if (current()) { setDrafts(saved.drafts); setSubmissions(posted.submissions); setCollectionState('ready'); }
-    } catch (error) {
+    setDraftState('loading'); setSubmissionState('loading'); setDraftError(''); setSubmissionError('');
+    function failed(error:unknown,kind:'draft'|'submission'){
       if (current()) {
-        if (error instanceof RequestError && error.code === 'UNAUTHORIZED') acceptIdentity(null);
-        else { setCollectionState('error'); setCollectionError(message(error)); }
+        if(error instanceof RequestError&&error.code==='ACCOUNT_CHANGED') {acceptIdentity(null);setSessionError(message(error));}
+        else if (error instanceof RequestError && error.code === 'UNAUTHORIZED') {acceptIdentity(null);setSessionError('');}
+        else if(kind==='draft'){setDraftState('error');setDraftError(message(error));}
+        else {setSubmissionState('error');setSubmissionError(message(error));}
       }
     }
+    await Promise.allSettled([
+      service.drafts(uid).then(saved=>{if(current()){setDrafts(saved.drafts);setDraftState('ready');}}).catch(error=>failed(error,'draft')),
+      service.mine(uid).then(posted=>{if(current()){setSubmissions(posted.submissions);setSubmissionState('ready');}}).catch(error=>failed(error,'submission')),
+    ]);
+  }
+  async function recheck(){
+    const scope=lifetime.current;
+    setBooting(true);setSessionError('');
+    try{await refresh();}
+    catch(error){if(scope===lifetime.current&&!scope?.signal.aborted)setSessionError(message(error));throw error;}
+    finally{if(scope===lifetime.current&&!scope?.signal.aborted)setBooting(false);}
   }
   async function login(identifier: string, password: string) {
     await service.login({identifier, password});
-    await refresh();
+    await recheck();
   }
   async function logout() {
     await service.logout();
-    acceptIdentity(null); setNotice('已退出登录。');
+    acceptIdentity(null); setSessionError(''); setNotice('已退出登录。');
   }
   useEffect(() => {
     const controller = new AbortController();
     lifetime.current = controller; acting.current = false;
-    identity.current = null; setMe(null); clearCollections(); setBooting(true); setBusy(false); setNotice('');
+    identity.current = null; setMe(null); clearCollections(); setBooting(true); setBusy(false); setNotice(''); setSessionError('');
     createWorkspaceService(origin, undefined, controller.signal).me()
       .then(value => { if (!controller.signal.aborted) acceptIdentity(value); })
-      .catch(error => { if (!controller.signal.aborted && !(error instanceof RequestError && error.code === 'UNAUTHORIZED')) setNotice(message(error)); })
+      .catch(error => { if (!controller.signal.aborted && !(error instanceof RequestError && error.code === 'UNAUTHORIZED')) {setNotice(message(error));setSessionError(message(error));} })
       .finally(() => { if (!controller.signal.aborted) setBooting(false); });
     return () => controller.abort();
   }, [origin]);
   useEffect(() => { if (me) void loadCollections(); }, [origin, me?.user.uid]);
-  return {me, booting, busy, notice, setNotice, drafts, submissions, collectionState, collectionError, service, refresh, action, login, logout, loadCollections};
+  const collectionError=[draftError,submissionError].filter(Boolean).join(' ');
+  const collectionState=draftState==='error'||submissionState==='error'?'error':draftState==='ready'&&submissionState==='ready'?'ready':'loading';
+  return {me, booting, busy, notice, sessionError, recheck, setNotice, drafts, submissions, draftState, submissionState, collectionState, collectionError, service, refresh, action, login, logout, loadCollections};
 }

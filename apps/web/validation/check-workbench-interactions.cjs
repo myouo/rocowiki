@@ -8,7 +8,7 @@ const React=require('react');
 const {act}=React;
 const project=path.resolve(__dirname,'..'),repo=path.resolve(project,'../..');
 const temp=fs.mkdtempSync(path.join(os.tmpdir(),'rocowiki-workbench-'));
-const original={fetch:global.fetch,setTimeout:global.setTimeout,error:console.error,navigator:Object.getOwnPropertyDescriptor(global,'navigator')};
+const original={fetch:global.fetch,setTimeout:global.setTimeout,now:Date.now,error:console.error,navigator:Object.getOwnPropertyDescriptor(global,'navigator')};
 let dom,root,db;
 const checks=[],errors=[],requests=[];
 const pause=time=>new Promise(resolve=>original.setTimeout(resolve,time??25));
@@ -46,8 +46,10 @@ async function main(){
   Object.assign(global,{window:w,document:d,HTMLElement:w.HTMLElement,Node:w.Node,Event:w.Event,IS_REACT_ACT_ENVIRONMENT:true});
   Object.defineProperty(global,'navigator',{configurable:true,value:w.navigator});
   console.error=(...args)=>errors.push(args.map(String).join(' '));
-  // Exercise the real controller's 30-second timeout using a shorter test clock.
-  global.setTimeout=(callback,time,...args)=>original.setTimeout(callback,time===30000?(d.querySelector('input[name="password"]')?2500:40):time,...args);
+  let current=null,lose=null,switchOnCollections=false,failSubmissions=false,failMeAfterLogin=false,failNextMe=false,clockOffset=0;
+  // Accelerate only deliberately lost responses, preserving normal API deadlines.
+  global.setTimeout=(callback,time,...args)=>original.setTimeout(callback,time===30000&&lose?40:time,...args);
+  Date.now=()=>original.now()+clockOffset;
   const C=require(path.join(temp,'app.cjs'));
   db=new C.TestDatabase();
   const env=db.env({WEB_ORIGIN:'https://wiki.test',API_ORIGIN:'https://api.wiki.test',MAIL_PROVIDER:'resend',MAIL_FROM:'accounts@example.test',RESEND_API_KEY:'fixture-mail-key'});
@@ -61,18 +63,20 @@ async function main(){
   }
   const base={commit_sha:'a'.repeat(40),blob_sha:'b'.repeat(40),content:'# Baseline'};
   C.GitHub.prototype.readPage=async()=>base;C.GitHub.prototype.contains=async()=>true;
-  let current=null,lose=null;
   global.fetch=async(input,init={})=>{
     const url=new URL(String(input)),headers=new Headers(init.headers);
     if(url.origin==='https://api.resend.com'){const message=JSON.parse(init.body);mail.push(new URL(message.text.match(/https?:\/\/\S+/)[0]));return Response.json({id:'fixture-delivery'});}
     requests.push({path:url.pathname,method:init.method??'GET',key:headers.get('Idempotency-Key'),body:init.body,credentials:init.credentials});
+    if(switchOnCollections&&['/drafts','/submissions'].includes(url.pathname)){current='viewer';switchOnCollections=false;}
+    if(url.pathname==='/me'&&failNextMe){failNextMe=false;return Response.json({error:{code:'UPSTREAM_RETRYING'}},{status:503});}
+    if(url.pathname==='/submissions'&&init.method==='GET'&&failSubmissions)return Response.json({error:{code:'UPSTREAM_RETRYING'}},{status:503});
     // Password login, sessions, drafts and decisions all use real API and SQL.
     headers.set('Origin',env.WEB_ORIGIN);
     if(current)headers.set('Cookie',`roco_session=${identities[current].token}`);
     const background=[];
     const response=await C.app.fetch(new Request(url,{...init,headers}),env,{waitUntil:p=>background.push(p),passThroughOnException(){},props:{}});
     await Promise.all(background);
-    if(url.pathname==='/auth/login'&&response.ok){const token=/roco_session=([a-f0-9]{64})/.exec(response.headers.get('set-cookie'))[1];current='contributor';identities.contributor.token=token;}
+    if(url.pathname==='/auth/login'&&response.ok){const token=/roco_session=([a-f0-9]{64})/.exec(response.headers.get('set-cookie'))[1];current='contributor';identities.contributor.token=token;if(failMeAfterLogin){failMeAfterLogin=false;failNextMe=true;}}
     if((lose===url.pathname||lose==='draft'&&url.pathname.startsWith('/drafts/'))&&init.method!=='GET'){
       lose=null;init.signal.throwIfAborted();
       return new Promise((_,reject)=>init.signal.addEventListener('abort',()=>reject(init.signal.reason),{once:true}));
@@ -95,9 +99,16 @@ async function main(){
     const prototype=node.tagName==='TEXTAREA'?w.HTMLTextAreaElement.prototype:node.tagName==='SELECT'?w.HTMLSelectElement.prototype:w.HTMLInputElement.prototype;
     await act(async()=>{Object.getOwnPropertyDescriptor(prototype,'value').set.call(node,value);node.dispatchEvent(new w.Event(node.tagName==='SELECT'?'change':'input',{bubbles:true}));});
   }
+  async function waitFor(condition,label){
+    const deadline=original.now()+5000;
+    while(!condition()){
+      if(original.now()>=deadline)throw new Error(`Timed out: ${label}; rendered: ${d.body.textContent}`);
+      await act(async()=>await pause(20));
+    }
+  }
   await render(null);
   check('Guest sees password login and no editor',d.body.textContent.includes('登录 RocoWiki')&&!d.querySelector('textarea'));
-  await fill('input[name="identifier"]','contributor');await fill('input[name="password"]','Fixture long password 2026!');await click('登录');await act(async()=>await pause(500));
+  await fill('input[name="identifier"]','contributor');await fill('input[name="password"]','Fixture long password 2026!');await click('登录');await waitFor(()=>d.body.textContent.includes('账号与归属'),'workbench password login');
   check('Password login establishes a real API session and opens the workbench',requests.some(r=>r.path==='/auth/login'&&r.method==='POST'&&r.credentials==='include')&&d.body.textContent.includes('账号与归属'));
   await render('contributor');await fill('.toolbar select','contributing');await click('加载当前基线');
   const content='# Revised\n\n'+'资料'.repeat(10000);
@@ -132,34 +143,38 @@ async function main(){
   check('Viewer cannot mount editing controls or review tab',!d.querySelector('textarea')&&![...d.querySelectorAll('[role="tab"]')].some(tab=>tab.textContent==='审核队列'));
   await render(null);await click('创建账号');
   for(const [name,value] of [['email','fresh@example.test'],['username','Fresh_Player'],['display_name','新注册昵称'],['password','Registration fixture password!'],['password_confirmation','Registration fixture password!']])await fill(`input[name="${name}"]`,value);
-  await click('注册');await act(async()=>await pause(500));
+  await click('注册');await waitFor(()=>mail.length===1&&d.body.textContent.includes('登录 RocoWiki'),'registration acknowledgment');
   check('Registration form sends a verification message without creating an account',mail.length===1&&!db.sql.prepare('SELECT uid FROM users WHERE username=?').get('fresh_player'));
   await render(null,`?flow=verify${mail[0].hash}`);
   check('Email fragment opens an explicit confirmation form and is removed from the address',d.body.textContent.includes('确认验证邮箱')&&!w.location.hash);
-  await fill('input[name="password"]','Registration fixture password!');await click('确认验证');await act(async()=>await pause(500));
+  await fill('input[name="password"]','Registration fixture password!');await click('确认验证');await waitFor(()=>d.body.textContent.includes('邮箱验证成功'),'verification acknowledgment');
   check('Email plus registration password creates a verified account',db.sql.prepare('SELECT email_verified_at FROM password_credentials WHERE email=?').get('fresh@example.test').email_verified_at>0);
-  await fill('input[name="identifier"]','FRESH_PLAYER');await fill('input[name="password"]','Registration fixture password!');await click('登录');await act(async()=>await pause(500));
+  await fill('input[name="identifier"]','FRESH_PLAYER');await fill('input[name="password"]','Registration fixture password!');await click('登录');await waitFor(()=>d.body.textContent.includes('账号与归属'),'workbench password login');
   await click('账号与归属');await fill('input[name="display_name"]','修改后的昵称');await click('保存昵称');
   check('Account settings keep username immutable while saving a distinct nickname',db.sql.prepare('SELECT username,display_name FROM users WHERE username=?').get('fresh_player').display_name==='修改后的昵称'&&d.body.textContent.includes('fresh_player')&&!d.querySelector('input[name="username"]'));
   await global.fetch('https://api.wiki.test/auth/password/request-reset',{method:'POST',headers:{'Content-Type':'application/json','X-Roco-Request':'1'},body:JSON.stringify({identifier:'fresh_player'})});
   await render('contributor',`?flow=reset${mail[1].hash}`);
   check('A reset link opens its form even when an old session is still logged in',d.body.textContent.includes('设置新密码'));
-  await fill('input[name="password"]','Reset fixture password 2026!');await fill('input[name="password_confirmation"]','Reset fixture password 2026!');await click('保存新密码');await act(async()=>await pause(500));
-  await fill('input[name="identifier"]','fresh@example.test');await fill('input[name="password"]','Reset fixture password 2026!');await click('登录');await act(async()=>await pause(500));
+  await fill('input[name="password"]','Reset fixture password 2026!');await fill('input[name="password_confirmation"]','Reset fixture password 2026!');await click('保存新密码');await waitFor(()=>d.body.textContent.includes('密码已重置'),'password reset acknowledgment');
+  await fill('input[name="identifier"]','fresh@example.test');await fill('input[name="password"]','Reset fixture password 2026!');await click('登录');await waitFor(()=>d.body.textContent.includes('账号与归属'),'workbench password login');
   check('The reset password logs in and drops the previous private editor state',d.body.textContent.includes('账号与归属')&&!d.querySelector('.markdown-editor'));
   // The personal center uses the same real API and SQL, and ignores forged demo identity.
   identities.contributor.token=(await C.createSession(env,identities.contributor.uid,C.now())).token;
   const localIdentity=JSON.stringify({version:1,profile:{uid:'999',nickname:'FORGED LOCAL ADMIN',role:'admin'},drafts:[{body:'FORGED LOCAL DRAFT'}],submissions:[]});
   w.localStorage.setItem('roco-wiki-v4:community',localIdentity);
+  let accountMount=0;
   async function renderAccount(role,query=''){
+    // Separate user journeys in time; production rate limits remain enabled.
+    clockOffset+=60000;
     current=role;dom.reconfigure({url:`https://wiki.test/account/${query}`});
-    await act(async()=>{root.render(React.createElement(React.StrictMode,null,React.createElement(C.AccountCenter,{key:'account-'+(role||'guest')})));await pause();});
+    await act(async()=>{root.render(React.createElement(React.StrictMode,null,React.createElement(C.AccountCenter,{key:'account-'+(role||'guest')+'-'+(++accountMount)})));await pause();});
     await act(async()=>await pause(100));
+    await waitFor(()=>!d.body.textContent.includes('正在读取登录状态'),'account bootstrap');
   }
   await renderAccount(null);
   check('Account URL shows its own heading and login form without redirecting',d.querySelector('h1')?.textContent==='个人中心'&&w.location.pathname==='/account/'&&d.body.textContent.includes('登录 RocoWiki'));
   check('A visitor cannot promote the local demo identity',!d.body.textContent.includes('FORGED LOCAL ADMIN')&&!d.querySelector('.account-identity'));
-  await fill('input[name="identifier"]','contributor');await fill('input[name="password"]','Fixture long password 2026!');await click('登录');await act(async()=>await pause(500));
+  await fill('input[name="identifier"]','contributor');await fill('input[name="password"]','Fixture long password 2026!');await click('登录');await waitFor(()=>!!d.querySelector('.account-identity'),'personal-center login');
   check('Personal-center password login stays on the account URL with server identity',w.location.pathname==='/account/'&&d.querySelector('.account-identity')?.textContent.includes(identities.contributor.uid)&&!d.body.textContent.includes('FORGED LOCAL ADMIN'));
   await click('个人资料');await fill('input[name="display_name"]','正式个人中心昵称');await click('保存昵称');
   check('Personal profile edit updates the real owner without changing username or demo storage',db.sql.prepare('SELECT display_name,username FROM users WHERE uid=?').get(identities.contributor.uid).display_name==='正式个人中心昵称'&&d.body.textContent.includes('contributor')&&w.localStorage.getItem('roco-wiki-v4:community')===localIdentity);
@@ -170,7 +185,7 @@ async function main(){
   await render('contributor',destination.search);
   check('The personal-center draft link restores actual content and sources in the workbench',d.querySelector('.markdown-editor')?.value===content&&d.querySelector('input[aria-label="来源 1 地址"]')?.value==='https://example.com/evidence');
   await render(null,destination.search);
-  await fill('input[name="identifier"]','contributor');await fill('input[name="password"]','Fixture long password 2026!');await click('登录');await act(async()=>await pause(500));
+  await fill('input[name="identifier"]','contributor');await fill('input[name="password"]','Fixture long password 2026!');await click('登录');await waitFor(()=>d.querySelector('.markdown-editor')?.value===content,'authenticated draft restoration');
   check('Draft restoration also completes when the deep link first requires password login',d.querySelector('.markdown-editor')?.value===content);
   await renderAccount('viewer');await click('草稿与投稿');
   check('An account switch hides another owner private drafts and submissions',!d.body.textContent.includes('补充来源与实测结果')&&d.body.textContent.includes('还没有保存的草稿'));
@@ -179,13 +194,27 @@ async function main(){
   await click('退出登录');
   check('Personal-center logout removes identity and private email',!d.querySelector('.account-identity')&&!d.body.textContent.includes('viewer@example.test')&&d.body.textContent.includes('登录 RocoWiki'));
   check('Personal center does not import a demo balance, role or draft',w.localStorage.getItem('roco-wiki-v4:community')===localIdentity&&!d.body.textContent.includes('FORGED LOCAL DRAFT'));
+  await renderAccount(null);failMeAfterLogin=true;
+  await fill('input[name="identifier"]','contributor');await fill('input[name="password"]','Fixture long password 2026!');await click('登录');await waitFor(()=>d.body.textContent.includes('登录状态需要确认'),'post-login identity recovery');
+  check('Successful login with a lost identity refresh shows recovery instead of a guest login form',d.body.textContent.includes('登录状态需要确认')&&!d.querySelector('input[name="identifier"]'));
+  await click('重新检查登录状态');
+  check('Identity refresh recovery uses the existing session without another password login',d.querySelector('.account-identity')?.textContent.includes(identities.contributor.uid));
+  failSubmissions=true;await renderAccount('contributor','?tab=submissions');
+  await waitFor(()=>d.body.textContent.includes('投稿暂时无法读取')&&!![...d.querySelectorAll('a')].find(node=>node.textContent.includes('继续编辑')),'independent record loading');
+  check('A failed submissions endpoint does not hide healthy private drafts',!![...d.querySelectorAll('a')].find(node=>node.textContent.includes('继续编辑'))&&d.body.textContent.includes('投稿暂时无法读取'));
+  identities.viewer.token=(await C.createSession(env,identities.viewer.uid,C.now())).token;
+  failSubmissions=false;switchOnCollections=true;await renderAccount('contributor');
+  await waitFor(()=>d.body.textContent.includes('账号已在其他页面切换'),'shared-cookie account switch');
+  check('A shared-cookie account switch rejects mismatched response ownership and drops stale identity',d.body.textContent.includes('账号已在其他页面切换')&&!d.querySelector('.account-identity')&&!d.body.textContent.includes('补充来源与实测结果'));
+  await click('重新检查登录状态');
+  check('Cookie account switch recovery loads the new server identity',d.querySelector('.account-identity')?.textContent.includes(identities.viewer.uid)&&!d.body.textContent.includes('补充来源与实测结果'));
   await act(async()=>{root.unmount();await pause();});root=null;
   check('Interactions and unmount produce no React errors',errors.length===0);
   console.log(`Formal workbench interactions passed: ${checks.length} checks (real password login, API and SQLite).`);
 }
 main().catch(error=>{original.error(error);process.exitCode=1;}).finally(async()=>{
   if(root)await act(async()=>root.unmount());
-  db?.close();dom?.window.close();global.fetch=original.fetch;global.setTimeout=original.setTimeout;console.error=original.error;
+  db?.close();dom?.window.close();global.fetch=original.fetch;global.setTimeout=original.setTimeout;Date.now=original.now;console.error=original.error;
   if(original.navigator)Object.defineProperty(global,'navigator',original.navigator);
   fs.rmSync(temp,{recursive:true,force:true});
 });

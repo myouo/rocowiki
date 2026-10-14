@@ -60,11 +60,11 @@ export function useWorkbench() {
   async function openRequestedWorkspace(result:Me,params:URLSearchParams,client:WorkspaceService){
     if(params.get('tab')==='account')setTab('account');
     if(params.get('draft')&&result.user.role!=='viewer'){
-      const saved=(await client.drafts()).drafts.find(row=>row.draft_id===params.get('draft')&&(!params.get('page')||row.page_id===params.get('page')));
+      const saved=(await client.drafts(result.user.uid)).drafts.find(row=>row.draft_id===params.get('draft')&&(!params.get('page')||row.page_id===params.get('page')));
       if(!saved)throw new RequestError('INVALID_DRAFT');
       restore(saved);
     }else if(params.get('tab')==='mine'){
-      const [mine,saved]=await Promise.all([client.mine(),client.drafts()]);
+      const [mine,saved]=await Promise.all([client.mine(result.user.uid),client.drafts(result.user.uid)]);
       setSubmissions(mine.submissions);setDrafts(saved.drafts);setTab('mine');
       if(params.get('submission'))setSelected(await client.detail(params.get('submission')!));
     }
@@ -107,7 +107,8 @@ export function useWorkbench() {
     setAccountLink(false);
   }
   async function listMine() {
-    const [s, d] = await Promise.all([service.mine(), service.drafts()]);
+    if(!me)throw new RequestError('UNAUTHORIZED');
+    const [s, d] = await Promise.all([service.mine(me.user.uid), service.drafts(me.user.uid)]);
     setSubmissions(s.submissions);
     setDrafts(d.drafts);
   }

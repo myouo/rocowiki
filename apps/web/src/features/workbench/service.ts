@@ -28,6 +28,11 @@ export function createWorkspaceService(origin:string,csrf?:string,signal?:AbortS
   };
   const ok=z.object({ok:z.boolean()});
   const redirect=z.object({redirect_url:z.string().url().refine(value=>{const url=new URL(value);return ['https:','http:'].includes(url.protocol)&&!url.username&&!url.password;})});
+  async function owned<T extends {owner_uid?:string}>(path:string,schema:z.ZodType<T>,expectedUid?:string):Promise<T>{
+    const result=await request(path,schema);
+    if(expectedUid&&result.owner_uid!==expectedUid)throw new RequestError(result.owner_uid?'ACCOUNT_CHANGED':'INVALID_SERVICE_RESPONSE');
+    return result;
+  }
   return {
     me:()=>request('/me',dto.me),
     profile:async(uid:string)=>{const result=await request(`/users/${encodeURIComponent(uid)}`,dto.publicProfile);if(result.user.uid!==uid)throw new RequestError('INVALID_SERVICE_RESPONSE');return result;},
@@ -42,8 +47,8 @@ export function createWorkspaceService(origin:string,csrf?:string,signal?:AbortS
     verifyEmail:(token:string,password:string)=>request('/auth/email/verify',ok,'POST',{token,password}),
     resetPassword:(token:string,password:string)=>request('/auth/password/reset',ok,'POST',{token,password}),
     base:async(id:string)=>{const result=await request(`/pages/${encodeURIComponent(id)}/edit-base`,dto.base);if(result.page.id!==id)throw new RequestError('INVALID_SERVICE_RESPONSE');return result;},
-    mine:()=>request('/submissions',z.object({submissions:z.array(dto.submissionRow)})),
-    drafts:()=>request('/drafts',z.object({drafts:z.array(dto.draft)})),
+    mine:(uid?:string)=>owned('/submissions',z.object({owner_uid:z.string().optional(),submissions:z.array(dto.submissionRow)}),uid),
+    drafts:(uid?:string)=>owned('/drafts',z.object({owner_uid:z.string().optional(),drafts:z.array(dto.draft)}),uid),
     reviews:()=>request('/reviews',z.object({submissions:z.array(dto.submissionRow)})),
     jobs:()=>request('/admin/jobs',z.object({jobs:z.array(dto.job)})),
     detail:async(id:string)=>{const result=await request(`/submissions/${encodeURIComponent(id)}`,dto.submission);if(result.revision_id!==id)throw new RequestError('INVALID_SERVICE_RESPONSE');return result;},

@@ -21,7 +21,7 @@
     if(path==='/me')return ok({user:{uid:ids[role],username:role,display_name:`Browser fixture ${role}`,role},csrf_token:'a'.repeat(64),github:null,consent_version:'fixture'});
     if(path==='/pages/contributing/edit-base')return ok({page:{id:'contributing',kind:'article',title:'参与贡献'},commit_sha:'a'.repeat(40),blob_sha:'b'.repeat(40),content:'# Baseline',base_data_revision:null});
     let response;
-    if(path==='/drafts'&&method==='GET')return ok({drafts:Object.values(state.drafts)});
+    if(path==='/drafts'&&method==='GET')return ok({owner_uid:ids[role],drafts:Object.values(state.drafts)});
     if(path.startsWith('/drafts/')&&method==='PUT'){
       const draft_id=path.split('/').at(-1);state.drafts[draft_id]={draft_id,page_id:body.page_id,body_json:JSON.stringify(body.body)};
       response=ok({draft_id});
@@ -30,7 +30,7 @@
       let id=state.keys[requestKey];
       if(!id){id='rev_'+crypto.randomUUID();state.keys[requestKey]=id;state.submissions[id]={revision_id:id,page_id:body.page_id,status:'pending_review',edit_summary:body.edit_summary,uid:ids.contributor,version:0,content:body.content_markdown,base_content:'# Baseline',required_reviews:1,pr_number:null,last_error:null,sources_json:JSON.stringify(body.source_references),reviews:[],publication_events:[]};}
       response=ok({revision_id:id});
-    }else if(path==='/submissions')return ok({submissions:Object.values(state.submissions)});
+    }else if(path==='/submissions')return ok({owner_uid:ids[role],submissions:Object.values(state.submissions)});
     else if(path==='/reviews')return ok({submissions:Object.values(state.submissions).filter(row=>row.status==='pending_review')});
     else if(path.startsWith('/submissions/'))return ok(state.submissions[path.split('/').at(-1)]);
     else if(path.startsWith('/reviews/')&&method==='POST'){

@@ -27,7 +27,7 @@ export default function AccountCenter() {
   const {siteConfig} = useDocusaurusContext();
   const origin = typeof siteConfig.customFields?.apiOrigin === 'string' ? siteConfig.customFields.apiOrigin : '';
   const state = useAccountCenter(origin);
-  const {me, booting, busy, notice, setNotice, drafts, submissions, collectionState, collectionError, service, refresh, action, login, logout, loadCollections} = state;
+  const {me, booting, busy, notice, sessionError, recheck, setNotice, drafts, submissions, draftState, submissionState, collectionState, collectionError, service, refresh, action, login, logout, loadCollections} = state;
   const {bookmarks, remove, error: bookmarkError} = useBookmarks();
   const location = useLocation(), history = useHistory(), accountPath = useBaseUrl('/account/');
   const requested = new URLSearchParams(location.search).get('tab');
@@ -36,7 +36,7 @@ export default function AccountCenter() {
   useEffect(() => { setConsent(false); }, [me?.user.uid, me?.github?.login]);
   const open = (next: Tab) => history.push(accountPath + (next === 'overview' ? '' : `?tab=${next}`));
   const workbench = (params: Record<string, string>) => `/workbench/?${new URLSearchParams(params)}`;
-  const ready = collectionState === 'ready';
+  const draftReady=draftState==='ready', submissionReady=submissionState==='ready';
   const canContribute = me && me.user.role !== 'viewer';
   const published = submissions.filter(row => row.status === 'published');
 
@@ -54,7 +54,7 @@ export default function AccountCenter() {
       {me && <Link className="cm-button" to="/workbench/">共建工作台<ArrowRight size={15} /></Link>}
     </header>
     {notice && <p className="notice" role="status">{notice}</p>}
-    {booting ? <div className="cm-paper" role="status">正在读取登录状态…</div> : !me ? <div className="account-guest cm-paper">
+    {booting ? <div className="cm-paper" role="status">正在读取登录状态…</div> : sessionError ? <section className="cm-paper"><h2>登录状态需要确认</h2><p>{sessionError}</p><button type="button" className="cm-button" disabled={busy} onClick={()=>void action(recheck)}>重新检查登录状态</button></section> : !me ? <div className="account-guest cm-paper">
       <div><div className="account-welcome-icon"><BookOpen size={30} /></div><h2>让每一次发现都有自己的署名</h2><p>登录后管理你的资料与账号安全，查看私有草稿和投稿进度。</p><Link className="cm-button" to="/pets/">先逛逛资料库<ArrowRight size={14} /></Link></div>
       <AuthenticationPanel service={service} busy={busy} action={action} login={login} notice={setNotice} />
     </div> : <>
@@ -66,20 +66,20 @@ export default function AccountCenter() {
         <div className="ev7-account-main">
           {tab === 'overview' && <>
             <div className="cm-account-stats account-stats">{[
-              [FilePenLine, ready ? String(drafts.length) : '—', '私有草稿', 'submissions'],
-              [BookOpen, ready ? String(submissions.length) : '—', '最近投稿', 'submissions'],
+              [FilePenLine, draftReady ? String(drafts.length) : '—', '私有草稿', 'submissions'],
+              [BookOpen, submissionReady ? String(submissions.length) : '—', '最近投稿', 'submissions'],
               [Bookmark, String(bookmarks.length), '阅读收藏', 'bookmarks'],
             ].map(([Icon, count, label, destination]) => { const Mark = Icon as typeof Bookmark; return <button type="button" key={String(label)} onClick={() => open(destination as Tab)}><Mark size={20} /><strong>{String(count)}</strong><span>{String(label)}</span></button>; })}</div>
-            <section className="cm-paper account-overview"><h2>从这里继续</h2><p>草稿只对你可见，投稿进度随审核与发布状态更新。</p><div className="account-shortcuts"><button type="button" onClick={() => open('submissions')}><FilePenLine size={20} /><span><b>草稿与投稿</b><small>{ready ? `${drafts.length} 份草稿 · ${published.length} 条最近投稿已发布` : '正在读取你的记录'}</small></span><ArrowRight size={16} /></button><button type="button" onClick={() => open('security')}><LockKeyhole size={20} /><span><b>账号与安全</b><small>密码、GitHub 关联与退出登录</small></span><ArrowRight size={16} /></button></div></section>
+            <section className="cm-paper account-overview"><h2>从这里继续</h2><p>草稿只对你可见，投稿进度随审核与发布状态更新。</p><div className="account-shortcuts"><button type="button" onClick={() => open('submissions')}><FilePenLine size={20} /><span><b>草稿与投稿</b><small>{`${draftReady?drafts.length:'—'} 份草稿 · ${submissionReady?published.length:'—'} 条最近投稿已发布`}</small></span><ArrowRight size={16} /></button><button type="button" onClick={() => open('security')}><LockKeyhole size={20} /><span><b>账号与安全</b><small>密码、GitHub 关联与退出登录</small></span><ArrowRight size={16} /></button></div></section>
             {savedItems}
           </>}
           {(tab === 'overview' || tab === 'submissions') && collectionState === 'error' && <div className="cm-paper" role="status"><p>{collectionError}</p><button type="button" className="cm-button" disabled={busy} onClick={() => void action(loadCollections)}>重新加载记录</button></div>}
           {tab === 'submissions' && <>
             <section className="cm-paper"><div className="cm-section-heading"><h2><FilePenLine size={19} />私有草稿</h2>{canContribute && <Link className="cm-button" to="/workbench/">开始一份修订<ArrowRight size={14} /></Link>}</div>
-              {!ready ? <p role="status">{collectionState === 'loading' ? '正在读取草稿…' : '草稿暂时无法读取。'}</p> : drafts.length ? <div className="account-records">{drafts.map(draft => <article key={draft.draft_id}><div><b>{pageTitle(draft.page_id)}</b><small>仅自己可见</small></div><div className="account-record-actions">{canContribute && <Link className="cm-button" to={workbench({tab: 'edit', page: draft.page_id, draft: draft.draft_id})}>继续编辑<ArrowRight size={14} /></Link>}<button type="button" className="cm-text-button" disabled={busy} onClick={() => void action(async () => { await service.deleteDraft(draft.draft_id); await loadCollections(); setNotice('草稿已删除。'); })}>删除草稿</button></div></article>)}</div> : <div className="cm-empty"><FilePenLine size={27} /><h3>还没有保存的草稿</h3><p>在工作台保存后，就能从这里继续编辑。</p></div>}
+              {!draftReady ? <p role="status">{draftState === 'loading' ? '正在读取草稿…' : '草稿暂时无法读取。'}</p> : drafts.length ? <div className="account-records">{drafts.map(draft => <article key={draft.draft_id}><div><b>{pageTitle(draft.page_id)}</b><small>仅自己可见</small></div><div className="account-record-actions">{canContribute && <Link className="cm-button" to={workbench({tab: 'edit', page: draft.page_id, draft: draft.draft_id})}>继续编辑<ArrowRight size={14} /></Link>}<button type="button" className="cm-text-button" disabled={busy} onClick={() => void action(async () => { await service.deleteDraft(draft.draft_id); await loadCollections(); setNotice('草稿已删除。'); })}>删除草稿</button></div></article>)}</div> : <div className="cm-empty"><FilePenLine size={27} /><h3>还没有保存的草稿</h3><p>在工作台保存后，就能从这里继续编辑。</p></div>}
             </section>
             <section className="cm-paper"><div className="cm-section-heading"><h2><BookOpen size={19} />最近投稿</h2><small>最近 100 条</small></div>
-              {!ready ? <p role="status">{collectionState === 'loading' ? '正在读取投稿…' : '投稿暂时无法读取。'}</p> : submissions.length ? <div className="account-records">{submissions.map(row => <article key={row.revision_id}><div><Link to={workbench({tab: 'mine', submission: row.revision_id})}>{row.edit_summary}</Link><small>{pageTitle(row.page_id)}</small></div><span className="account-status">{statuses[row.status]}</span></article>)}</div> : <div className="cm-empty"><BookOpen size={27} /><h3>还没有投稿记录</h3><p>提交审核后，可在这里查看处理进度。</p></div>}
+              {!submissionReady ? <p role="status">{submissionState === 'loading' ? '正在读取投稿…' : '投稿暂时无法读取。'}</p> : submissions.length ? <div className="account-records">{submissions.map(row => <article key={row.revision_id}><div><Link to={workbench({tab: 'mine', submission: row.revision_id})}>{row.edit_summary}</Link><small>{pageTitle(row.page_id)}</small></div><span className="account-status">{statuses[row.status]}</span></article>)}</div> : <div className="cm-empty"><BookOpen size={27} /><h3>还没有投稿记录</h3><p>提交审核后，可在这里查看处理进度。</p></div>}
             </section>
           </>}
           {tab === 'bookmarks' && savedItems}
