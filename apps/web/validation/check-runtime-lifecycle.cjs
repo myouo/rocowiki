@@ -241,7 +241,7 @@ async function main() {
   await render(React.createElement(C.WikiPage,{routeData:{path:globalThis.__wikiLocation.pathname}}));
   check('A formal reader ignores local published pet replacements',!d.body.textContent.includes('FAKE LOCAL PUBLICATION'));
   await render(React.createElement(React.Fragment,null,React.createElement(C.CounterVotes,{petSlug:'haifu',record:{id:'counter'}}),React.createElement(C.PageCommunityFooter)));
-  check('Formal votes and discussion do not mount local mutation controls',!d.querySelector('.rw-counter-vote-buttons-v7,.rw-discussion-body-v72'));
+  check('Formal votes and discussion do not mount local mutation controls',!d.querySelector('.rw-counter-vote-buttons-v7,textarea[aria-label="本页评论"],.rw-local-label-v72')&&!d.body.textContent.includes('Local administrator'));
   const doc={path:'/formal/',title:'Formal',sections:[],markdown:'Original'};
   await render(React.createElement(C.PublishedDocument,{document:doc},React.createElement('p',null,'Formal published body')));
   check('Formal document rendering retains its bundled canonical body',d.body.textContent==='Formal published body');

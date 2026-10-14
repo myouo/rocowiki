@@ -12,6 +12,8 @@ import { getSearchRecords } from "./data";
 import { canonicalPageKey, commentAnchor, pageMaintainers } from "./pageCommunityModel";
 import {useWikiRuntime} from "./runtime/useWikiRuntime";
 import {useDemoSubmissions} from "./community/useDemoSubmissions";
+import ServerPageCommunity from '../features/community/ServerPageCommunity';
+import ServerGuideLike from '../features/community/ServerGuideLike';
 
 function DemoGuideLikeButton({ targetId, title, href, authorId = "", author }) {
   const { state, identity, ready, act } = useCommunitySocial();
@@ -69,13 +71,12 @@ function DemoPageCommunityFooter() {
 }
 export function GuideLikeButton(props) {
   const {demo} = useWikiRuntime();
-  return demo ? <DemoGuideLikeButton {...props} /> : null;
+  return demo ? <DemoGuideLikeButton {...props} /> : <ServerGuideLike targetId={props.targetId} author={props.author}/>;
 }
 export default function PageCommunityFooter() {
   const {demo} = useWikiRuntime();
   const location = useLocation();
   if (/(?:^|\/)copyright(?:\/en)?\/?$/.test(location.pathname)) return null;
-  return demo ? <DemoPageCommunityFooter /> : <section className="rw-page-community-v72" data-no-editor>
-    <div className="rw-maintainers-v72"><Link to="/wiki/guides/contributing/">查看正式投稿与署名规范<ArrowRight size={13} /></Link></div>
-  </section>;
+  const page=canonicalPageKey(location.pathname+location.search),title=getSearchRecords().find(row=>canonicalPageKey(row.to)===page)?.title||'本页';
+  return demo ? <DemoPageCommunityFooter /> : <ServerPageCommunity title={title} />;
 }

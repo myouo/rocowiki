@@ -35,7 +35,7 @@ export function useAccountCenter(origin: string) {
   async function refresh() {
     const scope = lifetime.current;
     const value = await service.me();
-    if (scope === lifetime.current && !scope?.signal.aborted) acceptIdentity(value);
+    if (scope === lifetime.current && !scope?.signal.aborted) {acceptIdentity(value);window.dispatchEvent(new Event('roco:account-updated'));}
   }
   async function action(operation: () => Promise<void>) {
     if (acting.current) return;
@@ -44,13 +44,14 @@ export function useAccountCenter(origin: string) {
     try { await operation(); }
     catch (error) {
       if (scope === lifetime.current && !scope?.signal.aborted) {
-        if (error instanceof RequestError && error.code === 'UNAUTHORIZED') {acceptIdentity(null);setSessionError('');}
+        if (error instanceof RequestError && ['UNAUTHORIZED','ACCOUNT_CHANGED'].includes(error.code)) invalidateSession(error);
         setNotice(message(error));
       }
     } finally {
       if (scope === lifetime.current && !scope?.signal.aborted) { acting.current = false; setBusy(false); }
     }
   }
+  function invalidateSession(error:unknown) {acceptIdentity(null);setSessionError(error instanceof RequestError&&error.code==='UNAUTHORIZED'?'':message(error));}
   async function loadCollections() {
     const scope = lifetime.current, uid = identity.current, version = ++listVersion.current;
     if (!uid) return;
@@ -82,7 +83,7 @@ export function useAccountCenter(origin: string) {
   }
   async function logout() {
     await service.logout();
-    acceptIdentity(null); setSessionError(''); setNotice('已退出登录。');
+    acceptIdentity(null); setSessionError(''); setNotice('已退出登录。');window.dispatchEvent(new Event('roco:account-updated'));
   }
   useEffect(() => {
     const controller = new AbortController();
@@ -97,5 +98,5 @@ export function useAccountCenter(origin: string) {
   useEffect(() => { if (me) void loadCollections(); }, [origin, me?.user.uid]);
   const collectionError=[draftError,submissionError].filter(Boolean).join(' ');
   const collectionState=draftState==='error'||submissionState==='error'?'error':draftState==='ready'&&submissionState==='ready'?'ready':'loading';
-  return {me, booting, busy, notice, sessionError, recheck, setNotice, drafts, submissions, draftState, submissionState, collectionState, collectionError, service, refresh, action, login, logout, loadCollections};
+  return {me, booting, busy, notice, sessionError, recheck, setNotice, drafts, submissions, draftState, submissionState, collectionState, collectionError, service, refresh, action, login, logout, loadCollections,invalidateSession};
 }
