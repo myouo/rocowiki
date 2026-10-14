@@ -6,6 +6,7 @@ import MathReferenceText from './MathReferenceText';
 const tag = (name: string, ...children: ReactNode[]) => createElement(name, null, ...children);
 function MathContent({ node }: { node: MathNode }): ReactNode {
   if (node.kind === 'atom') return /^\d/u.test(node.value) ? tag('mn', node.value) : <MathReferenceText value={node.value} />;
+  if (node.kind === 'negative') return tag('mrow', tag('mo', '−'), <MathContent node={node.value} />);
   if (node.kind === 'binary') {
     const a = <MathContent node={node.left} />, b = <MathContent node={node.right} />;
     if (node.operator === '/' || node.operator === '÷') return tag('mfrac', a, b);

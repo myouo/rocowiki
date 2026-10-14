@@ -2,6 +2,7 @@
 export type MathNode =
   | { kind: 'atom'; value: string }
   | { kind: 'binary'; operator: string; left: MathNode; right: MathNode }
+  | { kind: 'negative'; value: MathNode }
   | { kind: 'group'; value: MathNode }
   | { kind: 'absolute'; value: MathNode }
   | { kind: 'function'; name: 'floor' | 'ceil' | 'min'; args: MathNode[] };
@@ -23,7 +24,7 @@ export function parseFormula(expression: string): MathNode {
       while (tokens[offset] === ',') { offset++; args.push(binary(0)); }
       if (tokens[offset++] !== ')' || args.length !== (token === 'min' ? 2 : 1)) throw new Error('Invalid formula function');
       result = { kind: 'function', name: token as 'floor' | 'ceil' | 'min', args };
-    } else if (token === '-') result = { kind: 'binary', operator: '−', left: { kind: 'atom', value: '0' }, right: primary() };
+    } else if (token === '-') result = { kind: 'negative', value: primary() };
     else if (!token || /[+×*÷/),]/u.test(token)) throw new Error('Invalid formula token');
     else result = { kind: 'atom', value: token };
     depth--; return result;
@@ -60,7 +61,9 @@ export function separateFormula(line: string, scope: string, formulas: ReaderFor
   let start = assignment ? assignment.index + assignment[0].length : call?.index;
   if (start === undefined) return { before: line, after: '' };
   const functionCall = /^(?:floor|ceil|min)\(/u.test(line.slice(start));
-  const end = functionCall ? functionEnd(line, start) : start + line.slice(start).search(/[。；，]/u);
+  // An assignment may continue after a function, e.g. ceil(value / 2) + 10.
+  // Keep that whole expression in both the inline notation and its reference.
+  const end = functionCall && !assignment ? functionEnd(line, start) : start + line.slice(start).search(/[。；，]/u);
   const finish = end < start ? line.length : end;
   const expression = line.slice(start, finish).trim();
   if (!/[+×*÷/]|floor|ceil|min/u.test(expression)) return { before: line, after: '' };
