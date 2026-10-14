@@ -120,7 +120,7 @@ app.get('/pages/:pageId/edit-base',async c=>{
 app.post('/preview',async c=>{
   const data=z.object({content_markdown:z.string().max(65536)}).strict().parse(await jsonBody(c.req.raw));return c.json({html:await renderMarkdown(data.content_markdown)});
 });
-app.get('/drafts',async c=>{const result=await c.env.DB.prepare('SELECT draft_id,page_id,body_json,updated_at FROM drafts WHERE uid=? ORDER BY updated_at DESC LIMIT 20').bind(c.get('session').uid).all();return c.json({drafts:result.results});});
+app.get('/drafts',async c=>{const uid=c.get('session').uid,result=await c.env.DB.prepare('SELECT draft_id,page_id,body_json,updated_at FROM drafts WHERE uid=? ORDER BY updated_at DESC LIMIT 20').bind(uid).all();return c.json({owner_uid:uid,drafts:result.results});});
 app.put('/drafts/:draftId',async c=>{
   const s=c.get('session');contributor(s);await rate(c.env,`draft:${s.uid}`,60,3600);
   const id=z.string().regex(/^draft_[0-9a-f-]{36}$/).parse(c.req.param('draftId'));
@@ -156,7 +156,7 @@ app.post('/submissions',async c=>{
   try{const result=await c.env.DB.batch(statements);if(!result[0].meta.changes)throw new ApiError('CONFLICT',409);}catch(error){const duplicate=await c.env.DB.prepare('SELECT revision_id,request_hash,status FROM submissions WHERE uid=? AND idempotency_key=?').bind(s.uid,key).first<{revision_id:string;request_hash:string;status:string}>();if(duplicate?.request_hash===requestHash)return c.json(duplicate);throw error;}
   return c.json({revision_id:revision,status:'pending_review'},201);
 });
-app.get('/submissions',async c=>{const result=await c.env.DB.prepare('SELECT revision_id,page_id,status,edit_summary,created_at FROM submissions WHERE uid=? ORDER BY created_at DESC LIMIT 100').bind(c.get('session').uid).all();return c.json({submissions:result.results});});
+app.get('/submissions',async c=>{const uid=c.get('session').uid,result=await c.env.DB.prepare('SELECT revision_id,page_id,status,edit_summary,created_at FROM submissions WHERE uid=? ORDER BY created_at DESC LIMIT 100').bind(uid).all();return c.json({owner_uid:uid,submissions:result.results});});
 app.get('/submissions/:id',async c=>c.json(await detail(c.env,c.req.param('id'),c.get('session'))));
 app.get('/reviews',async c=>{reviewer(c.get('session'));const rows=await c.env.DB.prepare("SELECT revision_id,page_id,status,uid,edit_summary,required_reviews,created_at,version FROM submissions WHERE status='pending_review' ORDER BY created_at LIMIT 100").all();return c.json({submissions:rows.results});});
 app.post('/reviews/:id/decision',async c=>{
