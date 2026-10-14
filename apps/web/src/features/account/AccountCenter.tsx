@@ -15,6 +15,7 @@ import {useCommunityAccount} from './useCommunityAccount';
 import CommunityOverview from './CommunityOverview';
 import CommunityHonors from './CommunityHonors';
 import CommunityActivity from './CommunityActivity';
+import AccountLoading from './AccountLoading';
 import {ProfileAvatar} from '../../wiki/AccountIdentity';
 import HonorSymbol from '../../wiki/HonorSymbols';
 import {HONOR_ITEMS,ACHIEVEMENTS} from '../../../../../packages/wiki-schema/src/community';
@@ -26,7 +27,9 @@ const tabs = [
   ['bookmarks', '我的收藏', Bookmark], ['activity', '社区足迹', History], ['honors', '社区荣誉', Award], ['profile', '个人资料', UserRound], ['security', '账号与安全', LockKeyhole],
 ] as const;
 type Tab = typeof tabs[number][0];
-const roles = {viewer: '只读用户', contributor: '贡献者', reviewer: '审核员', admin: '管理员'};
+// These labels describe access. Earned honors come from the server-validated badge.
+const roles = {viewer: '只读成员', contributor: '社区成员', reviewer: '审核员', admin: '管理员'};
+const permissions = {viewer: '浏览资料与参与社区', contributor: '浏览资料、参与社区与准备投稿', reviewer: '准备投稿与审核修订', admin: '审核修订与管理站点'};
 function pageTitle(id: string) { return catalog.pages.find(page => page.id === id)?.title ?? id; }
 function internalHref(href: string) { return href.startsWith('/') && !href.startsWith('//') && !/[\\\u0000-\u001f]/.test(href) ? href : '/'; }
 
@@ -64,12 +67,13 @@ export default function AccountCenter() {
       {me && <Link className="cm-button" to="/workbench/">共建工作台<ArrowRight size={15} /></Link>}
     </header>
     {notice && <p className="notice" role="status">{notice}</p>}
-    {booting ? <div className="cm-paper" role="status">正在读取登录状态…</div> : sessionError ? <section className="cm-paper"><h2>登录状态需要确认</h2><p>{sessionError}</p><button type="button" className="cm-button" disabled={busy} onClick={()=>void action(recheck)}>重新检查登录状态</button></section> : !me ? <div className="account-guest cm-paper">
+    {booting ? <AccountLoading/> : sessionError ? <section className="cm-paper"><h2>登录状态需要确认</h2><p>{sessionError}</p><button type="button" className="cm-button" disabled={busy} onClick={()=>void action(recheck)}>重新检查登录状态</button></section> : !me ? <div className="account-guest cm-paper">
       <div><div className="account-welcome-icon"><BookOpen size={30} /></div><h2>让每一次发现都有自己的署名</h2><p>登录后管理你的资料与账号安全，查看私有草稿和投稿进度。</p><Link className="cm-button" to="/pets/">先逛逛资料库<ArrowRight size={14} /></Link></div>
       <AuthenticationPanel service={service} busy={busy} action={action} login={login} notice={setNotice} />
     </div> : <>
       <section className="account-identity rw-account-identity-v71" aria-label="我的身份"><button type="button" className="rw-account-avatar-button" aria-label="设置头像与昵称" onClick={()=>open('profile')}><ProfileAvatar avatar={me.profile?.avatar??profile?.avatar??'dimo'} frame={profile?.frame} size={86}/><span><PencilLine size={13}/></span></button><div className="account-identity-main rw-account-name-v71">
-        <span className="account-eyebrow">我的 RocoWiki</span><h2>{me.user.display_name}</h2><div className="account-tags"><span>{roles[me.user.role]}</span>{me.account && <span>{me.account.email_verified ? '邮箱已验证' : '邮箱待验证'}</span>}</div>
+        <div className="account-identity-heading"><span className="account-eyebrow">我的 RocoWiki</span><h2>{me.user.display_name}</h2><div className="account-tags"><span>{roles[me.user.role]}</span>{me.account && <span>{me.account.email_verified ? '邮箱已验证' : '邮箱待验证'}</span>}</div></div>
+        <div className="account-registration"><span>注册序号</span><strong>{me.user.registration_number??'暂未读取'}</strong></div>
         <p>用户名：{me.user.username}<span className="account-uid">Wiki UID：<code>{me.user.uid}</code></span></p>
         <p className="account-biography">{(me.profile?.bio??profile?.bio)||'设置头像与简介，让每次贡献都有自己的署名。'}</p>
         <button type="button" className={`rw-profile-honor-v72${equipped?' is-equipped':''}`} onClick={()=>open('honors','badges')}>{equipped?<HonorSymbol item={equipped} size={15}/>:<Award size={15}/>} {equipped?.title??'选择展示徽章'}</button>
@@ -98,9 +102,10 @@ export default function AccountCenter() {
           {tab === 'bookmarks' && savedItems}
           {tab === 'honors' && <CommunityHonors origin={origin} me={me} query={new URLSearchParams(location.search)} state={community} onIdentityError={state.invalidateSession}/>}
           {tab === 'activity' && <CommunityActivity origin={origin} me={me} query={new URLSearchParams(location.search)} state={community} onIdentityError={state.invalidateSession}/>}
-          {tab === 'profile' && <section className="cm-paper"><h2>个人资料</h2><p className="account-muted">昵称用于公开展示，用户名和 Wiki UID 保持不变。邮箱仅自己可见。</p><AccountSettings key={me.user.uid} section="profile" me={me} service={service} busy={busy} action={action} refresh={refresh} notice={setNotice} /></section>}
+          {tab === 'profile' && <section className="cm-paper"><h2>个人资料</h2><p className="account-muted">昵称用于公开展示，注册序号、用户名和 Wiki UID 保持不变。邮箱仅自己可见。</p><AccountSettings key={me.user.uid} section="profile" me={me} service={service} busy={busy} action={action} refresh={refresh} notice={setNotice} /></section>}
           {tab === 'security' && <>
             <section className="cm-paper"><h2>账号与安全</h2><AccountSettings key={me.user.uid} section="security" me={me} service={service} busy={busy} action={action} refresh={refresh} notice={setNotice} /></section>
+            <section className="cm-paper"><h2>账号权限</h2><p>{roles[me.user.role]} · {permissions[me.user.role]}</p><p className="account-muted">贡献成就根据已核验上线的修订解锁。投稿与发布是否开放，以工作台提示为准。</p></section>
             <section className="cm-paper"><h2><Link2 size={19} />GitHub 关联</h2>{me.github ? <>
               <p>已绑定 <b>{me.github.login}</b> · Co-author {me.github.enabled ? '已开启' : '未开启'}</p><p>可核验提交邮箱：{me.github.coauthor_email || '暂无'}</p>
               <label className="checkbox-field"><input type="checkbox" checked={consent} onChange={event => setConsent(event.target.checked)} />我同意在主动选择关联的投稿中公开此邮箱。已进入 Git 历史的邮箱无法保证撤回。</label>

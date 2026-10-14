@@ -100,7 +100,9 @@ app.post('/auth/logout',async c=>{await c.env.DB.prepare('UPDATE sessions SET re
 app.get('/me',async c=>{
   const s=c.get('session'),github=await c.env.DB.prepare('SELECT login,github_numeric_id,coauthor_email,enabled,consent_version FROM github_identities WHERE uid=?').bind(s.uid).first();
   const credential=await c.env.DB.prepare('SELECT email,email_verified_at FROM password_credentials WHERE uid=?').bind(s.uid).first<{email:string;email_verified_at:number|null}>();
-  return c.json({user:{uid:s.uid,username:s.username,display_name:s.display_name,role:s.role},profile:await communityProfile(c.env,s.uid),account:credential?{email:credential.email,email_verified:credential.email_verified_at!==null}:null,csrf_token:await sessionCsrf(c.req.raw,c.env),github,consent_version:consentVersion});
+  const registration=await c.env.DB.prepare('SELECT registration_number FROM user_registration_numbers WHERE uid=?').bind(s.uid).first<{registration_number:number}>();
+  if(!registration)throw new ApiError('INTERNAL_ERROR',500);
+  return c.json({user:{uid:s.uid,username:s.username,display_name:s.display_name,role:s.role,registration_number:registration.registration_number},profile:await communityProfile(c.env,s.uid),account:credential?{email:credential.email,email_verified:credential.email_verified_at!==null}:null,csrf_token:await sessionCsrf(c.req.raw,c.env),github,consent_version:consentVersion});
 });
 app.patch('/me',async c=>{
   const input=profileSchema.parse(await jsonBody(c.req.raw,4096)),uid=c.get('session').uid;
@@ -201,7 +203,7 @@ app.post('/admin/jobs/:id/retry',async c=>{
   ]);if(!rows[0].meta.changes)throw new ApiError('CANNOT_RETRY',409);c.executionCtx.waitUntil(coordinator(c.env).run(1));return c.json({ok:true});
 });
 app.get('/users/:uid',async c=>{
-  const uid=c.req.param('uid');const user=await c.env.DB.prepare('SELECT uid,username,display_name,created_at FROM users WHERE uid=? AND disabled_at IS NULL').bind(uid).first();if(!user)throw new ApiError('NOT_FOUND',404);
+  const uid=c.req.param('uid');const user=await c.env.DB.prepare('SELECT u.uid,u.username,u.display_name,u.created_at,n.registration_number FROM users u JOIN user_registration_numbers n ON n.uid=u.uid WHERE u.uid=? AND u.disabled_at IS NULL').bind(uid).first();if(!user)throw new ApiError('NOT_FOUND',404);
   const github=await c.env.DB.prepare('SELECT login FROM github_identities WHERE uid=?').bind(uid).first();
   const contributions=await c.env.DB.prepare("SELECT s.revision_id,s.page_id,s.edit_summary,g.content_commit_sha,g.merge_sha FROM submissions s JOIN git_links g USING(revision_id) WHERE s.uid=? AND s.status='published' ORDER BY s.created_at DESC LIMIT 100").bind(uid).all();return c.json({user,profile:await communityProfile(c.env,uid),github,contributions:contributions.results});
 });

@@ -1,6 +1,6 @@
 # Contributing
 [中文](CONTRIBUTING.md) · [Code of conduct](CODE_OF_CONDUCT.en.md) · [Security](SECURITY.en.md)
-<!-- rocowiki-policy: contributing; version: 5; lang: en -->
+<!-- rocowiki-policy: contributing; version: 6; lang: en -->
 
 <a id="entry"></a>
 ## Choose an entry point
@@ -90,6 +90,10 @@ The site uses its own email/password accounts; production OIDC callbacks are dis
 Verification also requires the registration password. A permanent account is created only after confirmation; unverified registrations expire after 24 hours and do not reserve permanent usernames. Password changes and resets revoke older sessions; recent authentication checks the current account password. Registration stays closed when delivery is unconfigured. Verify real delivery, registration and recovery before opening the service. Submissions and publishing have independent switches and acceptance procedures. Production Secrets remain in the production environment and are loaded by deployment workflows.
 
 The formal personal center is at `/account/`, loading the server account, private drafts and recent submissions. Nickname, password and GitHub changes use the existing authenticated endpoints. Bookmarks are stored in the current browser and do not sync with the account. Demo identities, points and check-in records are not used as production account data.
+
+The database assigns a registration number when a permanent account is created. It is displayed separately from the Wiki UID and cannot be supplied or changed by clients. Pending email registrations reserve no number. Migration 0009_registration_numbers.sql backfills existing accounts by creation time and then UID for ties; old timestamps cannot establish the order within the same second. The contributor role grants basic contribution access and is labeled “社区成员” (community member). Contribution achievements require verified, deployed, non-empty revisions. Session loading shows a skeleton without assumed identity data; failures retain a retry control rather than assuming logout.
+
+Apply 0009 before deploying the API and frontend. The frontend accepts older API responses without a number. Application rollback retains the new table and triggers; do not delete or renumber assigned numbers.
 
 ### GitHub integration setup
 

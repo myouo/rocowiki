@@ -5,8 +5,10 @@ import {communityProfileSchema} from '../../../../../packages/wiki-schema/src/co
 export const source = z.object({title:z.string(),url:z.string(),level:z.enum(['official','tested','inferred','unverified'])});
 export type Source = z.infer<typeof source>;
 export const freshSource=():Source=>({title:'',url:'',level:'unverified'});
+// Optional during a rolling deployment; never substitute a browser-generated number.
+const registrationNumber=z.number().int().positive().max(Number.MAX_SAFE_INTEGER).optional();
 export const me = z.object({
-  user:z.object({uid:z.string().min(1),username:z.string().min(1),display_name:z.string(),role:z.enum(['viewer','contributor','reviewer','admin'])}),
+  user:z.object({uid:z.string().min(1),username:z.string().min(1),display_name:z.string(),role:z.enum(['viewer','contributor','reviewer','admin']),registration_number:registrationNumber}),
   profile:communityProfileSchema.optional(),
   account:z.object({email:z.string().email(),email_verified:z.boolean()}).nullable().optional(),
   csrf_token:z.string().min(1),consent_version:z.string(),
@@ -33,7 +35,7 @@ export type DraftBody = z.infer<typeof draftBody>;
 export const job = z.object({job_id:z.string(),revision_id:z.string(),stage:z.string(),status:z.enum(states),last_error:z.string().nullable(),retries:z.number()});
 export type Job = z.infer<typeof job>;
 export const publicProfile = z.object({
-  user:z.object({uid:z.string(),display_name:z.string()}),github:z.object({login:z.string()}).nullable(),
+  user:z.object({uid:z.string(),display_name:z.string(),registration_number:registrationNumber}),github:z.object({login:z.string()}).nullable(),
   profile:communityProfileSchema.optional(),
   contributions:z.array(z.object({revision_id:z.string(),page_id:z.string(),edit_summary:z.string(),content_commit_sha:z.string().regex(/^[a-f0-9]{40}$/)})),
 });
