@@ -4,7 +4,7 @@ import {useLocation} from '@docusaurus/router';
 import { message, RequestError } from "../../components/api";
 import data from "../../generated/catalog.json";
 import { freshSource, type Me, type Source, type Base, type Submission, type SubmissionRow, type Draft, type Job } from "./contracts";
-import { createWorkspaceService, parseDraft } from "./service";
+import { createWorkspaceService, parseDraft, type WorkspaceService } from "./service";
 export function useWorkbench() {
   const location=useLocation();
   const {
@@ -55,6 +55,22 @@ export function useWorkbench() {
   async function refreshMe() {
     const result = await service.me();
     setMe(result);
+    return result;
+  }
+  async function openRequestedWorkspace(result:Me,params:URLSearchParams,client:WorkspaceService){
+    if(params.get('tab')==='account')setTab('account');
+    if(params.get('draft')&&result.user.role!=='viewer'){
+      const saved=(await client.drafts()).drafts.find(row=>row.draft_id===params.get('draft')&&(!params.get('page')||row.page_id===params.get('page')));
+      if(!saved)throw new RequestError('INVALID_DRAFT');
+      restore(saved);
+    }else if(params.get('tab')==='mine'){
+      const [mine,saved]=await Promise.all([client.mine(),client.drafts()]);
+      setSubmissions(mine.submissions);setDrafts(saved.drafts);setTab('mine');
+      if(params.get('submission'))setSelected(await client.detail(params.get('submission')!));
+    }
+    if(params.get('tab')==='review'&&['reviewer','admin'].includes(result.user.role)){
+      setQueue((await client.reviews()).submissions);setTab('review');
+    }
   }
   useEffect(() => {
     const controller = new AbortController();
@@ -69,10 +85,7 @@ export function useWorkbench() {
     }
     createWorkspaceService(origin, undefined, controller.signal).me().then(async result => {
       setMe(result);
-      if (params.get('tab') === 'review' && ['reviewer', 'admin'].includes(result.user.role)) {
-        setQueue((await createWorkspaceService(origin, result.csrf_token, controller.signal).reviews()).submissions);
-        setTab('review');
-      }
+      await openRequestedWorkspace(result,params,createWorkspaceService(origin,result.csrf_token,controller.signal));
     }).catch(e => {
       if (!controller.signal.aborted && !(e instanceof RequestError && e.code === 'UNAUTHORIZED')) setNotice(message(e));
     }).finally(() => {
@@ -89,7 +102,8 @@ export function useWorkbench() {
     setTab('edit');setBase(null);setSelected(null);setBody('');setEntity({});
     setSubmissions([]);setDrafts([]);setQueue([]);setJobs([]);setSummary('');
     setPreview('');setDraftId('');setSupersedes('');setSources([freshSource()]);setOptIn(false);setSubmitRequest(null);
-    await refreshMe();
+    const result=await refreshMe();
+    await openRequestedWorkspace(result,new URLSearchParams(window.location.search),createWorkspaceService(origin,result.csrf_token,()=>lifetime.current?.signal));
     setAccountLink(false);
   }
   async function listMine() {

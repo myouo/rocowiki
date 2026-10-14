@@ -18,6 +18,7 @@ async function main(){
   await esbuild.build({
     stdin:{resolveDir:repo,loader:'tsx',contents:`
       export {default as Workbench} from './apps/web/src/pages/workbench';
+      export {default as AccountCenter} from './apps/web/src/features/account/AccountCenter';
       export {app} from './apps/api/src/index';
       export {TestDatabase} from './tests/d1';
       export {newId,now,createSession} from './packages/auth/src/index';
@@ -29,7 +30,8 @@ async function main(){
         build.onResolve({filter:/^(@docusaurus\/|@theme\/)/},args=>({path:args.path,namespace:'framework'}));
         build.onLoad({filter:/.*/,namespace:'framework'},args=>({loader:'jsx',resolveDir:repo,contents:
           args.path.endsWith('/useDocusaurusContext')?`export default function(){return {siteConfig:{customFields:{apiOrigin:'https://api.wiki.test'}}}};`:
-          args.path.endsWith('/router')?`export function useLocation(){return {pathname:window.location.pathname,search:window.location.search}};`:
+          args.path.endsWith('/router')?`import {useEffect,useState} from 'react';export function useLocation(){const [,redraw]=useState(0);useEffect(()=>{const changed=()=>redraw(n=>n+1);window.addEventListener('popstate',changed);return()=>window.removeEventListener('popstate',changed)},[]);return {pathname:window.location.pathname,search:window.location.search}};export function useHistory(){return {push(url){window.history.pushState({},'',url);window.dispatchEvent(new Event('popstate'));}}};`:
+          args.path.endsWith('/useBaseUrl')?`export default value=>value;`:
           args.path.endsWith('/Layout')?`import React from 'react';export default function({children}){return <main>{children}</main>}`:
           `import React from 'react';export default function({to,children,...props}){return <a href={to} {...props}>{children}</a>}`
         }));
@@ -145,6 +147,38 @@ async function main(){
   await fill('input[name="password"]','Reset fixture password 2026!');await fill('input[name="password_confirmation"]','Reset fixture password 2026!');await click('保存新密码');await act(async()=>await pause(500));
   await fill('input[name="identifier"]','fresh@example.test');await fill('input[name="password"]','Reset fixture password 2026!');await click('登录');await act(async()=>await pause(500));
   check('The reset password logs in and drops the previous private editor state',d.body.textContent.includes('账号与归属')&&!d.querySelector('.markdown-editor'));
+  // The personal center uses the same real API and SQL, and ignores forged demo identity.
+  identities.contributor.token=(await C.createSession(env,identities.contributor.uid,C.now())).token;
+  const localIdentity=JSON.stringify({version:1,profile:{uid:'999',nickname:'FORGED LOCAL ADMIN',role:'admin'},drafts:[{body:'FORGED LOCAL DRAFT'}],submissions:[]});
+  w.localStorage.setItem('roco-wiki-v4:community',localIdentity);
+  async function renderAccount(role,query=''){
+    current=role;dom.reconfigure({url:`https://wiki.test/account/${query}`});
+    await act(async()=>{root.render(React.createElement(React.StrictMode,null,React.createElement(C.AccountCenter,{key:'account-'+(role||'guest')})));await pause();});
+    await act(async()=>await pause(100));
+  }
+  await renderAccount(null);
+  check('Account URL shows its own heading and login form without redirecting',d.querySelector('h1')?.textContent==='个人中心'&&w.location.pathname==='/account/'&&d.body.textContent.includes('登录 RocoWiki'));
+  check('A visitor cannot promote the local demo identity',!d.body.textContent.includes('FORGED LOCAL ADMIN')&&!d.querySelector('.account-identity'));
+  await fill('input[name="identifier"]','contributor');await fill('input[name="password"]','Fixture long password 2026!');await click('登录');await act(async()=>await pause(500));
+  check('Personal-center password login stays on the account URL with server identity',w.location.pathname==='/account/'&&d.querySelector('.account-identity')?.textContent.includes(identities.contributor.uid)&&!d.body.textContent.includes('FORGED LOCAL ADMIN'));
+  await click('个人资料');await fill('input[name="display_name"]','正式个人中心昵称');await click('保存昵称');
+  check('Personal profile edit updates the real owner without changing username or demo storage',db.sql.prepare('SELECT display_name,username FROM users WHERE uid=?').get(identities.contributor.uid).display_name==='正式个人中心昵称'&&d.body.textContent.includes('contributor')&&w.localStorage.getItem('roco-wiki-v4:community')===localIdentity);
+  await click('草稿与投稿');
+  const continueLink=[...d.querySelectorAll('a')].find(node=>node.textContent.includes('继续编辑'));
+  check('Owner sees private drafts and submission state with a direct draft link',continueLink?.href.includes('draft=')&&d.body.textContent.includes('补充来源与实测结果')&&d.body.textContent.includes('已批准'));
+  const destination=new URL(continueLink.href);
+  await render('contributor',destination.search);
+  check('The personal-center draft link restores actual content and sources in the workbench',d.querySelector('.markdown-editor')?.value===content&&d.querySelector('input[aria-label="来源 1 地址"]')?.value==='https://example.com/evidence');
+  await render(null,destination.search);
+  await fill('input[name="identifier"]','contributor');await fill('input[name="password"]','Fixture long password 2026!');await click('登录');await act(async()=>await pause(500));
+  check('Draft restoration also completes when the deep link first requires password login',d.querySelector('.markdown-editor')?.value===content);
+  await renderAccount('viewer');await click('草稿与投稿');
+  check('An account switch hides another owner private drafts and submissions',!d.body.textContent.includes('补充来源与实测结果')&&d.body.textContent.includes('还没有保存的草稿'));
+  await click('账号与安全');
+  check('Personal security uses server account fields and exposes real password controls',d.body.textContent.includes('viewer@example.test')&&d.querySelector('input[name="current_password"]')&&!d.querySelector('input[name="display_name"]'));
+  await click('退出登录');
+  check('Personal-center logout removes identity and private email',!d.querySelector('.account-identity')&&!d.body.textContent.includes('viewer@example.test')&&d.body.textContent.includes('登录 RocoWiki'));
+  check('Personal center does not import a demo balance, role or draft',w.localStorage.getItem('roco-wiki-v4:community')===localIdentity&&!d.body.textContent.includes('FORGED LOCAL DRAFT'));
   await act(async()=>{root.unmount();await pause();});root=null;
   check('Interactions and unmount produce no React errors',errors.length===0);
   console.log(`Formal workbench interactions passed: ${checks.length} checks (real password login, API and SQLite).`);

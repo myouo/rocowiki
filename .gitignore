@@ -25,3 +25,10 @@ backups/
 
 # Generated validation reports; fixtures remain tracked.
 /apps/web/validation/*.json
+
+# Mail provider setup and design review stay local.
+/docs/brevo-setup*.md
+/docs/resend-setup*.md
+/docs/local-mail-*.md
+/docs/mail-provider*.md
+/design-qa.md

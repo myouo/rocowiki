@@ -16,11 +16,13 @@ async function main() {
   const bundle = await esbuild.build({
     stdin: { resolveDir: root, loader: 'ts', contents: `
       import { sendAccountMessage } from './packages/auth/src/mail';
+      import { buildAccountEmail } from './packages/auth/src/account-email';
       export default { async fetch(request) {
         const mode = new URL(request.url).searchParams.get('mode');
         const env = { MAIL_PROVIDER: 'resend', MAIL_FROM: 'accounts@example.test', RESEND_API_KEY: mode === 'missing' ? '' : 'synthetic-mail-key' };
         try {
-          await sendAccountMessage(env, { email: 'recipient@example.test', subject: '验证邮件', text: '合成内容', html: '<p>合成内容</p>', idempotencyKey: 'synthetic-mail-id' });
+          const content = buildAccountEmail({ purpose: 'verify_email', actionUrl: new URL('https://wiki.rocowiki.test/workbench/#verify=synthetic'), expiresAt: 1792060200 });
+          await sendAccountMessage(env, { email: 'recipient@example.test', ...content, idempotencyKey: 'synthetic-mail-id' });
           return Response.json({ ok: true });
         } catch (error) { return Response.json({ error: error.message }, { status: 503 }); }
       } };
@@ -39,8 +41,10 @@ async function main() {
       const message = await request.json();
       assert.equal(message.from, 'RocoWiki <accounts@example.test>');
       assert.deepEqual(message.to, ['recipient@example.test']);
-      assert.equal(message.subject, '验证邮件');
-      assert.equal(message.text, '合成内容');
+      assert.equal(message.subject, '验证你的 RocoWiki 邮箱');
+      assert.ok(message.text.includes('https://wiki.rocowiki.test/workbench/#verify=synthetic'));
+      assert.ok(message.html.includes('href="https://wiki.rocowiki.test/workbench/#verify=synthetic"'));
+      assert.ok(message.html.includes('北京时间'));
       return providerStatus === 302 ? new Response(null, { status: 302, headers: { Location: 'https://untrusted.example.test' } })
         : Response.json({ id: 'synthetic-delivery' });
     },
