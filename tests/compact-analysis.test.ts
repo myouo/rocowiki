@@ -6,6 +6,7 @@ import { readFileSync } from 'node:fs';
 import { createRequire } from 'node:module';
 import { compactAnalysis } from '../apps/web/src/wiki/catalog/skills/compactAnalysisModel';
 import { parseFormula, separateFormula } from '../apps/web/src/wiki/catalog/skills/formulaModel';
+import { FormulaExpression } from '../apps/web/src/wiki/catalog/skills/Formula';
 import CompactAnalysis from '../apps/web/src/wiki/catalog/skills/CompactAnalysis';
 import { SkillBranchCard } from '../apps/web/src/wiki/SkillBranchView';
 import CombatText from '../apps/web/src/wiki/CombatText';
@@ -27,6 +28,26 @@ it('separates formula notation without flattening rounding, fractions or parenth
   const unknown: Parameters<typeof separateFormula>[2] = [];
   expect(separateFormula('固伤 = custom(2) + 10。', '来源算式', unknown).formula).toBe(0);
   expect(unknown[0]).toMatchObject({ expression: 'custom(2) + 10', verbatim: true, tree: { kind: 'atom' } });
+});
+
+it('renders negative operands without introducing a subtraction that changes multiplication or division', () => {
+  const { JSDOM } = createRequire(import.meta.url)('jsdom');
+  for (const [expression, expected] of [['2 * -3', '2×−3'], ['10 / -(数值 + 2)', '10−(数值+2)']]) {
+    const formula = { label: '合成算式', expression, scope: '回归样例', tree: parseFormula(expression) };
+    const dom = new JSDOM(renderToStaticMarkup(React.createElement(FormulaExpression, { formula })));
+    expect(dom.window.document.querySelector('math')!.textContent).toBe(expected);
+    if (expression.includes('/')) expect(dom.window.document.querySelector('mfrac')!.lastElementChild!.textContent).toBe('−(数值+2)');
+    dom.window.close();
+  }
+});
+
+it('keeps arithmetic after a rounding function in the full formula reference', () => {
+  const formulas: Parameters<typeof separateFormula>[2] = [];
+  const expression = 'ceil(数值 / 2) + 10 − min(3, 物攻强化等级)';
+  const effect = separateFormula(`追加固伤 = ${expression}，上限待核。`, '合成回归样例', formulas);
+  expect(effect).toEqual({ before: '追加固伤：', after: '，上限待核。', formula: 0 });
+  expect(formulas[0].expression).toBe(expression);
+  expect(formulas[0].tree).toMatchObject({ kind: 'binary', operator: '-', left: { kind: 'binary', operator: '+' }, right: { kind: 'function', name: 'min' } });
 });
 
 it('preserves sibling thresholds and failed-lowering scope while reducing visible containers', () => {
