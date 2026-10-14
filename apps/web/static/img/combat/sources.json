@@ -1,0 +1,365 @@
+{
+  "schemaVersion": 1,
+  "source": "https://res.17roco.qq.com/h5/assets/combatIcon/config.json",
+  "configSha256": "d077e45269337e881b9e314304a29d1e497ae268beb8373a6c81da4d0c5b7110",
+  "mappingSource": "https://res.17roco.qq.com/h5/assets/main/index.js",
+  "mappingSourceSha256": "ac94f0dbc9367f39ac7cd651f9ec57f224b3e62c774ea869a9915009926a4c7a",
+  "mappingEvidence": "Transparent original assets: ICON_202–206 for physical attack/defense, magic attack/defense and speed; matching ICON_101_bak–109_bak for abnormal states. Other terms keep text links when no equivalent transparent asset has been verified. Previously retained original assets are kept with their provenance but are no longer used by the term renderer.",
+  "rights": "Existing game assets; unchanged source bytes. Rights remain with the original owners; redistribution permission has not been verified.",
+  "assets": [
+    {
+      "name": "ICON_105",
+      "sourceUrl": "https://res.17roco.qq.com/h5/assets/combatIcon/native/1d/1d09e2e5-d336-4d84-af97-e32475f3b6b5.png",
+      "localFile": "static/img/combat/ICON_105.png",
+      "sha256": "28a091c0feb0a8126448b4aa96594c7179d912142b0de31ade6f40e3ddccb543",
+      "dimensions": [
+        20,
+        20
+      ]
+    },
+    {
+      "name": "ICON_197",
+      "sourceUrl": "https://res.17roco.qq.com/h5/assets/combatIcon/native/05/054f0cce-abbf-4c05-a15d-83e664fdad14.png",
+      "localFile": "static/img/combat/ICON_197.png",
+      "sha256": "f4899011df8c4111c86d83c3c4d3a6acc7dbb1685d7a08b0ae49db278fb7f0d7",
+      "dimensions": [
+        20,
+        20
+      ]
+    },
+    {
+      "name": "ICON_194",
+      "sourceUrl": "https://res.17roco.qq.com/h5/assets/combatIcon/native/0b/0bc61591-b9a4-43ba-ab31-52a890c666d1.png",
+      "localFile": "static/img/combat/ICON_194.png",
+      "sha256": "8c30323a592b53cf885249c5e0497c764f81f57e73e6255331bf4b9ec21a2844",
+      "dimensions": [
+        20,
+        20
+      ]
+    },
+    {
+      "name": "ICON_199",
+      "sourceUrl": "https://res.17roco.qq.com/h5/assets/combatIcon/native/37/37e10f56-1fe2-4c82-b856-05e6958d5916.png",
+      "localFile": "static/img/combat/ICON_199.png",
+      "sha256": "aee2f932393b918acb7cba8324af7efb9cda02f846f2c7dfb1ac81e62d31ef0d",
+      "dimensions": [
+        20,
+        20
+      ]
+    },
+    {
+      "name": "ICON_106",
+      "sourceUrl": "https://res.17roco.qq.com/h5/assets/combatIcon/native/57/5752cdac-5111-4c8f-ac3e-fd44d11bf599.png",
+      "localFile": "static/img/combat/ICON_106.png",
+      "sha256": "b6fc63ab1d1d31d0d5ca1bf45347f43ff8777f2624246444cb128d3a0142e950",
+      "dimensions": [
+        20,
+        20
+      ]
+    },
+    {
+      "name": "ICON_109",
+      "sourceUrl": "https://res.17roco.qq.com/h5/assets/combatIcon/native/5d/5d7d4961-ffcc-45f0-9da5-8abbe5bab455.png",
+      "localFile": "static/img/combat/ICON_109.png",
+      "sha256": "65d7469daa5f723f9bb2f43ba05ac08d04322d7cdfa6c0ad16c9018f85554494",
+      "dimensions": [
+        20,
+        20
+      ]
+    },
+    {
+      "name": "ICON_196",
+      "sourceUrl": "https://res.17roco.qq.com/h5/assets/combatIcon/native/7e/7e154974-f01a-4b3d-9ed8-26fd1b617a0a.png",
+      "localFile": "static/img/combat/ICON_196.png",
+      "sha256": "d93e9e75903f717cb871abda86ca3a713559fbbcf901c2b47bd207430bc0f05b",
+      "dimensions": [
+        20,
+        20
+      ]
+    },
+    {
+      "name": "ICON_103",
+      "sourceUrl": "https://res.17roco.qq.com/h5/assets/combatIcon/native/86/86d9e06d-4a72-4ad4-8ec3-e7290131e4d6.png",
+      "localFile": "static/img/combat/ICON_103.png",
+      "sha256": "6bc169b8c1e742a8cb8da18fc645c7a4a87a1b000d80ba82b85b32ae4c42de1b",
+      "dimensions": [
+        20,
+        20
+      ]
+    },
+    {
+      "name": "ICON_198",
+      "sourceUrl": "https://res.17roco.qq.com/h5/assets/combatIcon/native/8d/8d0366d5-81f6-45fd-a392-4f3f3fdef140.png",
+      "localFile": "static/img/combat/ICON_198.png",
+      "sha256": "b818be3521a7d1bbc212ef8a2cdc37518f3a0192254a94a19db3a490f7989037",
+      "dimensions": [
+        20,
+        20
+      ]
+    },
+    {
+      "name": "ICON_101",
+      "sourceUrl": "https://res.17roco.qq.com/h5/assets/combatIcon/native/8f/8f37e0b6-5a60-46f0-a3d8-c5809469728a.png",
+      "localFile": "static/img/combat/ICON_101.png",
+      "sha256": "69a8cba9a283377a20396202cb336b2680ebc35ac4fcfc598db1f0ca117f0050",
+      "dimensions": [
+        20,
+        20
+      ]
+    },
+    {
+      "name": "ICON_193",
+      "sourceUrl": "https://res.17roco.qq.com/h5/assets/combatIcon/native/98/98e192b6-8e8e-4be5-922a-29f26d7fc94a.png",
+      "localFile": "static/img/combat/ICON_193.png",
+      "sha256": "45b813ea698c6e5c8cd5f72b81b85e8774a5fe9a6e87e0ff61a0691c59c3878c",
+      "dimensions": [
+        20,
+        20
+      ]
+    },
+    {
+      "name": "ICON_102",
+      "sourceUrl": "https://res.17roco.qq.com/h5/assets/combatIcon/native/c0/c0e06429-65e3-4b78-98d1-f12e3b4ad42c.png",
+      "localFile": "static/img/combat/ICON_102.png",
+      "sha256": "8b627cd1c5624edbd7c4654b09c0d2f985d9deff1dac03005aa2bfa934ad0e88",
+      "dimensions": [
+        20,
+        20
+      ]
+    },
+    {
+      "name": "ICON_108",
+      "sourceUrl": "https://res.17roco.qq.com/h5/assets/combatIcon/native/d8/d8eae6bc-ae58-4ab7-8a67-6156e5d1d458.png",
+      "localFile": "static/img/combat/ICON_108.png",
+      "sha256": "6b29b17f817733869f51e75a97a4ca32fc5603ba49e0606dad2b49ffdbc66d54",
+      "dimensions": [
+        20,
+        20
+      ]
+    },
+    {
+      "name": "ICON_195",
+      "sourceUrl": "https://res.17roco.qq.com/h5/assets/combatIcon/native/e0/e000c6e9-75ba-4dac-8d6e-bd13a720ed70.png",
+      "localFile": "static/img/combat/ICON_195.png",
+      "sha256": "c8ca4564ea21dfe949a812ffc4539fce30f8b65b9d0d6ef863ee96a868b3077b",
+      "dimensions": [
+        20,
+        20
+      ]
+    },
+    {
+      "name": "ICON_107",
+      "sourceUrl": "https://res.17roco.qq.com/h5/assets/combatIcon/native/e4/e4005f9c-e968-4c5a-ba7f-a212b513aba3.png",
+      "localFile": "static/img/combat/ICON_107.png",
+      "sha256": "e50c4ba1d79732fae1a804a66f52e2fd045bba4605c2640fc6ec03b3304230ee",
+      "dimensions": [
+        20,
+        20
+      ]
+    },
+    {
+      "name": "ICON_104",
+      "sourceUrl": "https://res.17roco.qq.com/h5/assets/combatIcon/native/f6/f61a5e4a-6bea-4d59-be67-44f88fd0cec2.png",
+      "localFile": "static/img/combat/ICON_104.png",
+      "sha256": "1f9e70527dd3a6669dde45e257c86f12061dd1c1ee879f625ae29ed288426aad",
+      "dimensions": [
+        20,
+        20
+      ]
+    },
+    {
+      "name": "ICON_114",
+      "sourceUrl": "https://res.17roco.qq.com/h5/assets/combatIcon/native/3b/3b348a85-88cc-4330-82df-1f466783c323.png",
+      "localFile": "static/img/combat/ICON_114.png",
+      "sha256": "46b6e88daa09efeae70d615c66d446d05d87f716ff2ff6ffe967df17967483b1",
+      "dimensions": [
+        20,
+        20
+      ]
+    },
+    {
+      "name": "ICON_101_bak",
+      "sourceUrl": "https://res.17roco.qq.com/h5/assets/combatIcon/native/04/048e26d4-b356-41be-8bb1-18832497ab92.png",
+      "localFile": "static/img/combat/ICON_101_bak.png",
+      "sha256": "c4f58f6faff92e97dab4f2e70f050ee95e884d2e0f7d6ef0a122efcd7fc369d1",
+      "dimensions": [
+        40,
+        40
+      ],
+      "transparent": true,
+      "transparentPixels": 691
+    },
+    {
+      "name": "ICON_107_bak",
+      "sourceUrl": "https://res.17roco.qq.com/h5/assets/combatIcon/native/32/3246f4e1-abba-405e-8fd1-e0f1230be767.png",
+      "localFile": "static/img/combat/ICON_107_bak.png",
+      "sha256": "eea806547a5a7645855530295d2c98e6182adf377241f95576c6830cfde8e6bf",
+      "dimensions": [
+        40,
+        40
+      ],
+      "transparent": true,
+      "transparentPixels": 1002
+    },
+    {
+      "name": "ICON_203",
+      "sourceUrl": "https://res.17roco.qq.com/h5/assets/combatIcon/native/36/3681830d-d502-4d8d-affc-69ebce2d2665.png",
+      "localFile": "static/img/combat/ICON_203.png",
+      "sha256": "e2197dbad5175f6a2b1b9e50e53e6c58a62b45052529bfeaf3174fbecffaee68",
+      "dimensions": [
+        40,
+        40
+      ],
+      "transparent": true,
+      "transparentPixels": 687
+    },
+    {
+      "name": "ICON_105_bak",
+      "sourceUrl": "https://res.17roco.qq.com/h5/assets/combatIcon/native/41/4100accf-c92c-46cd-a2bb-f991632cefa6.png",
+      "localFile": "static/img/combat/ICON_105_bak.png",
+      "sha256": "5e4b9bed5ac67423d2797ecebfd8b307c2fa3cf537fee3a303f8ca43dce98832",
+      "dimensions": [
+        40,
+        40
+      ],
+      "transparent": true,
+      "transparentPixels": 673
+    },
+    {
+      "name": "ICON_205",
+      "sourceUrl": "https://res.17roco.qq.com/h5/assets/combatIcon/native/60/607da3a7-2a8a-42a6-bfe3-9ce3554514fa.png",
+      "localFile": "static/img/combat/ICON_205.png",
+      "sha256": "54b3a3d4cb986525e26b0e6504bd4b946a214d4606337ba28aa92074bfe9662c",
+      "dimensions": [
+        40,
+        40
+      ],
+      "transparent": true,
+      "transparentPixels": 721
+    },
+    {
+      "name": "ICON_206",
+      "sourceUrl": "https://res.17roco.qq.com/h5/assets/combatIcon/native/64/6433154a-c38b-408a-abca-4354c6187246.png",
+      "localFile": "static/img/combat/ICON_206.png",
+      "sha256": "64dd80108dd32695dbe53eba56b2d82ff5187f04997153ad6765701989890dd7",
+      "dimensions": [
+        40,
+        40
+      ],
+      "transparent": true,
+      "transparentPixels": 636
+    },
+    {
+      "name": "ICON_106_bak",
+      "sourceUrl": "https://res.17roco.qq.com/h5/assets/combatIcon/native/6d/6ddb7ef2-d6b4-41da-8c5f-5f2dacdffa08.png",
+      "localFile": "static/img/combat/ICON_106_bak.png",
+      "sha256": "c1a09c19ae62c63b29852fbdf733dc405f1e41ba131fd8473d1fcdebb3201805",
+      "dimensions": [
+        40,
+        40
+      ],
+      "transparent": true,
+      "transparentPixels": 667
+    },
+    {
+      "name": "ICON_202",
+      "sourceUrl": "https://res.17roco.qq.com/h5/assets/combatIcon/native/7e/7e784305-7267-4396-8f1c-b42cdb08c45d.png",
+      "localFile": "static/img/combat/ICON_202.png",
+      "sha256": "70f6cc724a5bccb87aa8818e8385cfd025455959051a725b28dc5f85ca1bfd5c",
+      "dimensions": [
+        40,
+        40
+      ],
+      "transparent": true,
+      "transparentPixels": 878
+    },
+    {
+      "name": "ICON_108_bak",
+      "sourceUrl": "https://res.17roco.qq.com/h5/assets/combatIcon/native/b9/b901a38e-26a4-4ffc-b6af-264318839576.png",
+      "localFile": "static/img/combat/ICON_108_bak.png",
+      "sha256": "7bb273bcbeefdd13dafcb51d144213ee7dc1e11e07f0c7cdec00ac13881547bb",
+      "dimensions": [
+        40,
+        40
+      ],
+      "transparent": true,
+      "transparentPixels": 635
+    },
+    {
+      "name": "ICON_204",
+      "sourceUrl": "https://res.17roco.qq.com/h5/assets/combatIcon/native/cb/cb8441a2-3845-46aa-900d-6a14bf342a05.png",
+      "localFile": "static/img/combat/ICON_204.png",
+      "sha256": "bdb1f9372820a435e81eff7d79a28cf9f37ffdb334bf3e6f4395542cfae8ae26",
+      "dimensions": [
+        40,
+        40
+      ],
+      "transparent": true,
+      "transparentPixels": 1037
+    },
+    {
+      "name": "ICON_103_bak",
+      "sourceUrl": "https://res.17roco.qq.com/h5/assets/combatIcon/native/d9/d98e7905-dc97-427b-9560-ac1f105f16ef.png",
+      "localFile": "static/img/combat/ICON_103_bak.png",
+      "sha256": "232c5de79ed9cbfbc08d3caddc63e1f5fe193455470547e8d470e0c8cc1b4c31",
+      "dimensions": [
+        40,
+        40
+      ],
+      "transparent": true,
+      "transparentPixels": 568
+    },
+    {
+      "name": "ICON_109_bak",
+      "sourceUrl": "https://res.17roco.qq.com/h5/assets/combatIcon/native/e2/e2818a4e-9813-43eb-bf43-1dc0ebc04955.png",
+      "localFile": "static/img/combat/ICON_109_bak.png",
+      "sha256": "789030dc66dae2c5d2562f00c91d9168b9f2506356f75d1bf86423f1f0874d9f",
+      "dimensions": [
+        40,
+        40
+      ],
+      "transparent": true,
+      "transparentPixels": 593
+    },
+    {
+      "name": "ICON_104_bak",
+      "sourceUrl": "https://res.17roco.qq.com/h5/assets/combatIcon/native/f2/f27df709-4e51-4c70-89a1-0fdde3257661.png",
+      "localFile": "static/img/combat/ICON_104_bak.png",
+      "sha256": "c9feded08d22dcc05b9bb1216baf2082508560773042c65386b26576f26be279",
+      "dimensions": [
+        40,
+        40
+      ],
+      "transparent": true,
+      "transparentPixels": 676
+    },
+    {
+      "name": "ICON_102_bak",
+      "sourceUrl": "https://res.17roco.qq.com/h5/assets/combatIcon/native/f3/f3741dba-b6da-4ca2-9968-1592ffd6779b.png",
+      "localFile": "static/img/combat/ICON_102_bak.png",
+      "sha256": "2cfe27a795bf2e3e9d9f2d8feb2afd9427022b797bad805a360855756a5411b1",
+      "dimensions": [
+        40,
+        40
+      ],
+      "transparent": true,
+      "transparentPixels": 931
+    }
+  ],
+  "activeIcons": [
+    "ICON_101_bak",
+    "ICON_102_bak",
+    "ICON_103_bak",
+    "ICON_104_bak",
+    "ICON_105_bak",
+    "ICON_106_bak",
+    "ICON_107_bak",
+    "ICON_108_bak",
+    "ICON_109_bak",
+    "ICON_202",
+    "ICON_203",
+    "ICON_204",
+    "ICON_205",
+    "ICON_206"
+  ]
+}

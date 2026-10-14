@@ -1,4 +1,4 @@
-import { SkillEffectFlow } from "../../SkillBranchView";
+import SkillRuleReading from "../../SkillRuleReading";
 import SkillLearners from "../../SkillLearners";
 import { resolveSkillLearners } from "../../skillLearnerModel";
 import { EntityText } from "../../EntityReference";
@@ -13,6 +13,8 @@ import { usePublishedPets, usePublishedSkills } from "../hooks.js";
 import { AttributeBadge, PetPortrait, SkillKind } from "../components.jsx";
 import { officialSkillData } from '../../content/bundled.js';
 import OfficialSkillSource from './OfficialSource';
+import SkillAnalysisSource, { SkillAnalysisNotes } from './AnalysisSource';
+import CompactAnalysis from './CompactAnalysis';
 import { useHydratedSearch } from '../pets/useHydratedSearch';
 import { skillCollection } from './officialModel';
 
@@ -150,13 +152,18 @@ function SkillPage({ slug }) {
             </button>
           }
         >
-          {expand && <div id="rw-skill-branches-v6"><SkillEffectFlow
-            data={{ summary: skill.summary, base: rules.base, branches: rules.branches }}
+          {!(skill.analysisCurrent && !skill.publishedRules) && <SkillAnalysisNotes skill={skill} />}
+          {expand && <div id="rw-skill-branches-v6">{skill.analysisCurrent && !skill.publishedRules ? <>
+            <CompactAnalysis record={skill.analysis} context={{ entity: skill.name, returnTo: skillReturnBase }}
+              baseAction={<EditEntry entity={skill.name} section="效果与触发条件" mode="skill" returnTo={skillReturnBase + "#effects"} record="base" label="编辑基础效果" />}
+              actionFor={(phase, i) => <EditEntry entity={skill.name} section="效果与触发条件" mode="skill" returnTo={skillReturnBase + "#effects"} record={"branch-" + (i + 1)} label="编辑分支" />} />
+          </> : <SkillRuleReading
+            data={{ name: skill.name, summary: skill.summary, base: rules.base, branches: rules.branches, terms: skill.terms }}
             context={{ entity: skill.name, returnTo: skillReturnBase }}
             showDescription={false}
             baseAction={<EditEntry entity={skill.name} section="效果与触发条件" mode="skill" returnTo={skillReturnBase + "#effects"} record="base" label="编辑基础效果" />}
             actionFor={(phase, i) => <EditEntry entity={skill.name} section="效果与触发条件" mode="skill" returnTo={skillReturnBase + "#effects"} record={"branch-" + (i + 1)} label="编辑分支" />}
-          /></div>}
+          />}</div>}
           <EditEntry
             entity={skill.name}
             section="效果与触发条件"
@@ -165,9 +172,9 @@ function SkillPage({ slug }) {
             intent="add"
             label="新增条件分支"
           />
-          <Notice title="这是结构化摘要">
+          {!(skill.analysisCurrent && !skill.publishedRules) && <Notice title="这是结构化摘要">
             仅解释来源已描述的关系。具体阈值、伤害公式、触发优先级等未证实内容保留待核，不从标签推导。
-          </Notice>
+          </Notice>}
         </Section>
         <Section title="相互作用" id="relations">
           <div className="rw-relation-list">
@@ -193,6 +200,7 @@ function SkillPage({ slug }) {
         </Section>
         <Section title="来源与待核" id="sources">
           <OfficialSkillSource skill={skill.official} source={officialSkillData.source} />
+          <SkillAnalysisSource skill={skill} />
           {(skill.curatedSource || !skill.official) && <div className="rw-source-row">
             <BookOpen size={18} />
             <div>

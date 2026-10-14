@@ -1,4 +1,5 @@
 import { serializeSkillBranch, validateSkillBranches } from "../skillConditions";
+import { skillTermErrors } from "../skillTerms";
 import { matchupBloodlineText, normalizeMatchupBloodline } from "../matchupBloodlines";
 import { getPetBloodlineOptions } from "../catalogBloodlines";
 import { validatePveGuideData } from "../pvePublished";
@@ -288,6 +289,7 @@ const LABELS = {
   effect: "则",
   otherwise: "否则",
   common: "基础效果",
+  terms: "技能内名词定义",
   markdown: "正文",
   records: "记录",
   occurrences: "开放批次",
@@ -416,6 +418,7 @@ export function validateSectionForm(form, context = {}) {
     if (data.number !== "" && data.number != null && (!Number.isInteger(Number(data.number)) || Number(data.number) < 1)) errors.number = "技能编号须为已核实的正整数；未知时留空。";
     ["name", "summary"].forEach((key) => requireField(data, key));
     Object.assign(errors, validateSkillBranches(data.phases || []).errors);
+    Object.assign(errors, skillTermErrors(data.terms));
   }
   if (mode === "matchup") {
     if (!data.records?.length) errors.records = "请新增一个 PVP 对位。";

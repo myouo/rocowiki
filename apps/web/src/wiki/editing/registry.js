@@ -292,6 +292,7 @@ export function getPublishedSnapshot(request = {}, workspace) {
       summary: skill?.summary || "",
       hit: skill?.hit || "",
       common: multiline(presentation.base),
+      terms: cloneData(skill?.terms || (skill?.analysisCurrent ? skill.analysis?.terms : []) || []),
       phases: (presentation.branches || []).map((row) => ({
         ...row,
         label: row.label || "",

@@ -18,10 +18,12 @@ async function main() {
     import React, {useState,useRef} from 'react';
     import SectionEditor from './src/wiki/editing/SectionEditor';
     import SkillBranchEditor, {EffectStepsEditor} from './src/wiki/editing/SkillBranchEditor';
+    export {VerifiedIdentityContext} from './src/wiki/auth/RequireRole';
     import BloodlinePicker from './src/wiki/editing/BloodlinePicker';
     import EntityTextarea from './src/wiki/EntityTextarea';
     export * from './src/wiki/editing/model';
     export * from './src/wiki/editing/registry';
+    export {resolvePublishedCatalogSkills} from './src/wiki/catalogPublished';
     export * from './src/wiki/skillConditions';
     export * from './src/wiki/skillFlow';
     export * from './src/wiki/matchupBloodlines';
@@ -35,8 +37,9 @@ async function main() {
     export {default as CommunityPages} from './src/wiki/CommunityPages';
     export {default as TypedFields} from './src/wiki/editing/TypedFields';
     export {EntityText} from './src/wiki/EntityReference';
+    export {default as CombatText} from './src/wiki/CombatText';
     export {formFor} from './src/wiki/editing/SectionEditor';
-    export function BranchHarness({seed,onChange}) { const [rows,setRows]=useState(seed); return <SkillBranchEditor branches={rows} onChange={next=>{setRows(next);onChange(next)}} />; }
+    export function BranchHarness({seed,onChange,flowData,record=''}) { const [rows,setRows]=useState(seed); return <SkillBranchEditor branches={rows} record={record} flowData={flowData} onChange={next=>{setRows(next);onChange(next)}} />; }
     export function StepsHarness({seed,onChange}) { const [value,setValue]=useState(seed); return <EffectStepsEditor value={value} label="步骤" onChange={next=>{setValue(next);onChange(next)}} />; }
     export function BloodlineHarness({seed,onChange,pet='海芙约忒'}) { const [value,setValue]=useState(seed); return <BloodlinePicker value={value} label="当前宠物 · 本场血脉" petIdentity={pet} onChange={next=>{setValue(next);onChange(next)}} />; }
     export function EntityHarness({seed,onChange}) { const [value,setValue]=useState(seed); return <EntityTextarea value={value} ariaLabel="正文" onChange={next=>{setValue(next);onChange(next)}} />; }
@@ -45,7 +48,7 @@ async function main() {
       const update=React.useCallback(fn=>{const next=fn(ref.current);ref.current=next;setValue(next);onWorkspace?.(next);if(!blocked)window.localStorage.setItem('roco-wiki-v4:community',JSON.stringify(next));return next},[onWorkspace,blocked]);
       return <SectionEditor workspace={value} update={update} ready query={query} storageError={blocked?'storage blocked':''} DiffViewer={({before,after})=><div data-test-diff>{before}<hr/>{after}</div>} />;
     }
-  ` }, outfile: path.join(temporary,'check.cjs'), bundle:true, format:'cjs', platform:'node', loader:{'.css':'empty'}, logLevel:'silent', plugins:[{name:'framework',setup(build){
+  ` }, outfile: path.join(temporary,'check.cjs'), bundle:true, format:'cjs', platform:'node', loader:{'.css':'empty'}, logLevel:'silent', plugins:[require('./runtime-context-plugin.cjs'),{name:'framework',setup(build){
     build.onResolve({filter:/^(react|react-dom|lucide-react)(\/.*)?$/}, args=>({path:require.resolve(args.path,{paths:[project]}),external:true}));
     build.onResolve({filter:/^@theme-original\/MDXComponents\/A$/}, args=>({path:args.path,namespace:'original-link'}));
     build.onLoad({filter:/.*/,namespace:'original-link'},()=>({loader:'jsx',resolveDir:project,contents:`import React from 'react';export default function Link(props){return <a data-original-link {...props}/>}`}));
@@ -60,7 +63,7 @@ async function main() {
   const C=require(path.join(temporary,'check.cjs'));
   const {createRoot}=require('react-dom/client'),{renderToStaticMarkup}=require('react-dom/server');
   let root=createRoot(d.querySelector('#root'));
-  async function render(node){await act(async()=>root.unmount());root=createRoot(d.querySelector('#root'));await act(async()=>{root.render(node);await new Promise(r=>setTimeout(r,8))})}
+  async function render(node){await act(async()=>root.unmount());root=createRoot(d.querySelector('#root'));await act(async()=>{root.render(React.createElement(C.VerifiedIdentityContext.Provider,{value:{user:{role:'reviewer'},loading:false}},node));await new Promise(r=>setTimeout(r,8))})}
   async function click(label,scope=d){const button=[...scope.querySelectorAll('button')].find(el=>el.textContent.trim()===label||el.getAttribute('aria-label')===label);assert.ok(button,'button '+label);await act(async()=>button.click());return button}
   async function input(label,value){const el=d.querySelector(`[aria-label="${label}"]`);assert.ok(el,'input '+label);const proto=el.tagName==='TEXTAREA'?w.HTMLTextAreaElement.prototype:w.HTMLInputElement.prototype;await act(async()=>{Object.getOwnPropertyDescriptor(proto,'value').set.call(el,value);el.dispatchEvent(new w.Event('input',{bubbles:true}));});}
   async function choose(label,option){await click(label);const el=[...d.querySelectorAll('[role="option"]')].find(el=>el.textContent.trim()===option);assert.ok(el,'option '+option);await act(async()=>el.click());}
@@ -109,17 +112,50 @@ async function main() {
   check('Copy button writes the complete structural Mermaid source',copied===C.skillToMermaid({phases:[nested]})&&d.body.textContent.includes('Mermaid 已复制'));
   Object.defineProperty(global.navigator,'clipboard',{configurable:true,value:{writeText:async()=>{throw new Error('denied')}}});await click('复制为 Mermaid');
   check('Clipboard denial leaves selectable source instead of false success',d.querySelector('textarea')?.value===copied&&d.body.textContent.includes('无法直接复制'));
-  let edited=[legacy];await render(React.createElement(C.BranchHarness,{seed:edited,onChange:next=>{edited=next}}));
+  let edited=[legacy];await render(React.createElement(C.BranchHarness,{seed:edited,flowData:{name:'合成技能',common:['技能的基础效果']},onChange:next=>{edited=next}}));
   check('Existing branches start as compact editable nodes',d.querySelector('.ev72-editor-condition')&&!d.querySelector('[aria-label="如果 · 条件 · 分支 1 · 条件"]'));
   await click('加入条件');check('Inline add-condition preserves existing condition',edited[0].conditionTree.kind==='group'&&edited[0].conditionTree.children[0].text===legacy.when);
   await choose('条件组判断方式 · 分支 1 · 条件','以下条件任一满足（或）');check('Inline group can switch to any logic',edited[0].conditionTree.operator==='any');
   await click('下级判断');check('Inline nested judgment is attached to the true path',edited[0].children.length===1&&!!edited[0].children[0].id);
-  const siblingButton=d.querySelector('.ev72-flow-edit-collection>.ev71-effect-record>.ev72-add-sibling');await act(async()=>siblingButton.click());
+  check('Adding a child selects it and opens its condition field',d.querySelector('.rw-branch-workspace-fields input[aria-label="分支标题 · 分支 1 · 子项 1"]')&&d.querySelector('[aria-label="如果 · 条件 · 分支 1 · 子项 1 · 条件"]'));
+  await click('返回父条件：旧条件');
+  await click('同级分支');
   check('Add sibling inserts at the current position without erasing data',edited.length===2&&edited[0].extra.source==='保留'&&edited[1].id);
-  await click('下移分支 · 分支列表 · 1');check('Branch order can change without flattening nested data',edited[1].children.length===1&&edited[1].otherwise==='效果乙');
+  await click('选择分支 1：旧条件');await click('下移');check('Branch order can change without flattening nested data',edited[1].children.length===1&&edited[1].otherwise==='效果乙');
+  await click('撤销');check('Undo restores nested branch order and alternate metadata',edited[0].children.length===1&&edited[0].otherwise==='效果乙');
+  await click('下移');
+  Object.defineProperty(global.navigator,'clipboard',{configurable:true,value:{writeText:async text=>{copied=text}}});await click('复制为 Mermaid');
+  check('Editor export includes base effects and the complete draft while one branch is selected',copied.includes('技能的基础效果')&&copied.includes('条件甲')&&copied.includes('条件乙'));
   d.querySelector('.ev71-preset-panel').open=true;await choose('模板计数依据','本次连续技能内的回合');await click('添加这组分支');check('Template appends ranges without replacing existing nodes',edited.length===5&&edited[3].conditionTree.ranges[0].end===5);
+  const structureSeed=[{id:'a',label:'条件甲',when:'甲前提',effect:'甲效果',extra:{source:'保留'},children:[{id:'leaf',label:'子项',when:'子前提',effect:'子效果'}],otherwise:'甲未满足效果'}, {id:'b',label:'条件乙',when:'乙前提',effect:'乙效果',otherwiseBranch:{relation:'else',conditionTree:null,effect:'乙未满足效果',children:[]}}];
+  let structured=structureSeed;
+  await render(React.createElement(C.BranchHarness,{seed:structured,flowData:{name:'结构测试',common:['共同基础效果']},onChange:next=>{structured=next}}));
+  const preview=()=>d.querySelector('.rw-branch-workspace-preview');
+  check('Default editor preview shows the full tree outside the field panel',preview().textContent.includes('乙效果')&&!d.querySelector('.rw-branch-workspace-fields .rw-branch-workspace-preview'));
+  await click('当前路径');check('Focused editor preview preserves ancestors while excluding siblings',preview().textContent.includes('甲效果')&&!preview().textContent.includes('乙效果'));
+  await click('完整结构');await click('添加父条件');
+  check('Wrapping creates and selects a new prerequisite while preserving its subtree',structured[0].presentation==='scope'&&structured[0].children[0]===structureSeed[0]&&d.querySelector('[aria-label="如果 · 条件 · 分支 1 · 条件"]'));
+  await input('如果 · 条件 · 分支 1 · 条件','共同前提');
+  await input('分支标题 · 分支 1','父条件');
+  await choose('层级展示 · 分支 1','执行阶段 · 先展示效果，再判断下级');
+  check('Explicit display mode survives editing and shares the reader component',structured[0].presentation==='action'&&preview().querySelector('[data-reading-kind="scope"][data-flow-presentation="action"]'));
+  await click('选择分支 1.1：条件甲');
+  d.querySelector('.rw-branch-workspace-reparent').open=true;
+  await choose('移动到哪个父条件','2. 条件乙 · 不成立时');await click('移动到此处');
+  check('Moving into an otherwise route keeps effects, descendants and metadata and selects the moved occurrence',structured[0].children.length===0&&structured[1].otherwiseBranch.children[0].extra.source==='保留'&&structured[1].otherwiseBranch.children[0].children[0].effect==='子效果'&&d.querySelector('.rw-branch-workspace-fields input').value==='条件甲');
+  check('New ancestor breadcrumb identifies the otherwise prerequisite',d.querySelector('.rw-branch-workspace-breadcrumb').textContent.includes('不成立'));
+  await click('撤销');check('Undo restores both parents and the selected branch after a reparent',structured[0].children[0].id==='a'&&structured[1].otherwiseBranch.children.length===0&&d.querySelector('.rw-branch-workspace-fields input').value==='条件甲');
+  await click('返回父条件：父条件');await click('下级判断');await input('如果 · 条件 · 分支 1 · 子项 2 · 条件','第二阈值');await click('同级分支');
+  check('New siblings remain inside their shared prerequisite',structured.length===2&&structured[0].children.length===3&&structured[0].children[1].conditionTree.text==='第二阈值');
+  await click('撤销');await click('撤销');await click('撤销');
+  await render(React.createElement(C.BranchHarness,{seed:structureSeed,record:'branch-1',onChange:next=>{structured=next}}));
+  check('Single-root editing does not expose root removal or cross-root movement',!d.querySelector('.rw-branch-workspace-reparent')&&![...d.querySelectorAll('button')].some(el=>el.textContent.trim()==='移除分支'));
+  await click('选择分支 1.1：子项');d.querySelector('.rw-branch-workspace-reparent').open=true;await click('移动到哪个父条件');
+  check('Single-root destination list excludes unrelated roots and top-level promotion',[...d.querySelectorAll('[role="option"]')].every(el=>!el.textContent.includes('条件乙')&&!el.textContent.includes('顶层')));
   let steps='甲效果\n乙效果';await render(React.createElement(C.StepsHarness,{seed:steps,onChange:next=>{steps=next}}));await click('下移效果 · 步骤 · 1');check('Effect components reorder individual steps',steps==='乙效果\n甲效果');await click('下一项效果');check('Effects can be appended in place',steps==='乙效果\n甲效果\n');
   const reference='由[海芙约忒](/pets/haifu/)使用[霞姿月韵](/skills/xiazi/)，场上有[海市蜃楼](/mechanics/environments/mirage/)。';
+  const termHTML=renderToStaticMarkup(React.createElement(C.CombatText,{text:'[物攻](/mechanics/attributes/#物攻) 和 `物防`；+2 物攻。'})),termDoc=new JSDOM(termHTML).window.document;
+  check('Automatic combat references preserve authored links and code without nested anchors',!termDoc.querySelector('a a')&&!termDoc.querySelector('code a')&&termDoc.querySelector('code').textContent==='物防'&&termDoc.querySelectorAll('[data-combat-reference="物攻"] img').length===1&&termDoc.body.textContent.includes('+2'));
   const refHTML=renderToStaticMarkup(React.createElement(C.ReadingMarkdown,{markdown:reference,editHeadings:false}));const refDoc=new JSDOM(refHTML).window.document;
   check('Markdown pet references render circular artwork and an explicit arrow',refDoc.querySelector('[data-entity-kind="宠物"] .rw-entity-reference-icon img')&&refDoc.querySelector('[data-entity-kind="宠物"] .rw-entity-reference-arrow'));
   check('Skill and environment references keep distinct linked types',refDoc.querySelector('[data-entity-kind="技能"][href="/skills/xiazi/"]')&&refDoc.querySelector('[data-entity-kind="环境"]'));
@@ -146,6 +182,22 @@ async function main() {
   check('Any does not carry names into the vote fingerprint',C.matchupBloodlineClaim({status:'any',names:['旧名称']}).names.length===0);
   const workspace={version:1,profile:{nickname:'测试访客',uuid:'fcb79b39-3134-430d-a8ce-ea7f0c8959f1',avatar:'haifu'},submissions:[],drafts:[]};
   const validBase={summary:'补充已经核验的资料',evidenceNote:'原始资料中可以核对本次修改的依据。'};
+  const skillReq={entity:'阴阳众蚨',mode:'skill',section:'效果与触发条件',returnTo:'/skills/?entry=official-skill-3806#effects'};
+  const skillSnapshot=C.getPublishedSnapshot(skillReq,workspace);
+  check('Skill editor baseline preserves the source sample’s local definitions',skillSnapshot.data.terms.length===2&&skillSnapshot.data.terms.some(term=>term.name==='重置总等级'));
+  let skillWorkspace=workspace;
+  await render(React.createElement(C.Harness,{workspace,query:new URLSearchParams(C.editorHref(skillReq).split('?')[1]),onWorkspace:next=>{skillWorkspace=next}}));
+  await input('名词名称 · 1','合成标记');await input('名词定义 · 1','合成验证：数值用于追加威力。');await click('保存草稿');
+  const savedSkill=skillWorkspace.drafts.find(row=>row.editorMode==='skill').typedData;
+  check('Local draft save retains edited definitions and complete nested branch structure',savedSkill.terms[0].name==='合成标记'&&savedSkill.terms[0].description.startsWith('合成验证')&&savedSkill.phases[0].children[0].children.length===2);
+  const dupForm={...validBase,editorMode:'skill',typedData:{...savedSkill,terms:[{name:'同名',description:'甲定义'},{name:' 同名 ',description:'乙定义'}]}};
+  check('Definition validation rejects ambiguous duplicate names',!!C.validateSectionForm(dupForm)['terms.1.name']);
+  check('Definition validation rejects malformed list payloads',!!C.validateSectionForm({...dupForm,typedData:{...savedSkill,terms:'invalid'}}).terms);
+  const publishedSkill=C.resolvePublishedCatalogSkills({skills:[{slug:'sample',name:'阴阳众蚨',common:[],phases:[]}],submissions:[{status:'published',editorVersion:7,editorMode:'skill',id:'synthetic-definition-revision',updatedAt:'2026-01-01',editorRequest:{entity:'阴阳众蚨'},typedData:savedSkill}]})[0];
+  check('A synthetic published revision resolves authored definitions and full branch data',publishedSkill.terms[0].name==='合成标记'&&publishedSkill.phases===savedSkill.phases);
+  await render(React.createElement(C.PreviewContent,{mode:'skill',data:{name:'合成预览',common:['标记层数 = 15 × 计数。'],terms:[{name:'计数',description:'用于计算的合成数值'}],phases:[{when:'本次技能命中',effect:'计数参与公式。',otherwiseBranch:{relation:'else',effect:'来源明确记载的另一情况',children:[{when:'补充条件',effect:'级数 = ceil(计数 / 2)。'}]}}]}}));
+  check('Whole-page preview uses the concise hit/miss reader and formats formulas in both routes',d.querySelector('[data-reading-kind="hit"]')&&d.querySelectorAll('[data-skill-flow] math').length===2&&!d.querySelector('[data-skill-flow]').textContent.includes('ceil('));
+  check('Definition and formula references in the whole-page preview have real destinations',[...d.querySelectorAll('.rw-combat-definition,.rw-analysis-formula-link')].every(el=>d.getElementById(el.getAttribute('href').slice(1)))&&d.querySelector('.rw-combat-definition'));
   const counterData={records:[{...C.blankMatchup(),opponent:'碧水灵兽',scene:'already-active',conclusion:'有条件优势',conditions:'双方配置满足来源条件',limitations:'速度不符合时不成立',sourceUrl:'https://example.org/evidence',myBloodline:{status:'specified',names:[optionData.options[0].value],note:''}}]};
   const counterForm={...validBase,editorMode:'matchup',editorRequest:{entity:'海芙约忒'},typedData:counterData};
   check('Counter validation accepts this pet’s actual bloodline',!C.validateSectionForm(counterForm)['records.0.myBloodline']);

@@ -17,6 +17,7 @@
     "data:update": "node --import tsx scripts/updates/run.ts",
     "pets:import": "node --import tsx scripts/updates/import-pets.ts",
     "skills:import": "node --import tsx scripts/updates/import-skills.ts",
+    "skills:analyses": "node --import tsx scripts/prepare-skill-analyses.ts",
     "skill-relations:import": "node --import tsx scripts/updates/import-skill-relations.ts",
     "game-skill-relations:import": "node --import tsx scripts/updates/import-game-skill-relations.ts",
     "ladder:import": "node --import tsx scripts/updates/import-ladder.ts",

@@ -12,6 +12,7 @@ import Select from "../Select";
 import EntityTextarea from "../EntityTextarea";
 import { eventData } from "../content/bundled.js";
 import SkillBranchEditor, { EffectStepsEditor } from "./SkillBranchEditor";
+import SkillTermsEditor from "./SkillTermsEditor";
 import BloodlinePicker from "./BloodlinePicker";
 import { PveGuideFields } from "../PveGuideEditor";
 import { SkillLearnerFields } from "../SkillLearners";
@@ -460,7 +461,7 @@ export default function TypedFields({
         {field("sourceUrl", { label: "技能资料来源", kind: "url" })}
       </>
     );
-  if (mode === "skill" && /^branch-\d+$/.test(record)) return <><SkillBranchEditor branches={data.phases || []} onChange={(value) => change("phases", value)} errors={errors} record={record} />{field("sourceUrl", { label: "技能资料来源", kind: "url" })}</>;
+  if (mode === "skill" && /^branch-\d+$/.test(record)) return <><SkillBranchEditor branches={data.phases || []} onChange={(value) => change("phases", value)} errors={errors} record={record} flowData={data} />{field("sourceUrl", { label: "技能资料来源", kind: "url" })}</>;
   if (mode === "skill")
     return (
       <>
@@ -495,7 +496,8 @@ export default function TypedFields({
           label: "命中说明",
           help: "区分固定命中规则和需要条件的必中分支。",
         })}
-        <SkillBranchEditor branches={data.phases || []} onChange={(value) => change("phases", value)} errors={errors} />
+        <SkillTermsEditor terms={data.terms || []} onChange={(value) => change("terms", value)} errors={errors} />
+        <SkillBranchEditor branches={data.phases || []} onChange={(value) => change("phases", value)} errors={errors} flowData={data} />
         {field("sourceUrl", { label: "技能资料来源", kind: "url" })}
       </>
     );

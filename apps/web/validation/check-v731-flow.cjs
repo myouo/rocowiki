@@ -154,6 +154,18 @@ async function main() {
   check('Returning to vertical preserves the original rich cards and all actions', first.querySelector('.rw-skill-branch-list').innerHTML === verticalMarkup && !first.querySelector('[data-flow-graph]') && second.querySelector('[data-skill-flow]').dataset.flowDirection === 'horizontal');
   await click(first, '复制为 Mermaid');
   check('Copied vertical Mermaid changes direction only', copied === C.skillToMermaid(fixture) && copied.split('\n').slice(1).join('\n') === graph.mermaid.split('\n').slice(1).join('\n'));
+  const selectedButton = first.querySelector('.rw-branch-navigator [aria-label="选择分支 1.1：第 2–5 回合"]');
+  await act(async () => selectedButton.click());
+  check('Selecting a descendant retains parent conditions while hiding unrelated roots', first.querySelector('.rw-flow-focus-note').textContent.includes('第 2–5 回合') && first.querySelector('.rw-skill-branch-list').textContent.includes('第 1 回合') && !first.querySelector('.rw-skill-branch-list').textContent.includes('并列环境条件'));
+  await click(first, '复制为 Mermaid');
+  check('Focused viewing still exports the complete condition tree', copied === C.skillToMermaid(fixture) && copied.includes('环境对应效果'));
+  await click(first, '横向');
+  check('Horizontal focus identifies the chosen occurrence even when the filtered path changes', first.querySelector('[data-flow-selected="true"]').dataset.flowBranchPath === '0.children.0' && first.querySelector('[data-flow-selected="true"]').textContent.includes('第 2–5 回合'));
+  const selectedAction = first.querySelector('.rw-flow-focus-note [data-edit-branch]');
+  await act(async () => selectedAction.click());
+  check('Focused editing keeps the original root record identity', equal(actions.at(-1), [0, 'rounds']));
+  await click(first, '返回全部分支');
+  verifyRenderedGraph(first, graph, 'Restored complete graph after focus');
 
   for (const [name, data] of cases.slice(1, -1)) {
     await render(React.createElement(C.SkillEffectFlow, { key: name, data, initialDirection: 'horizontal' }));

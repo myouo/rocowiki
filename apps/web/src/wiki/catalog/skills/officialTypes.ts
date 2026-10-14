@@ -1,17 +1,8 @@
 // SPDX-License-Identifier: GPL-3.0-only
-export interface OfficialSkillRecord {
-  id: number;
-  name: string;
-  type: string;
-  category: '物理' | '魔法' | '变化';
-  power: number | null;
-  pp: number;
-  speedCode: number;
-  description: string;
-  description2: string;
-  attackType: number;
-  damageType: number;
-}
+import type { SkillAnalysisRecord } from './analysisTypes';
+import type { OfficialSkillRecord } from './skillRecordTypes';
+import type { SkillTerm } from '../../skillTerms';
+export type { OfficialSkillRecord } from './skillRecordTypes';
 
 export interface OfficialSkillSnapshot {
   schemaVersion: 1;
@@ -49,8 +40,11 @@ export interface WikiSkill {
   summary: string;
   common: string[];
   phases: unknown[];
+  terms?: SkillTerm[];
   catalogEntry?: boolean;
   localEntry?: boolean;
   official?: OfficialSkillRecord;
   curatedSource?: string;
+  analysis?: SkillAnalysisRecord;
+  analysisCurrent?: boolean;
 }

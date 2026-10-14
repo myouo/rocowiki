@@ -707,7 +707,8 @@
       "directory": "apps/web/static/img",
       "evidence": [
         "apps/web/content/asset-sources.json",
-        "apps/web/content/pet-sources.json"
+        "apps/web/content/pet-sources.json",
+        "apps/web/static/img/combat/sources.json"
       ]
     },
     {
@@ -758,6 +759,17 @@
       "source": "https://17roco.qq.com/",
       "evidence": [
         "apps/web/content/game-skill-relations.json"
+      ]
+    },
+    {
+      "id": "community-skill-analysis-facts",
+      "status": "permission-unverified",
+      "license": "Not established by this repository",
+      "file": "apps/web/content/skill-analyses.json",
+      "source": "https://gitcode.com/rocoai-dev/roco-desc",
+      "evidence": [
+        "apps/web/content/skill-analysis-notes.json",
+        "apps/web/content/skill-analyses.json"
       ]
     }
   ]

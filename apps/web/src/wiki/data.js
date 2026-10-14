@@ -1,8 +1,9 @@
-import { petSourceData, petMetadata, officialPetData, officialLadderData, officialSkillData, skillRelationData, gameSkillRelationData, publicSearchRecords } from "./content/bundled.js";
+import { petSourceData, petMetadata, officialPetData, officialLadderData, officialSkillData, skillAnalysisData, skillRelationData, gameSkillRelationData, publicSearchRecords } from "./content/bundled.js";
 import { buildOfficialPetCatalog, petCatalogHref } from "./catalog/pets/officialModel";
 import { buildOfficialSkillCatalog, skillCatalogHref } from './catalog/skills/officialModel';
 import { attachSkillRelations } from './catalog/skills/relationModel';
 import { attachGameSkillRelations } from './catalog/skills/gameModel';
+import { attachSkillAnalyses } from './catalog/skills/analysisModel';
 
 const sourcePets = Array.isArray(petSourceData)
   ? petSourceData
@@ -256,6 +257,7 @@ for (const p of pets.filter((p) => p.slug === "bishui"))
       phases: [],
     });
 export const skills = buildOfficialSkillCatalog(officialSkillData, curatedSkills);
+attachSkillAnalyses(skills, skillAnalysisData);
 attachSkillRelations(pets, skills, skillRelationData);
 attachGameSkillRelations(pets, skills, gameSkillRelationData);
 export const historicalEvent = {
