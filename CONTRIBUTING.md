@@ -61,12 +61,12 @@
 
 当前采用站内邮箱密码认证，生产 OIDC 回调关闭。邮箱或用户名均可登录。用户名统一小写，3–24 位，以字母开头，允许数字、下划线和连字符，注册后不可改；昵称单独修改。密码为 15–128 个字符，保存独立随机盐的 scrypt 哈希。邮箱不公开，发信服务不接收密码。
 
-1. 在 Brevo 或 Resend 认证自己控制的独立发信子域，例如 mail.wiki.rocoai.app，发件地址例如 accounts@mail.wiki.rocoai.app。按平台实际返回的 DNS 记录配置，不猜测 DKIM/SPF 或覆盖主域邮件记录。
-2. 仓库 Settings → Environments → production 添加变量 MAIL_PROVIDER（brevo 或 resend）、MAIL_FROM（纯邮箱地址），对应 Key 存为 BREVO_API_KEY 或 RESEND_API_KEY Secret。保持 EMAIL_VERIFICATION_REQUIRED=true。不要公开凭据。
+1. 生产发信使用 Resend，默认发件地址为 noreply@wiki.rocoai.app；先在 Resend 认证 wiki.rocoai.app。按平台实际返回的 DNS 记录配置，不猜测 DKIM/SPF 或覆盖主域邮件记录。具体步骤见 [Resend 发信配置](docs/resend-setup.md)。
+2. 仓库 Settings → Environments → production 添加变量 MAIL_PROVIDER=resend、MAIL_FROM=noreply@wiki.rocoai.app，Key 存为 RESEND_API_KEY Secret。保持 EMAIL_VERIFICATION_REQUIRED=true。不要公开凭据。
 3. 运行 Deploy Wiki API。工作流迁移数据库、安全上传 Secrets，并用匿名错误密码请求验证真实 Workers 密码运行，不创建测试用户。免费计划 CPU 限制较低，运行检查失败时核对资源限制，不降低哈希强度或绕过检查上线。
 4. 用自己控制的 QQ、163、Gmail、Outlook 邮箱验收注册、重发、找回和密码修改，记录收件箱/垃圾箱位置、延迟及原始认证结果；检查点击追踪是否改写或破坏验证链接。API 接受、Delivered 指标和历史公开测试不能替代本站验收。
 
-验证邮件还需输入注册密码；验证通过才建立永久账号，未验证登记 24 小时后失效，不占用正式用户名。修改或重置密码撤销旧会话；近期认证重新校验当前账号密码。发信未配置时注册关闭；当前发信尚未配置和验收，正式注册、投稿及发布继续关闭。生产 Secrets 存到仓库 production 环境，由工作流部署。
+验证邮件还需输入注册密码；验证通过才建立永久账号，未验证登记 24 小时后失效，不占用正式用户名。修改或重置密码撤销旧会话；近期认证重新校验当前账号密码。发信未配置时注册关闭；正式启用前须完成真实投递、注册与找回密码验收。投稿及发布由独立开关控制，按各自验收流程启用。生产 Secrets 存到仓库 production 环境，由工作流部署。
 
 ### GitHub 接入配置
 

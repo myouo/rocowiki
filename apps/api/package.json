@@ -6,6 +6,7 @@
     "dev": "wrangler dev --port 8787",
     "db:migrate": "wrangler d1 migrations apply rocowiki --local",
     "types": "wrangler types src/worker-configuration.d.ts --include-runtime=false --strict-vars=false",
+    "test:mail-runtime": "node validation/check-mail-runtime.cjs",
     "dry-run": "wrangler deploy --dry-run --env=",
     "deploy": "wrangler deploy --env production"
   },

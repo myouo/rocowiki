@@ -1,11 +1,18 @@
 import {it,expect} from 'vitest';
 import {readFileSync} from 'node:fs';
-import {productionApiConfig,provisionApiDatabase,verifyApiRelease,verifyPasswordRuntime} from '../scripts/deploy-api';
+import {productionApiConfig,provisionApiDatabase,verifyApiRelease,verifyPasswordRuntime,obsoleteMailSecrets} from '../scripts/deploy-api';
 import {app} from '../apps/api/src/index';
 import {TestDatabase} from './d1';
 const account='a'.repeat(32),id='11111111-1111-4111-8111-111111111111',sha='1'.repeat(40);
 const database={name:'rocowiki-production',uuid:id};
 const response=(result:unknown)=>new Response(JSON.stringify({success:true,result}));
+it('removes retired mail credentials and omitted Resend keys while preserving unrelated secrets',()=>{
+  const secrets=['BREVO_API_KEY','RESEND_API_KEY','DEPLOY_WEBHOOK_SECRET','GITHUB_APP_PRIVATE_KEY'].map(name=>({name,type:'secret_text'}));
+  expect(obsoleteMailSecrets(secrets,{RESEND_API_KEY:'synthetic-key'})).toEqual(['BREVO_API_KEY']);
+  expect(obsoleteMailSecrets(secrets,{})).toEqual(['BREVO_API_KEY','RESEND_API_KEY']);
+  expect(obsoleteMailSecrets(secrets,{RESEND_API_KEY:' '})).toEqual(['BREVO_API_KEY','RESEND_API_KEY']);
+  expect(()=>obsoleteMailSecrets({success:false},{})).toThrow();
+});
 it('creates only the named Wiki database after a valid empty lookup',async()=>{
   const methods:string[]=[];
   const http:typeof fetch=async(input,options)=>{
@@ -52,6 +59,21 @@ it('builds an isolated runtime configuration without secrets or changes to the s
   expect(config.env.production.vars).toMatchObject({OIDC_CLIENT_ID:'public-id',API_SOURCE_COMMIT_SHA:sha,SUBMISSIONS_ENABLED:'false',PUBLISH_ENABLED:'false'});
   expect(JSON.stringify(config)).not.toContain('private-fixture');expect(config.env.production.routes).toEqual([]);
   source.env.production.vars.PUBLISH_ENABLED='true';expect(()=>productionApiConfig(source,id,sha)).toThrow('API_BOOTSTRAP_REQUIRES_CLOSED_CONTRIBUTIONS');
+});
+it('uses the selected Resend sender while keeping missing credentials from enabling registration',async()=>{
+  const source=JSON.parse(readFileSync('apps/api/wrangler.jsonc','utf8'));
+  const config=productionApiConfig(source,id,sha,{},'/tmp/wiki-source');
+  expect(config.env.production.vars).toMatchObject({MAIL_PROVIDER:'resend',MAIL_FROM:'noreply@wiki.rocoai.app',EMAIL_VERIFICATION_REQUIRED:'true'});
+  expect(JSON.stringify(config)).not.toContain('RESEND_API_KEY');
+  const db=new TestDatabase();
+  try{
+    for(const key of [undefined,'synthetic-resend-key']){
+      const env=db.env({...config.env.production.vars,...(key?{RESEND_API_KEY:key}:{})});
+      const response=await app.request('https://api.wiki.rocoai.app/health',{},env);
+      expect(response.status).toBe(200);
+      expect(await response.json()).toMatchObject({registration_enabled:Boolean(key),password_reset_available:Boolean(key),email_verification_required:true,submissions:false,publishing:false});
+    }
+  }finally{db.close();}
 });
 it('does not accept a stale API release or open contribution endpoints as a bootstrap success',async()=>{
   let calls=0;

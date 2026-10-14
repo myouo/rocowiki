@@ -5,7 +5,6 @@ export interface Secrets {
   GITHUB_WEBHOOK_SECRET?: string;
   DEPLOY_WEBHOOK_SECRET?: string;
   RESEND_API_KEY?: string;
-  BREVO_API_KEY?: string;
 }
 export type ApiEnv = Env & Secrets;
 export interface User { uid:string; username:string; display_name:string; role:'viewer'|'contributor'|'reviewer'|'admin'; }

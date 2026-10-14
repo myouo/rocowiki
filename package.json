@@ -27,7 +27,7 @@
     "check:production-config": "node scripts/check-production-config.cjs",
     "typecheck": "npm run generate && tsc --noEmit && npm run typecheck:web-critical",
     "typecheck:web-critical": "tsc -p tsconfig.web-critical.json --noEmit",
-    "test": "vitest run && npm run test:runtime -w @rocowiki/web && npm run test:workbench -w @rocowiki/web",
+    "test": "vitest run && npm run test:mail-runtime -w @rocowiki/api && npm run test:runtime -w @rocowiki/web && npm run test:workbench -w @rocowiki/web",
     "build": "npm run check:production-config && npm run check:content && npm run generate && npm run check:content -w @rocowiki/web && npm run build -w @rocowiki/web && pagefind --site apps/web/build && node scripts/version-manifest.mjs",
     "check": "npm run check:repository && npm run check:architecture && npm run check:content && npm run typecheck && npm test && npm run build",
     "api:dry-run": "npm run dry-run -w @rocowiki/api",

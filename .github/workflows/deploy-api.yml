@@ -23,6 +23,7 @@ jobs:
       - run: npm run check:repository
       - run: npm run typecheck
       - run: npx vitest run
+      - run: npm run test:mail-runtime -w @rocowiki/api
       - run: npm run api:dry-run
       - name: Migrate D1, deploy the API and verify its public health
         id: api
@@ -36,7 +37,6 @@ jobs:
           MAIL_PROVIDER: ${{ vars.MAIL_PROVIDER }}
           MAIL_FROM: ${{ vars.MAIL_FROM }}
           RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
-          BREVO_API_KEY: ${{ secrets.BREVO_API_KEY }}
           OIDC_ISSUER: ${{ vars.OIDC_ISSUER }}
           OIDC_CLIENT_ID: ${{ vars.OIDC_CLIENT_ID }}
           OIDC_CLIENT_SECRET: ${{ secrets.OIDC_CLIENT_SECRET }}
