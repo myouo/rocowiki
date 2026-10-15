@@ -108,6 +108,10 @@ it('keeps official query-string entry identities and marks shared-file history h
   const sources=historySources('/skills/?entry=official-skill-3806&pet=example');expect(sources[0]).toMatchObject({path:'apps/web/content/official-skills.json',shared:true});
   expect(historySources('/mechanics/effects/pressure/')).toEqual([{id:'article',label:'页面正文',path:'apps/web/docs/mechanics/effects/pressure.md',shared:false}]);
 });
+it('maps world pages to the files that actually supply their content rather than an unrelated weekly snapshot',()=>{
+  for(const [page,path] of [['/places/castle/','world/placeData.js'],['/npcs/griffin/','npcPresentation.js'],['/items/potion/','world/ItemPages.jsx'],['/tasks/badges/','world/TaskPages.jsx'],['/challenges/star-tower/','world/ChallengePages.jsx']])expect(historySources(page)[0]).toMatchObject({path:'apps/web/src/wiki/'+path,shared:true});
+  expect(historySources('/battle/rules/')[0].path).toBe('apps/web/content/weekly-v5.json');
+});
 it.each([403,429,500])('returns a readable failure instead of an empty successful history when GitHub returns %s',async status=>{
   vi.stubGlobal('fetch',provider({status}));const response=await request();expect(response.status).toBeGreaterThanOrEqual(500);const body=await response.text();expect(body).toContain(status===500?'HISTORY_UNAVAILABLE':'HISTORY_RATE_LIMITED');expect(body).not.toContain('private upstream response');
 });

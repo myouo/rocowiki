@@ -57,6 +57,6 @@ function DemoCommunityPages({ path = "/community/", query }) {
 export default function CommunityPages(props) {
   const {demo} = useWikiRuntime();
   const request=props.path==='/history/'?Object.fromEntries(props.query||[]):{},record=request.entity&&!request.page&&!request.from?getSearchRecords().find(row=>row.title===request.entity):null;
-  const content = !demo&&props.path==='/history/' ? <PublicHistoryPage target={request.page||request.from||record?.to||'/'} title={String(request.entity||record?.title||'首页').slice(0,150)}/> : demo ? <DemoCommunityPages {...props} /> : props.path === "/account/" ? <AccountCenter /> : <ServerWorkflowRoute {...props} />;
+  const content = !demo&&props.path==='/history/' ? <PublicHistoryPage target={request.page||request.from||record?.to||'/'} title={String(request.entity||record?.title||(request.page&&request.page!=='/'?request.page:'首页')).slice(0,150)}/> : demo ? <DemoCommunityPages {...props} /> : props.path === "/account/" ? <AccountCenter /> : <ServerWorkflowRoute {...props} />;
   return ["/edit/", "/review/"].includes(props.path) ? <RequireRole review={props.path === "/review/"}>{content}</RequireRole> : content;
 }
