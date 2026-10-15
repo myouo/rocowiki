@@ -13,6 +13,11 @@ const database=z.object({name:z.literal(databaseName),uuid});
 type Database=z.infer<typeof database>;
 const pause=(milliseconds:number)=>new Promise<void>(resolve=>setTimeout(resolve,milliseconds));
 
+export function productionApiSecrets(values:Record<string,string|undefined>):Record<string,string>{
+  const names=['RESEND_API_KEY','OIDC_CLIENT_SECRET','GITHUB_APP_PRIVATE_KEY','GITHUB_OAUTH_CLIENT_SECRET','GITHUB_WEBHOOK_SECRET','DEPLOY_WEBHOOK_SECRET'];
+  return Object.fromEntries(names.filter(name=>values[name]?.trim()).map(name=>[name,values[name]!]));
+}
+
 export function obsoleteMailSecrets(input:unknown,values:Record<string,string|undefined>){
   const existing=z.array(z.object({name:z.string(),type:z.string()})).parse(input);
   // Keep a retirement rule so an old deployment cannot retain the removed provider's key.
@@ -109,8 +114,7 @@ async function main(){
   try{
     const file=path.join(temporary,'wrangler.json'),secretFile=path.join(temporary,'secrets.json');
     await writeFile(file,JSON.stringify(config));
-    const names=['RESEND_API_KEY','OIDC_CLIENT_SECRET','GITHUB_APP_PRIVATE_KEY','GITHUB_OAUTH_CLIENT_SECRET','GITHUB_WEBHOOK_SECRET','DEPLOY_WEBHOOK_SECRET'];
-    await writeFile(secretFile,JSON.stringify(Object.fromEntries(names.filter(name=>env[name]?.trim()).map(name=>[name,env[name]]))),{mode:0o600});
+    await writeFile(secretFile,JSON.stringify(productionApiSecrets(env)),{mode:0o600});
     const run=(args:string[])=>execFileSync(process.execPath,['node_modules/wrangler/bin/wrangler.js',...args,'--config',file,'--env','production'],{stdio:'inherit',env:{...env,CI:'true',WRANGLER_SEND_METRICS:'false'}});
     run(['d1','migrations','apply',databaseName,'--remote']);
     run(['deploy','--secrets-file',secretFile]);
