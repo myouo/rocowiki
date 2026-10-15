@@ -1,11 +1,36 @@
 import {it,expect} from 'vitest';
 import {readFileSync} from 'node:fs';
+import {createRequire} from 'node:module';
 import {productionApiConfig,provisionApiDatabase,verifyApiRelease,verifyPasswordRuntime,obsoleteMailSecrets} from '../scripts/deploy-api';
 import {app} from '../apps/api/src/index';
 import {TestDatabase} from './d1';
 const account='a'.repeat(32),id='11111111-1111-4111-8111-111111111111',sha='1'.repeat(40);
 const database={name:'rocowiki-production',uuid:id};
 const response=(result:unknown)=>new Response(JSON.stringify({success:true,result}));
+const {load}=createRequire(import.meta.url)('js-yaml') as {load:(source:string)=>unknown};
+it('maps valid production OAuth configuration names to the binding runtime without putting its secret into vars',async()=>{
+  const workflow=load(readFileSync('.github/workflows/deploy-api.yml','utf8')) as {jobs:{deploy:{environment:string;steps:{run?:string;env?:Record<string,string>}[]}}};
+  const job=workflow.jobs.deploy,step=job.steps.find(step=>step.run==='npm run deploy:api')!;
+  expect(job.environment).toBe('production');
+  for(const expression of Object.values(step.env!))expect(expression).not.toMatch(/(?:vars|secrets)\.GITHUB_/);
+  const values={OAUTH_CLIENT_ID:'synthetic-client-id',OAUTH_CLIENT_SECRET:'synthetic-private-value'};
+  const resolve=(expression:string)=>{
+    const match=/^\$\{\{ (vars|secrets)\.(\w+) \}\}$/.exec(expression);
+    expect(match).not.toBeNull();expect(match![2]).not.toMatch(/^GITHUB_/);
+    expect(match![1]).toBe(match![2]==='OAUTH_CLIENT_ID'?'vars':'secrets');
+    return values[match![2] as keyof typeof values];
+  };
+  const runtime={GITHUB_OAUTH_CLIENT_ID:resolve(step.env!.GITHUB_OAUTH_CLIENT_ID),GITHUB_OAUTH_CLIENT_SECRET:resolve(step.env!.GITHUB_OAUTH_CLIENT_SECRET)};
+  expect(runtime.GITHUB_OAUTH_CLIENT_SECRET).toBe(values.OAUTH_CLIENT_SECRET);
+  const source=JSON.parse(readFileSync('apps/api/wrangler.jsonc','utf8'));
+  const config=productionApiConfig(source,id,sha,runtime,'/tmp/wiki-source');
+  expect(JSON.stringify(config)).not.toContain(values.OAUTH_CLIENT_SECRET);
+  const db=new TestDatabase();
+  try {
+    const env=db.env({...config.env.production.vars,...runtime});
+    expect(await(await app.request('https://api.wiki.rocoai.app/health',{},env)).json()).toMatchObject({github_binding_available:true});
+  } finally {db.close();}
+});
 it('removes retired mail credentials and omitted Resend keys while preserving unrelated secrets',()=>{
   const secrets=['BREVO_API_KEY','RESEND_API_KEY','DEPLOY_WEBHOOK_SECRET','GITHUB_APP_PRIVATE_KEY'].map(name=>({name,type:'secret_text'}));
   expect(obsoleteMailSecrets(secrets,{RESEND_API_KEY:'synthetic-key'})).toEqual(['BREVO_API_KEY']);

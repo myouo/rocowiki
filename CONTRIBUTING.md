@@ -1,6 +1,6 @@
 # 贡献指南
 [English](CONTRIBUTING.en.md) · [行为准则](CODE_OF_CONDUCT.md) · [安全政策](SECURITY.md)
-<!-- rocowiki-policy: contributing; version: 7; lang: zh-CN -->
+<!-- rocowiki-policy: contributing; version: 8; lang: zh-CN -->
 
 <a id="entry"></a>
 ## 选择入口
@@ -101,9 +101,9 @@
 
 发布机器人使用独立的 GitHub App。在 GitHub 的 Settings → Developer settings → GitHub Apps 中创建应用，主页填写 https://wiki.rocoai.app，仓库权限设置 Contents 和 Pull requests 为 Read and write，保留自动授予的 Metadata Read。仅安装到 myouo/rocowiki；主分支保护及独立维护者合并仍须单独配置。
 
-Webhook 地址填写 https://api.wiki.rocoai.app/webhooks/github，订阅 Push 与 Pull request。创建随机 Webhook Secret，同时保存到应用设置和仓库 production 环境的 GITHUB_WEBHOOK_SECRET；不要在配置接入前启用 Webhook。生成并下载 App 私钥，将完整 PEM 保存为 production 的 GITHUB_APP_PRIVATE_KEY Secret。把 App ID 和安装页面 URL 中的 Installation ID 分别存为 GITHUB_APP_ID、GITHUB_INSTALLATION_ID 环境变量。
+Webhook 地址填写 https://api.wiki.rocoai.app/webhooks/github，订阅 Push 与 Pull request。创建随机 Webhook Secret，同时保存到应用设置和仓库 production 环境的 WEBHOOK_SECRET；不要在配置接入前启用 Webhook。生成并下载 App 私钥，将完整 PEM 保存为 production 的 APP_PRIVATE_KEY Secret。把 App ID 和安装页面 URL 中的 Installation ID 分别存为 APP_ID、INSTALLATION_ID 环境变量。
 
-用户绑定 GitHub 使用另一项 OAuth App。在 Developer settings → OAuth Apps 创建应用，主页为 https://wiki.rocoai.app，Authorization callback URL 为 https://api.wiki.rocoai.app/auth/github/callback。将 Client ID 保存为 production 的 GITHUB_OAUTH_CLIENT_ID 环境变量，将 Client Secret 保存为 GITHUB_OAUTH_CLIENT_SECRET Secret。绑定只申请 read:user 与 user:email，不申请仓库写入权限。
+用户绑定 GitHub 使用另一项 OAuth App。在 Developer settings → OAuth Apps 创建应用，主页为 https://wiki.rocoai.app，Authorization callback URL 为 https://api.wiki.rocoai.app/auth/github/callback。将 Client ID 保存为 production 的 OAUTH_CLIENT_ID 配置变量，将 Client Secret 保存为 OAUTH_CLIENT_SECRET Secret。GitHub 配置名称不能使用保留的 GITHUB_ 前缀；部署工作流将这两个配置映射到 Worker 内部既有的 GITHUB_OAUTH_CLIENT_ID 与 GITHUB_OAUTH_CLIENT_SECRET 字段。绑定只申请 read:user 与 user:email，不申请仓库写入权限。
 
 更新配置后运行 Deploy Wiki API 工作流；在真实登录、回调和 Webhook 验证完成前，投稿与发布保持关闭。GitHub 绑定不会代替 Wiki 的邮箱密码注册登录。操作参考 [GitHub App 注册说明](https://docs.github.com/en/apps/sharing-github-apps/registering-a-github-app-using-url-parameters) 和 [OAuth App 注册说明](https://docs.github.com/en/apps/oauth-apps/building-oauth-apps/creating-an-oauth-app)。
 
