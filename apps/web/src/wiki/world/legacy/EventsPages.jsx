@@ -399,7 +399,7 @@ function WeeklyEventDetail({ event }) {
             <>
               <p>{guide.preparation}</p>
               {event.slug === "ifrit-challenge-20261009" && (
-                <TextLink to="/pets/dimo/">查看前置宠物：迪莫</TextLink>
+                <TextLink to="/pets/137/">查看前置宠物：迪莫</TextLink>
               )}
               <ol className="wa-numbered-steps">
                 {guide.steps.map((step, index) => (

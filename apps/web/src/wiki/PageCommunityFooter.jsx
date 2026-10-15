@@ -15,6 +15,12 @@ import {useDemoSubmissions} from "./community/useDemoSubmissions";
 import ServerPageCommunity from '../features/community/ServerPageCommunity';
 import ServerGuideLike from '../features/community/ServerGuideLike';
 
+let pageTitles;
+function publicPageTitle(page) {
+  pageTitles ||= new Map(getSearchRecords().map(row => [canonicalPageKey(row.to), row.title]));
+  return pageTitles.get(page) || '本页';
+}
+
 function DemoGuideLikeButton({ targetId, title, href, authorId = "", author }) {
   const { state, identity, ready, act } = useCommunitySocial();
   const [notice, setNotice] = useState("");
@@ -31,7 +37,7 @@ function DemoPageCommunityFooter() {
   const [draft,setDraft] = useState(""), [message,setMessage] = useState("");
   const { state, identity, ready, error, act } = useCommunitySocial();
   const discussion = useRef(null);
-  const title = getSearchRecords().find(row => canonicalPageKey(row.to) === page)?.title || "本页";
+  const title = publicPageTitle(page);
   useEffect(() => {setDraft(""); setMessage("");}, [page]);
   const { people, unattributed } = pageMaintainers(submissions,page);
   const showDiscussion = !/^\/(account|edit|review|history|feedback|search|not-found)\//.test(page);
@@ -77,6 +83,6 @@ export default function PageCommunityFooter() {
   const {demo} = useWikiRuntime();
   const location = useLocation();
   if (/(?:^|\/)copyright(?:\/en)?\/?$/.test(location.pathname)) return null;
-  const page=canonicalPageKey(location.pathname+location.search),title=getSearchRecords().find(row=>canonicalPageKey(row.to)===page)?.title||'本页';
+  const page=canonicalPageKey(location.pathname+location.search),title=publicPageTitle(page);
   return demo ? <DemoPageCommunityFooter /> : <ServerPageCommunity title={title} />;
 }

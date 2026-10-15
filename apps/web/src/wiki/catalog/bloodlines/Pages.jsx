@@ -85,22 +85,22 @@ function BloodlinePage({ detail = false }) {
                   <tr>
                     <td>怒气</td>
                     <td>
-                      <Link to="/skills/yuanyun/">渊云点墨</Link>、
-                      <Link to="/skills/feixing/">飞星浮渡</Link>
+                      <Link to="/skills/3045/">渊云点墨</Link>、
+                      <Link to="/skills/3047/">飞星浮渡</Link>
                     </td>
                     <td>初始值、上限、获得/消耗时点</td>
                   </tr>
                   <tr>
                     <td>战意</td>
                     <td>
-                      <Link to="/skills/yuanyun/">满额资源条件</Link>
+                      <Link to="/skills/3045/">满额资源条件</Link>
                     </td>
                     <td>持续、重置与其他相互作用</td>
                   </tr>
                   <tr>
                     <td>乘胜</td>
                     <td>
-                      <Link to="/skills/feixing/">飞星浮渡的命中条件</Link>
+                      <Link to="/skills/3047/">飞星浮渡的命中条件</Link>
                     </td>
                     <td>状态来源、持续与解除</td>
                   </tr>
@@ -116,7 +116,7 @@ function BloodlinePage({ detail = false }) {
               将来比较不同血脉时，同步展示受影响的技能，不只更换一个名称。
             </Notice>
           </div>
-          <TextLink to="/pets/haifu/">查看海芙约忒图鉴</TextLink>
+          <TextLink to="/pets/3092/">查看海芙约忒图鉴</TextLink>
         </>
       )}
       <Contribution

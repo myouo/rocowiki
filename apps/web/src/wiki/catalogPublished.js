@@ -2,6 +2,7 @@ import { normalizeSkillLearners } from "./skillLearnerModel";
 import { petCatalogHref } from "./catalog/pets/officialModel";
 export { petSkillPoolHref } from './catalog/pets/officialModel';
 import { skillCatalogHref } from './catalog/skills/officialModel';
+import {matchesCatalogEntry} from '../../../../packages/wiki-schema/src/catalog-routes';
 /* Published catalogue projections. Drafts and deletion proposals stay out of the reader. */
 const plain = (value) => value && typeof value === "object" && !Array.isArray(value);
 const text = (value, fallback = "") => typeof value === "string" ? value.slice(0, 15000) : fallback;
@@ -39,7 +40,7 @@ export function resolvePublishedCatalogPets({ pets = [], metadata = {}, submissi
     const data = submission.typedData, request = submission.editorRequest || {};
     const identity = requestSlug(submission, "pets");
     const adding = request.intent === "add" || request.action === "create";
-    let index = result.findIndex((pet) => identity ? pet.slug === identity : pet.name === request.entity);
+    let index = result.findIndex((pet) => identity ? matchesCatalogEntry('pets', pet, identity) : pet.name === request.entity);
     // Additions cannot overwrite an existing pet. Subsequent edits use its stable identity.
     if (adding && index >= 0) continue;
     if (request.intent === "delete") {
@@ -86,7 +87,7 @@ export function resolvePublishedCatalogSkills({ skills = [], submissions = [] } 
     const data = submission.typedData, request = submission.editorRequest || {};
     const identity = requestSlug(submission, "skills");
     const adding = request.intent === "add" && (!request.record || request.section === "技能目录");
-    const index = result.findIndex((skill) => identity ? skill.slug === identity : skill.name === request.entity);
+    const index = result.findIndex((skill) => identity ? matchesCatalogEntry('skills', skill, identity) : skill.name === request.entity);
     if (index < 0 && !adding) continue;
     if (index >= 0 && adding && request.section === "技能目录") continue;
     const previous = index >= 0 ? result[index] : { slug: identity || `local-${String(submission.id || "skill").replace(/[^a-z0-9_-]/gi, "_")}`, tags: [], owner: "学习关系待补", ownerSlug: null, localEntry: true };

@@ -11,6 +11,7 @@ import { GitCompareArrows, ExternalLink, Check } from "lucide-react";
 import { Link } from "../core";
 import { skills } from "../data";
 import { externalSource, normalType, petMeta } from "./model.js";
+import {withCatalogContext} from '../../../../../packages/wiki-schema/src/catalog-routes';
 
 function AttributeBadge({ type, iconOnly = false }) {
   const normalized = normalType(type);
@@ -174,10 +175,7 @@ function SkillTable({
                   <Link
                     className="rw-entity-link"
                     to={
-                      skillDetailHref(s) +
-                      (petContext
-                        ? (s.localEntry || s.catalogEntry ? "&pet=" : "?pet=") + encodeURIComponent(petContext)
-                        : "")
+                      withCatalogContext(skillDetailHref(s), {pet: petContext})
                     }
                   >
                     {s.name}

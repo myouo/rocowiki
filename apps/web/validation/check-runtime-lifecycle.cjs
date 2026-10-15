@@ -47,6 +47,7 @@ async function main() {
         build.onResolve({filter:/^@docusaurus\/theme-common\/lib\/hooks\/useTOCHighlight$/},()=>({path:path.join(path.dirname(require.resolve('@docusaurus/theme-common',{paths:[project]})),'hooks/useTOCHighlight.js')}));
         build.onResolve({filter:/^(@docusaurus\/|@theme\/)/},args=>({path:args.path,namespace:'framework'}));
         build.onLoad({filter:/.*/,namespace:'framework'},args=>({loader:'jsx',resolveDir:project,contents:
+          args.path.endsWith('/Head') ? `export default function Head(){return null}` :
           args.path.endsWith('/router') ? `export function useLocation(){return globalThis.__wikiLocation};export function useHistory(){return {push(to){globalThis.__navigation=to},replace(to){globalThis.__navigation=to},goBack(){}}};` :
           args.path.endsWith('/useBrokenLinks') ? `export default function useBrokenLinks(){return {collectAnchor(){},collectLink(){}}}` :
           args.path.endsWith('/useBaseUrl') ? `export default function useBaseUrl(value){return value}` :
@@ -227,6 +228,16 @@ async function main() {
     await render(React.createElement(React.StrictMode,null,React.createElement(C.WikiPage,{routeData:{path:route}})));
     check(`Native route can mount and unmount: ${route}`,!!d.querySelector('#rw-main')&&!d.querySelector('.rw-recovery-v73'));
   }
+  for(const [route,title] of [['/pets/3092/','海芙约忒'],['/skills/3044/','霞姿月韵']]){
+    globalThis.__wikiLocation={pathname:route,search:'',hash:''};
+    await render(React.createElement(C.WikiPage));
+    check(`Numbered entry resolves the original identity: ${route}`,d.querySelector('h1')?.textContent===title&&!d.querySelector('.rw-recovery-v73'));
+    const links=[...d.querySelectorAll('a[href]')].map(node=>node.getAttribute('href'));
+    check(`Numbered entry keeps readable section and editing links: ${route}`,links.some(href=>href.startsWith('/edit/?')&&new URL(href,'https://wiki.test').searchParams.get('returnTo')?.startsWith(route)));
+  }
+  globalThis.__wikiLocation={pathname:'/skills/xiazi/',search:'?pet=haifu',hash:'#effects'};
+  await render(React.createElement(C.WikiPage,{routeData:{path:'/skills/xiazi/'}}));
+  check('Legacy entry replacement preserves context and fragment',globalThis.__navigation==='/skills/3044/?pet=haifu#effects');
   globalThis.__wikiWorkspaceMode='server';
   const poisoned=JSON.stringify({version:1,profile:{uuid:author,uid:'999',nickname:'Local administrator'},drafts:[],submissions:[{id:'poison',status:'published',editorVersion:7,editorMode:'pet',editorRequest:{entity:C.pets[0].name,returnTo:'/pets/'+C.pets[0].slug+'/'},typedData:{...C.pets[0],name:'FAKE LOCAL PUBLICATION'}}]});
   w.localStorage.setItem(storageKey,poisoned);

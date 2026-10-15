@@ -75,9 +75,9 @@ describe('official pet catalogue integration', () => {
     const previous = { slug: 'miaomiao', name: '喵喵', number: 1, image: '/img/pets/miaomiao.png', stats: [1, 1, 1, 1, 1, 1], skills: [{ name: '样本技能' }], sourceUrl: 'https://example.test/guide' };
     const [merged] = buildOfficialPetCatalog(snapshot, [previous], { miaomiao: { bloodlines: ['样本血脉'], ladderMagic: { value: 5 } } });
     expect(merged).toMatchObject({ slug: 'miaomiao', stats: [45, 49, 49, 65, 65, 45], image: previous.image, skills: previous.skills, aliases: ['喵喵'], metadata: { bloodlines: ['样本血脉'], ladderMagic: { value: 5 }, group: '精灵组' } });
-    expect(petCatalogHref(merged)).toBe('/pets/miaomiao/');
+    expect(petCatalogHref(merged)).toBe('/pets/1/');
     const [imported] = buildOfficialPetCatalog(snapshot, [], {});
-    expect(petCatalogHref(imported)).toBe('/pets/?entry=official-1');
+    expect(petCatalogHref(imported)).toBe('/pets/1/');
     expect(imported.image).toBe('https://res.17roco.qq.com/res/combat/icons/001-.png?B6041');
   });
   it('hydrates static HTML before applying a direct detail or filtered query', async () => {

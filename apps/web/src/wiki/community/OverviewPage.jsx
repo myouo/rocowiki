@@ -133,7 +133,7 @@ function Community({ workspace, update }) {
             <p>
               推荐从错字、失效链接和出处补充开始。游戏机制有争议时，先记录可复现的现象。
             </p>
-            <Link to={sectionEditHref({entity: "海芙约忒", section: "获取时间线", mode: "acquisition", record: "haifu-20240705", returnTo: "/pets/haifu/#acquire"})}>
+            <Link to={sectionEditHref({entity: "海芙约忒", section: "获取时间线", mode: "acquisition", record: "haifu-20240705", returnTo: "/pets/3092/#acquire"})}>
               试一次词条纠错
               <ArrowRight size={14} />
             </Link>

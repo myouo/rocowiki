@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { BOOKMARKS_KEY } from "./constants.js";
 import { articleHref } from "./navigation.js";
+import {canonicalCatalogHref} from '../../../../../packages/wiki-schema/src/catalog-routes';
 
 function useBookmarks() {
   const [bookmarks, setBookmarks] = useState([]);
@@ -23,7 +24,7 @@ function useBookmarks() {
                   title: item,
                   href:
                     item.startsWith("/") && !item.startsWith("//")
-                      ? item
+                      ? canonicalCatalogHref(item)
                       : articleHref(item),
                   kind: "词条",
                 }
@@ -34,7 +35,7 @@ function useBookmarks() {
                     typeof item.href === "string" &&
                     item.href.startsWith("/") &&
                     !item.href.startsWith("//")
-                      ? item.href
+                      ? canonicalCatalogHref(item.href)
                       : articleHref(item.title || item.name || ""),
                   kind: String(item.kind || "词条"),
                 },

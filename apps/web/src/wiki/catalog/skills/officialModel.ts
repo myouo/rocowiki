@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: GPL-3.0-only
 import type { OfficialSkillSnapshot, WikiSkill } from './officialTypes';
+import {catalogEntryHref, type CatalogIdentity} from '../../../../../../packages/wiki-schema/src/catalog-routes';
 
 type ExistingSkill = Partial<WikiSkill> & { slug: string; name: string };
 
@@ -33,9 +34,8 @@ export function buildOfficialSkillCatalog(snapshot: OfficialSkillSnapshot, exist
   return result;
 }
 
-export function skillCatalogHref(skill: { slug?: string; localEntry?: boolean; catalogEntry?: boolean }) {
-  const slug = encodeURIComponent(skill.slug || '');
-  return skill.localEntry || skill.catalogEntry ? `/skills/?entry=${slug}` : `/skills/${slug}/`;
+export function skillCatalogHref(skill: CatalogIdentity) {
+  return catalogEntryHref('skills', skill);
 }
 
 export function skillCollection(skill: { name?: string; official?: { description?: string } }) {

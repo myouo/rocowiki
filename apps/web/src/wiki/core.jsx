@@ -479,7 +479,7 @@ export function SearchLauncher() {
         <div className="rw-search-hints">
           <span>常用查阅</span>
           {[
-            ["海芙约忒", "/pets/haifu/"],
+            ["海芙约忒", "/pets/3092/"],
             ["技能先手", "/mechanics/priority/"],
             ["回归指南", "/guides/returning/"],
             ["活动获取", "/events/"],

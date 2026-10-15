@@ -2,6 +2,7 @@
 import type { OfficialPetSnapshot, WikiPet, PetStats } from './officialTypes';
 import type { OfficialLadderSnapshot } from './ladderTypes';
 import { officialLadderCost } from './ladderModel';
+import {catalogEntryHref, type CatalogIdentity} from '../../../../../../packages/wiki-schema/src/catalog-routes';
 
 interface ExistingPet {
   slug: string;
@@ -55,12 +56,11 @@ export function buildOfficialPetCatalog(snapshot: OfficialPetSnapshot, existing:
   return result;
 }
 
-export function petCatalogHref(pet: { slug?: string; localEntry?: boolean; catalogEntry?: boolean }) {
-  const slug = encodeURIComponent(pet.slug || '');
-  return pet.localEntry || pet.catalogEntry ? `/pets/?entry=${slug}` : `/pets/${slug}/`;
+export function petCatalogHref(pet: CatalogIdentity) {
+  return catalogEntryHref('pets', pet);
 }
 
-export function petSkillPoolHref(pet: { slug?: string; localEntry?: boolean; catalogEntry?: boolean }) {
+export function petSkillPoolHref(pet: CatalogIdentity) {
   const href = petCatalogHref(pet);
-  return pet.localEntry || pet.catalogEntry ? `${href}&section=skills` : `${href}#skills`;
+  return `${href}#skills`;
 }

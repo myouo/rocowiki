@@ -126,6 +126,7 @@ async function main() {
     format: "cjs",
     loader: { ".css": "empty" },
     alias: {
+      "@docusaurus/Head": path.join(root, "preview/head.tsx"),
       "@docusaurus/useDocusaurusContext": path.join(root, "preview/docusaurus-context.js"),
       "@docusaurus/Link": path.join(root, "preview/router.jsx"),
       "@docusaurus/router": path.join(root, "preview/router.jsx"),

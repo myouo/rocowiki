@@ -17,13 +17,14 @@ import SkillAnalysisSource, { SkillAnalysisNotes } from './AnalysisSource';
 import CompactAnalysis from './CompactAnalysis';
 import { useHydratedSearch } from '../pets/useHydratedSearch';
 import { skillCollection } from './officialModel';
+import {matchesCatalogEntry, withCatalogContext} from '../../../../../../packages/wiki-schema/src/catalog-routes';
 
 function SkillPage({ slug }) {
   const skills = usePublishedSkills();
   const pets = usePublishedPets();
   const location = useLocation();
   const search = useHydratedSearch(location.search);
-  const skill = skills.find((s) => s.slug === slug);
+  const skill = skills.find((s) => matchesCatalogEntry('skills', s, slug));
   const [expand, setExpand] = useState(true);
   if (!skill)
     return (
@@ -34,10 +35,9 @@ function SkillPage({ slug }) {
     );
   const requestedPet = new URLSearchParams(search).get("pet");
   const learningPets = resolveSkillLearners({ skill, pets }).rows.map((row) => row.pet);
-  const contextPet = learningPets.find((pet) => pet.slug === requestedPet);
+  const contextPet = requestedPet ? learningPets.find((pet) => matchesCatalogEntry('pets', pet, requestedPet)) : undefined;
   const rules = skillRulePresentation(skill);
-  const skillReturnBase = skillDetailHref(skill) +
-    (contextPet ? (skill.localEntry || skill.catalogEntry ? "&pet=" : "?pet=") + encodeURIComponent(contextPet.slug) : "");
+  const skillReturnBase = withCatalogContext(skillDetailHref(skill), {pet: contextPet?.slug});
   return (
     <div className="rw-skill-detail-v6">
       <PageHeader
@@ -47,7 +47,7 @@ function SkillPage({ slug }) {
         actions={
           <>
             <BookmarkButton
-              id={"skill:" + slug}
+              id={"skill:" + skill.slug}
               title={skill.name}
               href={skillDetailHref(skill)}
               kind="技能"

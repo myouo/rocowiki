@@ -1,4 +1,4 @@
-import { getSearchRecords } from "./data";
+import { searchRecordForPath } from "./data";
 import { pageVisual } from "./visuals";
 import { publishedDocs } from "./content/bundled.js";
 
@@ -21,9 +21,7 @@ export function editingContext(
   overrides = {},
 ) {
   const clean = path.split(/[?#]/)[0];
-  const known = getSearchRecords().find(
-    (row) => row.to?.split(/[?#]/)[0] === clean,
-  );
+  const known = searchRecordForPath(clean);
   let mode = "article";
   const kind = clean.split("/").filter(Boolean)[0];
   const detail = clean.split("/").filter(Boolean).length > 1;

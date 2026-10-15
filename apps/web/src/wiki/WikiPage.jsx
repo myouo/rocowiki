@@ -1,5 +1,6 @@
 import React from "react";
 import Layout from "@theme/Layout";
+import useBaseUrl from '@docusaurus/useBaseUrl';
 import { useLocation } from "@docusaurus/router";
 import { BookOpen, ArrowRight, FileCheck, Lightbulb } from "lucide-react";
 import {
@@ -32,6 +33,8 @@ import { isReaderPath } from "./editingContext";
 import {useWikiRuntime} from "./runtime/useWikiRuntime";
 import CopyrightPage from "./legal/CopyrightPage";
 import { useHydratedSearch } from "./catalog/pets/useHydratedSearch";
+import {matchesCatalogEntry} from '../../../../packages/wiki-schema/src/catalog-routes';
+import CatalogRouteMeta from './catalog/CatalogRouteMeta';
 
 export function GuideIndex({ help = false }) {
   const entries = help
@@ -148,11 +151,14 @@ export function PageContent({ path, query }) {
 export default function WikiPage({ routeData }) {
   const {demo} = useWikiRuntime();
   const location = useLocation();
-  const path = normalizePath(routeData?.path || location.pathname);
-  const query = new URLSearchParams(useHydratedSearch(location.search));
+  const base = useBaseUrl('/');
+  const path = normalizePath(routeData?.path || location.pathname.slice(base.length - 1));
+  const search = useHydratedSearch(location.search);
+  const query = new URLSearchParams(search);
+  const entry = path.split('/')[2] || query.get('entry');
   const title =
-    pets.find((p) => path === "/pets/" + p.slug + "/" || (path === "/pets/" && query.get("entry") === p.slug))?.name ||
-    skills.find((s) => path === "/skills/" + s.slug + "/" || (path === '/skills/' && query.get('entry') === s.slug))?.name ||
+    (path.startsWith('/pets/') && entry && pets.find(p => matchesCatalogEntry('pets', p, entry))?.name) ||
+    (path.startsWith('/skills/') && entry && skills.find(s => matchesCatalogEntry('skills', s, entry))?.name) ||
     {
       "/": "洛克王国资料库",
       "/pets/": "宠物图鉴",
@@ -176,6 +182,7 @@ export default function WikiPage({ routeData }) {
       title={title}
       description={path.startsWith("/copyright/") ? (path === "/copyright/en/" ? "RocoWiki copyright, CC BY-SA 4.0 prose licensing and third-party rights." : "RocoWiki 版权归属、CC BY-SA 4.0 正文许可与第三方权利说明。") : "洛克王国页游：宠物、技能、机制、活动与冒险的完整查阅系统。"}
     >
+      <CatalogRouteMeta path={path} search={location.search || ''} hash={location.hash || ''} />
       <main className="rw" id="rw-main" tabIndex={-1} data-pagefind-body={isReaderPath(path) && path !== "/community/" ? "" : undefined}>
         <div className="rw-prototype-label">
           <span />

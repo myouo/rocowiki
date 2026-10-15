@@ -108,10 +108,14 @@ it('uses authenticated comment authors, preserves idempotency and derives likes 
   expect((await request('/community/likes',{target_type:'comment',target_id:id,active:true},b)).status).toBe(200);
   const discussion=discussionResponseSchema.parse(await (await request('/community/discussion?page='+encodeURIComponent('/skills/?entry=official-skill-3806'))).json());
   expect(discussion).toMatchObject({owner_uid:null,total:1,comments:[{author_uid:alice,likes:1,liked:false}]});
+  const numbered=discussionResponseSchema.parse(await (await request('/community/discussion?page='+encodeURIComponent('/skills/3806/'))).json());
+  expect(numbered).toEqual(discussion);
+  expect((await request('/community/comments',{...body,page:'/skills/3806/'},a,'POST',key)).status).toBe(201);
+  expect(db.sql.prepare('SELECT count(*) AS n FROM community_comments').get()!.n).toBe(1);
   const firstAt=db.sql.prepare('SELECT first_at FROM community_likes').get()!.first_at;
   await request('/community/likes',{target_type:'comment',target_id:id,active:false},b);vi.setSystemTime(new Date('2026-10-14T09:00:00Z'));await request('/community/likes',{target_type:'comment',target_id:id,active:true},b);
   expect(db.sql.prepare('SELECT first_at FROM community_likes').get()!.first_at).toBe(firstAt);
-  const activity=activityResponseSchema.parse(await (await request('/community/activity?view=commentLikes&period=all',undefined,a)).json());expect(activity.rows[0]).toMatchObject({actor_uid:bob,href:'/skills/?entry=official-skill-3806#comment-'+id});
+  const activity=activityResponseSchema.parse(await (await request('/community/activity?view=commentLikes&period=all',undefined,a)).json());expect(activity.rows[0]).toMatchObject({actor_uid:bob,href:'/skills/3806/#comment-'+id});
   expect((await request('/community/comments/'+id,undefined,b,'DELETE')).status).toBe(403);
   expect((await request('/community/comments/'+id,undefined,a,'DELETE')).status).toBe(200);
   expect((await request('/community/comments/'+id,undefined,a,'DELETE')).status).toBe(200);
