@@ -3,6 +3,7 @@ import type {Hono} from 'hono';
 import {z} from 'zod';
 import {now,newId,hash} from '../../../packages/auth/src/index';
 import {catalog} from '../../../packages/wiki-schema/src/index';
+import {canonicalCatalogHref} from '../../../packages/wiki-schema/src/catalog-routes';
 import {
   HONOR_ITEMS,ACHIEVEMENTS,CHECKIN_REWARD_MIN,CHECKIN_REWARD_MAX,STREAK_REWARD,
   communityDay,addCommunityDays,communityBounds,calendarQuerySchema,redemptionSchema,equipSchema,
@@ -185,7 +186,7 @@ export function registerCommunityRoutes(app:Hono<Bindings>,http:HttpHelpers) {
     else if(view==='contributions')query=`SELECT s.revision_id AS event_id,s.uid AS actor_uid,u.display_name,coalesce(p.avatar,'dimo') AS avatar,s.page_id AS title,s.edit_summary AS body,s.page_id AS href,s.first_at AS created_at,0 AS received_count FROM (${publishedSql}) s JOIN users u ON u.uid=s.uid LEFT JOIN community_profiles p ON p.uid=s.uid WHERE s.uid=?`;
     else query=`SELECT l.uid||':'||l.target_type||':'||l.target_id AS event_id,l.uid AS actor_uid,u.display_name,coalesce(p.avatar,'dimo') AS avatar,coalesce(c.title,s.page_id) AS title,coalesce(c.body,'') AS body,coalesce(c.page,s.page_id) AS href,l.first_at AS created_at,0 AS received_count FROM (${effectiveLikesSql}) l JOIN users u ON u.uid=l.uid LEFT JOIN community_profiles p ON p.uid=l.uid LEFT JOIN community_comments c ON l.target_type='comment' AND c.comment_id=l.target_id LEFT JOIN (${publishedSql}) s ON l.target_type='guide' AND s.revision_id=l.target_id WHERE l.author_uid=? AND l.target_type='${view==='guideLikes'?'guide':'comment'}'`;
     const result=await c.env.DB.prepare(`SELECT * FROM (${query}) WHERE created_at>=? AND created_at<? AND created_at<=? AND (created_at<? OR (created_at=? AND event_id<?)) ORDER BY created_at DESC,event_id DESC LIMIT 21`).bind(uid,start,end,time,after.at,after.at,after.id).all<ActivityResponse['rows'][number]>();
-    const rows=result.results.slice(0,20).map(row=>({...row,href:row.href.startsWith('/')?row.href+(view==='contributions'?'':'#comment-'+(view==='comments'?row.event_id:row.event_id.split(':').at(-1))):pageHref(row.href)}));
+    const rows=result.results.slice(0,20).map(row=>({...row,href:row.href.startsWith('/')?canonicalCatalogHref(row.href)+(view==='contributions'?'':'#comment-'+(view==='comments'?row.event_id:row.event_id.split(':').at(-1))):pageHref(row.href)}));
     const tail=rows.at(-1);
     return c.json({owner_uid:uid,view,period,rows,next_cursor:result.results.length>20&&tail?writeCursor({at:tail.created_at,id:tail.event_id}):null});
   });

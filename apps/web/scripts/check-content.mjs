@@ -51,6 +51,15 @@ for (const route of manifest) {
   routes.set(canonical, "content/routes.json");
 }
 
+for (const kind of ['pets', 'skills']) {
+  const snapshot = JSON.parse(await fs.readFile(path.join(projectRoot, 'content', `official-${kind}.json`), 'utf8'));
+  for (const entry of snapshot[kind]) {
+    const route = `/${kind}/${entry.id}/`;
+    if (!Number.isSafeInteger(entry.id) || entry.id <= 0 || routes.has(route)) errors.push(`Invalid or duplicate catalogue route: ${route}`);
+    routes.set(route, `content/official-${kind}.json`);
+  }
+}
+
 const documentPaths = await walk(docsRoot);
 const documents = await Promise.all(
   documentPaths.map(async (absolutePath) => ({

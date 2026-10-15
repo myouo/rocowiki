@@ -19,25 +19,27 @@ import { petCollection, safePetListReturnTo } from "./feedModel";
 import LadderSource from "./LadderSource";
 import { petLearnsSkill } from '../../skillLearnerModel';
 import SkillPoolSource from '../skills/PoolSource';
+import {matchesCatalogEntry} from '../../../../../../packages/wiki-schema/src/catalog-routes';
+import {useHydratedSearch} from './useHydratedSearch';
 
 function PetPage({ slug }) {
   const location = useLocation();
-  const returnTarget = new URLSearchParams(location.search).get("returnTo");
-  const requestedSection = new URLSearchParams(location.search).get('section');
+  const search = useHydratedSearch(location.search);
+  const returnTarget = new URLSearchParams(search).get("returnTo");
+  const requestedSection = new URLSearchParams(search).get('section');
   const listReturn = safePetListReturnTo(returnTarget);
   useEffect(() => {
     if (requestedSection === 'skills') {
       document.getElementById('skills')?.scrollIntoView({ block: 'start' });
       return;
     }
-    if (!returnTarget) return;
     if (location.hash) {
       try { document.getElementById(decodeURIComponent(location.hash.slice(1)))?.scrollIntoView(); } catch {}
-    } else window.scrollTo({ top: 0, behavior: "instant" });
-  }, [slug, requestedSection]);
+    } else if (returnTarget) window.scrollTo({ top: 0, behavior: "instant" });
+  }, [slug, requestedSection, returnTarget, location.hash]);
   const pets = usePublishedPets();
   const skills = usePublishedSkills();
-  const pet = pets.find((p) => p.slug === slug);
+  const pet = pets.find((p) => matchesCatalogEntry('pets', p, slug));
   const [skillMode, setSkillMode] = useState("key");
   if (!pet)
     return (
@@ -89,11 +91,11 @@ function PetPage({ slug }) {
         actions={
           <>
             <BookmarkButton
-              id={"pet:" + slug}
+              id={"pet:" + pet.slug}
               title={pet.name}
               href={petReturnBase}
             />
-            <Link className="rw-button" to={"/tools/compare/?pets=" + slug}>
+            <Link className="rw-button" to={"/tools/compare/?pets=" + pet.slug}>
               <GitCompareArrows size={15} />
               对比
             </Link>

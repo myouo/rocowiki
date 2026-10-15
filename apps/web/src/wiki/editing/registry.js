@@ -27,6 +27,7 @@ import {
 
 import { STORAGE_KEY as COMMUNITY_STORAGE_KEY } from "../community/constants";
 import { readDemoWorkspace } from "../community/workspaceRepository";
+import {matchesCatalogEntry, catalogStorageKey} from '../../../../../packages/wiki-schema/src/catalog-routes';
 export { COMMUNITY_STORAGE_KEY };
 function decodeAnchor(value) { try { return decodeURIComponent(value); } catch { return value; } }
 
@@ -150,14 +151,16 @@ export function getPublishedSnapshot(request = {}, workspace) {
   const cataloguePets = resolvePublishedCatalogPets({ pets, metadata: petMetadata, submissions: workspace?.submissions || [] });
   const pet = request.intent === "add" && mode === "pet" ? null : cataloguePets.find(
     (row) =>
-      row.name === request.entity ||
-      (path.startsWith("/pets/") && (row.slug === slug || row.slug === entryParameter || row.slug === request.record)),
+      path.startsWith('/pets/') && (slug || entryParameter)
+        ? matchesCatalogEntry('pets', row, slug || entryParameter)
+        : row.name === request.entity || row.slug === request.record,
   );
   const meta = pet?.metadata || petMetadata.pets[pet?.slug] || {};
   const skill = resolvePublishedCatalogSkills({ skills, submissions: workspace?.submissions || [] }).find(
     (row) =>
-      row.name === request.entity ||
-      (path.startsWith("/skills/") && (row.slug === slug || row.slug === entryParameter)),
+      path.startsWith('/skills/') && (slug || entryParameter)
+        ? matchesCatalogEntry('skills', row, slug || entryParameter)
+        : row.name === request.entity,
   );
   const npc = npcs.find(
     (row) =>
@@ -420,7 +423,7 @@ export function getPublishedSnapshot(request = {}, workspace) {
     );
     const customSection = (publishedSections.sections || []).find(
       (row) =>
-        row.path === path &&
+        catalogStorageKey(row.path) === catalogStorageKey(path) &&
         (row.id === anchor || row.title === request.section),
     );
     const calculatorArticle =

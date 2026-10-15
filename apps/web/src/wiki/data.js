@@ -370,8 +370,21 @@ export const docTitles = {
   "/mechanics/evidence/": "机制实测与争议记录",
   "/mechanics/glossary/": "战斗术语速查",
 };
+// These records depend only on bundled data, not on a visitor or local drafts.
+let bundledSearchRecords;
+let bundledRecordsByPath;
+export function searchRecordForPath(path) {
+  if (!bundledRecordsByPath) {
+    bundledRecordsByPath = new Map();
+    for (const record of getSearchRecords()) {
+      const key = record.to.split(/[?#]/)[0];
+      if (!bundledRecordsByPath.has(key)) bundledRecordsByPath.set(key, record);
+    }
+  }
+  return bundledRecordsByPath.get(path);
+}
 export function getSearchRecords() {
-  return [
+  return bundledSearchRecords ||= [
     ...publicSearchRecords,
     ...[
       {

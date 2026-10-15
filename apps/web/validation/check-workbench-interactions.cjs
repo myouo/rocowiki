@@ -20,6 +20,7 @@ async function main(){
       export {default as Workbench} from './apps/web/src/pages/workbench';
       export {default as AccountCenter} from './apps/web/src/features/account/AccountCenter';
       export {default as HistoryPage} from './apps/web/src/features/history/HistoryPage';
+      export {default as PublicProfilePage} from './apps/web/src/features/community/PublicProfilePage';
       export {app} from './apps/api/src/index';
       export {TestDatabase} from './tests/d1';
       export {newId,now,createSession,hash} from './packages/auth/src/index';
@@ -65,6 +66,7 @@ async function main(){
   const base={commit_sha:'a'.repeat(40),blob_sha:'b'.repeat(40),content:'# Baseline'};
   C.GitHub.prototype.readPage=async()=>base;C.GitHub.prototype.contains=async()=>true;
   let holdMe=null,holdHistory=null,historySignal=null,failHistory=false;
+  let holdProfile=null,profileSignal=null,failProfile=false;
   const historySha='b'.repeat(40),historyHead='a'.repeat(40);
   global.fetch=async(input,init={})=>{
     const url=new URL(String(input)),headers=new Headers(init.headers);
@@ -76,6 +78,8 @@ async function main(){
     }
     if(url.origin==='https://api.resend.com'){const message=JSON.parse(init.body);mail.push(new URL(message.text.match(/https?:\/\/\S+/)[0]));return Response.json({id:'fixture-delivery'});}
     requests.push({path:url.pathname,method:init.method??'GET',key:headers.get('Idempotency-Key'),body:init.body,credentials:init.credentials});
+    if(url.pathname.startsWith('/users/')&&failProfile)return Response.json({error:{code:'UPSTREAM_RETRYING'}},{status:503});
+    if(url.pathname.startsWith('/users/')&&holdProfile){const waiting=holdProfile;holdProfile=null;profileSignal=init.signal;await waiting;}
     if(url.pathname==='/history'&&failHistory)return Response.json({error:{code:'HISTORY_UNAVAILABLE'}},{status:503});
     if(url.pathname==='/history'&&holdHistory){const waiting=holdHistory;holdHistory=null;historySignal=init.signal;await waiting;}
     if(url.pathname==='/me'&&holdMe)await holdMe;
@@ -304,6 +308,34 @@ async function main(){
   await waitFor(()=>historySignal,'pending public history request');await renderHistory('/skills/?entry=official-skill-3806','新资料',false);await waitFor(()=>!!d.querySelector('.revision-list'),'new history context');
   await act(async()=>{releaseHistory();await pause();});
   check('Navigation aborts stale history requests and keeps the new source context',historySignal.aborted&&d.querySelector('h1').textContent.includes('新资料')&&d.querySelector('.revision-sources>code').textContent==='apps/web/content/official-skills.json');
+  // Public member pages use the actual anonymous API and never the browser's demo identity.
+  async function navigateProfile(uid){
+    await act(async()=>{w.history.pushState({},'',`/contributors/${uid?'?uid='+encodeURIComponent(uid):''}`);w.dispatchEvent(new Event('popstate'));await pause();});
+  }
+  const profileRequests=requests.length;
+  dom.reconfigure({url:`https://wiki.test/contributors/?uid=${identities.viewer.uid}`});
+  await act(async()=>{root.render(React.createElement(C.PublicProfilePage));await pause();});
+  await waitFor(()=>!!d.querySelector('.member-hero'),'anonymous public profile');
+  check('Guest profile shows the server identity and empty contributions without private fields or a login request',d.querySelector('h1').textContent==='viewer'&&d.body.textContent.includes('暂时没有已发布的贡献')&&!d.body.textContent.includes('viewer@example.test')&&!d.body.textContent.includes('FORGED LOCAL ADMIN')&&!requests.slice(profileRequests).some(row=>row.path==='/me'));
+  const profileRevision=db.sql.prepare('SELECT revision_id FROM submissions WHERE uid=? LIMIT 1').get(identities.contributor.uid).revision_id;
+  db.sql.prepare("UPDATE submissions SET status='published' WHERE revision_id=?").run(profileRevision);
+  db.sql.prepare('INSERT INTO git_links(revision_id,branch,content_commit_sha) VALUES(?,?,?)').run(profileRevision,'wiki/'+profileRevision,historySha);
+  await navigateProfile(identities.contributor.uid);await waitFor(()=>!!d.querySelector('.member-records'),'public contribution');
+  check('Public revisions resolve the registered page instead of a generic wiki root',d.querySelector('.member-records h3 a')?.getAttribute('href')==='/wiki/guides/contributing/');
+  await fill('input[aria-label="搜索公开修订"]','不存在的检索词');
+  check('Search distinguishes no matching results from no published contributions',d.body.textContent.includes('没有找到相关修订')&&!d.body.textContent.includes('暂时没有已发布的贡献'));
+  await click('清除搜索');check('Clearing search restores the published revision',!!d.querySelector('.member-records h3 a'));
+  failProfile=true;await navigateProfile(identities.viewer.uid);await waitFor(()=>d.body.textContent.includes('成员主页暂时无法读取'),'profile failure');
+  check('Profile failure removes the previous identity and retains explicit retry',!d.querySelector('.member-hero')&&d.body.textContent.includes('重新加载'));
+  failProfile=false;await click('重新加载');await waitFor(()=>!!d.querySelector('.member-hero'),'profile retry');
+  let releaseProfile;holdProfile=new Promise(resolve=>{releaseProfile=resolve;});await navigateProfile(identities.contributor.uid);
+  await waitFor(()=>profileSignal,'pending public profile');
+  check('Changing members shows an anonymous skeleton while the new request is pending',!!d.querySelector('.member-loading[aria-busy="true"]')&&!d.querySelector('.member-hero'));
+  await navigateProfile(identities.viewer.uid);await waitFor(()=>!!d.querySelector('.member-hero'),'new member profile');
+  await act(async()=>{releaseProfile();await pause();});
+  check('Late profile responses are aborted and cannot overwrite the newly selected member',profileSignal.aborted&&d.querySelector('h1').textContent==='viewer');
+  await navigateProfile('usr_missing');await waitFor(()=>d.body.textContent.includes('没有找到这位成员'),'missing public member');
+  await navigateProfile('');check('A missing member link offers navigation without retaining a previous identity',d.body.textContent.includes('点击文章修订记录')&&!d.querySelector('.member-hero'));
   await act(async()=>{root.unmount();await pause();});root=null;
   check('Interactions and unmount produce no React errors',errors.length===0);
   console.log(`Formal workbench interactions passed: ${checks.length} checks (real password login, API and SQLite).`);

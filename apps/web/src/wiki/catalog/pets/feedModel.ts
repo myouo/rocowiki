@@ -55,7 +55,7 @@ export function safePetListReturnTo(value: string | null) {
 export function petHrefWithReturnTo(href: string, returnTo: string) {
   const url = new URL(href, 'https://wiki.invalid');
   url.searchParams.set('returnTo', safePetListReturnTo(returnTo));
-  return url.pathname + url.search;
+  return url.pathname + url.search + url.hash;
 }
 
 export interface PetFeedPosition {

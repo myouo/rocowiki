@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: GPL-3.0-only
 import {z} from 'zod';
 import {avatarSchema, biographySchema} from './account';
+import {catalogStorageKey} from './catalog-routes';
 
 export const CURRENCY_NAME = '洛克印记';
 export const CHECKIN_REWARD_MIN = 3;
@@ -71,7 +72,7 @@ export function canonicalCommunityPage(value:string):string {
   if(path!=='/'&&!/^\/(wiki|pets|skills|bloodlines|mechanics|events|adventure|guides|help|items|tasks|places|npcs|pve|challenges|battle|tools|community)(?:\/[a-z0-9_-]+)*\/$/iu.test(path))throw new Error('INVALID_COMMUNITY_PAGE');
   const entry=url.searchParams.get('entry');
   if(entry&&!/^[a-z0-9][a-z0-9_-]{0,119}$/iu.test(entry))throw new Error('INVALID_COMMUNITY_PAGE');
-  return path+(entry&&/^\/(pets|skills|bloodlines|pve|npcs)\/$/u.test(path)?'?entry='+encodeURIComponent(entry):'');
+  return catalogStorageKey(path+(entry&&/^\/(pets|skills|bloodlines|pve|npcs)\/$/u.test(path)?'?entry='+encodeURIComponent(entry):''));
 }
 export const communityPageSchema=z.string().min(1).max(1000).transform((value,ctx)=>{
   try{return canonicalCommunityPage(value);}catch{ctx.addIssue({code:z.ZodIssueCode.custom,message:'Invalid community page'});return z.NEVER;}

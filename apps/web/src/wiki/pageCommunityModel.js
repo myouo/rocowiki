@@ -1,4 +1,5 @@
 import { getSubmissionAuthorIdentity } from "./communitySocialModel";
+import {catalogStorageKey} from '../../../../packages/wiki-schema/src/catalog-routes';
 
 /** Shared stable fragment used by profile records and the original discussion. */
 export function commentAnchor(id) {
@@ -11,7 +12,7 @@ export function canonicalPageKey(value = "/") {
     const url = new URL(value, "https://wiki.invalid");
     const path = url.pathname.replace(/\/+$/, "") + "/";
     const entry = url.searchParams.get("entry");
-    return path + (entry && /^\/(pets|skills|bloodlines|pve|npcs)\/$/.test(path) ? "?entry=" + encodeURIComponent(entry) : "");
+    return catalogStorageKey(path + (entry && /^\/(pets|skills|bloodlines|pve|npcs)\/$/.test(path) ? "?entry=" + encodeURIComponent(entry) : ""));
   } catch { return "/"; }
 }
 function meaningfulLines(value) {

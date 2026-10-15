@@ -38,8 +38,8 @@ describe('official skill catalogue identities', () => {
     const snapshot = { ...data, skills: data.skills.filter(skill => skill.id === 3044 || skill.id === 87) };
     const catalog = buildOfficialSkillCatalog(snapshot, [{ slug: 'xiazi', name: '霞姿月韵', pp: 99, priority: 7, common: ['独立解析'], source: 'https://example.test/guide' }]);
     expect(catalog.find(skill => skill.slug === 'xiazi')).toMatchObject({ number: 3044, pp: 6, priority: 15, common: ['独立解析'], curatedSource: 'https://example.test/guide' });
-    expect(skillCatalogHref(catalog.find(skill => skill.slug === 'xiazi')!)).toBe('/skills/xiazi/');
-    expect(skillCatalogHref(catalog.find(skill => skill.number === 87)!)).toBe('/skills/?entry=official-skill-87');
+    expect(skillCatalogHref(catalog.find(skill => skill.slug === 'xiazi')!)).toBe('/skills/3044/');
+    expect(skillCatalogHref(catalog.find(skill => skill.number === 87)!)).toBe('/skills/87/');
     expect(catalog.find(skill => skill.number === 87)?.priority).toBe(8);
   });
   it('keeps same-name variants separate and preserves unmatched historical entries', () => {
@@ -49,9 +49,9 @@ describe('official skill catalogue identities', () => {
     expect(catalog.map(skill => skill.slug)).toEqual(['official-skill-1', 'official-skill-2', 'historical']);
     expect(catalog.map(skill => skill.name)).toEqual(['同名', '同名', '同名']);
   });
-  it('links dynamic pet entries to a query-selected section and existing pages to a static anchor', () => {
-    expect(petSkillPoolHref({ slug: 'official-3263', catalogEntry: true })).toBe('/pets/?entry=official-3263&section=skills');
-    expect(petSkillPoolHref({ slug: 'haifu' })).toBe('/pets/haifu/#skills');
+  it('links both imported and curated pets to numbered pages and the same skill-pool anchor', () => {
+    expect(petSkillPoolHref({ slug: 'official-3263', catalogEntry: true })).toBe('/pets/3263/#skills');
+    expect(petSkillPoolHref({ slug: 'haifu' })).toBe('/pets/3092/#skills');
   });
   it('keeps alphabetic placeholders accessible without putting them first in the normal skill list', () => {
     const catalog = buildOfficialSkillCatalog(data, []);

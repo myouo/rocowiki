@@ -105,6 +105,7 @@ const result = await build({
   jsx: "automatic",
   define: { "process.env.NODE_ENV": '"production"' },
   alias: {
+    "@docusaurus/Head": path.join(root, "preview/head.tsx"),
     "@docusaurus/useDocusaurusContext": path.join(root, "preview/docusaurus-context.js"),
     "@docusaurus/useBrokenLinks": path.join(root, "preview/broken-links.js"),
     "@docusaurus/useBaseUrl": path.join(root, "preview/base-url.js"),

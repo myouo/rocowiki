@@ -1,6 +1,6 @@
 # Contributing
 [中文](CONTRIBUTING.md) · [Code of conduct](CODE_OF_CONDUCT.en.md) · [Security](SECURITY.en.md)
-<!-- rocowiki-policy: contributing; version: 10; lang: en -->
+<!-- rocowiki-policy: contributing; version: 11; lang: en -->
 
 <a id="entry"></a>
 ## Choose an entry point
@@ -23,11 +23,17 @@ Use Node.js 24.15.0+, npm ci for locked dependencies, and npm run db:migrate for
 
 Offline/browser demos provide neither authentication bypass nor production publishing. Regenerate outputs from their sources; do not patch build, dist, docs-generated, or src/generated to fix current behavior.
 
+### Catalogue URL conventions
+
+Use lowercase plural category paths (`/pets/`, `/skills/`) and verified positive numeric IDs for public entry URLs. Names and aliases belong in display and search, not newly invented URL abbreviations. Other descriptive path segments use lowercase words separated by hyphens. Query parameters represent filters, pagination and reading context; chapters use fragments such as `/pets/3092/#skills`. Use the shared catalogue URL helpers rather than concatenating `?` or `&`.
+
+The route plugin generates static HTML for every committed official ID, including direct visits and refreshes. Historic slug and `entry` URLs are compatibility entrances; normalization preserves query context and fragments and uses history replacement. Canonical metadata points to the numbered page without browsing parameters. Do not change stored entity slugs, bookmark IDs or discussion keys when changing public URLs: existing revisions and discussions continue to use the same identities. Local demo entries without verified IDs retain their separate `entry` addresses. Never fabricate a game ID to obtain a cleaner URL.
+
 ### Official pets, skills and learning relations
 
 `npm run pets:import` downloads the public `https://res.17roco.qq.com/conf/Angel.config`, validates its header, inflates zlib and decodes AMF3 XML to rebuild `apps/web/content/official-pets.json`. For offline reproduction, use `npm run pets:import -- --input /path/to/Angel.config --retrieved-at 2026-10-11T15:35:45.354Z`, supplying the actual retrieval time. The snapshot retains the package SHA-256, configuration version, duplicate IDs and excluded count. Only `spirit_conf` entries with `isInBook="0"` are imported; identical rows with the same ID are deduplicated, while conflicting rows stop the import. Stat values follow the client's truncating `int()` conversion; missing values remain unknown.
 
-The format was checked against [QueueConfs in open-roco-conn](https://github.com/fangtiancheng/open-roco-conn/blob/main/reference/main.swf/scripts/com/QQ/angel/install/config/QueueConfs.as) and `SpiritDesProxy.as`; the importer is independently implemented in TypeScript. Official base data and existing guides, bloodlines and activity sources retain separate provenance. Acquisition text in the configuration does not establish that an activity is open. Normal checks and builds use the committed snapshot without accessing official services. New entries use `/pets/?entry=official-ID`; existing article URLs are preserved.
+The format was checked against [QueueConfs in open-roco-conn](https://github.com/fangtiancheng/open-roco-conn/blob/main/reference/main.swf/scripts/com/QQ/angel/install/config/QueueConfs.as) and `SpiritDesProxy.as`; the importer is independently implemented in TypeScript. Official base data and existing guides, bloodlines and activity sources retain separate provenance. Acquisition text in the configuration does not establish that an activity is open. Normal checks and builds use the committed snapshot without accessing official services. Pet and skill entries use `/pets/{id}/` and `/skills/{id}/`, where `id` is the verified game configuration ID. Existing aliases and `?entry=official-*` links remain readable and resolve to the canonical address.
 
 Update modules live in `scripts/updates/`, with `npm run data:update` as their shared entry point and `.github/workflows/update.yml` (`Update source snapshots`) as their CI workflow. The existing pet, ladder and skill modules check every three hours (minute 23 of each three-hour UTC interval). Unchanged configuration and parsed data retain the original retrieval time without empty commits; `npm run pets:import -- --force` still explicitly captures a fresh retrieval time. Changed data is validated, section baselines are regenerated, and a `chore/data-update-*` PR is created using the data digest and main baseline. Retries with the same baseline and data reuse the candidate without force pushes or automatic merges. The existing deployment workflow handles merged updates.
 

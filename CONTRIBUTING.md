@@ -1,6 +1,6 @@
 # 贡献指南
 [English](CONTRIBUTING.en.md) · [行为准则](CODE_OF_CONDUCT.md) · [安全政策](SECURITY.md)
-<!-- rocowiki-policy: contributing; version: 10; lang: zh-CN -->
+<!-- rocowiki-policy: contributing; version: 11; lang: zh-CN -->
 
 <a id="entry"></a>
 ## 选择入口
@@ -23,11 +23,17 @@
 
 离线/浏览器演示不提供认证绕过或生产发布。生成文件从来源重建，不手工修改 build、dist、docs-generated或 src/generated来修复当前业务。
 
+### 图鉴网址规范
+
+分类路径使用小写英文复数（`/pets/`、`/skills/`），公开详情使用已核实的正整数编号。名称与别名用于展示和搜索，不再为条目另造网址缩写；其他描述性路径段使用小写英文和连字符。查询参数只表达筛选、分页与阅读上下文，章节使用 `/pets/3092/#skills` 等锚点。使用共用链接函数，不手工拼接 `?`、`&`。
+
+路由插件为已提交官方快照中的每个编号生成静态 HTML，支持直接访问和刷新。历史拼音与 `entry` 地址作为兼容入口，规范化时保留查询上下文与锚点，使用历史替换避免后退循环；canonical 元数据指向不含浏览参数的数字详情地址。更换公开网址不改变已存实体 slug、收藏 ID 或讨论键，已有修订与讨论仍属于同一条目。没有已核实编号的本机演示条目继续使用独立 `entry` 地址，不为美化网址编造游戏编号。
+
 ### 官方宠物、技能与关联资料
 
 `npm run pets:import` 从 `https://res.17roco.qq.com/conf/Angel.config` 下载公开配置，校验包头、解压 zlib 并解码 AMF3 XML，重建 `apps/web/content/official-pets.json`。离线复现使用 `npm run pets:import -- --input /path/to/Angel.config --retrieved-at 2026-10-11T15:35:45.354Z`，时间填写实际采集时间。快照保留原包 SHA-256、配置版本、重复 ID 与排除数量；只取 `spirit_conf` 中 `isInBook="0"` 的条目，同 ID 同内容去重，冲突则停止导入。客户端的种族值 `int()` 转换按截断处理，缺失数值保留未知。
 
-解码格式参考 [open-roco-conn 的 QueueConfs](https://github.com/fangtiancheng/open-roco-conn/blob/main/reference/main.swf/scripts/com/QQ/angel/install/config/QueueConfs.as) 与 `SpiritDesProxy.as`，导入器以 TypeScript 独立实现。官方基础资料与现有攻略、血脉和活动来源分别保留；配置中的获取文字不代表活动正在开放。普通检查与构建读取已提交快照，不访问官方服务。新增条目通过 `/pets/?entry=official-ID` 阅读，既有条目的 URL 保留。
+解码格式参考 [open-roco-conn 的 QueueConfs](https://github.com/fangtiancheng/open-roco-conn/blob/main/reference/main.swf/scripts/com/QQ/angel/install/config/QueueConfs.as) 与 `SpiritDesProxy.as`，导入器以 TypeScript 独立实现。官方基础资料与现有攻略、血脉和活动来源分别保留；配置中的获取文字不代表活动正在开放。普通检查与构建读取已提交快照，不访问官方服务。宠物与技能条目统一通过 `/pets/{id}/`、`/skills/{id}/` 阅读，`id` 为已核实的游戏配置编号；既有别名和 `?entry=official-*` 链接继续兼容，并转到规范地址。
 
 更新模块集中在 `scripts/updates/`，统一入口为 `npm run data:update`，CI 为 `.github/workflows/update.yml`（`Update source snapshots`）。现有宠物、天梯、技能模块每 3 小时检查一次（UTC 每个 3 小时周期的第 23 分钟）。配置及解析结果不变时保留原采集时间，不写空提交；需要显式重新记录采集时间时仍可使用 `npm run pets:import -- --force`。数据变化后校验、重建章节快照，并生成基于数据摘要和主分支基线的 `chore/data-update-*` PR；同一基线与数据的重试复用候选，不强推、不自动合并。合并后由现有发布工作流处理。
 
