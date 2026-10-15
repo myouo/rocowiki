@@ -13,9 +13,9 @@ let db:TestDatabase,env:ApiEnv;
 const head='a'.repeat(40),sha='b'.repeat(40),old='c'.repeat(40),uid='usr_history',otherUid='usr_impostor';
 const page='/wiki/guides/contributing/',path='content/guides/contributing.md';
 function entry(id=12345,login='renamed-octocat') {return {sha,author:{id,login},commit:{message:'Fix source evidence\n\nCo-authored-by: Private <private@example.test>\nWiki-User-ID: usr_impostor',author:{name:'Original Git author',email:'private@example.test',date:'2026-10-14T09:30:00Z'}}};}
-function provider(options:{rows?:unknown[];status?:number;comparison?:string;head?:string;files?:unknown[]}={}) {
+function provider(options:{rows?:unknown[];status?:number;comparison?:string;head?:string;files?:unknown[];authorization?:string}={}) {
   return vi.fn(async(input:RequestInfo|URL,init?:RequestInit)=>{
-    const url=new URL(String(input));expect(url.origin).toBe('https://api.github.com');expect(new Headers(init?.headers).has('Authorization')).toBe(false);
+    const url=new URL(String(input));expect(url.origin).toBe('https://api.github.com');expect(new Headers(init?.headers).get('Authorization')).toBe(options.authorization??null);
     expect(url.pathname.startsWith('/repos/sample-owner/public-wiki/')).toBe(true);
     if(options.status)return new Response('private upstream response',{status:options.status});
     if(url.pathname.includes('/git/ref/heads/'))return Response.json({object:{sha:options.head??head}});
@@ -42,6 +42,13 @@ it('lets a guest read real Git history and links a renamed GitHub ID to its Wiki
   const serialized=JSON.stringify(data);expect(serialized).not.toContain('@example.test');expect(serialized).not.toContain('coauthor_email');expect(serialized).not.toContain(otherUid);
   expect(upstream).toHaveBeenCalledTimes(2);
   for(const route of ['/pages/contributing/edit-base','/drafts','/submissions','/reviews'])expect((await app.request('http://localhost:8787'+route,{},env)).status).toBe(401);
+});
+it('uses existing server OAuth app credentials for public reads without putting them in cache keys or responses',async()=>{
+  env={...env,GITHUB_OAUTH_CLIENT_ID:'synthetic-app-client',GITHUB_OAUTH_CLIENT_SECRET:'synthetic-app-secret'};
+  vi.stubGlobal('fetch',provider({authorization:'Basic '+btoa('synthetic-app-client:synthetic-app-secret')}));
+  const saved=new Map<string,Response>(),cache:Pick<Cache,'match'|'put'>={match:async key=>saved.get(String(key instanceof Request?key.url:key))?.clone(),put:async(key,value)=>{if(!(key instanceof Request))throw new Error('Expected an explicit cache request');expect(key.headers.has('Authorization')).toBe(false);expect(key.url).not.toContain('synthetic-app');saved.set(key.url,value.clone());}};
+  vi.stubGlobal('caches',{open:async()=>cache});
+  const response=await request();expect(response.status).toBe(200);expect(await response.text()).not.toContain('synthetic-app');expect(saved.size).toBe(2);
 });
 it('does not infer a Wiki identity from a matching Git name or reused login',async()=>{
   vi.stubGlobal('fetch',provider({rows:[entry(98765,'old-octocat-name')]}));

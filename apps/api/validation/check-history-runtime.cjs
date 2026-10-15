@@ -11,13 +11,14 @@ const root=path.resolve(__dirname,'../../..'),temporary=mkdtempSync(path.join(tm
 const head='a'.repeat(40),sha='b'.repeat(40),source='content/guides/contributing.md';
 
 async function main(){
-  let calls=0,redirect=false,comparison='ahead',comparisons=0,details=0;
+  let calls=0,redirect=false,comparison='ahead',comparisons=0,details=0,expectedAuthorization=null;
   const bundle=await esbuild.build({
     stdin:{resolveDir:root,loader:'ts',contents:`
       import {PublicGitHistory} from './packages/git-wrapper/src/history';
       export default {async fetch(request){
         const mode=new URL(request.url).searchParams.get('mode')||'list';
-        const git=new PublicGitHistory({GITHUB_OWNER:'sample-owner',GITHUB_REPO:'public-wiki',GITHUB_DEFAULT_BRANCH:'main'},fetch,await caches.open('history-runtime-'+mode));
+        const credentials=mode.startsWith('authenticated')?{GITHUB_OAUTH_CLIENT_ID:'synthetic-app-client',GITHUB_OAUTH_CLIENT_SECRET:'synthetic-app-secret'}:{};
+        const git=new PublicGitHistory({GITHUB_OWNER:'sample-owner',GITHUB_REPO:'public-wiki',GITHUB_DEFAULT_BRANCH:'main',...credentials},fetch,await caches.open('history-runtime-'+mode));
         const source={id:'article',label:'正文',path:'${source}',shared:false};
         try{
           if(mode==='diff'||mode==='unpublished')return Response.json(await git.diff(source,'${sha}'));
@@ -30,7 +31,8 @@ async function main(){
     modules:true,compatibilityDate:'2026-10-10',compatibilityFlags:['nodejs_compat'],script:bundle.outputFiles[0].text,rootPath:temporary,
     outboundService:async request=>{
       calls++;const url=new URL(request.url);
-      assert.equal(url.origin,'https://api.github.com');assert.equal(request.method,'GET');assert.equal(request.headers.get('authorization'),null);
+      assert.equal(url.origin,'https://api.github.com');assert.equal(request.method,'GET');assert.equal(request.headers.get('authorization'),expectedAuthorization);
+      assert.ok(!request.url.includes('synthetic-app'));
       assert.ok(url.pathname.startsWith('/repos/sample-owner/public-wiki/'));
       if(redirect)return new Response(null,{status:302,headers:{Location:'https://untrusted.example.test/'}});
       if(url.pathname.includes('/git/ref/heads/'))return Response.json({object:{sha:head}});
@@ -53,10 +55,14 @@ async function main(){
     const diff=await response.json();assert.equal(diff.source,'article');assert.equal(diff.patch,'@@ -1 +1 @@\n-Old\n+New');assert.equal(comparisons,1);assert.equal(details,1);
     comparison='diverged';response=await worker.dispatchFetch('https://history-runtime.test/?mode=unpublished');assert.equal(response.status,503);
     assert.deepEqual(await response.json(),{error:'HISTORY_REF_NOT_PUBLISHED'});assert.equal(comparisons,2);assert.equal(details,1,'unpublished commits must not reach the detail endpoint');
+    expectedAuthorization='Basic '+Buffer.from('synthetic-app-client:synthetic-app-secret').toString('base64');
+    response=await worker.dispatchFetch('https://history-runtime.test/?mode=authenticated');assert.equal(response.status,200);
+    const authenticated=await response.json();assert.equal(authenticated.rows[0].sha,sha);assert.ok(!JSON.stringify(authenticated).includes('synthetic-app'));
+    const beforeCached=calls;response=await worker.dispatchFetch('https://history-runtime.test/?mode=authenticated');assert.equal(response.status,200);assert.deepEqual(await response.json(),authenticated);assert.equal(calls,beforeCached);
     const beforeRedirect=calls;redirect=true;
-    response=await worker.dispatchFetch('https://history-runtime.test/?mode=redirect');assert.equal(response.status,503);
+    response=await worker.dispatchFetch('https://history-runtime.test/?mode=authenticated-redirect');assert.equal(response.status,503);
     assert.deepEqual(await response.json(),{error:'HISTORY_UNAVAILABLE'});assert.equal(calls,beforeRedirect+1,'an upstream redirect must not be followed');
-    console.log('Worker history runtime passed: real fetch, cache reuse, main-branch diff and redirect rejection. No external provider contacted.');
+    console.log('Worker history runtime passed: real fetch, authenticated public reads, cache reuse, main-branch diff and redirect rejection. No external provider contacted.');
   }finally{await worker.dispose();}
 }
 main().finally(()=>rmSync(temporary,{recursive:true,force:true})).catch(error=>{console.error(error);process.exitCode=1;});
