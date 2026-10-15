@@ -23,7 +23,7 @@ jobs:
       - run: npm run check:repository
       - run: npm run typecheck
       - run: npx vitest run
-      - run: npm run test:mail-runtime -w @rocowiki/api
+      - run: npm run test:runtime -w @rocowiki/api
       - run: npm run api:dry-run
       - name: Migrate D1, deploy the API and verify its public health
         id: api

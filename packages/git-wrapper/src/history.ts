@@ -25,8 +25,11 @@ export class PublicGitHistory {
     const cached=await this.cache?.match(key);
     if(cached){try{return schema.parse(await cached.json());}catch{/* Refresh invalid cached data. */}}
     let response:Response;
-    try {response=await this.http(url,{headers:{Accept:'application/vnd.github+json','User-Agent':'RocoWiki','X-GitHub-Api-Version':'2022-11-28'},redirect:'error',signal:AbortSignal.timeout(12000)});}
-    catch {throw new GitError('HISTORY_UNAVAILABLE',502);}
+    // Native Workers fetch must not receive this adapter as its receiver.
+    const http=this.http;
+    // Workers accepts manual/follow. Handle redirects as unsuccessful responses.
+    try {response=await http(url,{headers:{Accept:'application/vnd.github+json','User-Agent':'RocoWiki','X-GitHub-Api-Version':'2022-11-28'},redirect:'manual',signal:AbortSignal.timeout(12000)});}
+    catch(error) {const failure=new GitError('HISTORY_UNAVAILABLE',502);failure.cause=error;throw failure;}
     if(!response.ok){await response.body?.cancel();throw new GitError(response.status===429||response.status===403?'HISTORY_RATE_LIMITED':'HISTORY_UNAVAILABLE',response.status===429||response.status===403?503:502);}
     // GitHub patches and messages can be large. Bound streamed input before parsing.
     const reader=response.body?.getReader();if(!reader)throw new GitError('HISTORY_UNAVAILABLE',502);

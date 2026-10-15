@@ -7,6 +7,8 @@
     "db:migrate": "wrangler d1 migrations apply rocowiki --local",
     "types": "wrangler types src/worker-configuration.d.ts --include-runtime=false --strict-vars=false",
     "test:mail-runtime": "node validation/check-mail-runtime.cjs",
+    "test:history-runtime": "node validation/check-history-runtime.cjs",
+    "test:runtime": "npm run test:mail-runtime && npm run test:history-runtime",
     "dry-run": "wrangler deploy --dry-run --env=",
     "deploy": "wrangler deploy --env production"
   },
