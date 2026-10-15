@@ -2,7 +2,7 @@
 import {afterEach,beforeEach,expect,it,vi} from 'vitest';
 import {app} from '../apps/api/src/index';
 import {historySources} from '../apps/api/src/history-sources';
-import {historyResponseSchema,historyDiffSchema} from '../packages/wiki-schema/src/history';
+import {canonicalHistoryPage,historyResponseSchema,historyDiffSchema} from '../packages/wiki-schema/src/history';
 import {createWorkspaceService} from '../apps/web/src/features/workbench/service';
 import {PublicGitHistory} from '../packages/git-wrapper/src/history';
 import {now} from '../packages/auth/src/index';
@@ -111,6 +111,13 @@ it('keeps official query-string entry identities and marks shared-file history h
 it('maps world pages to the files that actually supply their content rather than an unrelated weekly snapshot',()=>{
   for(const [page,path] of [['/places/castle/','world/placeData.js'],['/npcs/griffin/','npcPresentation.js'],['/items/potion/','world/ItemPages.jsx'],['/tasks/badges/','world/TaskPages.jsx'],['/challenges/star-tower/','world/ChallengePages.jsx']])expect(historySources(page)[0]).toMatchObject({path:'apps/web/src/wiki/'+path,shared:true});
   expect(historySources('/battle/rules/')[0].path).toBe('apps/web/content/weekly-v5.json');
+});
+it('retains Chinese bloodline identities without widening the repository path boundary',()=>{
+  const page='/bloodlines/?entry='+encodeURIComponent('鬻财');
+  expect(canonicalHistoryPage('/bloodlines/?entry=鬻财&from=pets')).toBe(page);
+  expect(historySources(page)[0].path).toBe('apps/web/content/pet-metadata-v6.json');
+  expect(()=>canonicalHistoryPage('//attacker.test/bloodlines/?entry=鬻财')).toThrow();
+  expect(()=>canonicalHistoryPage('/bloodlines/?entry=%0Ainvalid')).toThrow();
 });
 it.each([403,429,500])('returns a readable failure instead of an empty successful history when GitHub returns %s',async status=>{
   vi.stubGlobal('fetch',provider({status}));const response=await request();expect(response.status).toBeGreaterThanOrEqual(500);const body=await response.text();expect(body).toContain(status===500?'HISTORY_UNAVAILABLE':'HISTORY_RATE_LIMITED');expect(body).not.toContain('private upstream response');

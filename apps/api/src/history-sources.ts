@@ -2,15 +2,14 @@
 import routes from '../../web/content/routes.json';
 import documents from '../../web/content/published-docs-v7.json';
 import {catalog,contentPath} from '../../../packages/wiki-schema/src/index';
-import {canonicalCommunityPage} from '../../../packages/wiki-schema/src/community';
-import type {HistorySource} from '../../../packages/wiki-schema/src/history';
+import {canonicalHistoryPage,type HistorySource} from '../../../packages/wiki-schema/src/history';
 
 const data=(id:string,label:string,file:string):HistorySource=>({id,label,path:`apps/web/content/${file}.json`,shared:true});
 const source=(path:string,label='页面正文'):HistorySource=>({id:'article',label,path,shared:false});
 const moduleSource=(id:string,label:string,file:string):HistorySource=>({id,label,path:`apps/web/src/wiki/${file}`,shared:true});
 /** Only repository-owned paths are accepted. A request never becomes a Git file path. */
 export function historySources(value:string):HistorySource[] {
-  const page=canonicalCommunityPage(value),url=new URL(page,'https://wiki.invalid'),path=url.pathname;
+  const page=canonicalHistoryPage(value),url=new URL(page,'https://wiki.invalid'),path=url.pathname;
   const registered=catalog.find(row=>path===`/wiki/${row.slug}/`);
   if(registered)return [source(contentPath(registered))];
   const doc=documents.documents.find(row=>row.path===path);

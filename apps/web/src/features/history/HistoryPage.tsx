@@ -4,8 +4,7 @@ import Link from '@docusaurus/Link';
 import {useHistory,useLocation} from '@docusaurus/router';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import {ArrowLeft,ChevronDown,ExternalLink,FileClock,GitCommitHorizontal,PencilLine} from 'lucide-react';
-import {canonicalCommunityPage} from '../../../../../packages/wiki-schema/src/community';
-import type {HistoryResponse,HistoryAuthor,HistoryDiff} from '../../../../../packages/wiki-schema/src/history';
+import {canonicalHistoryPage,type HistoryResponse,type HistoryAuthor,type HistoryDiff} from '../../../../../packages/wiki-schema/src/history';
 import {createWorkspaceService} from '../workbench/service';
 import {message} from '../../components/api';
 import './HistoryPage.css';
@@ -28,7 +27,7 @@ function RevisionDiff({origin,page,source,sha,url}:{origin:string;page:string;so
 /** Public reading has no dependency on /me, a role gate, or local demo history. */
 export default function HistoryPage({target,title}:{target:string;title:string}) {
   const {siteConfig}=useDocusaurusContext(),origin=String(siteConfig.customFields?.apiOrigin||''),location=useLocation(),router=useHistory();
-  let page='';try{page=canonicalCommunityPage(target);}catch{/* Invalid links retain a readable recovery view. */}
+  let page='';try{page=canonicalHistoryPage(target);}catch{/* Invalid links retain a readable recovery view. */}
   const query=new URLSearchParams(location.search),source=query.get('source')||undefined,ref=query.get('ref')||undefined;
   const cursorText=query.get('cursor')||'1',cursor=/^[1-9]\d{0,3}$/.test(cursorText)&&Number(cursorText)<=1000?Number(cursorText):1;
   const context=JSON.stringify([origin,page,source,cursor,ref]);
