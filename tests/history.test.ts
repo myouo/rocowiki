@@ -126,6 +126,12 @@ it('bounds streamed GitHub responses before JSON parsing',async()=>{
   const git=new PublicGitHistory(env,async()=>new Response('x'.repeat(2*1024*1024+1)));
   await expect(git.head()).rejects.toMatchObject({code:'HISTORY_UNAVAILABLE'});
 });
+it('records a fixed upstream failure category without logging raw provider details or exposing causes',async()=>{
+  const log=vi.spyOn(console,'error').mockImplementation(()=>{});
+  vi.stubGlobal('fetch',async()=>{throw new TypeError('Illegal invocation: synthetic private provider detail');});
+  const response=await request();expect(response.status).toBe(502);expect(await response.text()).not.toContain('synthetic private');
+  expect(log).toHaveBeenCalledOnce();const event=JSON.parse(String(log.mock.calls[0][0]));expect(event).toMatchObject({event:'api_error',code:'HISTORY_UNAVAILABLE',upstream_reason:'fetch_context'});expect(JSON.stringify(event)).not.toContain('synthetic private');
+});
 it('validates public history and diff response ownership at the real frontend service boundary',async()=>{
   const upstream=provider();vi.stubGlobal('fetch',async(input:RequestInfo|URL,init?:RequestInit)=>{
     if(String(input).startsWith('https://api.github.com/'))return upstream(input,init);

@@ -5,6 +5,7 @@ import { catalog, pageFor, submissionSchema, idSchema, type SubmissionState } fr
 import { candidateContent, renderMarkdown } from '../../../packages/content-validator/src/index';
 import { getSession, sessionCsrf, verifyCsrf, hash, now, newId, cookie, beginOidc, finishOidc, consumeState, verifyHmac } from '../../../packages/auth/src/index';
 import { GitHub, GitError, type Coauthor } from '../../../packages/git-wrapper/src/index';
+import {historyFailureReason} from '../../../packages/git-wrapper/src/history';
 import { Coordinator, validManifest } from '../../../packages/publish-coordinator/src/index';
 import { startGithub, finishGithub, requireRecent, consentVersion, githubBindingAvailable } from './github-binding';
 import {AccountError,passwordLogin,passwordReauthenticate,registerPassword,changePassword,mailConfigured,requestAccountEmail,consumeAccountToken} from '../../../packages/auth/src/password';
@@ -252,7 +253,7 @@ app.onError((error,c)=>{
   const invalid=error instanceof Error&&/^(UNSAFE_|MDX_|FRONT_MATTER_|TOO_MANY_|DUPLICATE_REFERENCE_DEFINITION|ENTITY_ID_|UNKNOWN_SKILL|KIND_MISMATCH|INVALID_CONTENT)/.test(error.message);
   const code=error instanceof ApiError||error instanceof AccountError||error instanceof CommunityError?error.code:error instanceof GitError?error.code:error instanceof ZodError||invalid?'INVALID_CONTENT':error instanceof Error&&/^[A-Z_]+$/.test(error.message)?error.message:'INTERNAL_ERROR';
   const status=error instanceof ApiError||error instanceof AccountError||error instanceof CommunityError?error.status:error instanceof GitError?error.code.startsWith('HISTORY_')?error.status:error.status===409?409:503:error instanceof ZodError||invalid?400:code==='CREDENTIALS_CHANGED'?409:code.endsWith('NOT_CONFIGURED')?503:code==='REAUTH_REQUIRED'||code==='INVALID_OIDC_TOKEN'?401:code.includes('OAUTH')||code.includes('IDENTITY')?401:500;
-  if(status>=500)console.error(JSON.stringify({event:'api_error',code,correlation_id:c.get('correlationId')}));
+  if(status>=500)console.error(JSON.stringify({event:'api_error',code,correlation_id:c.get('correlationId'),...(code==='HISTORY_UNAVAILABLE'?{upstream_reason:historyFailureReason(error.cause)}:{})}));
   return c.json({error:{code,correlation_id:c.get('correlationId')}},status as 400);
 });
 export default {

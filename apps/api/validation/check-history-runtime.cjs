@@ -11,7 +11,7 @@ const root=path.resolve(__dirname,'../../..'),temporary=mkdtempSync(path.join(tm
 const head='a'.repeat(40),sha='b'.repeat(40),source='content/guides/contributing.md';
 
 async function main(){
-  let calls=0,redirect=false;
+  let calls=0,redirect=false,comparison='ahead',comparisons=0,details=0;
   const bundle=await esbuild.build({
     stdin:{resolveDir:root,loader:'ts',contents:`
       import {PublicGitHistory} from './packages/git-wrapper/src/history';
@@ -20,7 +20,7 @@ async function main(){
         const git=new PublicGitHistory({GITHUB_OWNER:'sample-owner',GITHUB_REPO:'public-wiki',GITHUB_DEFAULT_BRANCH:'main'},fetch,await caches.open('history-runtime-'+mode));
         const source={id:'article',label:'正文',path:'${source}',shared:false};
         try{
-          if(mode==='diff')return Response.json(await git.diff(source,'${sha}'));
+          if(mode==='diff'||mode==='unpublished')return Response.json(await git.diff(source,'${sha}'));
           const ref=await git.head();return Response.json({ref,rows:await git.list(source,ref,1)});
         }catch(error){return Response.json({error:error.code||error.message,...(error.cause?{cause:String(error.cause)}:{})},{status:503});}
       }};
@@ -34,9 +34,12 @@ async function main(){
       assert.ok(url.pathname.startsWith('/repos/sample-owner/public-wiki/'));
       if(redirect)return new Response(null,{status:302,headers:{Location:'https://untrusted.example.test/'}});
       if(url.pathname.includes('/git/ref/heads/'))return Response.json({object:{sha:head}});
-      if(url.pathname.includes('/compare/'))return Response.json({status:'ahead'});
-      if(url.pathname.endsWith('/commits'))return Response.json([{sha,author:{id:12345,login:'sample-octocat'},commit:{message:'Public source update',author:{name:'Synthetic author',date:'2026-10-14T09:30:00Z'}}}]);
-      if(url.pathname.endsWith('/commits/'+sha))return Response.json({sha,files:[{filename:source,status:'modified',additions:1,deletions:1,patch:'@@ -1 +1 @@\n-Old\n+New'}]});
+      if(url.pathname.includes('/compare/')){comparisons++;assert.equal(url.pathname,`/repos/sample-owner/public-wiki/compare/${sha}...${head}`);return Response.json({status:comparison});}
+      if(url.pathname.endsWith('/commits')){
+        assert.equal(url.searchParams.get('path'),source);assert.equal(url.searchParams.get('sha'),head);assert.equal(url.searchParams.get('page'),'1');assert.equal(url.searchParams.get('per_page'),'20');
+        return Response.json([{sha,author:{id:12345,login:'sample-octocat'},commit:{message:'Public source update',author:{name:'Synthetic author',date:'2026-10-14T09:30:00Z'}}}]);
+      }
+      if(url.pathname.endsWith('/commits/'+sha)){details++;return Response.json({sha,files:[{filename:source,status:'modified',additions:1,deletions:1,patch:'@@ -1 +1 @@\n-Old\n+New'}]});}
       throw new Error('Unexpected upstream history route');
     },
   }));
@@ -44,10 +47,12 @@ async function main(){
     let response=await worker.dispatchFetch('https://history-runtime.test/');
     const first=await response.json();assert.equal(response.status,200,'the real Workers fetch must accept the history adapter options: '+JSON.stringify(first));
     assert.equal(first.ref,head);assert.equal(first.rows[0].sha,sha);assert.equal(calls,2);
-    response=await worker.dispatchFetch('https://history-runtime.test/');assert.equal(response.status,200);await response.json();
+    response=await worker.dispatchFetch('https://history-runtime.test/');assert.equal(response.status,200);assert.deepEqual(await response.json(),first);
     assert.equal(calls,2,'immutable provider data should be read from the real Worker cache');
     response=await worker.dispatchFetch('https://history-runtime.test/?mode=diff');assert.equal(response.status,200);
-    const diff=await response.json();assert.equal(diff.source,'article');assert.equal(diff.patch,'@@ -1 +1 @@\n-Old\n+New');
+    const diff=await response.json();assert.equal(diff.source,'article');assert.equal(diff.patch,'@@ -1 +1 @@\n-Old\n+New');assert.equal(comparisons,1);assert.equal(details,1);
+    comparison='diverged';response=await worker.dispatchFetch('https://history-runtime.test/?mode=unpublished');assert.equal(response.status,503);
+    assert.deepEqual(await response.json(),{error:'HISTORY_REF_NOT_PUBLISHED'});assert.equal(comparisons,2);assert.equal(details,1,'unpublished commits must not reach the detail endpoint');
     const beforeRedirect=calls;redirect=true;
     response=await worker.dispatchFetch('https://history-runtime.test/?mode=redirect');assert.equal(response.status,503);
     assert.deepEqual(await response.json(),{error:'HISTORY_UNAVAILABLE'});assert.equal(calls,beforeRedirect+1,'an upstream redirect must not be followed');
