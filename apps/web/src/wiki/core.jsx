@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+import {canonicalCatalogHref} from '../../../../packages/wiki-schema/src/catalog-routes';
 import Link from "@docusaurus/Link";
 import useBaseUrl from "@docusaurus/useBaseUrl";
 import useBrokenLinks from "@docusaurus/useBrokenLinks";
@@ -64,7 +65,7 @@ export function setQuery(history, location, changes) {
   Object.entries(changes).forEach(([k, v]) =>
     v === null || v === "" ? q.delete(k) : q.set(k, String(v)),
   );
-  history.replace(location.pathname + (q.size ? "?" + q.toString() : ""));
+  history.replace(canonicalCatalogHref(location.pathname + (q.size ? "?" + q.toString() : "")));
 }
 export function Badge({ children, tone = "", className = "" }) {
   return (

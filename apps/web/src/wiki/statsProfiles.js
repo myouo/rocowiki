@@ -1,5 +1,6 @@
 import { normalizeGuardianInput } from "./rocoCalculations";
 import { petCatalogHref } from "./catalog/pets/officialModel";
+import {canonicalCatalogHref} from '../../../../packages/wiki-schema/src/catalog-routes';
 
 export function statsDefaultsForPet(pet) {
   return {
@@ -20,5 +21,5 @@ export function normalizeStatsLinkData(data) {
 }
 
 export function fullStatsToolHref(form) {
-  return "/tools/stats/?calc=" + encodeURIComponent(JSON.stringify(form));
+  return canonicalCatalogHref('/tools/stats/?calc=' + encodeURIComponent(JSON.stringify(form)));
 }

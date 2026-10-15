@@ -1,6 +1,6 @@
 # Contributing
 [中文](CONTRIBUTING.md) · [Code of conduct](CODE_OF_CONDUCT.en.md) · [Security](SECURITY.en.md)
-<!-- rocowiki-policy: contributing; version: 11; lang: en -->
+<!-- rocowiki-policy: contributing; version: 12; lang: en -->
 
 <a id="entry"></a>
 ## Choose an entry point
@@ -25,9 +25,9 @@ Offline/browser demos provide neither authentication bypass nor production publi
 
 ### Catalogue URL conventions
 
-Use lowercase plural category paths (`/pets/`, `/skills/`) and verified positive numeric IDs for public entry URLs. Names and aliases belong in display and search, not newly invented URL abbreviations. Other descriptive path segments use lowercase words separated by hyphens. Query parameters represent filters, pagination and reading context; chapters use fragments such as `/pets/3092/#skills`. Use the shared catalogue URL helpers rather than concatenating `?` or `&`.
+Use lowercase plural category paths (`/pets/`, `/skills/`) and verified positive numeric IDs for public entry URLs. Names and aliases belong in display and search, not newly invented URL abbreviations. Other descriptive path segments use lowercase words separated by hyphens. Query parameters represent filters, pagination and reading context; chapters use fragments such as `/pets/3092/#skills`. Use the shared catalogue URL helpers rather than concatenating `?` or `&`. Reading contexts also use public numeric IDs, for example `/skills/3969/?pet=3432`, with `pets=3092,3432` for comparisons. Legacy aliases and `official-*` parameters remain readable and are normalized. Pet identities and detail links inside calculator share URLs follow the same rule without changing cultivation values.
 
-The route plugin generates static HTML for every committed official ID, including direct visits and refreshes. Historic slug and `entry` URLs are compatibility entrances; normalization preserves query context and fragments and uses history replacement. Canonical metadata points to the numbered page without browsing parameters. Do not change stored entity slugs, bookmark IDs or discussion keys when changing public URLs: existing revisions and discussions continue to use the same identities. Local demo entries without verified IDs retain their separate `entry` addresses. Never fabricate a game ID to obtain a cleaner URL.
+The route plugin generates static HTML for every committed official ID, including direct visits and refreshes. It audits emitted links on every page so pet contexts and editor return targets cannot emit legacy aliases or `official-*` parameters again. Historic slug and `entry` URLs are compatibility entrances; normalization preserves query context and fragments and uses history replacement. Canonical metadata points to the numbered page without browsing parameters. Do not change stored entity slugs, bookmark IDs or discussion keys when changing public URLs: existing revisions and discussions continue to use the same identities. Local demo entries without verified IDs retain their separate `entry` addresses. Never fabricate a game ID to obtain a cleaner URL.
 
 ### Official pets, skills and learning relations
 

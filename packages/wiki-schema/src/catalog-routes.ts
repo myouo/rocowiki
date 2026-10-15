@@ -42,21 +42,87 @@ export function matchesCatalogEntry(kind: CatalogKind, entry: CatalogIdentity, k
 
 /** Public URL normalization preserves context, return links and fragments. */
 export function canonicalCatalogHref(value: string): string {
+  return normalizeCatalogHref(value, 0);
+}
+
+/** Public references use source numbers; local and unresolved keys retain their identity. */
+export function catalogContextKey(kind: CatalogKind, key: string): string {
+  const id = catalogRouteId(kind, key);
+  return id === null ? key : String(id);
+}
+
+function normalizeCatalogHref(value: string, depth: number): string {
   if (!/^\/(?!\/)/.test(value) || /[\\\u0000-\u0020\u007f]/.test(value)) return value;
   const url = new URL(value, 'https://wiki.invalid');
   const match = /^\/(pets|skills)(?:\/([^/]+))?\/?$/.exec(url.pathname);
-  if (!match) return value;
-  const kind = match[1] as CatalogKind;
-  const key = match[2] || url.searchParams.get('entry') || '';
-  const id = catalogRouteId(kind, key);
-  if (id === null) return value;
-  url.pathname = `/${kind}/${id}/`;
-  url.searchParams.delete('entry');
-  if (kind === 'pets' && url.searchParams.get('section') === 'skills') {
-    if (!url.hash) url.hash = 'skills';
-    url.searchParams.delete('section');
+  const tool = /^\/tools\/(compare|stats|damage)\/$/.exec(url.pathname);
+  const navigation = /^\/(history|edit)\/$/.exec(url.pathname);
+  if (!match && !tool && !navigation) return value;
+  let changed = false;
+  if (match) {
+    const kind = match[1] as CatalogKind;
+    const key = match[2] || url.searchParams.get('entry') || '';
+    const id = catalogRouteId(kind, key);
+    if (id !== null) {
+      url.pathname = `/${kind}/${id}/`;
+      url.searchParams.delete('entry');
+      changed = true;
+      if (kind === 'pets' && url.searchParams.get('section') === 'skills') {
+        if (!url.hash) url.hash = 'skills';
+        url.searchParams.delete('section');
+      }
+    }
   }
-  return url.pathname + url.search + url.hash;
+  for (const name of ['pet', 'pets']) {
+    const key = url.searchParams.get(name);
+    if (!key) continue;
+    const next = name === 'pets' ? key.split(',').map(item => catalogContextKey('pets', item)).join(',') : catalogContextKey('pets', key);
+    if (next !== key) {url.searchParams.set(name, next); changed = true;}
+  }
+  // A copied directory/detail return target may itself contain a legacy pet context.
+  const returnTo = url.searchParams.get('returnTo');
+  if (returnTo && depth < 3) {
+    const next = normalizeCatalogHref(returnTo, depth + 1);
+    if (next !== returnTo) {url.searchParams.set('returnTo', next); changed = true;}
+  }
+  if (navigation?.[1] === 'history' && depth < 3) {
+    const page = url.searchParams.get('page');
+    if (page) {
+      const next = normalizeCatalogHref(page, depth + 1);
+      if (next !== page) {url.searchParams.set('page', next); changed = true;}
+    }
+  }
+  // Calculation payloads are URL data, not persisted records. Touch only their identity fields.
+  const calc = tool?.[1] === 'stats' ? url.searchParams.get('calc') : null;
+  if (calc && calc.length <= 6000) {
+    try {
+      const data: unknown = JSON.parse(calc);
+      if (data && typeof data === 'object' && !Array.isArray(data)) {
+        const fields = data as Record<string, unknown>;
+        let payloadChanged = false;
+        if (typeof fields.pet === 'string') {
+          const next = catalogContextKey('pets', fields.pet);
+          if (next !== fields.pet) {fields.pet = next; payloadChanged = true;}
+        }
+        if (typeof fields.petHref === 'string' && fields.petHref.startsWith('/pets/')) {
+          const next = normalizeCatalogHref(fields.petHref, 3);
+          if (next !== fields.petHref) {fields.petHref = next; payloadChanged = true;}
+        }
+        if (payloadChanged) {url.searchParams.set('calc', JSON.stringify(fields)); changed = true;}
+      }
+    } catch { /* The calculator retains responsibility for reporting an invalid payload. */ }
+  }
+  return changed ? url.pathname + url.search + url.hash : value;
+}
+
+/** Audit emitted public hrefs, including editor return targets, without inspecting stored record IDs. */
+export function hasLegacyCatalogContext(value: string, depth = 0): boolean {
+  if (!/^\/(?!\/)/.test(value) || /[\\\u0000-\u0020\u007f]/.test(value)) return false;
+  const url = new URL(value, 'https://wiki.invalid');
+  const normalized = new URL(canonicalCatalogHref(value), 'https://wiki.invalid');
+  if (['pet', 'pets', 'calc', 'page', 'returnTo'].some(key => url.searchParams.get(key) !== normalized.searchParams.get(key))) return true;
+  const returnTo = url.searchParams.get('returnTo');
+  return Boolean(returnTo && depth < 3 && hasLegacyCatalogContext(returnTo, depth + 1));
 }
 
 /** Preserve stored discussions and sections: changing a public URL must not split records. */
@@ -74,7 +140,7 @@ export function catalogStorageKey(value: string): string {
 export function withCatalogContext(href: string, values: Record<string, string | undefined>): string {
   const url = new URL(href, 'https://wiki.invalid');
   for (const [key, value] of Object.entries(values)) if (value) url.searchParams.set(key, value);
-  return url.pathname + url.search + url.hash;
+  return canonicalCatalogHref(url.pathname + url.search + url.hash);
 }
 
 /** A detail may return only to its own category directory, never another entry or origin. */

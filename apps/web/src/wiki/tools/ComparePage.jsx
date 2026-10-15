@@ -6,6 +6,7 @@ import { PetPortrait, usePublishedPets, usePublishedSkills } from "../CatalogPag
 import { petDetailHref, skillDetailHref } from "../catalogPublished";
 import StatsRadar from "../StatsRadar";
 import CustomSelect from "../Select";
+import {matchesCatalogEntry} from '../../../../../packages/wiki-schema/src/catalog-routes';
 
 function MovedToolPage() {
   return (
@@ -40,8 +41,9 @@ function ComparePage({ query }) {
     location = useLocation();
   const param = query.get("pets");
   const normalizeIds = (values) =>
-    [...new Set(Array.isArray(values) ? values : [])]
-      .filter((x) => pets.some((p) => p.slug === x))
+    [...new Set((Array.isArray(values) ? values : [])
+      .map(key => pets.find(pet => matchesCatalogEntry('pets', pet, String(key)))?.slug)
+      .filter(Boolean))]
       .slice(0, 3);
   const [ids, setIds] = useState(() =>
     normalizeIds((param === null ? "haifu,bishui" : param).split(",")),

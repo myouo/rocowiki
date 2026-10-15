@@ -238,7 +238,27 @@ async function main() {
   }
   globalThis.__wikiLocation={pathname:'/skills/xiazi/',search:'?pet=haifu',hash:'#effects'};
   await render(React.createElement(C.WikiPage,{routeData:{path:'/skills/xiazi/'}}));
-  check('Legacy entry replacement preserves context and fragment',globalThis.__navigation==='/skills/3044/?pet=haifu#effects');
+  check('Legacy entry replacement preserves a numbered pet context and fragment',globalThis.__navigation==='/skills/3044/?pet=3092#effects');
+  globalThis.__wikiLocation={pathname:'/pets/3432/',search:'',hash:'#skills'};
+  await render(React.createElement(C.WikiPage));
+  const contextualSkill=d.querySelector('a.rw-entity-link[href^="/skills/3969/"]');
+  check('The reported pet emits a skill link with its public numeric ID',contextualSkill&&new URL(contextualSkill.href).searchParams.get('pet')==='3432');
+  check('Pet comparison and full-calculator links do not expose the internal pet key',[...d.querySelectorAll('a[href^="/tools/compare/"],a[href^="/tools/stats/"]')].every(link=>!decodeURIComponent(link.getAttribute('href')).includes('official-')));
+  globalThis.__wikiLocation={pathname:'/skills/3969/',search:'?pet=official-3432',hash:''};
+  await render(React.createElement(C.WikiPage));
+  check('The reported live URL is normalized without dropping its pet context',globalThis.__navigation==='/skills/3969/?pet=3432'&&d.querySelector('.rw-skill-pet-context-v6')?.textContent.includes('姝绒'));
+  const contextEdits=[...d.querySelectorAll('a.rw-edit-entry')].map(link=>new URL(link.href).searchParams.get('returnTo'));
+  check('Skill editing return targets use the same numeric pet context',contextEdits.some(target=>target==='/skills/3969/?pet=3432')&&contextEdits.every(target=>!target?.includes('official-3432')));
+  globalThis.__wikiLocation={pathname:'/skills/3969/',search:'?pet=3432',hash:''};
+  await render(React.createElement(C.WikiPage));
+  check('Numeric pet context resolves the same learner and skill-pool return link',d.querySelector('.rw-skill-pet-context-v6')?.textContent.includes('姝绒')&&d.querySelector('.rw-back')?.getAttribute('href')==='/pets/3432/#skills');
+  globalThis.__wikiLocation={pathname:'/tools/compare/',search:'?pets=3432,3092',hash:''};
+  await render(React.createElement(C.WikiPage,{routeData:{path:'/tools/compare/'}}));
+  check('Comparison accepts numeric pet references while retaining existing source identities',d.body.textContent.includes('姝绒')&&!!d.querySelector('a[href="/pets/3432/"]')&&!!d.querySelector('a[href="/pets/3092/"]'));
+  const calculation={...C.statsDefaultsForPet(C.pets.find(pet=>pet.number===3432)),pet:'3432'};
+  globalThis.__wikiLocation={pathname:'/tools/stats/',search:'?'+new URLSearchParams({calc:JSON.stringify(calculation)}),hash:''};
+  await render(React.createElement(C.WikiPage,{routeData:{path:'/tools/stats/'}}));
+  check('A public calculation payload resolves its original pet without changing the stored species values',d.body.textContent.includes('姝绒')&&!!d.querySelector('a[href="/pets/3432/"]'));
   const skillDirectory='/skills/?'+new URLSearchParams({kind:'变化',sort:'number',order:'desc',loaded:'120'});
   globalThis.__wikiLocation={pathname:'/skills/',search:skillDirectory.slice('/skills/'.length),hash:''};
   await render(React.createElement(C.WikiPage,{routeData:{path:'/skills/'}}));

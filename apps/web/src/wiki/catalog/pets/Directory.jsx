@@ -16,6 +16,7 @@ import { petCatalogHref } from "./officialModel";
 import { useHydratedSearch } from "./useHydratedSearch";
 import { ladderDate } from "./LadderCostBadge";
 import QueryInput from "../../QueryInput";
+import {withCatalogContext} from '../../../../../../packages/wiki-schema/src/catalog-routes';
 
 function PetsPage({ query }) {
   const location = useLocation();
@@ -472,7 +473,7 @@ function PetCatalogPage({ query }) {
           </div>
           <Link
             className="rw-button primary"
-            to={"/tools/compare/?pets=" + compare.join(",")}
+            to={withCatalogContext('/tools/compare/', {pets: compare.join(',')})}
           >
             查看六维对比 <ArrowRight size={15} />
           </Link>
