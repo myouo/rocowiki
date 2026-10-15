@@ -11,7 +11,7 @@ const root=path.resolve(__dirname,'../../..'),temporary=mkdtempSync(path.join(tm
 const head='a'.repeat(40),sha='b'.repeat(40),source='content/guides/contributing.md';
 
 async function main(){
-  let calls=0,redirect=false,comparison='ahead',comparisons=0,details=0,expectedAuthorization=null;
+  let calls=0,redirect=false,comparison='ahead',comparisons=0,details=0,expectedAuthorization=null,rejectAuthentication=false;
   const bundle=await esbuild.build({
     stdin:{resolveDir:root,loader:'ts',contents:`
       import {PublicGitHistory} from './packages/git-wrapper/src/history';
@@ -31,7 +31,9 @@ async function main(){
     modules:true,compatibilityDate:'2026-10-10',compatibilityFlags:['nodejs_compat'],script:bundle.outputFiles[0].text,rootPath:temporary,
     outboundService:async request=>{
       calls++;const url=new URL(request.url);
-      assert.equal(url.origin,'https://api.github.com');assert.equal(request.method,'GET');assert.equal(request.headers.get('authorization'),expectedAuthorization);
+      assert.equal(url.origin,'https://api.github.com');assert.equal(request.method,'GET');
+      if(rejectAuthentication&&request.headers.has('authorization')){assert.equal(request.headers.get('authorization'),expectedAuthorization);return new Response(null,{status:401});}
+      assert.equal(request.headers.get('authorization'),rejectAuthentication?null:expectedAuthorization);
       assert.ok(!request.url.includes('synthetic-app'));
       assert.ok(url.pathname.startsWith('/repos/sample-owner/public-wiki/'));
       if(redirect)return new Response(null,{status:302,headers:{Location:'https://untrusted.example.test/'}});
@@ -59,6 +61,9 @@ async function main(){
     response=await worker.dispatchFetch('https://history-runtime.test/?mode=authenticated');assert.equal(response.status,200);
     const authenticated=await response.json();assert.equal(authenticated.rows[0].sha,sha);assert.ok(!JSON.stringify(authenticated).includes('synthetic-app'));
     const beforeCached=calls;response=await worker.dispatchFetch('https://history-runtime.test/?mode=authenticated');assert.equal(response.status,200);assert.deepEqual(await response.json(),authenticated);assert.equal(calls,beforeCached);
+    const beforeRejection=calls;rejectAuthentication=true;
+    response=await worker.dispatchFetch('https://history-runtime.test/?mode=authenticated-rejected');assert.equal(response.status,200);assert.equal((await response.json()).rows[0].sha,sha);assert.equal(calls,beforeRejection+4);
+    rejectAuthentication=false;
     const beforeRedirect=calls;redirect=true;
     response=await worker.dispatchFetch('https://history-runtime.test/?mode=authenticated-redirect');assert.equal(response.status,503);
     assert.deepEqual(await response.json(),{error:'HISTORY_UNAVAILABLE'});assert.equal(calls,beforeRedirect+1,'an upstream redirect must not be followed');

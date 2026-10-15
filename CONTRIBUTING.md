@@ -99,7 +99,7 @@
 
 ### GitHub 接入配置
 
-生产环境的公开历史读取复用服务端 OAuth 应用的 Client ID 与 Client Secret，以应用身份读取公开数据，避免共享出口的匿名限流；不使用用户访问令牌，也不需要仓库写权限。凭据只发给固定的 api.github.com，拒绝重定向，不进入 URL、缓存键、日志或前端；未配置应用凭据的本地环境仍可匿名读取。参考 [GitHub REST API 速率限制](https://docs.github.com/en/rest/using-the-rest-api/rate-limits-for-the-rest-api#primary-rate-limit-for-oauth-apps)。
+生产环境的公开历史读取复用服务端 OAuth 应用的 Client ID 与 Client Secret，以应用身份读取公开数据，避免共享出口的匿名限流；不使用用户访问令牌，也不需要仓库写权限。凭据只发给固定的 api.github.com，拒绝重定向，不进入 URL、缓存键、日志或前端；生产配置须完整且非空白，未配置应用凭据的本地环境仍可匿名读取。认证被拒时，仅对公开 GET 匿名重试一次，不在限流后轮换身份重试。未缓存的请求跨 IP 共用滚动预算，每小时最多 3500 次，包含失败和重试；缓存命中不占用此预算。参考 [GitHub REST API 速率限制](https://docs.github.com/en/rest/using-the-rest-api/rate-limits-for-the-rest-api#primary-rate-limit-for-oauth-apps)。
 
 每页的修订历史与差异公开可读，进入编辑和投稿仍须登录。历史按已登记的正文或资料源读取 GitHub 主分支提交，翻页固定到同一个主分支版本；共享 JSON 资料明确标注文件范围，不能把批量更新冒充某个条目的独立修订。公共读取独立于发布 App，不需要开放投稿或配置仓库写入权限。GitHub 原作者按服务端已验证的数字账号 ID 关联站内用户，昵称或邮箱相同不构成署名依据；解绑或停用后停止展示动态关联。站内投稿署名另须具有已核验的非空上线记录，不采信提交说明中的任意身份声明。展示站内关联不启用公开提交邮箱同意，也不自动增加社区贡献成绩。
 
