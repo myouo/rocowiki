@@ -5,6 +5,7 @@ import {PublicGitHistory} from '../../../packages/git-wrapper/src/history';
 import {GitError} from '../../../packages/git-wrapper/src/index';
 import type {Bindings} from './types';
 import {historySources} from './history-sources';
+import {reserveHistoryRead} from './history-budget';
 
 export function registerHistoryRoutes(app:Hono<Bindings>) {
   app.get('/history',async c=>{
@@ -12,7 +13,7 @@ export function registerHistoryRoutes(app:Hono<Bindings>) {
     let sources;try{sources=historySources(input.page);}catch{throw new GitError('HISTORY_PAGE_NOT_FOUND',404);}
     const source=input.source?sources.find(row=>row.id===input.source):sources[0];
     if(!source)throw new GitError('HISTORY_SOURCE_NOT_FOUND',404);
-    const git=new PublicGitHistory(c.env,fetch,typeof caches==='undefined'?undefined:await caches.open('rocowiki-public-history-v1')),ref=await git.reference(input.ref);
+    const git=new PublicGitHistory(c.env,fetch,typeof caches==='undefined'?undefined:await caches.open('rocowiki-public-history-v1'),()=>reserveHistoryRead(c.env)),ref=await git.reference(input.ref);
     const rows=await git.list(source,ref,input.cursor);
     const ids=[...new Set(rows.flatMap(row=>row.author?[row.author.id]:[]))];
     const authors=ids.length?(await c.env.DB.prepare(`SELECT g.github_numeric_id,u.uid,u.display_name FROM github_identities g JOIN users u ON u.uid=g.uid WHERE g.github_numeric_id IN (${ids.map(()=>'?').join(',')}) AND u.disabled_at IS NULL`).bind(...ids).all<{github_numeric_id:number;uid:string;display_name:string}>()).results:[];
@@ -30,7 +31,7 @@ export function registerHistoryRoutes(app:Hono<Bindings>) {
     const input=historyQuerySchema.omit({cursor:true,ref:true}).extend({sha:historySha}).parse(c.req.query());
     let sources;try{sources=historySources(input.page);}catch{throw new GitError('HISTORY_PAGE_NOT_FOUND',404);}
     const source=sources.find(row=>row.id===input.source);if(!source)throw new GitError('HISTORY_SOURCE_NOT_FOUND',404);
-    const git=new PublicGitHistory(c.env,fetch,typeof caches==='undefined'?undefined:await caches.open('rocowiki-public-history-v1'));
+    const git=new PublicGitHistory(c.env,fetch,typeof caches==='undefined'?undefined:await caches.open('rocowiki-public-history-v1'),()=>reserveHistoryRead(c.env));
     return c.json(await git.diff(source,input.sha));
   });
 }

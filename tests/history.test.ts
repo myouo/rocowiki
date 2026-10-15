@@ -8,6 +8,7 @@ import {PublicGitHistory} from '../packages/git-wrapper/src/history';
 import {now} from '../packages/auth/src/index';
 import {TestDatabase} from './d1';
 import type {ApiEnv} from '../apps/api/src/types';
+import {reserveHistoryRead} from '../apps/api/src/history-budget';
 
 let db:TestDatabase,env:ApiEnv;
 const head='a'.repeat(40),sha='b'.repeat(40),old='c'.repeat(40),uid='usr_history',otherUid='usr_impostor';
@@ -49,6 +50,33 @@ it('uses existing server OAuth app credentials for public reads without putting 
   const saved=new Map<string,Response>(),cache:Pick<Cache,'match'|'put'>={match:async key=>saved.get(String(key instanceof Request?key.url:key))?.clone(),put:async(key,value)=>{if(!(key instanceof Request))throw new Error('Expected an explicit cache request');expect(key.headers.has('Authorization')).toBe(false);expect(key.url).not.toContain('synthetic-app');saved.set(key.url,value.clone());}};
   vi.stubGlobal('caches',{open:async()=>cache});
   const response=await request();expect(response.status).toBe(200);expect(await response.text()).not.toContain('synthetic-app');expect(saved.size).toBe(2);
+  const before=db.sql.prepare('SELECT sum(count) AS n FROM rate_limits WHERE expires_at>?').get(now()+3600)!.n;
+  expect((await request()).status).toBe(200);expect(db.sql.prepare('SELECT sum(count) AS n FROM rate_limits WHERE expires_at>?').get(now()+3600)!.n).toBe(before);
+});
+it.each([['',''],['client',''],['','secret'],['  ',' secret ']])('requires complete nonblank production app credentials (%#)',(client,secret)=>{
+  expect(()=>new PublicGitHistory({...env,ENVIRONMENT:'production',GITHUB_OAUTH_CLIENT_ID:client,GITHUB_OAUTH_CLIENT_SECRET:secret})).toThrow('HISTORY_NOT_CONFIGURED');
+});
+it('trims app credentials and retries one authentication rejection anonymously, accounting for both attempts',async()=>{
+  const http=vi.fn<typeof fetch>().mockResolvedValueOnce(new Response(null,{status:401})).mockResolvedValueOnce(Response.json({object:{sha:head}})),reserve=vi.fn(async()=>{});
+  const git=new PublicGitHistory({...env,ENVIRONMENT:'production',GITHUB_OAUTH_CLIENT_ID:' client \n',GITHUB_OAUTH_CLIENT_SECRET:' secret \n'},http,undefined,reserve);
+  expect(await git.head()).toBe(head);expect(http).toHaveBeenCalledTimes(2);expect(reserve).toHaveBeenCalledTimes(2);
+  expect(new Headers(http.mock.calls[0][1]?.headers).get('Authorization')).toBe('Basic '+btoa('client:secret'));
+  expect(new Headers(http.mock.calls[1][1]?.headers).has('Authorization')).toBe(false);
+});
+it('does not fall back to another identity after an upstream rate limit',async()=>{
+  const http=vi.fn<typeof fetch>().mockResolvedValue(new Response(null,{status:429}));
+  const git=new PublicGitHistory({...env,GITHUB_OAUTH_CLIENT_ID:'client',GITHUB_OAUTH_CLIENT_SECRET:'secret'},http);
+  await expect(git.head()).rejects.toMatchObject({code:'HISTORY_RATE_LIMITED'});expect(http).toHaveBeenCalledOnce();
+});
+it('reserves an atomic global budget under concurrent requests from independent readers',async()=>{
+  const results=await Promise.allSettled(Array.from({length:20},()=>reserveHistoryRead(env,7,3600000)));
+  expect(results.filter(row=>row.status==='fulfilled')).toHaveLength(7);expect(results.filter(row=>row.status==='rejected')).toHaveLength(13);
+  expect(db.sql.prepare('SELECT sum(count) AS n FROM rate_limits').get()!.n).toBe(7);
+});
+it('keeps the upstream budget rolling across minute boundaries instead of doubling it at a reset',async()=>{
+  await reserveHistoryRead(env,2,3600059);await reserveHistoryRead(env,2,3600060);
+  await expect(reserveHistoryRead(env,2,3600061)).rejects.toMatchObject({code:'HISTORY_RATE_LIMITED'});
+  await reserveHistoryRead(env,2,3600060+61*60);
 });
 it('does not infer a Wiki identity from a matching Git name or reused login',async()=>{
   vi.stubGlobal('fetch',provider({rows:[entry(98765,'old-octocat-name')]}));

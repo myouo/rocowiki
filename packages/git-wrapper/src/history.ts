@@ -23,26 +23,32 @@ export class PublicGitHistory {
   readonly repository:string;
   private readonly api:string;
   private readonly authorization?:string;
-  constructor(env:Pick<ApiEnv,'GITHUB_OWNER'|'GITHUB_REPO'|'GITHUB_DEFAULT_BRANCH'>&Partial<Pick<ApiEnv,'GITHUB_OAUTH_CLIENT_ID'|'GITHUB_OAUTH_CLIENT_SECRET'>>,private http:typeof fetch=fetch,private cache?:Cache) {
+  constructor(env:Pick<ApiEnv,'GITHUB_OWNER'|'GITHUB_REPO'|'GITHUB_DEFAULT_BRANCH'>&Partial<Pick<ApiEnv,'ENVIRONMENT'|'GITHUB_OAUTH_CLIENT_ID'|'GITHUB_OAUTH_CLIENT_SECRET'>>,private http:typeof fetch=fetch,private cache?:Cache,private beforeRequest?:()=>Promise<void>) {
     if(!/^[a-zA-Z0-9-]{1,39}$/.test(env.GITHUB_OWNER)||!/^[a-zA-Z0-9_.-]{1,100}$/.test(env.GITHUB_REPO)||!env.GITHUB_DEFAULT_BRANCH)throw new GitError('HISTORY_NOT_CONFIGURED',503);
     this.repository=`https://github.com/${env.GITHUB_OWNER}/${env.GITHUB_REPO}`;
     this.api=`https://api.github.com/repos/${env.GITHUB_OWNER}/${env.GITHUB_REPO}`;
     this.branch=env.GITHUB_DEFAULT_BRANCH;
     // GitHub supports OAuth-app Basic authentication for public data. These
     // server credentials never enter a URL, cache key, response or user token.
-    if(env.GITHUB_OAUTH_CLIENT_ID&&env.GITHUB_OAUTH_CLIENT_SECRET)this.authorization='Basic '+btoa(`${env.GITHUB_OAUTH_CLIENT_ID}:${env.GITHUB_OAUTH_CLIENT_SECRET}`);
+    const client=env.GITHUB_OAUTH_CLIENT_ID?.trim(),secret=env.GITHUB_OAUTH_CLIENT_SECRET?.trim();
+    if(env.ENVIRONMENT==='production'&&(!client||!secret))throw new GitError('HISTORY_NOT_CONFIGURED',503);
+    if(client&&secret)this.authorization='Basic '+btoa(`${client}:${secret}`);
   }
   private branch:string;
   private async read<T>(route:string,schema:z.ZodType<T>,ttl=300):Promise<T> {
     const url=this.api+route,key=new Request(url,{headers:{Accept:'application/vnd.github+json'}});
     const cached=await this.cache?.match(key);
     if(cached){try{return schema.parse(await cached.json());}catch{/* Refresh invalid cached data. */}}
-    let response:Response;
     // Native Workers fetch must not receive this adapter as its receiver.
     const http=this.http;
-    // Workers accepts manual/follow. Handle redirects as unsuccessful responses.
-    try {response=await http(url,{headers:{Accept:'application/vnd.github+json','User-Agent':'RocoWiki','X-GitHub-Api-Version':'2022-11-28',...(this.authorization?{Authorization:this.authorization}:{})},redirect:'manual',signal:AbortSignal.timeout(12000)});}
-    catch(error) {const failure=new GitError('HISTORY_UNAVAILABLE',502);failure.cause=error;throw failure;}
+    const send=async(authorization?:string)=>{
+      await this.beforeRequest?.();
+      // Workers accepts manual/follow. Reject redirects without forwarding keys.
+      try {return await http(url,{headers:{Accept:'application/vnd.github+json','User-Agent':'RocoWiki','X-GitHub-Api-Version':'2022-11-28',...(authorization?{Authorization:authorization}:{})},redirect:'manual',signal:AbortSignal.timeout(12000)});}
+      catch(error) {const failure=new GitError('HISTORY_UNAVAILABLE',502);failure.cause=error;throw failure;}
+    };
+    let response=await send(this.authorization);
+    if(response.status===401&&this.authorization){await response.body?.cancel();response=await send();}
     if(!response.ok){await response.body?.cancel();throw new GitError(response.status===429||response.status===403?'HISTORY_RATE_LIMITED':'HISTORY_UNAVAILABLE',response.status===429||response.status===403?503:502);}
     // GitHub patches and messages can be large. Bound streamed input before parsing.
     const reader=response.body?.getReader();if(!reader)throw new GitError('HISTORY_UNAVAILABLE',502);
