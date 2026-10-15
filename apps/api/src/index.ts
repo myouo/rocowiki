@@ -11,6 +11,7 @@ import {AccountError,passwordLogin,passwordReauthenticate,registerPassword,chang
 import {profileSchema} from '../../../packages/wiki-schema/src/account';
 import type { ApiEnv, Bindings, AuthSession } from './types';
 import {CommunityError,communityProfile,registerCommunityRoutes} from './community';
+import {registerHistoryRoutes} from './history';
 
 export class ApiError extends Error {constructor(public code:string,public status=400){super(code);}}
 export const app=new Hono<Bindings>();
@@ -58,7 +59,8 @@ app.use('*',async(c,next)=>{
   if(s)c.set('session',s);
   const publicAuth=['/auth/login','/auth/register','/auth/email/resend','/auth/email/verify','/auth/password/request-reset','/auth/password/reset'];
   const publicCommunity=c.req.method==='GET'&&['/community/rankings','/community/discussion','/community/guide-like'].includes(path);
-  const publicRoute=publicCommunity||path==='/health'||path==='/pages'||path.startsWith('/users/')||path==='/mirror'||publicAuth.includes(path)||path==='/auth/callback'||path==='/auth/github/callback';
+  const publicHistory=c.req.method==='GET'&&['/history','/history/diff'].includes(path);
+  const publicRoute=publicHistory||publicCommunity||path==='/health'||path==='/pages'||path.startsWith('/users/')||path==='/mirror'||publicAuth.includes(path)||path==='/auth/callback'||path==='/auth/github/callback';
   if(!publicRoute&&!s)throw new ApiError('UNAUTHORIZED',401);
   if(isMutation&&s&&!publicAuth.includes(path)) {
     if(!await verifyCsrf(c.req.raw,c.env,s))throw new ApiError('CSRF_REJECTED',403);
@@ -66,6 +68,7 @@ app.use('*',async(c,next)=>{
   await next();
 });
 registerCommunityRoutes(app,{body:jsonBody,rate});
+registerHistoryRoutes(app);
 app.get('/health',c=>c.json({status:'ok',schema:1,registration:c.env.AUTH_MODE,
   authentication_configured:c.env.AUTH_MODE==='password'||Boolean(c.env.OIDC_ISSUER&&c.env.OIDC_CLIENT_ID&&c.env.OIDC_CLIENT_SECRET),
   registration_enabled:c.env.REGISTRATION_ENABLED==='true'&&(c.env.EMAIL_VERIFICATION_REQUIRED!=='true'||mailConfigured(c.env)),
@@ -248,7 +251,7 @@ app.notFound(c=>c.json({error:{code:'NOT_FOUND',correlation_id:c.get('correlatio
 app.onError((error,c)=>{
   const invalid=error instanceof Error&&/^(UNSAFE_|MDX_|FRONT_MATTER_|TOO_MANY_|DUPLICATE_REFERENCE_DEFINITION|ENTITY_ID_|UNKNOWN_SKILL|KIND_MISMATCH|INVALID_CONTENT)/.test(error.message);
   const code=error instanceof ApiError||error instanceof AccountError||error instanceof CommunityError?error.code:error instanceof GitError?error.code:error instanceof ZodError||invalid?'INVALID_CONTENT':error instanceof Error&&/^[A-Z_]+$/.test(error.message)?error.message:'INTERNAL_ERROR';
-  const status=error instanceof ApiError||error instanceof AccountError||error instanceof CommunityError?error.status:error instanceof GitError?error.status===409?409:503:error instanceof ZodError||invalid?400:code==='CREDENTIALS_CHANGED'?409:code.endsWith('NOT_CONFIGURED')?503:code==='REAUTH_REQUIRED'||code==='INVALID_OIDC_TOKEN'?401:code.includes('OAUTH')||code.includes('IDENTITY')?401:500;
+  const status=error instanceof ApiError||error instanceof AccountError||error instanceof CommunityError?error.status:error instanceof GitError?error.code.startsWith('HISTORY_')?error.status:error.status===409?409:503:error instanceof ZodError||invalid?400:code==='CREDENTIALS_CHANGED'?409:code.endsWith('NOT_CONFIGURED')?503:code==='REAUTH_REQUIRED'||code==='INVALID_OIDC_TOKEN'?401:code.includes('OAUTH')||code.includes('IDENTITY')?401:500;
   if(status>=500)console.error(JSON.stringify({event:'api_error',code,correlation_id:c.get('correlationId')}));
   return c.json({error:{code,correlation_id:c.get('correlationId')}},status as 400);
 });

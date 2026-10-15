@@ -19,6 +19,7 @@ async function main(){
     stdin:{resolveDir:repo,loader:'tsx',contents:`
       export {default as Workbench} from './apps/web/src/pages/workbench';
       export {default as AccountCenter} from './apps/web/src/features/account/AccountCenter';
+      export {default as HistoryPage} from './apps/web/src/features/history/HistoryPage';
       export {app} from './apps/api/src/index';
       export {TestDatabase} from './tests/d1';
       export {newId,now,createSession,hash} from './packages/auth/src/index';
@@ -63,11 +64,20 @@ async function main(){
   }
   const base={commit_sha:'a'.repeat(40),blob_sha:'b'.repeat(40),content:'# Baseline'};
   C.GitHub.prototype.readPage=async()=>base;C.GitHub.prototype.contains=async()=>true;
-  let holdMe=null;
+  let holdMe=null,holdHistory=null,historySignal=null,failHistory=false;
+  const historySha='b'.repeat(40),historyHead='a'.repeat(40);
   global.fetch=async(input,init={})=>{
     const url=new URL(String(input)),headers=new Headers(init.headers);
+    if(url.origin==='https://api.github.com'){
+      if(url.pathname.includes('/git/ref/heads/'))return Response.json({object:{sha:historyHead}});
+      if(url.pathname.includes('/compare/'))return Response.json({status:'ahead'});
+      if(url.pathname.endsWith('/commits'))return Response.json(Array.from({length:20},(_,index)=>({sha:index?index.toString(16).padStart(40,'0'):historySha,author:{id:87654,login:'native-octocat'},commit:{message:'公开资料修订 '+(index+1)+'\n\nPrivate <hidden@example.test>',author:{name:'Git 原作者',date:'2026-10-14T09:30:00Z'}}})));
+      return Response.json({sha:historySha,files:[{filename:'content/guides/contributing.md',status:'modified',additions:1,deletions:1,patch:'@@ -1 +1 @@\n-旧说明\n+<script>globalThis.__historyXss=true</script>'}]});
+    }
     if(url.origin==='https://api.resend.com'){const message=JSON.parse(init.body);mail.push(new URL(message.text.match(/https?:\/\/\S+/)[0]));return Response.json({id:'fixture-delivery'});}
     requests.push({path:url.pathname,method:init.method??'GET',key:headers.get('Idempotency-Key'),body:init.body,credentials:init.credentials});
+    if(url.pathname==='/history'&&failHistory)return Response.json({error:{code:'HISTORY_UNAVAILABLE'}},{status:503});
+    if(url.pathname==='/history'&&holdHistory){const waiting=holdHistory;holdHistory=null;historySignal=init.signal;await waiting;}
     if(url.pathname==='/me'&&holdMe)await holdMe;
     if(switchOnCollections&&['/drafts','/submissions'].includes(url.pathname)){current='viewer';switchOnCollections=false;}
     if(url.pathname==='/me'&&failNextMe){failNextMe=false;return Response.json({error:{code:'UPSTREAM_RETRYING'}},{status:503});}
@@ -267,6 +277,33 @@ async function main(){
   check('An invented OAuth success query never manufactures a GitHub association',d.querySelector('#github').textContent.includes('关联结果尚未确认')&&!d.querySelector('.account-github-identity'));
   await renderAccount('viewer','?tab=security&github=__proto__');
   check('Unknown OAuth result values cannot be interpreted as inherited object properties',!d.querySelector('#github [role="alert"]')&&!d.querySelector('.account-github-identity'));
+  // Public history mounts the actual reader, service, API and SQLite identity lookup.
+  current=null;env.GITHUB_OWNER='sample-owner';env.GITHUB_REPO='public-wiki';
+  db.sql.prepare('INSERT INTO github_identities(uid,github_numeric_id,login,enabled,binding_version) VALUES(?,?,?,0,?)').run(identities.viewer.uid,87654,'old-octocat-login','history-binding');
+  let historyMount=0;
+  async function renderHistory(target='/wiki/guides/contributing/',title='参与共建',remount=true){
+    dom.reconfigure({url:'https://wiki.test/history/?'+new URLSearchParams({page:target,entity:title})});
+    await act(async()=>{root.render(React.createElement(C.HistoryPage,{key:remount?'history-'+(++historyMount):'history-current',target,title}));await pause();});await act(async()=>await pause());
+  }
+  const historyRequests=requests.length;await renderHistory();await waitFor(()=>!!d.querySelector('.revision-list'),'public history');
+  check('Guests can read Git revisions without an identity request or login gate',d.body.textContent.includes('公开资料修订 1')&&!requests.slice(historyRequests).some(row=>row.path==='/me')&&!d.querySelector('input[type="password"]'));
+  check('Public Git authors link back to the verified Wiki owner without leaking commit emails',d.querySelector(`.revision-author a[href="/contributors/?uid=${identities.viewer.uid}"]`)&&!d.body.textContent.includes('hidden@example.test'));
+  check('Only editing leaves the public reader for the protected edit route',d.querySelector('a[href^="/edit/?"]')&&new URL(d.querySelector('a[href^="/edit/?"]').href).searchParams.get('returnTo')==='/wiki/guides/contributing/');
+  await click('查看差异');await waitFor(()=>!!d.querySelector('.revision-diff pre'),'public diff');
+  check('Diffs render untrusted source markup as inert text',d.querySelector('.revision-diff pre').textContent.includes('<script>')&&!d.querySelector('.revision-diff script')&&!global.__historyXss);
+  await click('更早记录');await waitFor(()=>d.body.textContent.includes('第 2 页'),'pinned history pagination');
+  check('History pagination preserves its canonical page and main-branch reference',new URL(w.location.href).searchParams.get('page')==='/wiki/guides/contributing/'&&new URL(w.location.href).searchParams.get('ref')===historyHead);
+  await renderHistory('/skills/?entry=official-skill-3806','技能样本');await waitFor(()=>d.body.textContent.includes('共享资料文件的修订'),'shared source history');
+  check('Official entry history retains its query identity and labels shared-file scope',new URL(d.querySelector('a[href^="/edit/?"]').href).searchParams.get('returnTo')==='/skills/?entry=official-skill-3806'&&d.body.textContent.includes('不等于当前条目被逐次修改'));
+  await click('效果与条件解析');await waitFor(()=>d.querySelector('.revision-sources>code')?.textContent==='apps/web/content/skill-analysis-notes.json','history source selection');
+  check('Changing history sources resets pagination',new URL(w.location.href).searchParams.get('source')==='analysis'&&!new URL(w.location.href).searchParams.has('cursor'));
+  failHistory=true;await renderHistory();await waitFor(()=>d.body.textContent.includes('GitHub 修订记录暂时无法读取'),'history error');
+  check('History failures expose retry and upstream reading rather than a false empty history',d.body.textContent.includes('重新读取')&&!d.body.textContent.includes('尚无可显示的修订'));
+  failHistory=false;await click('重新读取');await waitFor(()=>!!d.querySelector('.revision-list'),'history retry');
+  let releaseHistory;holdHistory=new Promise(resolve=>{releaseHistory=resolve;});await renderHistory('/wiki/guides/contributing/','旧资料',false);
+  await waitFor(()=>historySignal,'pending public history request');await renderHistory('/skills/?entry=official-skill-3806','新资料',false);await waitFor(()=>!!d.querySelector('.revision-list'),'new history context');
+  await act(async()=>{releaseHistory();await pause();});
+  check('Navigation aborts stale history requests and keeps the new source context',historySignal.aborted&&d.querySelector('h1').textContent.includes('新资料')&&d.querySelector('.revision-sources>code').textContent==='apps/web/content/official-skills.json');
   await act(async()=>{root.unmount();await pause();});root=null;
   check('Interactions and unmount produce no React errors',errors.length===0);
   console.log(`Formal workbench interactions passed: ${checks.length} checks (real password login, API and SQLite).`);

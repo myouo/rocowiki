@@ -2,6 +2,7 @@ import {z} from 'zod';
 import {api, RequestError} from '../../components/api';
 import * as dto from './contracts';
 import type {Registration,PasswordLogin} from '../../../../../packages/wiki-schema/src/account';
+import {historyResponseSchema,historyDiffSchema} from '../../../../../packages/wiki-schema/src/history';
 import {communitySnapshotSchema,calendarResponseSchema,checkinResponseSchema,rankingResponseSchema,discussionResponseSchema,activityResponseSchema,guideLikeResponseSchema,type CommunityProfile,type CommunityPeriod,type RankMetric,type ActivityView} from '../../../../../packages/wiki-schema/src/community';
 
 function decode<T>(schema:z.ZodType<T>,value:unknown):T {
@@ -37,6 +38,8 @@ export function createWorkspaceService(origin:string,csrf?:string,signal?:AbortS
   return {
     me:()=>request('/me',dto.me),
     profile:async(uid:string)=>{const result=await request(`/users/${encodeURIComponent(uid)}`,dto.publicProfile);if(result.user.uid!==uid)throw new RequestError('INVALID_SERVICE_RESPONSE');return result;},
+    history:async(page:string,source?:string,cursor=1,ref?:string)=>{const result=await request(`/history?${new URLSearchParams({page,cursor:String(cursor),...(source?{source}:{}),...(ref?{ref}:{})})}`,historyResponseSchema);if(result.page!==page||source&&result.source.id!==source||ref&&result.ref!==ref)throw new RequestError('INVALID_SERVICE_RESPONSE');return result;},
+    historyDiff:async(page:string,source:string,sha:string)=>{const result=await request(`/history/diff?${new URLSearchParams({page,source,sha})}`,historyDiffSchema);if(result.sha!==sha||result.source!==source)throw new RequestError('INVALID_SERVICE_RESPONSE');return result;},
     authStatus:()=>request('/health',dto.authStatus),
     login:(input:PasswordLogin)=>request('/auth/login',ok,'POST',input),
     register:(input:Registration)=>request('/auth/register',z.object({verification_required:z.boolean()}),'POST',input),

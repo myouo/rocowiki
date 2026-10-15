@@ -14,6 +14,8 @@ import { useWikiRuntime } from "./runtime/useWikiRuntime";
 import ServerWorkflowRoute from "./runtime/ServerWorkflowRoute";
 import RequireRole from "./auth/RequireRole";
 import AccountCenter from "../features/account/AccountCenter";
+import PublicHistoryPage from "../features/history/HistoryPage";
+import {getSearchRecords} from './data';
 
 function DemoCommunityPages({ path = "/community/", query }) {
   const state = useWorkspace();
@@ -54,6 +56,7 @@ function DemoCommunityPages({ path = "/community/", query }) {
 
 export default function CommunityPages(props) {
   const {demo} = useWikiRuntime();
-  const content = demo ? <DemoCommunityPages {...props} /> : props.path === "/account/" ? <AccountCenter /> : <ServerWorkflowRoute {...props} />;
+  const request=props.path==='/history/'?Object.fromEntries(props.query||[]):{},record=request.entity&&!request.page&&!request.from?getSearchRecords().find(row=>row.title===request.entity):null;
+  const content = !demo&&props.path==='/history/' ? <PublicHistoryPage target={request.page||request.from||record?.to||'/'} title={String(request.entity||record?.title||'首页').slice(0,150)}/> : demo ? <DemoCommunityPages {...props} /> : props.path === "/account/" ? <AccountCenter /> : <ServerWorkflowRoute {...props} />;
   return ["/edit/", "/review/"].includes(props.path) ? <RequireRole review={props.path === "/review/"}>{content}</RequireRole> : content;
 }

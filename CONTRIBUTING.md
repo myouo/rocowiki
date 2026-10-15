@@ -1,6 +1,6 @@
 # 贡献指南
 [English](CONTRIBUTING.en.md) · [行为准则](CODE_OF_CONDUCT.md) · [安全政策](SECURITY.md)
-<!-- rocowiki-policy: contributing; version: 8; lang: zh-CN -->
+<!-- rocowiki-policy: contributing; version: 9; lang: zh-CN -->
 
 <a id="entry"></a>
 ## 选择入口
@@ -98,6 +98,8 @@
 个人中心沿用 V7.3.1 的身份卡、分区导航、投稿页签和首页布局，接入正式数据时不另建一套视觉样式。GitHub 关联可用性由服务端声明；配置不完整时不提供授权按钮。授权完成、取消或失败均回到个人中心的账号安全页，成功状态以重新读取的服务端关联为准。需要近期认证时在原操作旁验证 Wiki 密码，刷新会话与 CSRF 后继续；最终写入仍校验原会话的有效性和身份，关联账号不自动授予公开投稿邮箱的同意。
 
 ### GitHub 接入配置
+
+每页的修订历史与差异公开可读，进入编辑和投稿仍须登录。历史按已登记的正文或资料源读取 GitHub 主分支提交，翻页固定到同一个主分支版本；共享 JSON 资料明确标注文件范围，不能把批量更新冒充某个条目的独立修订。公共读取独立于发布 App，不需要开放投稿或配置仓库写入权限。GitHub 原作者按服务端已验证的数字账号 ID 关联站内用户，昵称或邮箱相同不构成署名依据；解绑或停用后停止展示动态关联。站内投稿署名另须具有已核验的非空上线记录，不采信提交说明中的任意身份声明。展示站内关联不启用公开提交邮箱同意，也不自动增加社区贡献成绩。
 
 发布机器人使用独立的 GitHub App。在 GitHub 的 Settings → Developer settings → GitHub Apps 中创建应用，主页填写 https://wiki.rocoai.app，仓库权限设置 Contents 和 Pull requests 为 Read and write，保留自动授予的 Metadata Read。仅安装到 myouo/rocowiki；主分支保护及独立维护者合并仍须单独配置。
 
