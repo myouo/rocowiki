@@ -1,5 +1,7 @@
 // SPDX-License-Identifier: GPL-3.0-only
 import type { WikiPet } from './officialTypes';
+import {requestedCatalogCount} from '../listNavigation';
+import {safeCatalogListReturnTo} from '../../../../../../packages/wiki-schema/src/catalog-routes';
 
 export const PET_BATCH_SIZE = 60;
 export type PetCollection = 'regular' | 'placeholder' | 'internal' | 'all';
@@ -32,11 +34,7 @@ export function petFeedScope(params: URLSearchParams) {
 }
 
 export function requestedPetCount(params: URLSearchParams, total: number) {
-  const raw = params.get('loaded');
-  const legacyPage = params.get('page');
-  const number = raw && /^\d+$/.test(raw) ? Number(raw)
-    : legacyPage && /^\d+$/.test(legacyPage) ? Number(legacyPage) * PET_BATCH_SIZE : PET_BATCH_SIZE;
-  return Math.min(total, Math.max(PET_BATCH_SIZE, Number.isSafeInteger(number) ? number : PET_BATCH_SIZE));
+  return requestedCatalogCount(params, total, PET_BATCH_SIZE);
 }
 
 export function petWindow(loaded: number, columns: number, pitch: number, top: number, scroll: number, height: number, overscan = 3) {
@@ -47,9 +45,7 @@ export function petWindow(loaded: number, columns: number, pitch: number, top: n
 }
 
 export function safePetListReturnTo(value: string | null) {
-  if (!value || value.length > 4096 || !/^\/pets\/(?:\?[^#]*)?$/.test(value)) return '/pets/';
-  const url = new URL(value, 'https://wiki.invalid');
-  return url.searchParams.has('entry') ? '/pets/' : value;
+  return safeCatalogListReturnTo('pets', value);
 }
 
 export function petHrefWithReturnTo(href: string, returnTo: string) {

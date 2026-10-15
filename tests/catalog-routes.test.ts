@@ -3,7 +3,8 @@ import {describe, expect, it} from 'vitest';
 import {createRequire} from 'node:module';
 import {readFileSync} from 'node:fs';
 import path from 'node:path';
-import {canonicalCatalogHref, catalogAliases, catalogEntryHref, catalogStorageKey, matchesCatalogEntry, withCatalogContext} from '../packages/wiki-schema/src/catalog-routes';
+import {canonicalCatalogHref, catalogAliases, catalogEntryHref, catalogStorageKey, matchesCatalogEntry, safeCatalogListReturnTo, withCatalogContext} from '../packages/wiki-schema/src/catalog-routes';
+import {requestedCatalogCount} from '../apps/web/src/wiki/catalog/listNavigation';
 import {canonicalCommunityPage} from '../packages/wiki-schema/src/community';
 import {canonicalHistoryPage} from '../packages/wiki-schema/src/history';
 import {historySources} from '../apps/api/src/history-sources';
@@ -45,6 +46,15 @@ describe('public catalogue URL compatibility', () => {
     expect(withCatalogContext('/skills/3044/#effects',{pet:'haifu'})).toBe('/skills/3044/?pet=haifu#effects');
     expect(withCatalogContext('/skills/?entry=local-example',{pet:'haifu'})).toBe('/skills/?entry=local-example&pet=haifu');
     expect(petHrefWithReturnTo('/pets/3092/#skills','/pets/?type=水&loaded=120')).toBe('/pets/3092/?returnTo=%2Fpets%2F%3Ftype%3D%E6%B0%B4%26loaded%3D120#skills');
+  });
+  it('retains directory filters and bounded loading depth while rejecting non-directory return targets', () => {
+    const target='/skills/?kind=变化&sort=number&order=desc&loaded=120';
+    expect(safeCatalogListReturnTo('skills',target)).toBe(target);
+    for(const bad of ['https://evil.test/skills/','//evil.test/skills/','/pets/','/skills/3044/','/skills/?entry=official-skill-3044','/skills/#effects','/skills/?q=bad\nvalue'])expect(safeCatalogListReturnTo('skills',bad)).toBe('/skills/');
+    expect(requestedCatalogCount(new URLSearchParams('loaded=120'),3960)).toBe(120);
+    expect(requestedCatalogCount(new URLSearchParams('page=3'),3960)).toBe(180);
+    for(const bad of ['0','-60','NaN','99999999999999999999'])expect(requestedCatalogCount(new URLSearchParams({loaded:bad}),3960)).toBe(60);
+    expect(requestedCatalogCount(new URLSearchParams('loaded=120'),3)).toBe(3);
   });
 });
 

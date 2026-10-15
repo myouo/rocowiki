@@ -13,6 +13,7 @@ import { useHydratedSearch } from '../pets/useHydratedSearch';
 import SkillList from './SkillList';
 import { officialSkillData } from '../../content/bundled.js';
 import { skillCollection } from './officialModel';
+import {requestedCatalogCount} from '../listNavigation';
 
 function SkillsPage({ query }) {
   const location = useLocation();
@@ -27,6 +28,7 @@ function SkillCatalogPage({ query }) {
   const history = useHistory(),
     location = useLocation(),
     q = query;
+  const changeFilters = changes => setQuery(history, location, {...changes, loaded: null, page: null});
   const term = q.get("q") || "",
     kind = q.get("kind") || "",
     effect = q.get("effect") || "";
@@ -46,6 +48,8 @@ function SkillCatalogPage({ query }) {
       (!kind || s.category === kind) &&
       (!effect || s.tags.includes(effect)),
   ), sort, direction);
+  const count = requestedCatalogCount(q, result.length);
+  const returnTo = "/skills/" + (q.size ? "?" + q.toString() : "");
   const effectList = [
     "防控",
     "回复PP",
@@ -79,7 +83,7 @@ function SkillCatalogPage({ query }) {
         ]}
       />
       <div className="rw-pet-collections" role="group" aria-label="技能收录类别">
-        {collections.map(item => <button key={item.value} type="button" aria-pressed={collection === item.value} onClick={() => setQuery(history, location, { collection: item.value === 'regular' ? null : item.value })}>{item.label} <span>{item.count}</span></button>)}
+        {collections.map(item => <button key={item.value} type="button" aria-pressed={collection === item.value} onClick={() => changeFilters({ collection: item.value === 'regular' ? null : item.value })}>{item.label} <span>{item.count}</span></button>)}
       </div>
       {collection === 'placeholder' && <p className="rw-pet-collection-note">这些名称及描述仍为源表占位内容，保留配置原文供核对。</p>}
       <div className="rw-filterbox">
@@ -89,7 +93,7 @@ function SkillCatalogPage({ query }) {
             <QueryInput
               value={term}
               onValueChange={(value) =>
-                setQuery(history, location, { q: value })
+                changeFilters({ q: value })
               }
               aria-label="搜索技能或学习宠物"
               placeholder="技能名称 / 学习宠物"
@@ -98,7 +102,7 @@ function SkillCatalogPage({ query }) {
           <CustomSelect
             ariaLabel="技能类别"
             value={kind}
-            onChange={(value) => setQuery(history, location, { kind: value })}
+            onChange={(value) => changeFilters({ kind: value })}
             options={[
               { value: "", label: "全部类别" },
               ...["物理", "魔法", "变化"].map((value) => ({
@@ -112,7 +116,7 @@ function SkillCatalogPage({ query }) {
           <span>效果</span>
           <button
             className={!effect ? "active" : ""}
-            onClick={() => setQuery(history, location, { effect: null })}
+            onClick={() => changeFilters({ effect: null })}
           >
             全部
           </button>
@@ -121,7 +125,7 @@ function SkillCatalogPage({ query }) {
               className={effect === t ? "active" : ""}
               key={t}
               onClick={() =>
-                setQuery(history, location, { effect: t === effect ? null : t })
+                changeFilters({ effect: t === effect ? null : t })
               }
             >
               {t.replace("PP", " PP")}
@@ -134,19 +138,19 @@ function SkillCatalogPage({ query }) {
           找到 <b>{result.length}</b> 个技能
         </span>
         <div className="rw-catalog-sort-v6 rw-skill-sort-v72">
-          <label><span>排序</span><CustomSelect ariaLabel="技能排序字段" value={sort} options={sortFields} onChange={(value) => setQuery(history, location, { sort: value, order: direction })} /></label>
-          <button type="button" className="rw-sort-direction-v6" aria-label={"技能当前" + (direction === "asc" ? "升序，切换降序" : "降序，切换升序")} onClick={() => setQuery(history, location, { order: direction === "asc" ? "desc" : "asc" })}>{direction === "asc" ? <ArrowUp size={14} /> : <ArrowDown size={14} />}{direction === "asc" ? "升序" : "降序"}</button>
+          <label><span>排序</span><CustomSelect ariaLabel="技能排序字段" value={sort} options={sortFields} onChange={(value) => changeFilters({ sort: value, order: direction })} /></label>
+          <button type="button" className="rw-sort-direction-v6" aria-label={"技能当前" + (direction === "asc" ? "升序，切换降序" : "降序，切换升序")} onClick={() => changeFilters({ order: direction === "asc" ? "desc" : "asc" })}>{direction === "asc" ? <ArrowUp size={14} /> : <ArrowDown size={14} />}{direction === "asc" ? "升序" : "降序"}</button>
         </div>
       </div>
       <p className="rw-catalog-key-v6">官方技能表 {officialSkillData.skills.length} 条，采集于 {officialSkillData.source.retrievedAt.slice(0, 10)}。先手值直接读取官方配置；学习关系按各自来源整理。</p>
       {result.length ? (
-        <SkillList items={result} scope={q.toString()} renderTable={items => <SkillTable items={items} />} />
+        <SkillList items={result} count={count} onShowMore={() => setQuery(history, location, {loaded: Math.min(result.length, count + 60), page: null})} renderTable={items => <SkillTable items={items} returnTo={returnTo} />} />
       ) : (
         <EmptyState
           action={
             <button
               className="rw-button"
-              onClick={() => setQuery(history, location, { q: null, kind: null, effect: null })}
+              onClick={() => changeFilters({ q: null, kind: null, effect: null })}
             >
               清除条件
             </button>

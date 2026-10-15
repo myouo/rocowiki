@@ -11,6 +11,7 @@ import { skills } from "../../data";
 import { externalSource, petMeta } from "../model.js";
 import { useCatalogPublishedRecords, usePublishedPets } from "../hooks.js";
 import { PetPortrait } from "../components.jsx";
+import {withCatalogContext} from '../../../../../../packages/wiki-schema/src/catalog-routes';
 
 const counterScenes = [
   {
@@ -219,7 +220,7 @@ function PetMatchups({ pet }) {
                       skill && (
                         <Link
                           key={slug}
-                          to={skillDetailHref(skill) + (skillDetailHref(skill).includes('?') ? '&pet=' : '?pet=') + encodeURIComponent(pet.slug)}
+                          to={withCatalogContext(skillDetailHref(skill), {pet: pet.slug})}
                         >
                           {skill.name}
                         </Link>
