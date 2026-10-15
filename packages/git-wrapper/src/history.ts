@@ -9,6 +9,15 @@ const commit=z.object({sha:historySha,author:actor,commit:z.object({message:z.st
 const file=z.object({filename:z.string(),status:z.string(),additions:z.number().int().nonnegative(),deletions:z.number().int().nonnegative(),patch:z.string().max(1500000).optional()});
 export type PublicGitCommit=z.infer<typeof commit>;
 
+/** Log a fixed diagnostic category, never an upstream URL, message or credential. */
+export function historyFailureReason(cause:unknown):string {
+  if(!(cause instanceof Error))return 'unknown';
+  if(cause.message.includes('Illegal invocation'))return 'fetch_context';
+  if(/redirect/i.test(cause.message))return 'redirect_option';
+  if(cause.name==='TimeoutError'||cause.name==='AbortError')return 'timeout';
+  return 'network';
+}
+
 /** Read-only public repository access is independent of the publishing App. */
 export class PublicGitHistory {
   readonly repository:string;
