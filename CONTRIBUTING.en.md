@@ -1,6 +1,6 @@
 # Contributing
 [中文](CONTRIBUTING.md) · [Code of conduct](CODE_OF_CONDUCT.en.md) · [Security](SECURITY.en.md)
-<!-- rocowiki-policy: contributing; version: 7; lang: en -->
+<!-- rocowiki-policy: contributing; version: 8; lang: en -->
 
 <a id="entry"></a>
 ## Choose an entry point
@@ -101,9 +101,9 @@ The personal center retains V7.3.1's identity card, section navigation, submissi
 
 Create a dedicated publisher GitHub App under Settings → Developer settings → GitHub Apps. Set the homepage to https://wiki.rocoai.app and grant Contents and Pull requests Read and write, retaining the automatic Metadata Read permission. Install it only on myouo/rocowiki. Configure branch protection and independent maintainer merging separately.
 
-Set the webhook URL to https://api.wiki.rocoai.app/webhooks/github and subscribe to Push and Pull request. Generate a random webhook secret, store it in the App settings and the repository production environment as GITHUB_WEBHOOK_SECRET, and leave the webhook disabled until configuration is deployed. Generate an App private key and store the complete PEM as the GITHUB_APP_PRIVATE_KEY production secret. Store the App ID and the Installation ID from the installation-page URL as GITHUB_APP_ID and GITHUB_INSTALLATION_ID environment variables.
+Set the webhook URL to https://api.wiki.rocoai.app/webhooks/github and subscribe to Push and Pull request. Generate a random webhook secret, store it in the App settings and the repository production environment as WEBHOOK_SECRET, and leave the webhook disabled until configuration is deployed. Generate an App private key and store the complete PEM as the APP_PRIVATE_KEY production secret. Store the App ID and the Installation ID from the installation-page URL as APP_ID and INSTALLATION_ID environment variables.
 
-User binding uses a separate OAuth App under Developer settings → OAuth Apps. Set its homepage to https://wiki.rocoai.app and Authorization callback URL to https://api.wiki.rocoai.app/auth/github/callback. Store Client ID as the GITHUB_OAUTH_CLIENT_ID production variable and Client Secret as the GITHUB_OAUTH_CLIENT_SECRET secret. Binding requests read:user and user:email, with no repository-write scope.
+User binding uses a separate OAuth App under Developer settings → OAuth Apps. Set its homepage to https://wiki.rocoai.app and Authorization callback URL to https://api.wiki.rocoai.app/auth/github/callback. Store Client ID as the OAUTH_CLIENT_ID production configuration variable and Client Secret as the OAUTH_CLIENT_SECRET secret. GitHub configuration names cannot use the reserved GITHUB_ prefix; the deployment workflow maps these inputs to the Worker's existing GITHUB_OAUTH_CLIENT_ID and GITHUB_OAUTH_CLIENT_SECRET fields. Binding requests read:user and user:email, with no repository-write scope.
 
 Run Deploy Wiki API after configuration changes. Keep submissions and publishing closed until real login, callback and webhook verification completes. GitHub binding does not replace Wiki email/password registration and login. See [GitHub App registration](https://docs.github.com/en/apps/sharing-github-apps/registering-a-github-app-using-url-parameters) and [OAuth App registration](https://docs.github.com/en/apps/oauth-apps/building-oauth-apps/creating-an-oauth-app).
 
