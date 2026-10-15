@@ -5,6 +5,7 @@ import {useHistory,useLocation} from '@docusaurus/router';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import {ArrowLeft,ChevronDown,ExternalLink,FileClock,GitCommitHorizontal,PencilLine} from 'lucide-react';
 import {canonicalHistoryPage,type HistoryResponse,type HistoryAuthor,type HistoryDiff} from '../../../../../packages/wiki-schema/src/history';
+import {canonicalCatalogHref} from '../../../../../packages/wiki-schema/src/catalog-routes';
 import {createWorkspaceService} from '../workbench/service';
 import {message} from '../../components/api';
 import './HistoryPage.css';
@@ -40,13 +41,14 @@ export default function HistoryPage({target,title}:{target:string;title:string})
     return()=>controller.abort();
   },[context,retry]);
   function navigate(values:{source?:string;cursor?:number;ref?:string}) {
-    const next=new URLSearchParams({page,entity:title,...(values.source?{source:values.source}:{}),...(values.cursor&&values.cursor>1?{cursor:String(values.cursor)}:{}),...(values.ref?{ref:values.ref}:{})});
+    const next=new URLSearchParams({page:canonicalCatalogHref(page),entity:title,...(values.source?{source:values.source}:{}),...(values.cursor&&values.cursor>1?{cursor:String(values.cursor)}:{}),...(values.ref?{ref:values.ref}:{})});
     router.push('/history/?'+next);
   }
   const repository=data?.repository||String(siteConfig.customFields?.githubUrl||'https://github.com/myouo/rocowiki');
   const commitUrl=(sha:string)=>`${repository}/commit/${sha}`;
+  const publicPage=canonicalCatalogHref(page);
   return <section className="cm-root revision-history" aria-label="公开修订历史">
-    <header className="cm-page-heading"><div className="cm-heading-main"><div className="cm-eyebrow"><FileClock size={15} aria-hidden="true"/>公开版本记录</div><h1>修订历史 · {title}</h1><p>查看真实修改、原作者与版本差异。阅读历史无需登录。</p></div><div className="cm-heading-actions">{page&&<Link className="cm-button" to={page}><ArrowLeft size={14} aria-hidden="true"/>返回资料</Link>}{page&&<Link className="cm-button cm-button-primary" to={'/edit/?'+new URLSearchParams({entity:title,returnTo:page})}><PencilLine size={14} aria-hidden="true"/>编辑此页</Link>}</div></header>
+    <header className="cm-page-heading"><div className="cm-heading-main"><div className="cm-eyebrow"><FileClock size={15} aria-hidden="true"/>公开版本记录</div><h1>修订历史 · {title}</h1><p>查看真实修改、原作者与版本差异。阅读历史无需登录。</p></div><div className="cm-heading-actions">{page&&<Link className="cm-button" to={publicPage}><ArrowLeft size={14} aria-hidden="true"/>返回资料</Link>}{page&&<Link className="cm-button cm-button-primary" to={'/edit/?'+new URLSearchParams({entity:title,returnTo:publicPage})}><PencilLine size={14} aria-hidden="true"/>编辑此页</Link>}</div></header>
     {error?<section className="cm-paper" role="status"><p>{error}</p><button className="cm-button" onClick={()=>setRetry(value=>value+1)}>重新读取</button><a className="cm-button" href={repository+'/commits/main/'} target="_blank" rel="noreferrer">在 GitHub 查看<ExternalLink size={13}/></a></section>:!data?<section className="cm-paper" role="status">正在读取公开修订记录…</section>:<>
       <section className="cm-paper revision-sources"><div><h2>资料来源</h2><small>选择要查看的记录</small></div><nav aria-label="修订资料来源">{data.sources.map(item=><button type="button" key={item.id} className="cm-button" aria-pressed={item.id===data.source.id} onClick={()=>navigate({source:item.id})}>{item.label}</button>)}</nav><p>{data.source.shared?'以下是共享资料文件的修订，可能同时涉及其他条目；记录不等于当前条目被逐次修改。':'以下记录对应本页正文源文件。'} 已绑定的 GitHub 作者可通过站内昵称访问个人页。</p><code>{data.source.path}</code></section>
       <section className="cm-paper revision-list" aria-label="GitHub 提交记录"><div className="revision-list-heading"><h2><GitCommitHorizontal size={19} aria-hidden="true"/>修改记录</h2><a href={`${repository}/commits/${data.ref}/${data.source.path}`} target="_blank" rel="noreferrer">GitHub 源记录<ExternalLink size={13} aria-hidden="true"/></a></div>

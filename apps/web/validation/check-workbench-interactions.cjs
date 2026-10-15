@@ -77,7 +77,7 @@ async function main(){
       return Response.json({sha:historySha,files:[{filename:'content/guides/contributing.md',status:'modified',additions:1,deletions:1,patch:'@@ -1 +1 @@\n-旧说明\n+<script>globalThis.__historyXss=true</script>'}]});
     }
     if(url.origin==='https://api.resend.com'){const message=JSON.parse(init.body);mail.push(new URL(message.text.match(/https?:\/\/\S+/)[0]));return Response.json({id:'fixture-delivery'});}
-    requests.push({path:url.pathname,method:init.method??'GET',key:headers.get('Idempotency-Key'),body:init.body,credentials:init.credentials});
+    requests.push({path:url.pathname,search:url.search,method:init.method??'GET',key:headers.get('Idempotency-Key'),body:init.body,credentials:init.credentials});
     if(url.pathname.startsWith('/users/')&&failProfile)return Response.json({error:{code:'UPSTREAM_RETRYING'}},{status:503});
     if(url.pathname.startsWith('/users/')&&holdProfile){const waiting=holdProfile;holdProfile=null;profileSignal=init.signal;await waiting;}
     if(url.pathname==='/history'&&failHistory)return Response.json({error:{code:'HISTORY_UNAVAILABLE'}},{status:503});
@@ -298,7 +298,7 @@ async function main(){
   await click('更早记录');await waitFor(()=>d.body.textContent.includes('第 2 页'),'pinned history pagination');
   check('History pagination preserves its canonical page and main-branch reference',new URL(w.location.href).searchParams.get('page')==='/wiki/guides/contributing/'&&new URL(w.location.href).searchParams.get('ref')===historyHead);
   await renderHistory('/skills/?entry=official-skill-3806','技能样本');await waitFor(()=>d.body.textContent.includes('共享资料文件的修订'),'shared source history');
-  check('Official entry history retains its query identity and labels shared-file scope',new URL(d.querySelector('a[href^="/edit/?"]').href).searchParams.get('returnTo')==='/skills/?entry=official-skill-3806'&&d.body.textContent.includes('不等于当前条目被逐次修改'));
+  check('Official entry history exposes a numbered return link while preserving the API storage identity',new URL(d.querySelector('a[href^="/edit/?"]').href).searchParams.get('returnTo')==='/skills/3806/'&&new URLSearchParams(requests.findLast(row=>row.path==='/history').search).get('page')==='/skills/?entry=official-skill-3806'&&d.body.textContent.includes('不等于当前条目被逐次修改'));
   await click('效果与条件解析');await waitFor(()=>d.querySelector('.revision-sources>code')?.textContent==='apps/web/content/skill-analysis-notes.json','history source selection');
   check('Changing history sources resets pagination',new URL(w.location.href).searchParams.get('source')==='analysis'&&!new URL(w.location.href).searchParams.has('cursor'));
   failHistory=true;await renderHistory();await waitFor(()=>d.body.textContent.includes('GitHub 修订记录暂时无法读取'),'history error');

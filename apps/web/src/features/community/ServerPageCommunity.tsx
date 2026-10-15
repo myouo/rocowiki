@@ -5,6 +5,7 @@ import {useLocation} from '@docusaurus/router';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import {ArrowRight,Heart,History,MessageCircle,NotebookPen,Send,Trash2,UsersRound} from 'lucide-react';
 import {canonicalCommunityPage,type DiscussionResponse} from '../../../../../packages/wiki-schema/src/community';
+import {canonicalCatalogHref} from '../../../../../packages/wiki-schema/src/catalog-routes';
 import {message,RequestError} from '../../components/api';
 import {createWorkspaceService} from '../workbench/service';
 import {useHeaderProfile} from '../account/useHeaderProfile';
@@ -49,7 +50,7 @@ export default function ServerPageCommunity({title}:{title:string}) {
   }
   if(!page)return null;
   return <section className="rw-page-community-v72" aria-label="本页共建与讨论" data-no-editor>
-    <div className="rw-maintainers-v72"><div className="rw-maintainers-heading-v72"><div><UsersRound size={20}/><h2>参与本页共建</h2></div><Link to={'/history/?'+new URLSearchParams({page,entity:title})}><History size={14}/>修订历史</Link><Link to="/wiki/guides/contributing/"><NotebookPen size={14}/>投稿与署名规范<ArrowRight size={13}/></Link></div></div>
+    <div className="rw-maintainers-v72"><div className="rw-maintainers-heading-v72"><div><UsersRound size={20}/><h2>参与本页共建</h2></div><Link to={'/history/?'+new URLSearchParams({page:canonicalCatalogHref(page),entity:title})}><History size={14}/>修订历史</Link><Link to="/wiki/guides/contributing/"><NotebookPen size={14}/>投稿与署名规范<ArrowRight size={13}/></Link></div></div>
     <details ref={discussion} className="rw-page-discussion-v72" id="discussion"><summary><MessageCircle size={17}/><strong>本页讨论</strong><span>{total===null?'正在读取…':`${total} 条评论`}</span></summary><div className="rw-discussion-body-v72">
       <p>分享发现、提出疑问，或补充资料依据。输入 / 可关联宠物与技能。</p>
       {me?<form onSubmit={event=>{event.preventDefault();void run(async service=>{

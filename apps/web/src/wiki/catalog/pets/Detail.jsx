@@ -19,7 +19,7 @@ import { petCollection, safePetListReturnTo } from "./feedModel";
 import LadderSource from "./LadderSource";
 import { petLearnsSkill } from '../../skillLearnerModel';
 import SkillPoolSource from '../skills/PoolSource';
-import {matchesCatalogEntry} from '../../../../../../packages/wiki-schema/src/catalog-routes';
+import {matchesCatalogEntry, withCatalogContext} from '../../../../../../packages/wiki-schema/src/catalog-routes';
 import {useHydratedSearch} from './useHydratedSearch';
 
 function PetPage({ slug }) {
@@ -95,7 +95,7 @@ function PetPage({ slug }) {
               title={pet.name}
               href={petReturnBase}
             />
-            <Link className="rw-button" to={"/tools/compare/?pets=" + pet.slug}>
+            <Link className="rw-button" to={withCatalogContext('/tools/compare/', {pets: pet.slug})}>
               <GitCompareArrows size={15} />
               对比
             </Link>

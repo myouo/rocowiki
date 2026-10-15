@@ -1,6 +1,6 @@
 const fs = require("node:fs/promises");
 const path = require("node:path");
-const {catalogAliases} = require("../../../../packages/wiki-schema/src/catalog-routes.ts");
+const {catalogAliases,hasLegacyCatalogContext} = require("../../../../packages/wiki-schema/src/catalog-routes.ts");
 
 /**
  * Generate native Docusaurus routes from the route manifest.
@@ -91,6 +91,7 @@ module.exports = function wikiRoutesPlugin(context) {
       // A successful bundler exit is not sufficient: validate the emitted pages.
       // This also covers native docs and the 404 page registered by other plugins.
       const failures = [];
+      const legacyContexts = [];
       for (const route of routesPaths) {
         const relative = route.startsWith(baseUrl)
           ? route.slice(baseUrl.length)
@@ -103,6 +104,10 @@ module.exports = function wikiRoutesPlugin(context) {
           if (!/<html[\s>]/i.test(html) || !/<body[\s>]/i.test(html)) {
             failures.push(route);
           }
+          for (const link of html.matchAll(/\bhref="([^"]*)"/g)) {
+            const href = link[1].replaceAll('&amp;', '&');
+            if (hasLegacyCatalogContext(href)) legacyContexts.push(`${route} -> ${href}`);
+          }
         } catch (error) {
           if (error.code !== "ENOENT") throw error;
           failures.push(route);
@@ -113,8 +118,9 @@ module.exports = function wikiRoutesPlugin(context) {
           `Static HTML validation failed for ${failures.length} route(s):\n${failures.join("\n")}`,
         );
       }
+      if (legacyContexts.length) throw new Error(`Legacy pet context in ${legacyContexts.length} emitted link(s):\n${legacyContexts.slice(0,20).join('\n')}`);
       console.log(
-        `Static HTML check passed: ${routesPaths.length} complete pages.`,
+        `Static HTML check passed: ${routesPaths.length} complete pages; public pet contexts use numeric IDs.`,
       );
     },
   };

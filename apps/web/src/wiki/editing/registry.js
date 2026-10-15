@@ -27,7 +27,7 @@ import {
 
 import { STORAGE_KEY as COMMUNITY_STORAGE_KEY } from "../community/constants";
 import { readDemoWorkspace } from "../community/workspaceRepository";
-import {matchesCatalogEntry, catalogStorageKey} from '../../../../../packages/wiki-schema/src/catalog-routes';
+import {canonicalCatalogHref, matchesCatalogEntry, catalogStorageKey} from '../../../../../packages/wiki-schema/src/catalog-routes';
 export { COMMUNITY_STORAGE_KEY };
 function decodeAnchor(value) { try { return decodeURIComponent(value); } catch { return value; } }
 
@@ -45,7 +45,7 @@ export function editorHref({
   const params = new URLSearchParams({ entity, section });
   if (mode) params.set("mode", normalizeMode(mode));
   if (returnTo || from)
-    params.set("returnTo", safeInternalPath(returnTo || from));
+    params.set("returnTo", canonicalCatalogHref(safeInternalPath(returnTo || from)));
   if (record) params.set("record", record);
   if (intent === "add" || action === "create") params.set("intent", "add");
   if (intent === "delete") params.set("intent", "delete");

@@ -3,10 +3,11 @@ import { useHistory, useLocation } from "@docusaurus/router";
 import { setQuery } from "../core";
 import { pets } from "../data";
 import { statsDefaultsForPet } from "../statsProfiles";
+import {matchesCatalogEntry} from '../../../../../packages/wiki-schema/src/catalog-routes';
 
 function statsDefaults(query) {
   const pet =
-    pets.find((item) => item.slug === query.get("pet")) ||
+    pets.find((item) => matchesCatalogEntry('pets', item, query.get('pet') || '')) ||
     pets.find((item) => item.slug === "bishui") ||
     pets[0];
   return statsDefaultsForPet(pet);
@@ -66,6 +67,10 @@ function useCalculatorForm(defaultsForQuery, normalizeData = (data) => data) {
         } else if (["string", "number"].includes(typeof value))
           form[key] = String(value);
         else invalidLink = true;
+      }
+      if (typeof form.pet === 'string' && form.pet !== 'custom') {
+        const pet = pets.find(item => matchesCatalogEntry('pets', item, form.pet));
+        if (pet) form.pet = pet.slug;
       }
       return { form, invalidLink };
     } catch {
