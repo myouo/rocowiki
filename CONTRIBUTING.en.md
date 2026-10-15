@@ -1,6 +1,6 @@
 # Contributing
 [中文](CONTRIBUTING.md) · [Code of conduct](CODE_OF_CONDUCT.en.md) · [Security](SECURITY.en.md)
-<!-- rocowiki-policy: contributing; version: 6; lang: en -->
+<!-- rocowiki-policy: contributing; version: 7; lang: en -->
 
 <a id="entry"></a>
 ## Choose an entry point
@@ -94,6 +94,8 @@ The formal personal center is at `/account/`, loading the server account, privat
 The database assigns a registration number when a permanent account is created. It is displayed separately from the Wiki UID and cannot be supplied or changed by clients. Pending email registrations reserve no number. Migration 0009_registration_numbers.sql backfills existing accounts by creation time and then UID for ties; old timestamps cannot establish the order within the same second. The contributor role grants basic contribution access and is labeled “社区成员” (community member). Contribution achievements require verified, deployed, non-empty revisions. Session loading shows a skeleton without assumed identity data; failures retain a retry control rather than assuming logout.
 
 Apply 0009 before deploying the API and frontend. The frontend accepts older API responses without a number. Application rollback retains the new table and triggers; do not delete or renumber assigned numbers.
+
+The personal center retains V7.3.1's identity card, section navigation, submission tabs and overview composition when formal data is connected. GitHub binding availability comes from the server; incomplete configuration offers no authorization action. Success, cancellation and failure return to account security, and success is confirmed from the server identity. Recent authentication is renewed beside the pending action using the Wiki password; the client refreshes the session and CSRF before continuing. The final write still checks the original session's validity and identity, and binding never implicitly grants consent to disclose a commit email.
 
 ### GitHub integration setup
 

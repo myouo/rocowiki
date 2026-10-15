@@ -1,22 +1,52 @@
 /* SPDX-License-Identifier: GPL-3.0-only */
-.account-center.workspace{max-width:none;margin:0;padding:0}.account-center .cm-page-heading{margin-bottom:24px}.account-center .cm-page-heading h1{font-size:30px}.account-center .cm-paper{margin-bottom:18px;border-radius:18px}.account-center h2{display:flex;align-items:center;gap:10px}.account-center button{cursor:pointer}.account-center button:disabled{cursor:default;opacity:.6}.account-center button:focus-visible,.account-center a:focus-visible{outline:2px solid #4969a2;outline-offset:3px}.account-center .cm-button{display:inline-flex;align-items:center;justify-content:center;gap:8px;white-space:normal}.account-identity{display:flex;align-items:center;gap:22px;padding:28px;margin-bottom:30px;border:1px solid #e0e4ed;border-radius:20px;background:#f4f7fb}.account-avatar,.account-welcome-icon{display:grid;place-items:center;flex-shrink:0;width:76px;height:76px;border-radius:22px;background:#e9eef9;color:#4969a2}.account-identity-main{flex:1;min-width:0}.account-eyebrow{font-size:12px;color:#68758a}.account-identity h2{margin:5px 0 8px;font-size:25px;overflow-wrap:anywhere}.account-tags{display:flex;flex-wrap:wrap;gap:8px}.account-tags span,.account-status{display:inline-block;padding:3px 9px;background:#fff;border:1px solid #e0e4ed;border-radius:8px;color:#68758a;font-size:12px}.account-identity p{margin:10px 0 0;font-size:12px;color:#68758a;overflow-wrap:anywhere}.account-uid{display:block;margin-top:4px}.account-uid code{font-size:11px;background:transparent;color:inherit}.account-guest{display:grid;grid-template-columns:minmax(0,1fr) minmax(280px,440px);gap:48px;padding:36px!important;align-items:start}.account-guest>div{padding-top:12px}.account-guest h2{margin-top:22px;font-size:25px;line-height:1.5}.account-guest p,.account-muted{color:#68758a}.account-guest .auth-panel>h2{margin-top:0;font-size:22px}.account-guest .auth-links{display:flex;flex-wrap:wrap;gap:6px;margin-top:14px}.account-center .field{margin:18px 0}.account-center input:not([type=checkbox]){width:100%;min-width:0;box-sizing:border-box;border-radius:10px;border-color:#e0e4ed;padding:11px 12px;background:#fff}.account-center .checkbox-field{font-size:13px;line-height:1.7}.account-center .cm-section-heading{flex-wrap:wrap;gap:12px}.account-center .cm-section-heading h2{margin:0}.account-center .cm-section-heading small{color:#68758a;font-size:12px}.account-center .account-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));margin-bottom:18px}.account-center .account-stats button{display:grid;gap:4px;text-align:left}.account-center .account-stats strong{font-size:27px;line-height:1.5}.account-center .account-stats span{font-size:12px}.account-shortcuts{display:grid;gap:12px}.account-shortcuts>button{display:flex;align-items:center;gap:14px;width:100%;padding:16px;text-align:left;border:1px solid #e3e5ec;border-radius:12px;background:#f8f9fc;color:#4b5768;font:inherit}.account-shortcuts>button>span{flex:1;min-width:0}.account-shortcuts small,.account-records small{display:block;margin-top:4px;color:#68758a;font-size:12px}.account-records article{display:flex;align-items:center;justify-content:space-between;gap:18px;padding:17px 0;border-bottom:1px solid #e3e5ec}.account-records article:last-child{border-bottom:0}.account-records article>div:first-child{min-width:0;overflow-wrap:anywhere}.account-record-actions{display:flex;align-items:center;gap:12px;flex-shrink:0}.account-shelf .cm-bookmark-list>div{min-width:0}.account-shelf .cm-bookmark-list a{overflow-wrap:anywhere}.account-center .cm-empty{padding:28px 18px}.account-center .cm-empty h3{font-size:17px}.account-center .cm-empty p{font-size:13px}.account-center .account-settings>form{max-width:560px}.account-center .notice{border-radius:12px}.account-center .ev7-account-nav{top:145px}
-@media(max-width:850px){.account-guest{grid-template-columns:minmax(0,1fr);gap:28px;padding:24px!important}.account-guest>div{padding-top:0}.account-guest .auth-panel{border-top:1px solid #e3e5ec;padding-top:24px}.account-identity{gap:16px;padding:22px;flex-wrap:wrap}.account-identity>.cm-button{margin-left:92px}.account-center .ev7-account-shell{grid-template-columns:minmax(0,1fr);gap:16px}.account-center .ev7-account-nav{display:flex;position:static;overflow-x:auto;padding-bottom:5px}.account-center .ev7-account-nav button{flex-shrink:0;white-space:nowrap;padding:11px}.account-records article{align-items:flex-start;flex-wrap:wrap}.account-record-actions{flex-wrap:wrap}.account-center .cm-bookmark-list>div{grid-template-columns:auto minmax(0,1fr) auto}.account-center .cm-bookmark-list>div>span{display:none}}
-@media(max-width:480px){.account-identity{padding:18px;gap:14px}.account-avatar{width:58px;height:58px;border-radius:18px}.account-identity h2{font-size:22px}.account-identity>.cm-button{margin-left:0;width:100%}.account-identity-main{min-width:190px}.account-center .account-stats button{padding:14px 10px}.account-center .account-stats strong{font-size:24px}.account-center .account-stats svg{width:18px;height:18px}.account-center .account-stats span{font-size:11px}.account-center .cm-paper{padding:18px!important}.account-shortcuts>button{padding:14px 10px}.account-guest h2{font-size:22px}}
-.account-biography{white-space:pre-wrap;overflow-wrap:anywhere}.account-center .rw-account-identity-v71{align-items:center}.account-center .rw-account-name-v71{min-width:0}.account-center .account-uid code{overflow-wrap:anywhere}.community-record-pagination{display:flex;align-items:center;justify-content:center;gap:14px;margin:16px 0}.account-center .rw-community-overview-v72{margin-top:8px}.account-center .rw-honor-item-action-v72 button{max-width:100%;white-space:normal}
-
-.account-registration{display:flex;align-items:baseline;gap:10px;width:fit-content;margin-top:12px;padding:7px 12px;border:1px solid #dfe5ee;border-radius:10px;background:#fff}
-.account-registration>span{font-size:11px;color:#68758a;letter-spacing:.04em}
-.account-registration>strong{font-size:18px;color:#4969a2;font-variant-numeric:tabular-nums;line-height:1.3}
-.account-center .account-loading-status{display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin:0 0 18px;color:#4969a2;font-size:13px}
-.account-loading-status>span{color:#68758a;font-size:12px}
-.account-loading-identity{display:flex;align-items:center;gap:22px;min-height:320px;background:radial-gradient(ellipse at top right,#f5e5d8a6,transparent 54%),linear-gradient(115deg,#fff,#faf8ff)}
-.account-loading-details{display:grid;gap:14px;flex:1;min-width:0}
-.account-skeleton{display:block;border-radius:9px;background:linear-gradient(100deg,#e6ebf2 20%,#f0f3f7 45%,#e6ebf2 70%);background-size:220% 100%;animation:account-loading-wave 2s ease-in-out infinite}
-.account-skeleton-avatar{flex:0 0 86px;height:86px;border-radius:26px}
-.account-skeleton-name{width:min(210px,80%);height:28px}
-.account-skeleton-tag{width:105px;height:22px}
-.account-skeleton-line{width:min(360px,90%);height:13px}
-.account-skeleton-title{width:170px;max-width:75%;height:22px}
+/* Account composition and tokens come from V7.3.1's CommunityPages/v71 styles. */
+.account-center{min-width:0}
+.account-center .cm-button,.account-center .cm-text-button{display:inline-flex;align-items:center;gap:8px}
+.account-center button:disabled{cursor:default}
+.account-center :is(button,a,input,textarea,summary):focus-visible{outline:3px solid #c09852;outline-offset:3px}
+.account-center .cm-section-heading{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
+.account-center .cm-section-heading h2,.account-center .ev7-account-edit>section>h2{display:flex;align-items:center;gap:9px;margin:0}
+.account-center .cm-section-heading small{color:var(--cm-muted);font-size:12px}
+.account-center .cm-text-button{border:0;background:transparent;color:var(--cm-primary);font:inherit;font-size:12px;padding:5px 0;cursor:pointer}
+.account-center .cm-paper{margin-bottom:20px}
+.account-center .cm-account-overview-grid>.cm-paper{margin-bottom:0}
+.account-center .cm-work-row,.account-center .cm-bookmark-list>div{min-width:0}
+.account-center .cm-work-main,.account-center .cm-bookmark-list a{overflow-wrap:anywhere}
+.account-center .cm-work-status{display:flex;align-items:center;flex-wrap:wrap;gap:10px}
+.account-center .account-status{padding:4px 9px;background:#f4f5f9;border:1px solid var(--cm-border);border-radius:8px;font-size:12px;color:var(--cm-muted);white-space:nowrap}
+.account-center .rw-account-name-v71>p{white-space:pre-wrap}
+.account-center .account-settings{margin-top:18px}
+.account-center .field{display:flex;flex-direction:column;gap:7px;margin:17px 0;color:#42516b;font-size:13px}
+.account-center :is(input:not([type=checkbox]),textarea){box-sizing:border-box;width:100%;min-width:0;max-width:100%;border:1px solid var(--cm-border);border-radius:11px;background:#fff;padding:11px 13px;color:var(--cm-ink);font:inherit}
+.account-center .account-settings>form{max-width:600px}
+.account-center .account-settings button[type=submit]{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:10px 15px;border:1px solid var(--cm-border);border-radius:12px;background:#f5f1fb;color:#756295;font:inherit;font-size:13px}
+.account-center .checkbox-field{display:flex;align-items:flex-start;gap:8px;font-size:12px;line-height:1.8;margin:12px 0}
+.account-center .checkbox-field input{margin-top:5px;flex-shrink:0}
+.account-center .ev7-security-row p{overflow-wrap:anywhere}
+.account-center .account-github-identity{display:flex;align-items:center;gap:12px;margin:18px 0;padding:14px;border:1px solid var(--cm-border);border-radius:13px;background:#faf9fc}
+.account-center .account-github-identity a{display:inline-flex;align-items:center;gap:6px;font-weight:600;overflow-wrap:anywhere}
+.account-center .account-github-identity>svg:last-child{margin-left:auto;color:#6c9381}
+.account-center .account-github-actions{display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin-top:15px;font-size:12px}
+.account-center .account-github-reauth{padding:17px;margin:18px 0;border:1px solid #e4dced;background:#fcfaff;border-radius:14px}
+.account-center .account-github-reauth h3{display:flex;align-items:center;gap:8px;font-size:15px}
+.account-center .account-github-consent,.account-center .cm-github-detail{margin-top:18px}
+.account-center :is(.account-github-consent,.cm-github-detail)>summary{display:flex;align-items:center;gap:8px;cursor:pointer;color:var(--cm-primary);font-size:12px}
+.account-center .account-github-consent code{white-space:normal;overflow-wrap:anywhere}
+.account-center .cm-github-panel{scroll-margin-top:155px}
+.account-center .cm-github-panel h2:focus{outline:none}
+.account-guest{display:grid;grid-template-columns:minmax(0,1fr) minmax(280px,440px);gap:40px;padding:30px;align-items:start}
+.account-guest>div{padding-top:12px}
+.account-guest h2{margin-top:20px;font-size:24px}
+.account-guest .auth-panel>h2{margin-top:0}
+.account-loading-status{display:flex;align-items:center;gap:8px;margin-bottom:16px;color:var(--cm-muted);font-size:12px}
+.account-loading-identity{display:flex;align-items:center;gap:22px;padding:25px 28px;margin:8px 0 24px;min-height:240px;border:1px solid #e7e1ec;border-radius:23px;background:linear-gradient(115deg,#fff,#faf8ff)}
+.account-loading-details{display:grid;gap:15px;flex:1;min-width:0}
+.account-skeleton{display:block;border-radius:9px;background:linear-gradient(100deg,#e9e7f0 20%,#f5f3f8 45%,#e9e7f0 70%);background-size:220% 100%;animation:account-loading-wave 2s ease-in-out infinite}
+.account-skeleton-avatar{flex:0 0 86px;height:86px;border-radius:50%}
+.account-skeleton-name{width:min(210px,80%);height:26px}
+.account-skeleton-tag{width:100px;height:20px}
+.account-skeleton-line{width:min(360px,90%);height:12px}
+.account-skeleton-title{width:170px;max-width:75%;height:20px}
 .account-loading-shell{display:grid;grid-template-columns:174px minmax(0,1fr);gap:26px}
 .account-loading-nav{display:grid;align-content:start;gap:13px;padding:12px}
 .account-loading-nav>.account-skeleton{height:33px}
@@ -24,18 +54,8 @@
 .account-loading-paper{display:grid;gap:24px;padding:24px;min-height:180px}
 .account-loading-metrics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
 .account-loading-metrics>.account-skeleton{height:75px;border-radius:14px}
+.community-record-pagination{display:flex;align-items:center;justify-content:center;gap:14px;margin:16px 0}
 @keyframes account-loading-wave{0%,100%{background-position:100% 0}50%{background-position:0 0}}
-@media(max-width:850px){.account-loading-shell{grid-template-columns:minmax(0,1fr);gap:16px}.account-loading-nav{grid-template-columns:repeat(4,minmax(0,1fr));padding:0}.account-loading-nav>.account-skeleton:nth-child(n+5){display:none}}
-@media(max-width:480px){.account-loading-status>span{flex-basis:100%;padding-left:25px}.account-loading-identity{min-height:255px;gap:18px}.account-skeleton-avatar{flex-basis:64px;height:64px;border-radius:20px}.account-loading-metrics{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}}
+@media(max-width:850px){.account-guest{grid-template-columns:minmax(0,1fr);gap:25px}.account-guest .auth-panel{border-top:1px solid var(--cm-border);padding-top:22px}.account-loading-shell{grid-template-columns:minmax(0,1fr);gap:16px}.account-loading-nav{grid-template-columns:repeat(4,minmax(0,1fr));padding:0}.account-loading-nav>.account-skeleton:nth-child(n+5){display:none}}
+@media(max-width:580px){.account-loading-identity{min-height:240px;padding:19px;gap:15px}.account-skeleton-avatar{flex-basis:68px;height:68px}.account-loading-metrics{grid-template-columns:repeat(2,minmax(0,1fr))}.account-center .cm-work-row{flex-wrap:wrap}.account-guest{padding:20px}.account-guest h2{font-size:21px}}
 @media(prefers-reduced-motion:reduce){.account-skeleton{animation:none}}
-@media(max-width:580px){
-  .account-center .account-identity{grid-template-columns:68px minmax(0,1fr);gap:14px;align-items:start}
-  .account-center .account-identity-main{display:contents}
-  .account-center .rw-account-avatar-button{width:68px;height:68px;padding:0;align-self:start}
-  .account-center .account-identity-heading{grid-column:2;min-width:0}
-  .account-center .account-identity-main>.account-registration,.account-center .account-identity-main>p,.account-center .account-identity-main>button,.account-center .account-identity>.cm-button{grid-column:1/-1;margin:0;justify-self:start}
-  .account-center .account-identity-main>button{width:fit-content}
-  .account-center .account-identity>.cm-button{width:100%;margin-top:4px}
-  .account-center .account-uid{margin-top:6px}
-  .account-loading-identity{min-height:330px}
-}

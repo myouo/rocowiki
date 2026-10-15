@@ -6,7 +6,7 @@ import { candidateContent, renderMarkdown } from '../../../packages/content-vali
 import { getSession, sessionCsrf, verifyCsrf, hash, now, newId, cookie, beginOidc, finishOidc, consumeState, verifyHmac } from '../../../packages/auth/src/index';
 import { GitHub, GitError, type Coauthor } from '../../../packages/git-wrapper/src/index';
 import { Coordinator, validManifest } from '../../../packages/publish-coordinator/src/index';
-import { startGithub, finishGithub, requireRecent, consentVersion } from './github-binding';
+import { startGithub, finishGithub, requireRecent, consentVersion, githubBindingAvailable } from './github-binding';
 import {AccountError,passwordLogin,passwordReauthenticate,registerPassword,changePassword,mailConfigured,requestAccountEmail,consumeAccountToken} from '../../../packages/auth/src/password';
 import {profileSchema} from '../../../packages/wiki-schema/src/account';
 import type { ApiEnv, Bindings, AuthSession } from './types';
@@ -71,7 +71,7 @@ app.get('/health',c=>c.json({status:'ok',schema:1,registration:c.env.AUTH_MODE,
   registration_enabled:c.env.REGISTRATION_ENABLED==='true'&&(c.env.EMAIL_VERIFICATION_REQUIRED!=='true'||mailConfigured(c.env)),
   email_verification_required:c.env.EMAIL_VERIFICATION_REQUIRED==='true',password_reset_available:mailConfigured(c.env),
   submissions:c.env.SUBMISSIONS_ENABLED==='true',publishing:c.env.PUBLISH_ENABLED==='true',
-  community:true,
+  community:true,github_binding_available:githubBindingAvailable(c.env),
   source_commit_sha:c.env.API_SOURCE_COMMIT_SHA||null,
 }));
 app.get('/pages',c=>c.json({pages:catalog}));
@@ -102,7 +102,7 @@ app.get('/me',async c=>{
   const credential=await c.env.DB.prepare('SELECT email,email_verified_at FROM password_credentials WHERE uid=?').bind(s.uid).first<{email:string;email_verified_at:number|null}>();
   const registration=await c.env.DB.prepare('SELECT registration_number FROM user_registration_numbers WHERE uid=?').bind(s.uid).first<{registration_number:number}>();
   if(!registration)throw new ApiError('INTERNAL_ERROR',500);
-  return c.json({user:{uid:s.uid,username:s.username,display_name:s.display_name,role:s.role,registration_number:registration.registration_number},profile:await communityProfile(c.env,s.uid),account:credential?{email:credential.email,email_verified:credential.email_verified_at!==null}:null,csrf_token:await sessionCsrf(c.req.raw,c.env),github,consent_version:consentVersion});
+  return c.json({user:{uid:s.uid,username:s.username,display_name:s.display_name,role:s.role,registration_number:registration.registration_number},profile:await communityProfile(c.env,s.uid),github_binding_available:githubBindingAvailable(c.env),account:credential?{email:credential.email,email_verified:credential.email_verified_at!==null}:null,csrf_token:await sessionCsrf(c.req.raw,c.env),github,consent_version:consentVersion});
 });
 app.patch('/me',async c=>{
   const input=profileSchema.parse(await jsonBody(c.req.raw,4096)),uid=c.get('session').uid;
@@ -113,7 +113,20 @@ app.patch('/me',async c=>{
   return c.json({ok:true});
 });
 app.post('/auth/github/start',async c=>{const start=await startGithub(c.env,c.get('session'));c.header('Set-Cookie',cookie(c.env,'github',start.browser,600));return c.json({redirect_url:start.url});});
-app.get('/auth/github/callback',async c=>{await finishGithub(c.env,c.req.raw);c.header('Set-Cookie',cookie(c.env,'github','',0));return c.redirect(`${c.env.WEB_ORIGIN}/workbench?github=bound`);});
+app.get('/auth/github/callback',async c=>{
+  const target=new URL('/account/',c.env.WEB_ORIGIN);
+  let result='bound';
+  try {await finishGithub(c.env,c.req.raw);}
+  catch(error) {
+    const code=error instanceof Error?error.message:'';
+    const results:Record<string,string>={GITHUB_AUTH_CANCELLED:'cancelled',REAUTH_REQUIRED:'expired',INVALID_OAUTH_STATE:'expired',SESSION_CHANGED:'account-changed',GITHUB_ALREADY_BOUND:'already-bound',GITHUB_OAUTH_NOT_CONFIGURED:'unavailable'};
+    result=Object.hasOwn(results,code)?results[code]:'failed';
+    if(result==='failed')console.error(JSON.stringify({event:'github_binding_failed',correlation_id:c.get('correlationId')}));
+  }
+  c.header('Set-Cookie',cookie(c.env,'github','',0));
+  target.search=new URLSearchParams({tab:'security',github:result}).toString();target.hash='github';
+  return c.redirect(target.toString());
+});
 app.post('/me/github/consent',async c=>{
   const s=c.get('session');requireRecent(s);
   const input=z.object({enabled:z.boolean(),consent_version:z.literal(consentVersion)}).strict().parse(await jsonBody(c.req.raw));

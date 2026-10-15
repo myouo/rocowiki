@@ -3,10 +3,11 @@ import { randomToken, hash, now, consumeState, recentAuthMaxAge } from '../../..
 import * as oidc from 'openid-client';
 
 export const consentVersion='coauthor-public-git-v1';
+export function githubBindingAvailable(env:ApiEnv) {return Boolean(env.GITHUB_OAUTH_CLIENT_ID?.trim()&&env.GITHUB_OAUTH_CLIENT_SECRET?.trim());}
 function recent(session:AuthSession) {if(!Number.isSafeInteger(session.authenticated_at)||session.authenticated_at<=0||session.authenticated_at>now()||now()-session.authenticated_at>recentAuthMaxAge)throw new Error('REAUTH_REQUIRED');}
 export async function startGithub(env:ApiEnv,session:AuthSession) {
   recent(session);
-  if(!env.GITHUB_OAUTH_CLIENT_ID||!env.GITHUB_OAUTH_CLIENT_SECRET)throw new Error('GITHUB_OAUTH_NOT_CONFIGURED');
+  if(!githubBindingAvailable(env))throw new Error('GITHUB_OAUTH_NOT_CONFIGURED');
   const state=randomToken(),browser=randomToken(),verifier=oidc.randomPKCECodeVerifier();
   await env.DB.prepare('INSERT INTO oauth_states(state_hash,provider,uid,session_hash,browser_hash,verifier,expires_at) VALUES(?,?,?,?,?,?,?)').bind(await hash(state),'github',session.uid,session.id_hash,await hash(browser),verifier,now()+600).run();
   const url=new URL('https://github.com/login/oauth/authorize');
@@ -16,8 +17,10 @@ export async function startGithub(env:ApiEnv,session:AuthSession) {
 export async function finishGithub(env:ApiEnv,request:Request) {
   const state=await consumeState(env,request,'github');
   if(!state.uid||!state.session_hash)throw new Error('INVALID_OAUTH_STATE');
+  if(new URL(request.url).searchParams.get('error')==='access_denied')throw new Error('GITHUB_AUTH_CANCELLED');
+  if(!githubBindingAvailable(env))throw new Error('GITHUB_OAUTH_NOT_CONFIGURED');
   const session=await env.DB.prepare('SELECT authenticated_at FROM sessions WHERE id_hash=? AND revoked_at IS NULL AND expires_at>?').bind(state.session_hash,now()).first<{authenticated_at:number}>();
-  if(!session||!Number.isSafeInteger(session.authenticated_at)||session.authenticated_at<=0||session.authenticated_at>now()||now()-session.authenticated_at>1200)throw new Error('REAUTH_REQUIRED');
+  if(!session||!Number.isSafeInteger(session.authenticated_at)||session.authenticated_at<=0||session.authenticated_at>now()||now()-session.authenticated_at>recentAuthMaxAge)throw new Error('REAUTH_REQUIRED');
   const code=new URL(request.url).searchParams.get('code');if(!code)throw new Error('INVALID_OAUTH_CODE');
   const response=await fetch('https://github.com/login/oauth/access_token',{
     method:'POST',headers:{Accept:'application/json','Content-Type':'application/json'},signal:AbortSignal.timeout(15000),
@@ -39,9 +42,11 @@ export async function finishGithub(env:ApiEnv,request:Request) {
   const owner=await env.DB.prepare('SELECT uid FROM github_identities WHERE github_numeric_id=?').bind(user.id).first<{uid:string}>();
   if(owner&&owner.uid!==state.uid)throw new Error('GITHUB_ALREADY_BOUND');
   // Binding is always separate from explicit disclosure consent; (re)binding resets consent.
-  await env.DB.batch([
-    env.DB.prepare('INSERT INTO github_identities(uid,github_numeric_id,login,coauthor_email,enabled,binding_version) VALUES(?,?,?,?,0,?) ON CONFLICT(uid) DO UPDATE SET github_numeric_id=excluded.github_numeric_id,login=excluded.login,coauthor_email=excluded.coauthor_email,enabled=0,consent_version=NULL,consent_at=NULL,binding_version=excluded.binding_version').bind(state.uid,user.id,user.login,chosen?.email??null,crypto.randomUUID()),
-    env.DB.prepare("INSERT INTO audit_events(event_id,actor_uid,action,target_id,ts) VALUES(?,?,'github_bound',?,?)").bind(crypto.randomUUID(),state.uid,state.uid,now())
+  const timestamp=now();
+  const written=await env.DB.batch([
+    env.DB.prepare('INSERT INTO github_identities(uid,github_numeric_id,login,coauthor_email,enabled,binding_version) SELECT ?,?,?,?,0,? FROM sessions s JOIN users u USING(uid) WHERE s.id_hash=? AND s.uid=? AND s.revoked_at IS NULL AND s.expires_at>? AND s.authenticated_at BETWEEN ? AND ? AND u.disabled_at IS NULL ON CONFLICT(uid) DO UPDATE SET github_numeric_id=excluded.github_numeric_id,login=excluded.login,coauthor_email=excluded.coauthor_email,enabled=0,consent_version=NULL,consent_at=NULL,binding_version=excluded.binding_version').bind(state.uid,user.id,user.login,chosen?.email??null,crypto.randomUUID(),state.session_hash,state.uid,timestamp,timestamp-recentAuthMaxAge,timestamp),
+    env.DB.prepare("INSERT INTO audit_events(event_id,actor_uid,action,target_id,ts) SELECT ?,?,'github_bound',?,? WHERE changes()>0").bind(crypto.randomUUID(),state.uid,state.uid,timestamp)
   ]);
+  if(!written[0].meta.changes)throw new Error('SESSION_CHANGED');
 }
 export function requireRecent(session:AuthSession) {recent(session);}

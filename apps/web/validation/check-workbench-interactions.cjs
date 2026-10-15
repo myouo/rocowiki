@@ -21,7 +21,7 @@ async function main(){
       export {default as AccountCenter} from './apps/web/src/features/account/AccountCenter';
       export {app} from './apps/api/src/index';
       export {TestDatabase} from './tests/d1';
-      export {newId,now,createSession} from './packages/auth/src/index';
+      export {newId,now,createSession,hash} from './packages/auth/src/index';
       export {hashPassword} from './packages/auth/src/password';
       export {GitHub} from './packages/git-wrapper/src/index';
     `},outfile:path.join(temp,'app.cjs'),bundle:true,format:'cjs',platform:'node',loader:{'.css':'empty'},logLevel:'silent',plugins:[{
@@ -79,6 +79,7 @@ async function main(){
     const response=await C.app.fetch(new Request(url,{...init,headers}),env,{waitUntil:p=>background.push(p),passThroughOnException(){},props:{}});
     await Promise.all(background);
     if(url.pathname==='/auth/login'&&response.ok){const token=/roco_session=([a-f0-9]{64})/.exec(response.headers.get('set-cookie'))[1];current='contributor';identities.contributor.token=token;if(failMeAfterLogin){failMeAfterLogin=false;failNextMe=true;}}
+    if(url.pathname==='/auth/reauthenticate'&&response.ok&&current)identities[current].token=/roco_session=([a-f0-9]{64})/.exec(response.headers.get('set-cookie'))[1];
     if((lose===url.pathname||lose==='draft'&&url.pathname.startsWith('/drafts/'))&&init.method!=='GET'){
       lose=null;init.signal.throwIfAborted();
       return new Promise((_,reject)=>init.signal.addEventListener('abort',()=>reject(init.signal.reason),{once:true}));
@@ -185,7 +186,7 @@ async function main(){
   check('Account URL shows its own heading and login form without redirecting',d.querySelector('h1')?.textContent==='个人中心'&&w.location.pathname==='/account/'&&d.body.textContent.includes('登录 RocoWiki'));
   check('A visitor cannot promote the local demo identity',!d.body.textContent.includes('FORGED LOCAL ADMIN')&&!d.querySelector('.account-identity'));
   await fill('input[name="identifier"]','contributor');await fill('input[name="password"]','Fixture long password 2026!');await click('登录');await waitFor(()=>!!d.querySelector('.account-identity'),'personal-center login');
-  check('Personal-center password login stays on the account URL with server identity',w.location.pathname==='/account/'&&d.querySelector('.account-identity')?.textContent.includes(identities.contributor.uid)&&!d.body.textContent.includes('FORGED LOCAL ADMIN'));
+  check('Personal-center password login stays on the account URL with server identity',w.location.pathname==='/account/'&&d.querySelector('.account-identity')?.dataset.accountUid===identities.contributor.uid&&!d.body.textContent.includes('FORGED LOCAL ADMIN'));
   const registrationNumber=db.sql.prepare('SELECT registration_number FROM user_registration_numbers WHERE uid=?').get(identities.contributor.uid).registration_number;
   check('Identity renders its immutable server registration number and keeps a basic access role separate from earned honors',d.querySelector('.account-registration strong')?.textContent===String(registrationNumber)&&d.querySelector('.account-tags')?.textContent.includes('社区成员')&&!d.querySelector('.account-tags')?.textContent.includes('贡献者')&&d.querySelector('.rw-profile-honor-v72')?.textContent.includes('选择展示徽章'));
   await waitFor(()=>!!d.querySelector('.rw-checkin-button-v72')&&!d.querySelector('.rw-checkin-button-v72').disabled,'community bootstrap');
@@ -213,8 +214,10 @@ async function main(){
   await click('个人资料');await fill('input[name="display_name"]','正式个人中心昵称');await click('保存个人资料');
   check('Personal profile edit updates the real owner without changing username or demo storage',db.sql.prepare('SELECT display_name,username FROM users WHERE uid=?').get(identities.contributor.uid).display_name==='正式个人中心昵称'&&d.body.textContent.includes('contributor')&&w.localStorage.getItem('roco-wiki-v4:community')===localIdentity);
   check('Editing a nickname preserves the displayed server registration number',d.querySelector('.account-registration strong')?.textContent===String(registrationNumber));
-  await click('草稿与投稿');
+  await click('我的首页');await click('全部草稿');
   const continueLink=[...d.querySelectorAll('a')].find(node=>node.textContent.includes('继续编辑'));
+  const submittedTab=[...d.querySelectorAll('.cm-segmented button')].find(button=>button.textContent.trim().startsWith('已提交'));
+  await click(submittedTab.textContent.trim());
   check('Owner sees private drafts and submission state with a direct draft link',continueLink?.href.includes('draft=')&&d.body.textContent.includes('补充来源与实测结果')&&d.body.textContent.includes('已批准'));
   const destination=new URL(continueLink.href);
   await render('contributor',destination.search);
@@ -222,9 +225,11 @@ async function main(){
   await render(null,destination.search);
   await fill('input[name="identifier"]','contributor');await fill('input[name="password"]','Fixture long password 2026!');await click('登录');await waitFor(()=>d.querySelector('.markdown-editor')?.value===content,'authenticated draft restoration');
   check('Draft restoration also completes when the deep link first requires password login',d.querySelector('.markdown-editor')?.value===content);
-  await renderAccount('viewer');await click('草稿与投稿');
+  await renderAccount('viewer','?tab=drafts');
+  await waitFor(()=>d.body.textContent.includes('还没有保存的草稿'),'viewer draft collection loaded');
   check('An account switch hides another owner private drafts and submissions',!d.body.textContent.includes('补充来源与实测结果')&&d.body.textContent.includes('还没有保存的草稿'));
   await click('账号与安全');
+  await click('修改密码');
   check('Personal security uses server account fields and exposes real password controls',d.body.textContent.includes('viewer@example.test')&&d.querySelector('input[name="current_password"]')&&!d.querySelector('input[name="display_name"]'));
   await click('退出登录');
   check('Personal-center logout removes identity and private email',!d.querySelector('.account-identity')&&!d.body.textContent.includes('viewer@example.test')&&d.body.textContent.includes('登录 RocoWiki'));
@@ -233,8 +238,8 @@ async function main(){
   await fill('input[name="identifier"]','contributor');await fill('input[name="password"]','Fixture long password 2026!');await click('登录');await waitFor(()=>d.body.textContent.includes('登录状态需要确认'),'post-login identity recovery');
   check('Successful login with a lost identity refresh shows recovery instead of a guest login form',d.body.textContent.includes('登录状态需要确认')&&!d.querySelector('input[name="identifier"]'));
   await click('重新检查登录状态');
-  check('Identity refresh recovery uses the existing session without another password login',d.querySelector('.account-identity')?.textContent.includes(identities.contributor.uid));
-  failSubmissions=true;await renderAccount('contributor','?tab=submissions');
+  check('Identity refresh recovery uses the existing session without another password login',d.querySelector('.account-identity')?.dataset.accountUid===identities.contributor.uid);
+  failSubmissions=true;await renderAccount('contributor');
   await waitFor(()=>d.body.textContent.includes('投稿暂时无法读取')&&!![...d.querySelectorAll('a')].find(node=>node.textContent.includes('继续编辑')),'independent record loading');
   check('A failed submissions endpoint does not hide healthy private drafts',!![...d.querySelectorAll('a')].find(node=>node.textContent.includes('继续编辑'))&&d.body.textContent.includes('投稿暂时无法读取'));
   identities.viewer.token=(await C.createSession(env,identities.viewer.uid,C.now())).token;
@@ -242,7 +247,26 @@ async function main(){
   await waitFor(()=>d.body.textContent.includes('账号已在其他页面切换'),'shared-cookie account switch');
   check('A shared-cookie account switch rejects mismatched response ownership and drops stale identity',d.body.textContent.includes('账号已在其他页面切换')&&!d.querySelector('.account-identity')&&!d.body.textContent.includes('补充来源与实测结果'));
   await click('重新检查登录状态');
-  check('Cookie account switch recovery loads the new server identity',d.querySelector('.account-identity')?.textContent.includes(identities.viewer.uid)&&!d.body.textContent.includes('补充来源与实测结果'));
+  check('Cookie account switch recovery loads the new server identity',d.querySelector('.account-identity')?.dataset.accountUid===identities.viewer.uid&&!d.body.textContent.includes('补充来源与实测结果'));
+  await click('账号与安全');
+  check('Unconfigured GitHub linking exposes its availability before an action can fail',d.querySelector('#github').textContent.includes('暂未开放')&&![...d.querySelectorAll('button')].some(button=>button.textContent.trim()==='绑定 GitHub'));
+  env.GITHUB_OAUTH_CLIENT_ID='synthetic-oauth-client';env.GITHUB_OAUTH_CLIENT_SECRET='synthetic-oauth-secret';
+  db.sql.prepare('INSERT INTO github_identities(uid,github_numeric_id,login,coauthor_email,enabled,binding_version) VALUES(?,?,?,?,0,?)').run(identities.viewer.uid,87654,'native-octocat','native@users.noreply.github.com','native-binding');
+  db.sql.prepare('UPDATE sessions SET authenticated_at=? WHERE id_hash=?').run(C.now()-601,await C.hash(identities.viewer.token));
+  await renderAccount('viewer','?tab=security&github=bound#github');
+  check('OAuth return opens account security and confirms the binding from the server identity',d.querySelector('#github').textContent.includes('native-octocat')&&d.querySelector('#github').textContent.includes('GitHub 账号已关联'));
+  await click('解除关联');await click('确认解除关联');
+  await waitFor(()=>!!d.querySelector('input[name="github_reauth_password"]'),'inline recent authentication');
+  check('An expired authentication opens a password challenge next to its GitHub action',!!d.querySelector('#github input[name="github_reauth_password"]')&&db.sql.prepare('SELECT count(*) AS n FROM github_identities WHERE uid=?').get(identities.viewer.uid).n===1);
+  await fill('input[name="github_reauth_password"]','wrong fixture password');await click('验证并继续');await waitFor(()=>d.querySelector('input[name="github_reauth_password"]').value==='', 'wrong password acknowledgment');
+  check('Wrong reauthentication leaves the association unchanged and never persists the entered password',db.sql.prepare('SELECT count(*) AS n FROM github_identities WHERE uid=?').get(identities.viewer.uid).n===1&&d.querySelector('input[name="github_reauth_password"]').value==='');
+  await fill('input[name="github_reauth_password"]','Fixture long password 2026!');await click('验证并继续');
+  await waitFor(()=>d.querySelector('#github').textContent.includes('GitHub 关联已解除'),'fresh-CSRF continuation');
+  check('Successful password verification resumes the original action with the new session and CSRF',db.sql.prepare('SELECT count(*) AS n FROM github_identities WHERE uid=?').get(identities.viewer.uid).n===0&&db.sql.prepare("SELECT count(*) AS n FROM audit_events WHERE action='github_unbound' AND actor_uid=?").get(identities.viewer.uid).n===1&&!d.querySelector('input[name="github_reauth_password"]'));
+  await renderAccount('viewer','?tab=security&github=bound#github');
+  check('An invented OAuth success query never manufactures a GitHub association',d.querySelector('#github').textContent.includes('关联结果尚未确认')&&!d.querySelector('.account-github-identity'));
+  await renderAccount('viewer','?tab=security&github=__proto__');
+  check('Unknown OAuth result values cannot be interpreted as inherited object properties',!d.querySelector('#github [role="alert"]')&&!d.querySelector('.account-github-identity'));
   await act(async()=>{root.unmount();await pause();});root=null;
   check('Interactions and unmount produce no React errors',errors.length===0);
   console.log(`Formal workbench interactions passed: ${checks.length} checks (real password login, API and SQLite).`);
