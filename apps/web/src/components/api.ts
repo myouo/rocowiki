@@ -1,5 +1,6 @@
 export class RequestError extends Error {constructor(public code:string){super(code);}}
 export const errorText:Record<string,string>={
+  HISTORY_NOT_CONFIGURED:'修订历史暂未接通，可以通过 GitHub 查看公开记录。',HISTORY_UNAVAILABLE:'GitHub 修订记录暂时无法读取，请稍后重试。',HISTORY_RATE_LIMITED:'GitHub 暂时限制了读取频率，请稍后重试，或打开 GitHub 查看。',HISTORY_PAGE_NOT_FOUND:'这份资料尚未登记修订来源。',HISTORY_SOURCE_NOT_FOUND:'未找到这个资料源，请返回修订列表。',HISTORY_REF_NOT_PUBLISHED:'这个版本尚未进入公开主分支，请返回修订列表。',HISTORY_DIFF_NOT_FOUND:'该次提交未修改所选资料源。',
   INSUFFICIENT_MARKS:'洛克印记还不够，继续积攒后再来兑换。',HONOR_NOT_OWNED:'先获得这件纪念物，再选择佩戴。',INVALID_HONOR_SLOT:'这件纪念物无法放在此位置。',UNKNOWN_HONOR_ITEM:'这件纪念物暂未收录。',
   COMMUNITY_DAY_CHANGED:'签到日期已经切换，请重新读取今天的状态后再试。',COMMUNITY_STREAK_CHANGED:'连签状态已经更新，请刷新后重试。',COMMUNITY_RECORD_UNCONFIRMED:'记录暂时无法确认，请重新读取状态；重试不会重复签到或兑换。',
   SELF_LIKE_FORBIDDEN:'自己的内容不计入自我点赞。',LIKE_TARGET_NOT_FOUND:'内容已被移除或尚未发布，暂时无法点赞。',COMMENT_NOT_FOUND:'这条评论已不存在。',INVALID_COMMUNITY_CURSOR:'记录位置已失效，请重新加载。',

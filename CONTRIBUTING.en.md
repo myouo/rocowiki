@@ -1,6 +1,6 @@
 # Contributing
 [中文](CONTRIBUTING.md) · [Code of conduct](CODE_OF_CONDUCT.en.md) · [Security](SECURITY.en.md)
-<!-- rocowiki-policy: contributing; version: 8; lang: en -->
+<!-- rocowiki-policy: contributing; version: 9; lang: en -->
 
 <a id="entry"></a>
 ## Choose an entry point
@@ -98,6 +98,8 @@ Apply 0009 before deploying the API and frontend. The frontend accepts older API
 The personal center retains V7.3.1's identity card, section navigation, submission tabs and overview composition when formal data is connected. GitHub binding availability comes from the server; incomplete configuration offers no authorization action. Success, cancellation and failure return to account security, and success is confirmed from the server identity. Recent authentication is renewed beside the pending action using the Wiki password; the client refreshes the session and CSRF before continuing. The final write still checks the original session's validity and identity, and binding never implicitly grants consent to disclose a commit email.
 
 ### GitHub integration setup
+
+Per-page revision history and diffs are public; editing and submission still require authentication. History reads registered prose or data-source commits from GitHub's default branch, and pagination stays on one default-branch revision. Shared JSON histories explicitly identify their file scope rather than presenting batch updates as individual entry edits. Public reads are independent of the publishing App and require neither enabled submissions nor repository write access. GitHub authors link back to Wiki members by server-verified numeric account ID, never matching names or emails; unlinking or disabling the account removes the dynamic association. Site submission credit additionally requires a nonempty revision with verified publication evidence, not arbitrary identity trailers in commit messages. Displaying a Wiki association neither enables public commit-email consent nor automatically increases community contribution scores.
 
 Create a dedicated publisher GitHub App under Settings → Developer settings → GitHub Apps. Set the homepage to https://wiki.rocoai.app and grant Contents and Pull requests Read and write, retaining the automatic Metadata Read permission. Install it only on myouo/rocowiki. Configure branch protection and independent maintainer merging separately.
 

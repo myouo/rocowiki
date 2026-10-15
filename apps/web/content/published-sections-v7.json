@@ -2,7 +2,7 @@
   "schemaVersion": 7,
   "description": "Section text from the exact release components. Generated before packaging; no simulated online revision.",
   "fingerprints": {
-    "src/wiki/core.jsx": "abc8ea5002d61b003032729a44d35b936d4e717e0c463f7a92bf5629adbfae0e",
+    "src/wiki/core.jsx": "4512fd2268289c8b73ff01bb41b7c5c4ef9a07c6d7652aebcfdf660c8d672c34",
     "src/wiki/WikiPage.jsx": "d007f2002f0bcc4df9e084e43c1df105baf1688944e3c1c494ad13a817694c53",
     "src/wiki/HomePage.jsx": "644ee507f529636697f576da6f40bd80b3d01cada0a0eb79ef15f0f744984c75",
     "src/wiki/CatalogPages.jsx": "8278a140395baf372863d81db635e65d8fbff753b38c9e0a7ecc66a77215cd2c",

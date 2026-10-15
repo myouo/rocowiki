@@ -244,7 +244,7 @@ export function Contribution({ entity, source, verified = "2026-10-10" }) {
   const editInfo = editingContext(location.pathname, "条目正文", entity, {
     returnTo: location.pathname + location.search,
   });
-  const q = "?entity=" + encodeURIComponent(entity);
+  const q = "?" + new URLSearchParams({entity,page:location.pathname+location.search});
   return (
     <div className="rw-contribution">
       <div className="rw-contribution-label">

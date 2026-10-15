@@ -31,7 +31,7 @@ function editHref(target, section = "", submission = "", legacy = false) {
 }
 
 function historyHref(target) {
-  return `/history/?entity=${encodeURIComponent(target)}`;
+  return '/history/?'+new URLSearchParams({entity:target,page:articleHref(target)});
 }
 
 function articleHref(target) {
