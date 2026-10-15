@@ -10,6 +10,7 @@ const registrationNumber=z.number().int().positive().max(Number.MAX_SAFE_INTEGER
 export const me = z.object({
   user:z.object({uid:z.string().min(1),username:z.string().min(1),display_name:z.string(),role:z.enum(['viewer','contributor','reviewer','admin']),registration_number:registrationNumber}),
   profile:communityProfileSchema.optional(),
+  github_binding_available:z.boolean().optional(),
   account:z.object({email:z.string().email(),email_verified:z.boolean()}).nullable().optional(),
   csrf_token:z.string().min(1),consent_version:z.string(),
   github:z.object({login:z.string(),coauthor_email:z.string().nullable(),enabled:z.number()}).nullable(),
