@@ -239,6 +239,8 @@ async function main() {
   globalThis.__wikiLocation={pathname:'/skills/xiazi/',search:'?pet=haifu',hash:'#effects'};
   await render(React.createElement(C.WikiPage,{routeData:{path:'/skills/xiazi/'}}));
   check('Legacy entry replacement preserves a numbered pet context and fragment',globalThis.__navigation==='/skills/3044/?pet=3092#effects');
+  const legacyHistory=d.querySelector('.rw-contribution-links a[href^="/history/?"]');
+  check('Legacy entry HTML also emits a numeric revision-history target',legacyHistory&&new URL(legacyHistory.href).searchParams.get('page')==='/skills/3044/?pet=3092');
   globalThis.__wikiLocation={pathname:'/pets/3432/',search:'',hash:'#skills'};
   await render(React.createElement(C.WikiPage));
   const contextualSkill=d.querySelector('a.rw-entity-link[href^="/skills/3969/"]');
