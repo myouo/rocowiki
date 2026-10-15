@@ -1,7 +1,7 @@
 import {it,expect} from 'vitest';
 import {readFileSync} from 'node:fs';
 import {createRequire} from 'node:module';
-import {productionApiConfig,provisionApiDatabase,verifyApiRelease,verifyPasswordRuntime,obsoleteMailSecrets} from '../scripts/deploy-api';
+import {productionApiConfig,productionApiSecrets,provisionApiDatabase,verifyApiRelease,verifyPasswordRuntime,obsoleteMailSecrets} from '../scripts/deploy-api';
 import {app} from '../apps/api/src/index';
 import {TestDatabase} from './d1';
 const account='a'.repeat(32),id='11111111-1111-4111-8111-111111111111',sha='1'.repeat(40);
@@ -21,13 +21,17 @@ it('maps valid production OAuth configuration names to the binding runtime witho
     return values[match![2] as keyof typeof values];
   };
   const runtime={GITHUB_OAUTH_CLIENT_ID:resolve(step.env!.GITHUB_OAUTH_CLIENT_ID),GITHUB_OAUTH_CLIENT_SECRET:resolve(step.env!.GITHUB_OAUTH_CLIENT_SECRET)};
-  expect(runtime.GITHUB_OAUTH_CLIENT_SECRET).toBe(values.OAUTH_CLIENT_SECRET);
   const source=JSON.parse(readFileSync('apps/api/wrangler.jsonc','utf8'));
   const config=productionApiConfig(source,id,sha,runtime,'/tmp/wiki-source');
+  const secrets=productionApiSecrets({...runtime,CLOUDFLARE_API_TOKEN:'synthetic-deployer-token'});
+  expect(config.env.production.vars.GITHUB_OAUTH_CLIENT_ID).toBe(values.OAUTH_CLIENT_ID);
+  expect(secrets.GITHUB_OAUTH_CLIENT_SECRET).toBe(values.OAUTH_CLIENT_SECRET);
+  expect(secrets).not.toHaveProperty('GITHUB_OAUTH_CLIENT_ID');
+  expect(secrets).not.toHaveProperty('CLOUDFLARE_API_TOKEN');
   expect(JSON.stringify(config)).not.toContain(values.OAUTH_CLIENT_SECRET);
   const db=new TestDatabase();
   try {
-    const env=db.env({...config.env.production.vars,...runtime});
+    const env=db.env({...config.env.production.vars,...secrets});
     expect(await(await app.request('https://api.wiki.rocoai.app/health',{},env)).json()).toMatchObject({github_binding_available:true});
   } finally {db.close();}
 });
