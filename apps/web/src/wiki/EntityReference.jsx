@@ -4,15 +4,17 @@ import useBaseUrl from "@docusaurus/useBaseUrl";
 import { ArrowUpRight, BookOpen, CloudSun, Dna, Gift, MapPin, PawPrint, Sparkles, Swords, UsersRound, WandSparkles } from "lucide-react";
 import { marked } from "marked";
 import { resolveEntityReference } from "./entityReferences";
+import {canonicalCatalogHref} from '../../../../packages/wiki-schema/src/catalog-routes';
 
 const iconByKind = { "宠物": PawPrint, "技能": WandSparkles, "血脉": Dna, "天气": CloudSun, "环境": Sparkles, "机制": BookOpen, "挑战": Swords, PVE: Swords, "场景": MapPin, "物品": Gift, "人物": UsersRound, "任务": BookOpen };
 const toneByKind = { "宠物": "pet", "技能": "skill", "血脉": "bloodline", "天气": "weather", "环境": "environment" };
 export default function EntityReference({ to, children, className = "", ...linkProps }) {
   const record = resolveEntityReference(to);
+  const href = record?.to || canonicalCatalogHref(to);
   const image = useBaseUrl(record?.image || "");
-  if (!record) return <Link {...linkProps} to={to} className={className || undefined}>{children}</Link>;
+  if (!record) return <Link {...linkProps} to={href} className={className || undefined}>{children}</Link>;
   const Icon = iconByKind[record.kind] || BookOpen;
-  return <Link {...linkProps} to={to} className={`rw-entity-reference rw-entity-reference-${toneByKind[record.kind] || "other"} ${className}`} data-entity-kind={record.kind} title={linkProps.title || `${record.kind}词条：${record.title || (typeof children === "string" ? children : "查看详情")}`}><span className="rw-entity-reference-icon" aria-hidden="true">{image && record.kind === "宠物" ? <img src={image} alt="" loading="lazy" decoding="async" /> : <Icon size={13} />}</span><span className="rw-entity-reference-label">{children || record.title}</span><ArrowUpRight className="rw-entity-reference-arrow" size={12} aria-hidden="true" /></Link>;
+  return <Link {...linkProps} to={href} className={`rw-entity-reference rw-entity-reference-${toneByKind[record.kind] || "other"} ${className}`} data-entity-kind={record.kind} title={linkProps.title || `${record.kind}词条：${record.title || (typeof children === "string" ? children : "查看详情")}`}><span className="rw-entity-reference-icon" aria-hidden="true">{image && record.kind === "宠物" ? <img src={image} alt="" loading="lazy" decoding="async" /> : <Icon size={13} />}</span><span className="rw-entity-reference-label">{children || record.title}</span><ArrowUpRight className="rw-entity-reference-arrow" size={12} aria-hidden="true" /></Link>;
 }
 
 function target(href, path) {

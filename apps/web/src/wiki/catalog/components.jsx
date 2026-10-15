@@ -150,6 +150,7 @@ function SkillTable({
   items = skills,
   compact = false,
   petContext = null,
+  returnTo = null,
 }) {
   return (
     <div className="rw-table-scroll" data-no-editor>
@@ -175,7 +176,7 @@ function SkillTable({
                   <Link
                     className="rw-entity-link"
                     to={
-                      withCatalogContext(skillDetailHref(s), {pet: petContext})
+                      withCatalogContext(skillDetailHref(s), {pet: petContext, returnTo})
                     }
                   >
                     {s.name}

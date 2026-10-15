@@ -76,3 +76,13 @@ export function withCatalogContext(href: string, values: Record<string, string |
   for (const [key, value] of Object.entries(values)) if (value) url.searchParams.set(key, value);
   return url.pathname + url.search + url.hash;
 }
+
+/** A detail may return only to its own category directory, never another entry or origin. */
+export function safeCatalogListReturnTo(kind: CatalogKind, value: string | null): string {
+  const root = `/${kind}/`;
+  if (!value || value.length > 4096 || /[\\<>\u0000-\u001f\u007f]/.test(value) || !value.startsWith(root)) return root;
+  const tail = value.slice(root.length);
+  if (tail && !tail.startsWith('?') || value.includes('#')) return root;
+  const url = new URL(value, 'https://wiki.invalid');
+  return url.pathname === root && !url.searchParams.has('entry') ? value : root;
+}

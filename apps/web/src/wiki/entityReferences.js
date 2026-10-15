@@ -2,6 +2,7 @@ import { getSearchRecords, pets, skills } from "./data";
 import { getBloodlineEntries } from "./catalogBloodlines";
 import { petMetadata } from "./content/bundled.js";
 import { resolvePublishedCatalogPets, resolvePublishedCatalogSkills, petDetailHref, skillDetailHref } from "./catalogPublished";
+import {canonicalCatalogHref} from '../../../../packages/wiki-schema/src/catalog-routes';
 
 const allowedKinds = new Set(["宠物", "技能", "血脉", "天气", "环境", "机制", "挑战", "PVE", "场景", "物品", "人物", "任务"]);
 export function entitySearchRecords(context = {}) {
@@ -32,8 +33,9 @@ let registry;
 export function resolveEntityReference(to) {
   if (!safeEntityTarget(to)) return null;
   if (!registry) registry = new Map(entitySearchRecords().map((row) => [row.to, row]));
-  const [path] = to.split(/[?#]/);
-  const known = registry.get(to) || registry.get(path);
+  const canonical = canonicalCatalogHref(to);
+  const [path] = canonical.split(/[?#]/);
+  const known = registry.get(canonical) || registry.get(path);
   let kind = known?.kind;
   if (!kind && /^\/pets\/(?:[^/]+\/|\?)/.test(to)) kind = "宠物";
   if (!kind && /^\/skills\/(?:[^/]+\/|\?entry=)/.test(to)) kind = "技能";
@@ -41,7 +43,6 @@ export function resolveEntityReference(to) {
   if (!kind && /^\/mechanics\/environments\//.test(path)) kind = "环境";
   if (!kind && /^\/mechanics\/weather\//.test(path)) kind = "天气";
   if (!kind || !allowedKinds.has(kind)) return null;
-  const slug = path.match(/^\/pets\/([^/]+)\//)?.[1] || new URL(to, "https://wiki.invalid").searchParams.get("entry");
-  const pet = kind === "宠物" ? pets.find((row) => row.slug === slug) : null;
-  return { ...known, to, kind, image: pet?.image || "", title: known?.title || pet?.name || "" };
+  const pet = kind === '宠物' ? pets.find(row => petDetailHref(row) === path) : null;
+  return { ...known, to: canonical, kind, image: pet?.image || "", title: known?.title || pet?.name || "" };
 }

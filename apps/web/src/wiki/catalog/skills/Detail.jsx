@@ -17,33 +17,35 @@ import SkillAnalysisSource, { SkillAnalysisNotes } from './AnalysisSource';
 import CompactAnalysis from './CompactAnalysis';
 import { useHydratedSearch } from '../pets/useHydratedSearch';
 import { skillCollection } from './officialModel';
-import {matchesCatalogEntry, withCatalogContext} from '../../../../../../packages/wiki-schema/src/catalog-routes';
+import {matchesCatalogEntry, safeCatalogListReturnTo, withCatalogContext} from '../../../../../../packages/wiki-schema/src/catalog-routes';
 
 function SkillPage({ slug }) {
   const skills = usePublishedSkills();
   const pets = usePublishedPets();
   const location = useLocation();
   const search = useHydratedSearch(location.search);
+  const params = new URLSearchParams(search);
+  const listReturn = safeCatalogListReturnTo('skills', params.get('returnTo'));
   const skill = skills.find((s) => matchesCatalogEntry('skills', s, slug));
   const [expand, setExpand] = useState(true);
   if (!skill)
     return (
       <>
-        <PageHeader title="技能资料待收录" back="/skills/" />
-        <EmptyState action={<Link to="/skills/">查看技能目录</Link>} />
+        <PageHeader title="技能资料待收录" back={listReturn} />
+        <EmptyState action={<Link to={listReturn}>查看技能目录</Link>} />
       </>
     );
-  const requestedPet = new URLSearchParams(search).get("pet");
+  const requestedPet = params.get('pet');
   const learningPets = resolveSkillLearners({ skill, pets }).rows.map((row) => row.pet);
   const contextPet = requestedPet ? learningPets.find((pet) => matchesCatalogEntry('pets', pet, requestedPet)) : undefined;
   const rules = skillRulePresentation(skill);
-  const skillReturnBase = withCatalogContext(skillDetailHref(skill), {pet: contextPet?.slug});
+  const skillReturnBase = withCatalogContext(skillDetailHref(skill), {pet: contextPet?.slug, returnTo: params.has('returnTo') ? listReturn : undefined});
   return (
     <div className="rw-skill-detail-v6">
       <PageHeader
         title={skill.name}
-        back={contextPet ? petSkillPoolHref(contextPet) : "/skills/"}
-        crumbs={[{ label: "技能查询", to: "/skills/" }, { label: skill.name }]}
+        back={contextPet ? petSkillPoolHref(contextPet) : listReturn}
+        crumbs={[{ label: "技能查询", to: listReturn }, { label: skill.name }]}
         actions={
           <>
             <BookmarkButton
