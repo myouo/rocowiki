@@ -4,25 +4,29 @@ import React, { act, createElement } from 'react';
 import { createRoot } from 'react-dom/client';
 import { renderToString } from 'react-dom/server';
 import { createRequire } from 'node:module';
-import { readFileSync } from 'node:fs';
 import { PetFeed } from '../apps/web/src/wiki/catalog/pets/PetFeed';
 import type { PetFeedHandle } from '../apps/web/src/wiki/catalog/pets/PetFeed';
 import { VirtualPetGrid } from '../apps/web/src/wiki/catalog/pets/VirtualPetGrid';
 import { PET_FEED_STORAGE_KEY, collectionRank, petCollection, petFeedScope, petHrefWithReturnTo, petWindow, readPetFeedPosition, requestedPetCount, safePetListReturnTo, savePetFeedPosition } from '../apps/web/src/wiki/catalog/pets/feedModel';
-import type { WikiPet, OfficialPetSnapshot } from '../apps/web/src/wiki/catalog/pets/officialTypes';
+import type { WikiPet, OfficialPetRecord } from '../apps/web/src/wiki/catalog/pets/officialTypes';
 
 const pets: WikiPet[] = Array.from({ length: 3382 }, (_, index) => ({ slug: `pet-${index}`, name: `Pet ${index}`, number: 3444 - index, types: ['草'], aliases: [], image: '', stats: null, skills: [], sourceUrl: 'https://example.test/source' }));
 const renderPet = (pet: WikiPet) => createElement('article', { className: 'rw-petcard' }, createElement('button', null, `比较 ${pet.name}`), createElement('a', { href: `/pets/?entry=${pet.slug}` }, pet.name));
-const data = JSON.parse(readFileSync('apps/web/content/official-pets.json', 'utf8')) as OfficialPetSnapshot;
+const example = (id: number, name: string, description = '待定', acquisitionText = '待定'): OfficialPetRecord => ({
+  id, name, description, acquisitionText, types: ['草'], stats: null, iconUrl: 'https://example.test/icon.png',
+  metadata: { group: null, groups: [], experienceType: null, heightM: null, weightKg: null, color: null, catchRate: null },
+});
 afterEach(() => vi.unstubAllGlobals());
 
 describe('pet feed data and navigation boundaries', () => {
   it('separates placeholders and source IDs without mistaking LULU or preloaded named pets for placeholders', () => {
-    const records = data.pets.map(official => ({ official }));
+    const records = [example(3443, 'WX'), example(3445, 'AA'), example(11790, '内部样本'), example(11791, 'BB'), example(11792, '内部样本二'), example(3333, 'LULU', '已命名宠物的介绍', '活动获取'), example(3444, '桃汁咩咩')].map(official => ({ official }));
     expect(records.filter(pet => petCollection(pet) === 'placeholder').map(pet => pet.official.name)).toEqual(['WX', 'AA']);
     expect(records.filter(pet => petCollection(pet) === 'internal').map(pet => pet.official.id)).toEqual([11790, 11791, 11792]);
-    expect(petCollection({ official: data.pets.find(pet => pet.name === 'LULU') })).toBe('regular');
-    expect(petCollection({ official: data.pets.find(pet => pet.id === 3444) })).toBe('regular');
+    expect(petCollection(records[5])).toBe('regular');
+    expect(petCollection(records[6])).toBe('regular');
+    expect(petCollection({ official: example(3443, '微笑柴可', '正式介绍', '活动获取') })).toBe('regular');
+    expect(petCollection({ official: example(3446, 'BB') })).toBe('placeholder');
     const sorted = [...records].sort((a, b) => collectionRank(a) - collectionRank(b) || b.official.id - a.official.id);
     expect(sorted[0].official.name).toBe('桃汁咩咩');
   });
