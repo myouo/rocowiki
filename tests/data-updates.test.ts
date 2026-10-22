@@ -15,6 +15,7 @@ describe('independent source update schedules', () => {
     expect(selectUpdateTasks(tasks, { schedule: '23 */3 * * *' }).map(task => task.id)).toEqual(['pets', 'ladder', 'skills']);
     expect(selectUpdateTasks(tasks, { schedule: '41 1 * * *' }).map(task => task.id)).toEqual(['daily-example']);
     expect(selectUpdateTasks(tasks, { schedule: '47 1 * * 5' }).map(task => task.id)).toEqual(['weekly-example']);
+    expect(selectUpdateTasks(tasks, { schedule: '0 22 * * 4' }).map(task => task.id)).toEqual(['ladder']);
     expect(selectUpdateTasks(tasks, { schedule: 'unused' })).toEqual([]);
   });
   it('allows a manual subset or all, while rejecting unknown selections and output collisions', () => {
@@ -34,6 +35,7 @@ describe('independent source update schedules', () => {
     expect(JSON.parse(run(['--only', 'ladder'])).map((task: UpdateTask) => task.id)).toEqual(['ladder']);
     expect(JSON.parse(run([], { GITHUB_EVENT_NAME: 'schedule', UPDATE_SCHEDULE: '47 1 * * 5' }))).toEqual([]);
     expect(JSON.parse(run([], { GITHUB_EVENT_NAME: 'schedule', UPDATE_SCHEDULE: '41 1 * * *' }))).toEqual([]);
+    expect(JSON.parse(run([], { GITHUB_EVENT_NAME: 'schedule', UPDATE_SCHEDULE: '0 22 * * 4' })).map((task: UpdateTask) => task.id)).toEqual(['ladder']);
     expect(() => run(['--only', 'skill-relations'])).toThrow();
     expect(() => run([], { GITHUB_EVENT_NAME: 'schedule' })).toThrow();
     expect(() => run(['--only', 'events'])).toThrow();

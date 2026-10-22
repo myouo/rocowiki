@@ -22,7 +22,7 @@ export const updateTasks: readonly UpdateTask[] = [
     input: { url: 'https://res.17roco.qq.com/conf/Angel.config', maxBytes: 8 * 1024 * 1024 },
   },
   {
-    id: 'ladder', label: 'Official ladder costs and bans', schedules: ['23 */3 * * *'],
+    id: 'ladder', label: 'Official ladder costs and bans', schedules: ['23 */3 * * *', '0 22 * * 4'],
     script: 'scripts/updates/import-ladder.ts', files: ['apps/web/content/official-ladder.json'],
     tests: ['tests/official-ladder.test.ts'],
     description: 'LadderMatchConfig.xml cost overrides and separate banned IDs; unlisted costs default to one under the official client rule.',

@@ -4,7 +4,8 @@ import { readFileSync } from 'node:fs';
 import { renderToString } from 'react-dom/server';
 import { createElement } from 'react';
 import { ladderSnapshot } from '../scripts/updates/ladder-config';
-import { officialLadderCost, petMetadataWithOfficialLadder } from '../apps/web/src/wiki/catalog/pets/ladderModel';
+import { ladderBanEntries, officialLadderCost, petMetadataWithOfficialLadder } from '../apps/web/src/wiki/catalog/pets/ladderModel';
+import { LadderBanList, LadderBanSource } from '../apps/web/src/wiki/world/LadderBans';
 import LadderCostBadge, { ladderCostDescription } from '../apps/web/src/wiki/catalog/pets/LadderCostBadge';
 import { buildOfficialPetCatalog } from '../apps/web/src/wiki/catalog/pets/officialModel';
 import type { OfficialLadderSnapshot } from '../apps/web/src/wiki/catalog/pets/ladderTypes';
@@ -41,6 +42,23 @@ describe('official ladder XML', () => {
 
 describe('ladder cost projections and reader labels', () => {
   const data = parse(xml());
+  it('matches ban names and links by ID, retains unknown IDs and never substitutes a same-name pet', () => {
+    const snapshot = parse(xml(undefined, '<id>137</id><id>3362</id><id>9999</id>'));
+    const catalog = [{ id: 137, name: '同名样本' }, { id: 3362, name: '同名样本' }];
+    expect(ladderBanEntries(snapshot, catalog)).toEqual([
+      { number: 137, name: '同名样本', href: '/pets/137/' },
+      { number: 3362, name: '同名样本', href: '/pets/3362/' },
+      { number: 9999, name: 'No. 9999（名称待核）', href: null },
+    ]);
+    const html = renderToString(createElement(LadderBanList, { snapshot, catalog }));
+    expect(html).toContain('href="/pets/137/"'); expect(html).toContain('href="/pets/3362/"');
+    expect(html).toContain('No. 9999'); expect(html).not.toContain('/pets/9999/');
+    const source = renderToString(createElement(LadderBanSource, { snapshot }));
+    expect(source).toContain(snapshot.source.sha256); expect(source).toContain('dateTime="2026-10-12T00:00:00Z"');
+    expect(source).toContain('未提供生效日期'); expect(source).toContain(snapshot.source.url);
+    const empty = renderToString(createElement(LadderBanList, { snapshot: parse(xml('', '')), catalog }));
+    expect(empty).toContain('名单为空'); expect(empty).not.toContain('同名样本');
+  });
   it('uses exact IDs, defaults unlisted IDs to one, and retains a banned pet fee', () => {
     expect(officialLadderCost(data, 3092)).toMatchObject({ value: 5, listed: true, banned: false });
     expect(officialLadderCost(data, 3362)).toMatchObject({ value: 4, listed: true, banned: true });

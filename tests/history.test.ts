@@ -145,7 +145,8 @@ it('keeps official query-string entry identities and marks shared-file history h
 });
 it('maps world pages to the files that actually supply their content rather than an unrelated weekly snapshot',()=>{
   for(const [page,path] of [['/places/castle/','world/placeData.js'],['/npcs/griffin/','npcPresentation.js'],['/items/potion/','world/ItemPages.jsx'],['/tasks/badges/','world/TaskPages.jsx'],['/challenges/star-tower/','world/ChallengePages.jsx']])expect(historySources(page)[0]).toMatchObject({path:'apps/web/src/wiki/'+path,shared:true});
-  expect(historySources('/battle/rules/')[0].path).toBe('apps/web/content/weekly-v5.json');
+  expect(historySources('/battle/rules/')[0].path).toBe('apps/web/content/official-ladder.json');
+  expect(historySources('/battle/').some(source=>source.path==='apps/web/content/weekly-v5.json')).toBe(true);
 });
 it('retains Chinese bloodline identities without widening the repository path boundary',()=>{
   const page='/bloodlines/?entry='+encodeURIComponent('鬻财');

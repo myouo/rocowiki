@@ -1,7 +1,8 @@
 import React from "react";
 import { ArrowRight, BookOpen, Search, Shield, Swords } from "lucide-react";
 import { Link, PageHeader, Section, Badge, Notice, EmptyState, Contribution, TextLink, DocGrid, DataPair, BookmarkButton, TypeBadge } from "../core";
-import { weekly } from "../content/bundled.js";
+import { weekly, officialLadderData, officialPetData } from "../content/bundled.js";
+import { LadderBanList, LadderBanSource } from "./LadderBans";
 import { PetNameChips, SourceLine, Tabs, hrefWith, useWorldQuery } from "./components.jsx";
 import { WeeklyEdition, WeeklySources, dateLabel, useWeeklyDate } from "./weekly.jsx";
 import { LegacyBattlePage } from "./legacy/BattlePage.jsx";
@@ -77,6 +78,7 @@ function BattlePage({ query }) {
   const update = useWorldQuery(query);
   const { today, stale } = useWeeklyDate();
   const mode = normalizePvpMode(query.get("mode"));
+  const showConfig = mode !== "type" && !query.get("date");
   const fallbackDate = stale ? weekly.edition.startDate : today;
   const date = validDate(query.get("date")) ? query.get("date") : fallbackDate;
   const oldArchive =
@@ -104,7 +106,7 @@ function BattlePage({ query }) {
           <TextLink to={`/battle/rules/?mode=${mode}`}>参赛规则</TextLink>
         }
       />
-      <WeeklyEdition stale={stale} />
+      {!showConfig && <WeeklyEdition stale={stale} />}
       <Tabs
         path="/battle/"
         query={query}
@@ -129,18 +131,26 @@ function BattlePage({ query }) {
           </p>
         </div>
         <label>
-          查询日期
+          查询历史日期
           <input
             type="date"
-            value={date}
+            value={showConfig ? "" : date}
             aria-label="查询规则日期"
             onChange={(event) =>
-              update({ date: event.target.value || fallbackDate })
+              update({ date: event.target.value || null })
             }
           />
         </label>
       </div>
-      {inEdition ? (
+      {mode !== "type" && !showConfig && <TextLink to={hrefWith("/battle/", query, { date: null })}>查看 XML 配置禁赛</TextLink>}
+      {showConfig ? (
+        <Section title={mode === "peak" ? "巅峰赛共享配置禁赛名单" : "天梯配置禁赛名单"} id="weekly-bans">
+          <div className="wa-ban-heading"><Shield size={21} /><strong>官方天梯配置</strong><Badge>{officialLadderData.bannedPetIds.length} 只</Badge></div>
+          <p>天梯与巅峰赛共享禁赛名单；费用与完整阵容条件分别核对。</p>
+          <LadderBanList snapshot={officialLadderData} catalog={officialPetData.pets} />
+          <LadderBanSource snapshot={officialLadderData} />
+        </Section>
+      ) : inEdition ? (
         <>
           <div className="wa-list-meta">
             <span>
@@ -247,8 +257,8 @@ function BattlePage({ query }) {
         <TextLink to="/events/">同期活动</TextLink>
       </div>
       <Contribution
-        entity={`${PVP_MODE_NAMES[mode]} · ${date}`}
-        source={inEdition ? weekly.sources[0].url : undefined}
+        entity={`${PVP_MODE_NAMES[mode]} · ${showConfig ? "配置禁赛" : date}`}
+        source={showConfig ? officialLadderData.source.url : inEdition ? weekly.sources[0].url : undefined}
       />
     </div>
   );
@@ -339,7 +349,7 @@ function BattleRules({ query }) {
           )}
         </Section>
         <Section title="周更名单" id="rules-weekly">
-          <WeeklyEdition stale={stale} />
+          {mode === "type" && <WeeklyEdition stale={stale} />}
           {mode === "type" ? (
             <div className="wa-v5-rules-periods">
               {weekly.pvp.typeTournament.periods.map((period) => (
@@ -355,16 +365,16 @@ function BattleRules({ query }) {
               ))}
             </div>
           ) : (
-            <p>
-              {dateLabel(weekly.edition.startDate)} 这一期共列出{" "}
-              {weekly.pvp.ladder.bannedPets.length}{" "}
-              只天梯禁用宠物。巅峰赛共享名单。
-            </p>
+            <>
+              <p>官方 XML 配置共列出 {officialLadderData.bannedPetIds.length} 只天梯禁用宠物，巅峰赛共享名单。</p>
+              <LadderBanList snapshot={officialLadderData} catalog={officialPetData.pets} />
+              <LadderBanSource snapshot={officialLadderData} />
+            </>
           )}
           <TextLink
-            to={`/battle/?mode=${mode}&date=${weekly.edition.startDate}`}
+            to={mode === "type" ? `/battle/?mode=${mode}&date=${weekly.edition.startDate}` : `/battle/?mode=${mode}`}
           >
-            查看完整禁用名单与公告
+            {mode === "type" ? "查看完整禁用名单与公告" : "查看配置禁赛名单"}
           </TextLink>
         </Section>
         <Section title="怎样核对阵容" id="rules-check">

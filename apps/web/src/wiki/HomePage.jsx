@@ -16,7 +16,9 @@ import { Link, TypeBadge, Section, TextLink } from "./core";
 import { PetCard } from "./CatalogPages";
 import { pets } from "./data";
 import { petCatalogHref } from "./catalog/pets/officialModel";
-import { weekly } from "./content/bundled.js";
+import { weekly, officialLadderData, officialPetData } from "./content/bundled.js";
+import { LadderBanList } from "./world/LadderBans";
+import { ladderDate } from "./catalog/pets/LadderCostBadge";
 import { ColorIcon } from "./visuals";
 import WelcomeBackdrop from "./WelcomeBackdrop";
 
@@ -56,13 +58,12 @@ function InlineBans({ bannedPets }) {
 
 export function WeeklyPvp({ today }) {
   const historical = today >= weekly.edition.reviewDueDate;
-  const ladder = weekly.pvp.ladder;
   return (
     <section className="rw-v6-weekly-pvp" aria-labelledby="rw-weekly-pvp-title">
       <div className="rw-section-head rw-v6-heading">
         <h2 id="rw-weekly-pvp-title">
           <Swords size={19} />
-          {historical ? "本期竞赛记录" : "本周竞赛"}
+          竞赛与禁赛
         </h2>
         <TextLink to="/battle/">PVP 对战资料</TextLink>
       </div>
@@ -76,29 +77,22 @@ export function WeeklyPvp({ today }) {
             <span>天梯与巅峰赛共享禁宠</span>
           </div>
           <table className="rw-v6-rules-table">
-            <caption className="rw-sr-only">本期天梯赛禁用宠物与规则</caption>
+            <caption className="rw-sr-only">官方天梯配置禁用宠物与规则</caption>
             <tbody>
               <tr>
-                <th scope="row">生效日期</th>
+                <th scope="row">配置采集</th>
                 <td>
-                  {ladder.startDate.replaceAll("-", ".")} 起{" "}
-                  <span className="rw-v6-muted">
-                    · 本页按 10.09—10.15 期整理
-                  </span>
+                  <time dateTime={officialLadderData.source.retrievedAt}>{ladderDate(officialLadderData.source.retrievedAt)}</time>（北京时间）
+                  <span className="rw-v6-muted"> · 配置未提供生效日期</span>
                 </td>
               </tr>
               <tr>
                 <th scope="row">
-                  禁用宠物 <small>{ladder.bannedPets.length} 只</small>
+                  禁用宠物 <small>{officialLadderData.bannedPetIds.length} 只</small>
                 </th>
                 <td>
-                  <ul className="rw-v6-ladder-bans">
-                    {ladder.bannedPets.map((pet) => (
-                      <li key={pet.name}>
-                        <PetName name={pet.name} />
-                      </li>
-                    ))}
-                  </ul>
+                  <LadderBanList snapshot={officialLadderData} catalog={officialPetData.pets} layout="list" />
+                  <a href={officialLadderData.source.url} target="_blank" rel="noreferrer">官方天梯 XML <ExternalLink size={12} /></a>
                 </td>
               </tr>
               <tr>
