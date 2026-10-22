@@ -1,6 +1,6 @@
 # 贡献指南
 [English](CONTRIBUTING.en.md) · [行为准则](CODE_OF_CONDUCT.md) · [安全政策](SECURITY.md)
-<!-- rocowiki-policy: contributing; version: 14; lang: zh-CN -->
+<!-- rocowiki-policy: contributing; version: 15; lang: zh-CN -->
 
 <a id="entry"></a>
 ## 选择入口
@@ -58,14 +58,33 @@ npm run dev:web
 <a id="verify"></a>
 ## 验证
 
-提交前执行与改动相关的检查，并在 PR 中说明实际结果和未完成的验证。纯规范文档改动至少运行 `npm run check:repository`；涉及代码或运行配置时运行完整检查：
+提交前执行与改动相关的检查，并在 PR 中说明实际结果和未完成的验证。CI 按所有变更路径选择检查；跨 API 与网页内容的混合改动、无法识别的路径或缺少可靠比较基线时执行完整检查。
+
+| 改动范围 | 提交前的验证 |
+| --- | --- |
+| 仅仓库说明、规范文档或 Issue/PR 模板 | `npm run check:docs` |
+| 仅 API 或数据库迁移 | `npm run check:quick` 和 `npm run api:dry-run` |
+| 资料 JSON、注册的共建正文及其元数据 | `npm run check:quick`、网页内容检查、重新生成阅读基线及受影响页面验证，见下方命令 |
+| 公共代码、网页组件、原生 MD/MDX 文档、路由、依赖、工作流或其他改动 | 完整检查，见下方命令 |
+
+内容改动在快速检查后运行：
+
+```bash
+npm run check:content -w @rocowiki/web
+npm run build:baselines -w @rocowiki/web
+npm run check:content-render -- --base <比较基线提交>
+```
+
+内容验证覆盖全量路由、现有数据检查、受影响条目、旧新关联页面和代表性模板；它不生成可发布产物。未提供比较基线时渲染全部图鉴条目。原生 MD/MDX 可嵌入组件，因此仍需完整构建。
+
+完整检查：
 
 ```bash
 API_ORIGIN=https://api.rocowiki.test SITE_URL=https://wiki.rocowiki.test npm run check
 npm run api:dry-run
 ```
 
-`.test` 地址用于本地验证。根据改动补充必要的故障复现或浏览器检查；未执行的外部验收不能报告成通过。CI 的必需检查仍须全部通过。
+`.test` 地址用于本地验证。根据改动补充必要的故障复现或浏览器检查；未执行的外部验收不能报告成通过。CI 保留固定的 `validate` 汇总检查和社区投稿边界检查；所选任务失败、取消或未执行均不能通过汇总检查。发布前仍须完整构建并校验全部产物，部署使用同一份已验证产物。
 
 <a id="review"></a>
 ## 审核与合并

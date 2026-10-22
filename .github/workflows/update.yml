@@ -65,7 +65,7 @@ jobs:
           npm run data:update -- --validate
           npm run typecheck
           npm run build:baselines -w @rocowiki/web
-      - name: Publish a data update PR and start full validation
+      - name: Publish a data update PR and start scoped validation
         if: steps.data.outputs.changed == 'true'
         run: node --import tsx scripts/updates/publish.ts
         env:

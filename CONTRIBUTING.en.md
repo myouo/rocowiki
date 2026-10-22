@@ -1,6 +1,6 @@
 # Contributing
 [中文](CONTRIBUTING.md) · [Code of conduct](CODE_OF_CONDUCT.en.md) · [Security](SECURITY.en.md)
-<!-- rocowiki-policy: contributing; version: 14; lang: en -->
+<!-- rocowiki-policy: contributing; version: 15; lang: en -->
 
 <a id="entry"></a>
 ## Choose an entry point
@@ -58,14 +58,33 @@ Use the [PR template](.github/PULL_REQUEST_TEMPLATE.md) to describe the problem,
 <a id="verify"></a>
 ## Verification
 
-Run checks appropriate to the change and report actual results and outstanding validation in the PR. Changes limited to policy documentation must run at least `npm run check:repository`; code or runtime-configuration changes require the full checks:
+Run checks appropriate to the change and report actual results and outstanding validation in the PR. CI considers every changed path. Changes spanning API and web content, unrecognized paths or an unavailable comparison base require full validation.
+
+| Change scope | Validation before submission |
+| --- | --- |
+| Only repository documentation, policies or Issue/PR templates | `npm run check:docs` |
+| Only the API or database migrations | `npm run check:quick` and `npm run api:dry-run` |
+| Content JSON, registered community prose and its metadata | `npm run check:quick`, web content checks, regenerated reader baselines and affected-page validation, as below |
+| Shared code, web components, native MD/MDX documents, routes, dependencies, workflows or other changes | Full validation, as below |
+
+After the quick checks, validate content changes with:
+
+```bash
+npm run check:content -w @rocowiki/web
+npm run build:baselines -w @rocowiki/web
+npm run check:content-render -- --base <comparison-base-commit>
+```
+
+Content validation covers the full route registry, existing data checks, affected entries, old and new related pages, and representative templates. It does not produce a deployable artifact. Omitting the comparison base renders all catalogue entries. Native MD/MDX can embed components, so it still requires a full build.
+
+Full validation:
 
 ```bash
 API_ORIGIN=https://api.rocowiki.test SITE_URL=https://wiki.rocowiki.test npm run check
 npm run api:dry-run
 ```
 
-The `.test` origins are for local verification. Add necessary failure reproduction or browser checks for the change. Do not claim external acceptance that has not happened. All required CI checks must still pass.
+The `.test` origins are for local verification. Add necessary failure reproduction or browser checks for the change. Do not claim external acceptance that has not happened. CI retains the fixed `validate` aggregate check and community submission boundary check. A selected task that fails, is cancelled or does not run cannot pass the aggregate check. Publication still requires a full build and validation of all artifacts; deployment uses that same verified artifact.
 
 <a id="review"></a>
 ## Review and merge

@@ -4,12 +4,44 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
+    inputs:
+      full:
+        description: Run all checks, including a complete static build
+        type: boolean
+        default: false
+      deploy:
+        description: Build and publish main after validation
+        type: boolean
+        default: false
 permissions:
   contents: read
+concurrency:
+  group: validate-${{ github.event.pull_request.number || github.run_id }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 jobs:
+  plan:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    outputs:
+      scope: ${{ steps.plan.outputs.scope }}
+      web: ${{ steps.plan.outputs.web }}
+      base: ${{ steps.plan.outputs.base }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - id: plan
+        run: node scripts/ci/plan.ts
+        env:
+          CI_FULL: ${{ inputs.full || inputs.deploy || false }}
   content-boundary:
     name: content-boundary
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
         if: startsWith(github.head_ref, 'wiki/')
@@ -34,22 +66,65 @@ jobs:
       - name: Developer changes require independent code review
         if: ${{ !startsWith(github.head_ref, 'wiki/') }}
         run: echo 'Repository branch protection must require independent code review.'
-  validate:
-    name: validate
+  checks:
+    needs: plan
     runs-on: ubuntu-latest
+    timeout-minutes: 25
     steps:
       - uses: actions/checkout@v4
         with:
+          fetch-depth: 0
           persist-credentials: false
       - uses: actions/setup-node@v4
         with:
           node-version: 24
           cache: npm
       - run: npm ci
-      - run: npm run check
+      - run: npm run check:repository
+      - run: npx vitest run tests/repository-standards.test.ts
+        if: needs.plan.outputs.scope == 'docs'
+      - run: npm run check:architecture
+        if: needs.plan.outputs.scope != 'docs'
+      - run: npm run check:content
+        if: needs.plan.outputs.scope != 'docs'
+      - run: npm run typecheck
+        if: needs.plan.outputs.scope != 'docs'
+      - run: npm run build:baselines -w @rocowiki/web
+        if: needs.plan.outputs.scope == 'content'
+      - run: npm test
+        if: needs.plan.outputs.scope != 'docs'
+      - run: npm run check:content -w @rocowiki/web
+        if: needs.plan.outputs.scope == 'content'
+      - name: Render affected content and representative templates
+        if: needs.plan.outputs.scope == 'content'
+        run: npm run check:content-render
+        env:
+          CI_BASE_SHA: ${{ needs.plan.outputs.base }}
+      - name: Build the complete site with public test origins
+        # main's publish path builds once with production configuration below.
+        if: needs.plan.outputs.scope == 'full' && !(github.ref == 'refs/heads/main' && (github.event_name == 'push' || inputs.deploy == true))
+        run: npm run build
         env:
           # Public test origins: PR verification never reads production configuration.
           API_ORIGIN: https://api.rocowiki.test
           SITE_URL: https://wiki.rocowiki.test
           WIKI_WORKSPACE_MODE: server
       - run: npm run api:dry-run
+        if: needs.plan.outputs.scope == 'api' || needs.plan.outputs.scope == 'full'
+  validate:
+    name: validate
+    if: always()
+    needs: [plan, content-boundary, checks]
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Require every selected check to succeed
+        env:
+          RESULTS: ${{ toJSON(needs) }}
+        run: |
+          node -e 'const results = JSON.parse(process.env.RESULTS); if (!["docs", "api", "content", "full"].includes(results.plan?.outputs?.scope) || ["plan", "content-boundary", "checks"].some(name => results[name]?.result !== "success")) { console.error("Selected validation failed, was cancelled or did not run."); process.exit(1); }'
+  release:
+    needs: [plan, validate]
+    if: needs.plan.outputs.web == 'true' && github.ref == 'refs/heads/main' && (github.event_name == 'push' || inputs.deploy == true)
+    uses: ./.github/workflows/deploy.yml
+    secrets: inherit

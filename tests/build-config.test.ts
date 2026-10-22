@@ -41,9 +41,9 @@ it('puts artifact build and deploy in the same production environment with step-
   const build=workflow.jobs.build.steps.find((step:{run?:string})=>step.run==='npm run build');
   expect(build.env).toMatchObject({API_ORIGIN:'${{ vars.API_ORIGIN }}',SITE_URL:'${{ vars.SITE_URL }}',WIKI_WORKSPACE_MODE:'server'});
   expect(workflow.jobs.build.if).toBe("github.ref == 'refs/heads/main'");
-  const validate=load(readFileSync('.github/workflows/validate.yml','utf8')).jobs.validate;
+  const validate=load(readFileSync('.github/workflows/validate.yml','utf8')).jobs.checks;
   expect(validate.environment).toBeUndefined();
-  expect(validate.steps.find((step:{run?:string})=>step.run==='npm run check').env).toMatchObject({API_ORIGIN:env.API_ORIGIN,SITE_URL:env.SITE_URL});
+  expect(validate.steps.find((step:{run?:string})=>step.run==='npm run build').env).toMatchObject({API_ORIGIN:env.API_ORIGIN,SITE_URL:env.SITE_URL});
 });
 it('evaluates optional mirror configuration inside the activated production job',()=>{
   const job=load(readFileSync('.github/workflows/mirror.yml','utf8')).jobs.observe;
