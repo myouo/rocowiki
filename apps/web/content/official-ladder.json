@@ -2,10 +2,10 @@
   "schemaVersion": 1,
   "source": {
     "url": "https://res.17roco.qq.com/plugins/LadderMatch/LadderMatchConfig.xml",
-    "retrievedAt": "2026-10-11T23:39:11.678Z",
-    "sha256": "ec536f515134dc4d7df980ea7687a3c8aba8c62414eaf6617e1901a063e3b6d1",
+    "retrievedAt": "2026-10-22T05:02:28.191Z",
+    "sha256": "03ae1100eb789e1e22d7683d2171c81d33b280cc1ae2b24e001595125605fc94",
     "costEntryCount": 96,
-    "banEntryCount": 12
+    "banEntryCount": 8
   },
   "defaultCost": 1,
   "costs": {
@@ -107,17 +107,13 @@
     "3432": 2
   },
   "bannedPetIds": [
-    2060,
-    2297,
-    2344,
-    2717,
-    2949,
-    2991,
-    3004,
-    3297,
-    3317,
-    3361,
-    3362,
-    3409
+    2315,
+    2449,
+    2928,
+    2962,
+    3220,
+    3266,
+    3277,
+    3306
   ]
 }
