@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: GPL-3.0-only
 import React from 'react';
+import Link from '@docusaurus/Link';
 import { ladderBanEntries } from '../catalog/pets/ladderModel';
 import { ladderDate } from '../catalog/pets/LadderCostBadge';
 import type { OfficialLadderSnapshot } from '../catalog/pets/ladderTypes';
@@ -15,7 +16,7 @@ export function LadderBanList({ snapshot, catalog, layout = 'chips' }: {
   const names = ladderBanEntries(snapshot, catalog);
   if (!names.length) return <p>这份配置的禁赛名单为空；完整参赛条件仍需核对。</p>;
   const items = names.map(pet => {
-    const label = pet.href ? <a href={pet.href}>{pet.name}</a> : <span className="wa-v5-ban-name">{pet.name}</span>;
+    const label = pet.href ? <Link to={pet.href}>{pet.name}</Link> : <span className="wa-v5-ban-name">{pet.name}</span>;
     return layout === 'list' ? <li key={pet.number}>{label}</li> : <React.Fragment key={pet.number}>{label}</React.Fragment>;
   });
   return layout === 'list' ? <ul className="rw-v6-ladder-bans">{items}</ul> : <div className="wa-name-chips wa-v5-ban-list">{items}</div>;

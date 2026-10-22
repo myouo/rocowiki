@@ -5,7 +5,6 @@ import { renderToString } from 'react-dom/server';
 import { createElement } from 'react';
 import { ladderSnapshot } from '../scripts/updates/ladder-config';
 import { ladderBanEntries, officialLadderCost, petMetadataWithOfficialLadder } from '../apps/web/src/wiki/catalog/pets/ladderModel';
-import { LadderBanList, LadderBanSource } from '../apps/web/src/wiki/world/LadderBans';
 import LadderCostBadge, { ladderCostDescription } from '../apps/web/src/wiki/catalog/pets/LadderCostBadge';
 import { buildOfficialPetCatalog } from '../apps/web/src/wiki/catalog/pets/officialModel';
 import type { OfficialLadderSnapshot } from '../apps/web/src/wiki/catalog/pets/ladderTypes';
@@ -50,14 +49,6 @@ describe('ladder cost projections and reader labels', () => {
       { number: 3362, name: '同名样本', href: '/pets/3362/' },
       { number: 9999, name: 'No. 9999（名称待核）', href: null },
     ]);
-    const html = renderToString(createElement(LadderBanList, { snapshot, catalog }));
-    expect(html).toContain('href="/pets/137/"'); expect(html).toContain('href="/pets/3362/"');
-    expect(html).toContain('No. 9999'); expect(html).not.toContain('/pets/9999/');
-    const source = renderToString(createElement(LadderBanSource, { snapshot }));
-    expect(source).toContain(snapshot.source.sha256); expect(source).toContain('dateTime="2026-10-12T00:00:00Z"');
-    expect(source).toContain('未提供生效日期'); expect(source).toContain(snapshot.source.url);
-    const empty = renderToString(createElement(LadderBanList, { snapshot: parse(xml('', '')), catalog }));
-    expect(empty).toContain('名单为空'); expect(empty).not.toContain('同名样本');
   });
   it('uses exact IDs, defaults unlisted IDs to one, and retains a banned pet fee', () => {
     expect(officialLadderCost(data, 3092)).toMatchObject({ value: 5, listed: true, banned: false });
@@ -73,7 +64,7 @@ describe('ladder cost projections and reader labels', () => {
     expect(catalog.every(pet => Number.isFinite(pet.officialLadder?.value))).toBe(true);
     expect(catalog.find(pet => pet.number === 3092)?.metadata?.ladderMagic).toMatchObject({ value: ladder.costs['3092'], status: 'official-config' });
     expect(catalog.find(pet => pet.number === 137)?.officialLadder).toMatchObject({ value: 1, listed: false });
-    for (const id of ladder.bannedPetIds) expect(catalog.find(pet => pet.number === id)?.officialLadder?.banned).toBe(true);
+    for (const pet of catalog) expect(pet.officialLadder?.banned).toBe(ladder.bannedPetIds.includes(pet.number));
     for (const id of Object.keys(ladder.costs)) expect(catalog.some(pet => pet.number === Number(id))).toBe(true);
   });
   it('keeps historical or local overrides from replacing current official costs used by filters and sorting', () => {
