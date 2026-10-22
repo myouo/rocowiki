@@ -93,6 +93,10 @@ export function WeeklyPvp({ today }) {
                 <td>
                   <LadderBanList snapshot={officialLadderData} catalog={officialPetData.pets} layout="list" />
                   <a href={officialLadderData.source.url} target="_blank" rel="noreferrer">官方天梯 XML <ExternalLink size={12} /></a>
+                  <details>
+                    <summary>查看配置版本</summary>
+                    <p className="rw-official-pet-hash">SHA-256：<code>{officialLadderData.source.sha256}</code></p>
+                  </details>
                 </td>
               </tr>
               <tr>

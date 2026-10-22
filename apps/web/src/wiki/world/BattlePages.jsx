@@ -78,9 +78,10 @@ function BattlePage({ query }) {
   const update = useWorldQuery(query);
   const { today, stale } = useWeeklyDate();
   const mode = normalizePvpMode(query.get("mode"));
-  const showConfig = mode !== "type" && !query.get("date");
+  const historicalDate = validDate(query.get("date")) ? query.get("date") : null;
+  const showConfig = mode !== "type" && !historicalDate;
   const fallbackDate = stale ? weekly.edition.startDate : today;
-  const date = validDate(query.get("date")) ? query.get("date") : fallbackDate;
+  const date = historicalDate || fallbackDate;
   const oldArchive =
     date === "2025-11-28" ||
     (mode === "type" && date === "2025-12-02") ||
