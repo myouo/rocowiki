@@ -1,6 +1,6 @@
 # 贡献指南
 [English](CONTRIBUTING.en.md) · [行为准则](CODE_OF_CONDUCT.md) · [安全政策](SECURITY.md)
-<!-- rocowiki-policy: contributing; version: 12; lang: zh-CN -->
+<!-- rocowiki-policy: contributing; version: 13; lang: zh-CN -->
 
 <a id="entry"></a>
 ## 选择入口
@@ -46,6 +46,8 @@
 图片索引方案暂缓，预留 `WikiPet.previewSources` 作为有序候选地址接口：未填写时按编号直引，空数组跳过自动拼接地址，既有图片与图标回退仍保留；独立外观不套用该宠物的候选地址。目前没有图片索引快照或图片定时任务。若未来启用，在 `scripts/updates/tasks.ts` 注册独立模块即可复用 3 小时周期与更新 PR 流程；宠物数据现有的 3 小时更新继续使用。
 
 `npm run ladder:import` 读取线上 `plugins/LadderMatch/LadderMatchConfig.xml`，校验后重建 `apps/web/content/official-ladder.json`；离线复现使用 `--input /path/to/LadderMatchConfig.xml --retrieved-at 实际采集时间`。费用按 `SpiritCost/spirit` 的编号匹配，未列出的编号按官方客户端合计逻辑默认 1 费；禁赛单独读取 `LimitSpirit/id`，不能用禁赛标记把费用改为 0。页面保留 XML URL、采集时间和 SHA-256，不把采集时间虚构成生效日期；服务端临时禁赛、获取开放和完整阵容条件仍需另核。官方费用优先于历史样本及本机修改，费用排序与筛选使用同一来源。
+
+天梯模块另在每周五北京时间 06:00 检查同一份 XML（UTC 周四 22:00，`0 22 * * 4`），该触发仅选择 `ladder`。首页、天梯/巅峰赛禁赛页及对应规则页默认显示已提交配置中的禁赛名单，按官方宠物编号匹配名称并保留采集时间与版本；未知编号保留为待核文字。查询历史日期时继续读取当期公告记录；系别赛与活动保留各自的来源和复核期限。周更沿用现有更新 PR 与完整验证流程，合并到 `main` 后才会生效；GitHub 排队可能延迟启动，06:00 是计划时间。
 
 `npm run skills:import` 从同一份 Angel.config 解码 `spiritSkill_conf`，生成 `official-skills.json`。属性引用 `spirit_conf` 的元素定义，类别按 `damageType`，无 `attackType` 的状态、效果和捕捉球不当作技能。重复编号依照官方客户端的源表顺序取最后定义，并记录覆盖字段。`speed` 编码直接作为先手值显示和排序，例如普通技能为 8、霞姿月韵为 15；历史网址与独立结构化解析保留。统一任务同次选中宠物和技能时，只下载一次配置包并共享采集时间，临时输入在任务结束时清理。
 

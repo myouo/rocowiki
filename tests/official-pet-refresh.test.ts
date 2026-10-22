@@ -54,10 +54,10 @@ describe('scheduled official pet refresh', () => {
     const { readdir } = await import('node:fs/promises');
     expect(await readdir(dir)).toEqual(['snapshot.json']);
   });
-  it('schedules eight daily checks, isolates credentials, and dispatches validation without production secrets', async () => {
+  it('schedules daily and Friday ladder checks, isolates credentials, and dispatches validation without production secrets', async () => {
     const { load } = createRequire(import.meta.url)('js-yaml');
     const workflow = load(await readFile('.github/workflows/update.yml', 'utf8'));
-    expect(workflow.on.schedule).toEqual([{ cron: '23 */3 * * *' }, { cron: '41 1 * * *' }]);
+    expect(workflow.on.schedule).toEqual([{ cron: '23 */3 * * *' }, { cron: '41 1 * * *' }, { cron: '0 22 * * 4' }]);
     expect(workflow.on).toHaveProperty('workflow_dispatch');
     expect(workflow.concurrency['cancel-in-progress']).toBe(false);
     const job = workflow.jobs.refresh;

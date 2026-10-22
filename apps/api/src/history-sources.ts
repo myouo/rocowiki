@@ -20,7 +20,7 @@ export function historySources(value:string):HistorySource[] {
   if(group==='skills')return [data('skills','技能基础资料','official-skills'),data('analysis','效果与条件解析','skill-analysis-notes'),data('pool','游戏学习关系','game-skill-relations'),{id:'legacy',label:'历史整理资料',path:'apps/web/src/wiki/data.js',shared:true}];
   if(group==='bloodlines')return [data('bloodlines','血脉资料','pet-metadata-v6')];
   if(group==='events')return [data('events','活动资料','events-v7'),data('weekly','每周资料','weekly-v5')];
-  if(group==='battle')return [data('weekly','赛事规则与禁赛','weekly-v5'),moduleSource('rules','规则补充','world/BattlePages.jsx')];
+  if(group==='battle')return [data('ladder','天梯配置禁赛','official-ladder'),data('weekly','历史赛事与系别禁赛','weekly-v5'),moduleSource('rules','规则补充','world/BattlePages.jsx')];
   if(group==='mechanics')return path==='/mechanics/relations/'?[data('relations','机制关系资料','battle-relations-v5')]:[source('apps/web/src/wiki/MechanicsPages.jsx','机制目录')];
   if(group==='pve')return [data('pve','挑战与攻略资料','pve-v6'),data('seven','七曜圣地资料','seven-sanctuaries-v72'),data('recommendations','推荐宠物','pve-pet-recommendations-v7')];
   if(group==='challenges')return [moduleSource('challenges','挑战资料','world/ChallengePages.jsx')];

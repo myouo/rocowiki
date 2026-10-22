@@ -1,6 +1,6 @@
 # Contributing
 [中文](CONTRIBUTING.md) · [Code of conduct](CODE_OF_CONDUCT.en.md) · [Security](SECURITY.en.md)
-<!-- rocowiki-policy: contributing; version: 12; lang: en -->
+<!-- rocowiki-policy: contributing; version: 13; lang: en -->
 
 <a id="entry"></a>
 ## Choose an entry point
@@ -46,6 +46,8 @@ Pet previews default to the official H5 URL `https://res.17roco.qq.com/h5/cdn/sp
 The image-index decision is deferred. `WikiPet.previewSources` reserves an ordered URL interface: omitted values retain ID-based URLs, an empty array skips automatic URLs, and existing images and icon fallbacks remain available. Separate appearances do not use the species candidates. No image-index snapshot or scheduled image task exists yet. A future module can register in `scripts/updates/tasks.ts` and reuse the three-hour cadence and update PR flow; existing pet-data updates continue every three hours.
 
 `npm run ladder:import` reads online `plugins/LadderMatch/LadderMatchConfig.xml`, validates it and rebuilds `apps/web/content/official-ladder.json`. Reproduce offline with `--input /path/to/LadderMatchConfig.xml --retrieved-at ACTUAL_RETRIEVAL_TIME`. Fees match IDs in `SpiritCost/spirit`; unlisted IDs default to one point under the official client's summation logic. Bans are read independently from `LimitSpirit/id` and never turn a fee into zero. Readers retain the XML URL, capture time and SHA-256 without inventing an effective date. Temporary server bans, acquisition availability and full-team conditions require separate verification. Official fees take precedence over historical samples or local modifications, with the same source used for fee sorting and filtering.
+
+The ladder module also checks the same XML every Friday at 06:00 Asia/Shanghai (Thursday 22:00 UTC, `0 22 * * 4`); this trigger selects only `ladder`. The homepage, ladder/peak bans and their rules pages default to the committed configuration's ban list, matching names by official pet ID and retaining its capture time and version; unknown IDs remain unlinked and marked for verification. Historical date queries retain that edition's announcement records. Type tournaments and activities keep their own sources and review deadlines. The weekly run uses the existing update PR and full validation flow and becomes active after merging into `main`; GitHub queues may delay the scheduled 06:00 start.
 
 `npm run skills:import` decodes `spiritSkill_conf` from the same Angel.config into `official-skills.json`. Elements come from `spirit_conf`, categories from `damageType`, and records without `attackType` remain effects, statuses or capture balls. Duplicate IDs use the last source definition like the official client, with overridden fields recorded. The `speed` code is displayed and sorted directly as initiative, such as 8 for ordinary skills and 15 for 霞姿月韵; historical URLs and independently sourced structured interpretations remain available. When a unified run selects both pets and skills, it downloads the package once and shares its capture time; temporary inputs are cleaned up afterward.
 

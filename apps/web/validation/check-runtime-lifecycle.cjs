@@ -229,6 +229,24 @@ async function main() {
     await render(React.createElement(React.StrictMode,null,React.createElement(C.WikiPage,{routeData:{path:route}})));
     check(`Native route can mount and unmount: ${route}`,!!d.querySelector('#rw-main')&&!d.querySelector('.rw-recovery-v73'));
   }
+  const ladder=JSON.parse(fs.readFileSync(path.join(project,'content/official-ladder.json'),'utf8'));
+  for(const [route,search] of [['/battle/',''],['/battle/','?mode=peak'],['/battle/rules/','?mode=ladder'],['/battle/rules/','?mode=peak']]){
+    globalThis.__wikiLocation={pathname:route,search,hash:''};
+    await render(React.createElement(C.WikiPage,{routeData:{path:route}}));
+    const bans=d.querySelector('.wa-v5-ban-list');
+    check(`Ladder reader uses the XML ban IDs: ${route}${search}`,bans?.children.length===ladder.bannedPetIds.length&&ladder.bannedPetIds.every(id=>bans.querySelector(`a[href="/pets/${id}/"]`)));
+    check(`Ladder reader labels configuration provenance: ${route}${search}`,d.querySelector(`time[datetime="${ladder.source.retrievedAt}"]`)&&d.querySelector(`a[href="${ladder.source.url}"]`)&&d.body.textContent.includes(ladder.source.sha256));
+    check(`Ladder reader does not show old announcement names as current: ${route}${search}`,!d.querySelector('.wa-v5-edition'));
+  }
+  globalThis.__wikiLocation={pathname:'/',search:'',hash:''};
+  await render(React.createElement(C.WikiPage,{routeData:{path:'/'}}));
+  check('Homepage ladder list uses the same XML snapshot',d.querySelectorAll('.rw-v6-ladder-bans li').length===ladder.bannedPetIds.length&&d.querySelector(`time[datetime="${ladder.source.retrievedAt}"]`));
+  globalThis.__wikiLocation={pathname:'/battle/',search:'?mode=ladder&date=2026-10-09',hash:''};
+  await render(React.createElement(C.WikiPage,{routeData:{path:'/battle/'}}));
+  check('Explicit historical ladder queries retain the dated announcement',d.querySelector('.wa-v5-edition')&&d.querySelector('.wa-v5-ban-list')?.textContent.includes('柴可司机')&&!d.body.textContent.includes(ladder.source.sha256));
+  globalThis.__wikiLocation={pathname:'/battle/',search:'?mode=type&date=2026-10-13',hash:''};
+  await render(React.createElement(C.WikiPage,{routeData:{path:'/battle/'}}));
+  check('Type tournament dates retain their separate rules and ban source',d.querySelector('.wa-v5-period-list')?.textContent.includes('鬼魅雪影')&&!d.body.textContent.includes(ladder.source.sha256));
   for(const [route,title] of [['/pets/3092/','海芙约忒'],['/skills/3044/','霞姿月韵']]){
     globalThis.__wikiLocation={pathname:route,search:'',hash:''};
     await render(React.createElement(C.WikiPage));
