@@ -1183,7 +1183,11 @@
           "sourceId": "pet-config-d25931420b28"
         }
       ],
-      "notes": []
+      "notes": [],
+      "settlementModes": [
+        "ladder",
+        "peak"
+      ]
     },
     {
       "number": 40,
@@ -1200,7 +1204,11 @@
           "sourceId": "pet-config-d25931420b28"
         }
       ],
-      "notes": []
+      "notes": [],
+      "settlementModes": [
+        "ladder",
+        "peak"
+      ]
     },
     {
       "number": 41,
@@ -1217,7 +1225,11 @@
           "sourceId": "pet-config-d25931420b28"
         }
       ],
-      "notes": []
+      "notes": [],
+      "settlementModes": [
+        "ladder",
+        "peak"
+      ]
     },
     {
       "number": 42,
@@ -1234,7 +1246,11 @@
           "sourceId": "pet-config-d25931420b28"
         }
       ],
-      "notes": []
+      "notes": [],
+      "settlementModes": [
+        "ladder",
+        "peak"
+      ]
     }
   ],
   "notices": [
@@ -2239,6 +2255,19 @@
     }
   ],
   "changes": [
+    {
+      "id": "preview-ladder-39-2025-11-28",
+      "date": "2025-11-28",
+      "kind": "schedule",
+      "title": "第39届天梯及巅峰赛结算预告",
+      "summary": "本期公告预告第39届天梯赛及巅峰赛于2025-12-12结算。预告活动为2025-11-28至2025-12-11，地图王者之地，活动奖励为培养道具；这段活动日期不是赛季全程。",
+      "sourceId": "notice-2025-11-28",
+      "seasonNumber": 39,
+      "modes": [
+        "ladder",
+        "peak"
+      ]
+    },
     {
       "id": "fees-2025-12-12",
       "date": "2025-12-12",

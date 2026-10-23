@@ -26,6 +26,6 @@ it('shows sourced season rewards with a real pet link and keeps missing dates ex
 });
 it('keeps a capture-day observation distinct from a dated announcement link',()=>{
   const html=render('view=bans&date=2026-10-22');
-  expect(html).toContain('配置采集');expect(html).toContain('查看当前配置与参赛资料');
-  expect(html).not.toContain('href="/battle/?mode=ladder&amp;date=2026-10-22"');
+  expect(html).toContain('配置采集');expect(html).toContain('回到对战页核对这份档案');
+  expect(html).toContain('mode=ladder&amp;date=2026-10-22&amp;record=xml-');
 });

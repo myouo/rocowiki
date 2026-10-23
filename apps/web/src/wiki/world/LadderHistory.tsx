@@ -6,7 +6,7 @@ import useBaseUrl from '@docusaurus/useBaseUrl';
 import {ArrowRight,CalendarDays,History,Shield,Trophy} from 'lucide-react';
 import QueryInput from '../QueryInput';
 import {officialPetData} from '../content/bundled.js';
-import {ladderArchive,historyView,historyMode,historyDate,historyHref,archiveSource,archiveBanRows,observationDate,observationId,configDifference,rewardMatches,type HistoryView} from '../ladderHistoryModel';
+import {ladderArchive,historyView,historyMode,historyDate,historyHref,archiveSource,archiveBanRows,observationDate,observationId,configDifference,rewardMatches,type HistoryView,type HistoryMode,type ArchiveBanRow,type SeasonHistoryEvent} from '../ladderHistoryModel';
 import type {LadderArchiveSource,LadderObservation} from '../../../../../packages/wiki-schema/src/ladder-history';
 import {LadderBanList,LadderBanSource} from './LadderBans';
 import './LadderHistory.css';
@@ -41,7 +41,24 @@ function ObservationDetails({snapshot}:{snapshot:LadderObservation}){
     <dl className="lh-cost-grid">{Object.entries(snapshot.costs).map(([id,cost])=><div key={id}><dt><PetLink id={Number(id)}/></dt><dd>{cost} 魔力</dd></div>)}</dl>
     {snapshot.rewards&&<><h3>该份 XML 的赛季奖励说明</h3><ul>{snapshot.rewards.seasonDescriptions.map((text,index)=><li key={index}>{text}</li>)}</ul>
       <p>{snapshot.rewards.deliveryNote}</p><p className="lh-muted">该文件没有给出这些奖励所对应的赛季编号，不能据此补全所有往届奖励或认定已实际发放。</p></>}
+    {snapshot.rewardExtractionError&&<p className="lh-muted">这份配置的奖励字段尚未成功解析。费用与禁赛已正常读取，已有奖励历史保持不变。</p>}
   </details>;
+}
+
+export function BattleArchiveRecords({records,events,mode}:{records:readonly ArchiveBanRow[];events:readonly SeasonHistoryEvent[];mode:HistoryMode}){
+  return <div className="lh-change-list">
+    {events.map(event=><article className="lh-card" key={event.id}><span className="lh-kicker">{mode==='peak'?'巅峰赛':'天梯赛'} · 历史{event.kind==='settlement'?'结算':'预告'}</span><h3>{event.title}</h3><p>{event.summary}</p>
+      <ArchiveSource source={archiveSource(event.sourceId)}/><Link className="lh-detail-link" to={historyHref({view:'seasons',mode,season:String(event.season)})}>查看同届天梯档案及结算依据 <ArrowRight size={14}/></Link>
+    </article>)}
+    {records.map(record=><article className="lh-card" key={record.id}><h3>{record.date} · {record.basis==='notice'?'公告记录':'配置观测'}</h3>
+      {record.notice&&<><p>按这份原公告的更新批次查询，不把相邻日期自动视为同一记录。{mode==='peak'?'此处列天梯公告作为禁赛资料参照，巅峰赛结算信息单独展示。':''}</p>
+        {record.allowedTypes.length>0&&<p>本场允许的主属性：<strong>{record.allowedTypes.join(' / ')}</strong></p>}
+        {record.names.length?<NoticeBanNames names={record.names}/>:<p className="lh-zero">原公告明确记载：本期无禁赛宠物。</p>}
+        <ArchiveSource source={archiveSource(record.notice.sourceId)}/></>}
+      {record.observation&&<><LadderBanList snapshot={record.observation} catalog={officialPetData.pets}/><LadderBanSource snapshot={record.observation}/><ObservationDetails snapshot={record.observation}/></>}
+      <Link className="lh-detail-link" to={historyHref({view:'bans',mode,record:record.id})}>查看这份档案 <ArrowRight size={14}/></Link>
+    </article>)}
+  </div>;
 }
 
 export default function LadderHistoryPage({query,header}:{query:URLSearchParams;header:ReactNode}){
@@ -56,7 +73,7 @@ export default function LadderHistoryPage({query,header}:{query:URLSearchParams;
   const rows=allRows.filter(row=>(!year||row.date.startsWith(year))&&(!search||contains(row.date+' '+row.names.join(' ')+' '+(row.observation?.bannedPetIds.map(id=>`${id} ${petNames.get(id)||''}`).join(' ')||''),search)));
   const requestedId=query.get('record'),date=historyDate(query.get('date'));
   const selected=rows.find(row=>requestedId?row.id===requestedId:date?row.date===date:false)||(!query.has('record')&&!query.has('date')?rows[0]:undefined);
-  const changes=[...ladderArchive.changes].reverse().filter(row=>(!year||row.date.startsWith(year))&&(!search||contains(row.title+' '+row.summary,search)));
+  const changes=[...ladderArchive.changes].reverse().filter(row=>row.kind!=='schedule'&&(!year||row.date.startsWith(year))&&(!search||contains(row.title+' '+row.summary,search)));
   const years=[...new Set([...ladderArchive.notices.map(row=>row.date.slice(0,4)),...ladderArchive.observations.map(row=>observationDate(row.source.retrievedAt).slice(0,4))])].sort().reverse();
   const allRewards=[...ladderArchive.seasons].reverse().flatMap(season=>season.petRewards.map(reward=>({season:season.number,...reward})));
   const rewards=allRewards.filter(row=>rewardMatches(row.season,[row],search));
@@ -82,8 +99,10 @@ export default function LadderHistoryPage({query,header}:{query:URLSearchParams;
         <p className="lh-season-date"><CalendarDays size={15}/>{season.settlementDate?`${season.settlementDate} 结算`:'结算日期尚未收录'}</p>
         <div className="lh-reward-names">{season.petRewards.map(reward=><PetLink key={reward.petId} id={reward.petId} name={reward.name}/>)}</div>
         {seasonNumber===season.number&&<><dl className="lh-season-facts"><div><dt>开赛日期</dt><dd>{season.startDate||'尚未收录'}</dd></div><div><dt>结算日期</dt><dd>{season.settlementDate||'尚未收录'}</dd></div></dl>
+          {season.settlementModes?.includes('peak')&&<p className="lh-muted">该结算公告同时涉及天梯赛与巅峰赛。下方宠物获取记载属于天梯赛，巅峰赛奖励按其独立条件查证。</p>}
           {season.petRewards.map(reward=><div key={reward.petId} className="lh-reward-evidence"><strong>{reward.name}</strong><p>{reward.sourceText}</p><p>领取条件：{reward.requirement||'这条获取描述未明确说明'}</p><ArchiveSource source={archiveSource(reward.sourceId)}/></div>)}
           {season.notes.map(note=><p className="lh-muted" key={note}>{note}</p>)}
+          {ladderArchive.changes.filter(event=>event.kind==='schedule'&&event.seasonNumber===season.number).map(event=><div className="lh-reward-evidence" key={event.id}><h4>{event.title}</h4><p>{event.summary}</p><ArchiveSource source={archiveSource(event.sourceId)}/></div>)}
           {season.settlementSourceId&&<ArchiveSource source={archiveSource(season.settlementSourceId)}/>}</>}
         {!seasonNumber&&<Link className="lh-detail-link" to={historyHref({season:String(season.number),q:null},query)}>日期、领取条件与来源 <ArrowRight size={14}/></Link>}
       </article>)}</div>
@@ -107,7 +126,7 @@ export default function LadderHistoryPage({query,header}:{query:URLSearchParams;
         {selected.allowedTypes.length>0&&<p>本场允许的主属性：<strong>{selected.allowedTypes.join(' / ')}</strong></p>}
         {selected.notice&&<>{selected.names.length?<NoticeBanNames names={selected.names}/>:<p className="lh-zero">原公告明确记载：本期无禁赛宠物。</p>}<ArchiveSource source={archiveSource(selected.notice.sourceId)}/></>}
         {selected.observation&&<><LadderBanList snapshot={selected.observation} catalog={officialPetData.pets}/><LadderBanSource snapshot={selected.observation}/><ObservationDetails snapshot={selected.observation}/></>}
-        <Link className="lh-detail-link" to={selected.notice?`/battle/?mode=${mode}&date=${selected.date}`:`/battle/?mode=${mode}`}>{selected.notice?'回到对战页核对这期公告':'查看当前配置与参赛资料'} <ArrowRight size={14}/></Link>
+        <Link className="lh-detail-link" to={`/battle/?${new URLSearchParams({mode,date:selected.date,record:selected.id})}`}>回到对战页核对这份档案 <ArrowRight size={14}/></Link>
       </article>:<p className="lh-empty">没有匹配的记录。名单缺失不等于本期无禁赛，也不表示宠物符合全部参赛条件。</p>}
     </section>}
     {view==='changes'&&<section className="lh-section"><h2>费用与兑换变动</h2><p className="lh-muted">按当期公告查新增费用、商城上新和下架；不把兑换返场记成当届赛季结算奖励。</p>

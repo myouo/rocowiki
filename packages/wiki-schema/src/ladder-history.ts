@@ -5,7 +5,7 @@ export const archiveDateSchema=z.string().regex(/^\d{4}-\d{2}-\d{2}$/).refine(va
   const date=new Date(value+'T12:00:00Z');
   return Number.isFinite(date.getTime())&&date.toISOString().slice(0,10)===value;
 },'Invalid calendar date');
-const timestamp=z.string().datetime({offset:true});
+const timestamp=z.string().datetime({offset:true}).refine(value=>Number.isFinite(Date.parse(value)),'Invalid timestamp');
 const id=z.string().regex(/^[a-z][a-z0-9-]{0,100}$/);
 const name=z.string().trim().min(1).max(200);
 const hash=z.string().regex(/^[a-f0-9]{64}$/);
@@ -22,6 +22,7 @@ export const ladderObservationSchema=z.object({
     peakItems:z.array(z.array(z.object({id:petId,quantity:z.number().int().positive().max(0xffffffff)}).strict())),
     deliveryNote:z.string().max(1000),
   }).strict().optional(),
+  rewardExtractionError:z.enum(['UNSUPPORTED_REWARD_FORMAT','REWARD_HISTORY_CONFLICT']).optional(),
 }).strict().superRefine((value,ctx)=>{
   if(new Set(value.bannedPetIds).size!==value.bannedPetIds.length)ctx.addIssue({code:'custom',message:'Duplicate banned ID'});
   if(value.source.costEntryCount<Object.keys(value.costs).length||value.source.banEntryCount<value.bannedPetIds.length)ctx.addIssue({code:'custom',message:'Source entry count mismatch'});
@@ -39,6 +40,7 @@ export const ladderSeasonSchema=z.object({
   number:z.number().int().positive().max(9999),
   startDate:archiveDateSchema.nullable(),startSourceId:id.nullable(),
   settlementDate:archiveDateSchema.nullable(),settlementSourceId:id.nullable(),
+  settlementModes:z.array(z.enum(['ladder','peak'])).optional(),
   petRewards:z.array(rewardSchema),notes:z.array(z.string().min(1).max(1000)).default([]),
 }).strict();
 export const ladderBanNoticeSchema=z.object({
@@ -52,7 +54,7 @@ export const ladderBanNoticeSchema=z.object({
 export const ladderHistorySchema=z.object({
   schemaVersion:z.literal(1),game:z.literal('roco-web'),
   sources:z.array(ladderArchiveSourceSchema),seasons:z.array(ladderSeasonSchema),notices:z.array(ladderBanNoticeSchema),
-  changes:z.array(z.object({id,date:archiveDateSchema,kind:z.enum(['fees','shop','rules','schedule']),title:name,summary:z.string().min(1).max(1200),sourceId:id}).strict()),
+  changes:z.array(z.object({id,date:archiveDateSchema,kind:z.enum(['fees','shop','rules','schedule']),title:name,summary:z.string().min(1).max(1200),sourceId:id,seasonNumber:z.number().int().positive().optional(),modes:z.array(z.enum(['ladder','peak','type'])).optional()}).strict()),
   observations:z.array(ladderObservationSchema),
 }).strict().superRefine((data,ctx)=>{
   const unique=(values:readonly (string|number)[],label:string)=>{if(new Set(values).size!==values.length)ctx.addIssue({code:'custom',message:'Duplicate '+label});};
@@ -67,6 +69,7 @@ export const ladderHistorySchema=z.object({
     unique(season.petRewards.map(row=>row.petId),'season reward');for(const reward of season.petRewards)requireSource(reward.sourceId);
   }
   for(const record of [...data.notices,...data.changes])requireSource(record.sourceId);
+  for(const record of data.changes)if(record.seasonNumber&&!data.seasons.some(season=>season.number===record.seasonNumber))ctx.addIssue({code:'custom',message:'Unknown event season'});
   let previous=-Infinity;
   for(const snapshot of data.observations){const time=Date.parse(snapshot.source.retrievedAt);if(time<=previous)ctx.addIssue({code:'custom',message:'Observations must be strictly chronological'});previous=time;}
 });

@@ -122,6 +122,16 @@ async function main() {
   check('The homepage source and visit note belongs inside the shared footer',Boolean(homeNote)&&!d.querySelector('.rw-footer + .rw-home-endnote'));
   check('The homepage footer note includes acknowledgements and the shared visit counter',homeNote?.querySelector('a[href="/copyright/#credits"]')?.textContent.includes('数据来源与致谢')&&homeNote.querySelector('.rw-home-visit-counter small')?.textContent==='项目访问计数'&&homeNote.querySelector('.rw-home-visit-counter img')?.getAttribute('src')?.startsWith('https://count.getloli.com/@rocowiki?'));
   check('Legal information remains the final footer row',d.querySelector('.rw-footer')?.lastElementChild?.tagName==='SMALL');
+  for(const [search,expected,label] of [
+    ['?mode=ladder&date=2026-10-12','ec536f515134dc4d7df980ea7687a3c8aba8c62414eaf6617e1901a063e3b6d1','A capture inside the weekly range renders its exact configuration'],
+    ['?mode=ladder&date=2026-10-09','原公告的更新批次','An explicit archived notice takes precedence over the weekly summary'],
+    ['?mode=peak&date=2025-11-28','第39届天梯及巅峰赛结算预告','The legacy peak preview URL retains its event'],
+    ['?mode=peak&date=2025-12-12','第 39 届巅峰赛结算','The legacy peak settlement URL retains its event'],
+  ]){
+    globalThis.__wikiLocation={pathname:'/battle/',search,hash:''};
+    await render(React.createElement(C.WikiPage,{routeData:{path:'/battle/'}}));
+    check(label,d.body.textContent.includes(expected)&&!d.body.textContent.includes('10月9日周更新'));
+  }
   for(const [path,title,language] of [['/copyright/','版权与许可','zh-CN'],['/copyright/en/','Copyright and licensing','en']]){
     globalThis.__wikiLocation={pathname:path,search:'',hash:''};
     await render(React.createElement(React.Fragment,null,React.createElement(C.WikiPage,{routeData:{path}}),React.createElement(C.PreviewFooter)));
@@ -257,11 +267,15 @@ async function main() {
   const weekly=JSON.parse(fs.readFileSync(path.join(project,'content/weekly-v5.json'),'utf8'));
   globalThis.__wikiLocation={pathname:'/battle/',search:`?mode=ladder&date=${weekly.edition.startDate}`,hash:''};
   await render(React.createElement(C.WikiPage,{routeData:{path:'/battle/'}}));
-  check('Explicit historical ladder queries retain the dated announcement',d.querySelector('.wa-v5-edition')&&weekly.pvp.ladder.bannedPets.every(pet=>d.querySelector('.wa-v5-ban-list')?.textContent.includes(pet.name))&&!d.body.textContent.includes(ladder.source.sha256));
+  const archive=JSON.parse(fs.readFileSync(path.join(project,'content/ladder-history.json'),'utf8'));
+  const archivedNotice=archive.notices.find(row=>row.mode==='ladder'&&row.date===weekly.edition.startDate);
+  const archivedSource=archive.sources.find(row=>row.id===archivedNotice.sourceId);
+  check('Explicit historical ladder queries retain the original dated announcement',!d.querySelector('.wa-v5-edition')&&archivedNotice.bannedPetNames.every(name=>d.querySelector('.wa-v5-ban-list')?.textContent.includes(name))&&d.querySelector(`a[href="${archivedSource.url}"]`)&&!d.body.textContent.includes(ladder.source.sha256));
   const period=weekly.pvp.typeTournament.periods.at(-1);
   globalThis.__wikiLocation={pathname:'/battle/',search:`?mode=type&date=${period.startDate}`,hash:''};
   await render(React.createElement(C.WikiPage,{routeData:{path:'/battle/'}}));
-  check('Type tournament dates retain their separate rules and ban source',period.bannedPets.every(pet=>d.querySelector('.wa-v5-period-list')?.textContent.includes(pet.name))&&!d.body.textContent.includes(ladder.source.sha256));
+  const typeNotice=archive.notices.find(row=>row.mode==='type'&&row.date===period.startDate);
+  check('Type tournament dates retain their separate rules and ban source',typeNotice.bannedPetNames.every(name=>d.querySelector('#historical-records')?.textContent.includes(name))&&typeNotice.allowedTypes.every(type=>d.querySelector('#historical-records')?.textContent.includes(type))&&d.querySelector(`a[href="${archive.sources.find(row=>row.id===typeNotice.sourceId).url}"]`)&&!d.body.textContent.includes(ladder.source.sha256));
   const fixtureCatalog=[{id:137,name:'同名样本'},{id:3362,name:'同名样本'}];
   for(const layout of ['chips','list'])for(const bannedPetIds of [[137,3362,999999],[]]){
     const snapshot={...ladder,bannedPetIds};

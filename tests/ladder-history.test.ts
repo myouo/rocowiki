@@ -1,12 +1,16 @@
 // SPDX-License-Identifier: GPL-3.0-only
-import {describe,expect,it} from 'vitest';
+import {describe,expect,it,vi} from 'vitest';
 import {readFile,writeFile,mkdtemp,rm} from 'node:fs/promises';
 import {readFileSync} from 'node:fs';
 import path from 'node:path';
 import {tmpdir} from 'node:os';
+import {spawn} from 'node:child_process';
+import {once} from 'node:events';
+import {setTimeout as pause} from 'node:timers/promises';
 import {ladderHistorySchema,archiveDateSchema,type LadderHistory} from '../packages/wiki-schema/src/ladder-history';
 import {appendLadderObservation,ladderHistoryObservation,saveLadderRefresh} from '../scripts/updates/ladder-history';
-import {ladderArchive,findBanNotice,archiveBanRows,historyDate,historyHref,configDifference,observationDate,seasonRewardReferences,rewardMatches} from '../apps/web/src/wiki/ladderHistoryModel';
+import {withLadderRefreshLock,ladderRefreshLockPath} from '../scripts/updates/ladder-refresh-lock';
+import {ladderArchive,findBanNotice,archiveBanRows,historyDate,historyHref,configDifference,observationDate,seasonRewardReferences,rewardMatches,resolveBattleArchive} from '../apps/web/src/wiki/ladderHistoryModel';
 
 const empty: LadderHistory={schemaVersion:1,game:'roco-web',sources:[],seasons:[],notices:[],changes:[],observations:[]};
 const xml=(cost=3,bans='<id>137</id>',extra='')=>Buffer.from(`<LadderMatchConfig><SpiritCost><spirit id="137" cost="${cost}"/></SpiritCost><LimitSpirit>${bans}</LimitSpirit>${extra}</LadderMatchConfig>`);
@@ -70,6 +74,19 @@ describe('sourced ladder archive',()=>{
     expect(rewardMatches(42,[{petId:3432,name:'姝绒'}],'3432')).toBe(true);
     expect(rewardMatches(12,[{petId:2421,name:'样例'}],'第 42 届')).toBe(false);
   });
+  it('resolves explicit observation and notice records before any weekly fallback',()=>{
+    const row=archiveBanRows().find(row=>row.basis==='observation'&&row.date==='2026-10-12')!;
+    expect(resolveBattleArchive(row.date,'ladder',row.id).records).toEqual([row]);
+    expect(resolveBattleArchive('2026-10-09','ladder').records[0].notice?.sourceId).toBe('notice-2026-10-09');
+    expect(resolveBattleArchive('2026-10-09','ladder','unknown')).toMatchObject({records:[],events:[]});
+    expect(resolveBattleArchive('2026-10-22','ladder',row.id).records).toEqual([]);
+  });
+  it('retains peak-specific preview and settlement context on legacy peak URLs',()=>{
+    const preview=resolveBattleArchive('2025-11-28','peak'),settled=resolveBattleArchive('2025-12-12','peak');
+    expect(preview.events).toContainEqual(expect.objectContaining({kind:'preview',season:39,sourceId:'notice-2025-11-28'}));
+    expect(settled.events).toContainEqual(expect.objectContaining({kind:'settlement',season:39,sourceId:'notice-2025-12-12'}));
+    expect(resolveBattleArchive('2025-12-12','type').events).toEqual([]);
+  });
 });
 
 describe('retained public-config observations',()=>{
@@ -77,7 +94,9 @@ describe('retained public-config observations',()=>{
     const row=capture(1,0,'',rewards);
     expect(row.bannedPetIds).toEqual([]);expect(row.costs['137']).toBe(0);
     expect(row.rewards).toEqual({seasonDescriptions:['样例奖励'],seasonItems:[[{id:100,quantity:2}]],peakItems:[[{id:200,quantity:1}]],deliveryNote:'样例投递说明'});
-    for(const extra of [rewards+rewards,rewards.replace('num="2"','num="-2"'),rewards.replace('id="100"','id="unknown"')])expect(()=>capture(1,3,'',extra)).toThrow();
+    for(const extra of [rewards+rewards,rewards.replace('num="2"','num="-2"'),rewards.replace('id="100"','id="unknown"')]){
+      const partial=capture(1,3,'',extra);expect(partial.rewardExtractionError).toBe('UNSUPPORTED_REWARD_FORMAT');expect(partial.costs['137']).toBe(3);expect(partial.bannedPetIds).toEqual([]);expect(partial.rewards).toBeUndefined();
+    }
   });
   it('deduplicates consecutive captures, preserves A→B→A and never mutates its input',()=>{
     const first=capture(1),second=capture(2,4),third=capture(3);
@@ -128,5 +147,73 @@ describe('retained public-config observations',()=>{
       expect(JSON.parse(await readFile(archive,'utf8')).observations).toHaveLength(2);
       expect(await saveLadderRefresh(current,archive,{...next,source:{...next.source,retrievedAt:'2026-01-03T00:00:00Z'}})).toMatchObject({changed:false,archived:false});
     }finally{await rm(dir,{recursive:true,force:true});}
+  });
+  it('completes a partial retry when a forced current capture has a later time than its equivalent archived predecessor',async()=>{
+    const dir=await mkdtemp(path.join(tmpdir(),'ladder-forced-')),current=path.join(dir,'current.json'),archive=path.join(dir,'history.json');
+    try{
+      const first=capture(1),forced=capture(3),next=capture(5,4);
+      await writeFile(current,JSON.stringify(first));await writeFile(archive,JSON.stringify(appendLadderObservation(empty,first)));
+      await saveLadderRefresh(current,archive,forced,true);
+      const retained=JSON.parse(await readFile(archive,'utf8'));
+      expect(retained.observations).toHaveLength(1);expect(JSON.parse(await readFile(current,'utf8')).source.retrievedAt).toBe(forced.source.retrievedAt);
+      await writeFile(archive,JSON.stringify(appendLadderObservation(retained,next)));
+      await saveLadderRefresh(current,archive,next);
+      expect(JSON.parse(await readFile(current,'utf8'))).toEqual(next);expect(JSON.parse(await readFile(archive,'utf8')).observations).toHaveLength(2);
+    }finally{await rm(dir,{recursive:true,force:true});}
+  });
+  it('refreshes valid costs and bans on an unsupported reward format and keeps earlier rewards intact',async()=>{
+    const dir=await mkdtemp(path.join(tmpdir(),'ladder-reward-')),current=path.join(dir,'current.json'),archive=path.join(dir,'history.json');
+    try{
+      const first=capture(1,3,'<id>137</id>',rewards),{rewards:_old,...base}=first;
+      await writeFile(current,JSON.stringify(base));await writeFile(archive,JSON.stringify(appendLadderObservation(empty,first)));
+      const failed=capture(2,4,'<id>138</id>',rewards.replace('id="100"','id="unknown"'));
+      expect(await saveLadderRefresh(current,archive,failed)).toMatchObject({changed:true,rewardExtractionError:'UNSUPPORTED_REWARD_FORMAT'});
+      const updated=JSON.parse(await readFile(current,'utf8')),history=JSON.parse(await readFile(archive,'utf8'));
+      expect(updated).toMatchObject({costs:{'137':4},bannedPetIds:[138]});expect(updated.rewardExtractionError).toBeUndefined();
+      expect(history.observations[0].rewards).toEqual(first.rewards);expect(history.observations[1].rewardExtractionError).toBe('UNSUPPORTED_REWARD_FORMAT');
+    }finally{await rm(dir,{recursive:true,force:true});}
+  });
+  it('reports a conflicting reward extraction without blocking the valid base refresh or overwriting old reward facts',async()=>{
+    const dir=await mkdtemp(path.join(tmpdir(),'ladder-conflict-')),current=path.join(dir,'current.json'),archive=path.join(dir,'history.json');
+    try{
+      const first=capture(1,3,'<id>137</id>',rewards),{rewards:_old,...base}=first;
+      await writeFile(current,JSON.stringify(base));await writeFile(archive,JSON.stringify(appendLadderObservation(empty,first)));
+      const changed={...first,source:{...first.source,retrievedAt:'2026-01-02T00:00:00Z'},rewards:{...first.rewards!,deliveryNote:'不同解析'}};
+      expect(await saveLadderRefresh(current,archive,changed,true)).toMatchObject({changed:true,rewardExtractionError:'REWARD_HISTORY_CONFLICT'});
+      expect(JSON.parse(await readFile(archive,'utf8')).observations[0].rewards).toEqual(first.rewards);
+      expect(JSON.parse(await readFile(current,'utf8')).source.retrievedAt).toBe(changed.source.retrievedAt);
+    }finally{await rm(dir,{recursive:true,force:true});}
+  });
+});
+
+describe('process-safe ladder refresh lock',()=>{
+  it('retains both concurrent refreshes and leaves the current snapshot at the newest capture',async()=>{
+    const dir=await mkdtemp(path.join(tmpdir(),'ladder-concurrent-')),current=path.join(dir,'current.json'),archive=path.join(dir,'history.json');
+    try{
+      const first=capture(1),second=capture(2,4),third=capture(3,5);
+      await writeFile(current,JSON.stringify(first));await writeFile(archive,JSON.stringify(empty));
+      await Promise.all([saveLadderRefresh(current,archive,second),saveLadderRefresh(current,archive,third)]);
+      expect(ladderHistorySchema.parse(JSON.parse(await readFile(archive,'utf8'))).observations.map(row=>row.source.sha256)).toEqual([first,second,third].map(row=>row.source.sha256));
+      expect(JSON.parse(await readFile(current,'utf8'))).toEqual(third);
+    }finally{await rm(dir,{recursive:true,force:true});}
+  });
+  it('serializes complete async operations without blocking the event loop',async()=>{
+    const dir=await mkdtemp(path.join(tmpdir(),'ladder-lock-')),archive=path.join(dir,'history.json'),entered:string[]=[];
+    let release=()=>{};const gate=new Promise<void>(resolve=>{release=resolve;});
+    const first=withLadderRefreshLock(archive,async()=>{entered.push('first');await gate;});
+    try{
+      await vi.waitFor(()=>expect(entered).toEqual(['first']));
+      const second=withLadderRefreshLock(archive,async()=>{entered.push('second');});
+      await pause(50);expect(entered).toEqual(['first']);release();await Promise.all([first,second]);expect(entered).toEqual(['first','second']);
+    }finally{release();await first;await rm(dir,{recursive:true,force:true});}
+  });
+  it('releases the process lock after an owner process is killed',async()=>{
+    const dir=await mkdtemp(path.join(tmpdir(),'ladder-crash-')),archive=path.join(dir,'history.json');
+    const child=spawn(process.execPath,['--input-type=module','-e','import {DatabaseSync} from "node:sqlite";const db=new DatabaseSync(process.argv[1]);db.exec("BEGIN IMMEDIATE");process.stdout.write("held");setInterval(()=>{},1000);',ladderRefreshLockPath(archive)],{stdio:['ignore','pipe','pipe']});
+    const exited=once(child,'exit');let pending:Promise<void>|undefined,entered=false;
+    try{
+      await once(child.stdout!,'data');pending=withLadderRefreshLock(archive,async()=>{entered=true;});
+      await pause(50);expect(entered).toBe(false);child.kill('SIGKILL');await exited;await pending;expect(entered).toBe(true);
+    }finally{if(child.exitCode===null&&child.signalCode===null)child.kill('SIGKILL');await exited;await pending;await rm(dir,{recursive:true,force:true});}
   });
 });
