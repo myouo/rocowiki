@@ -222,7 +222,7 @@ function BattlePage({ query }) {
           }
         >
           本站只对已收录批次列出名单，缺少公告时不会沿用上一期禁赛作为当前规则。
-          <TextLink to={historyHref({view:'bans',mode})}>浏览已有历史记录</TextLink>
+          <TextLink to={historyHref({view:'bans',mode,date})}>查询该日已收录档案</TextLink>
         </EmptyState>
       )}
       <Section title="继续查阅" id="battle-reading">

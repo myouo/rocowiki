@@ -107,7 +107,7 @@ export default function LadderHistoryPage({query,header}:{query:URLSearchParams;
         {selected.allowedTypes.length>0&&<p>本场允许的主属性：<strong>{selected.allowedTypes.join(' / ')}</strong></p>}
         {selected.notice&&<>{selected.names.length?<NoticeBanNames names={selected.names}/>:<p className="lh-zero">原公告明确记载：本期无禁赛宠物。</p>}<ArchiveSource source={archiveSource(selected.notice.sourceId)}/></>}
         {selected.observation&&<><LadderBanList snapshot={selected.observation} catalog={officialPetData.pets}/><LadderBanSource snapshot={selected.observation}/><ObservationDetails snapshot={selected.observation}/></>}
-        <Link className="lh-detail-link" to={`/battle/?mode=${mode}&date=${selected.date}`}>回到对战页核对这一记录 <ArrowRight size={14}/></Link>
+        <Link className="lh-detail-link" to={selected.notice?`/battle/?mode=${mode}&date=${selected.date}`:`/battle/?mode=${mode}`}>{selected.notice?'回到对战页核对这期公告':'查看当前配置与参赛资料'} <ArrowRight size={14}/></Link>
       </article>:<p className="lh-empty">没有匹配的记录。名单缺失不等于本期无禁赛，也不表示宠物符合全部参赛条件。</p>}
     </section>}
     {view==='changes'&&<section className="lh-section"><h2>费用与兑换变动</h2><p className="lh-muted">按当期公告查新增费用、商城上新和下架；不把兑换返场记成当届赛季结算奖励。</p>
