@@ -10,6 +10,7 @@ import { editingContext, isReaderPath, isEditableArticlePath, canAutoEditSection
 import { ColorIcon, pageVisual } from "./visuals";
 import { HeaderProfileAvatar } from "./AccountIdentity";
 import PageCommunityFooter from "./PageCommunityFooter";
+import HomeEndnote from "./HomeEndnote";
 import {useWikiRuntime} from "./runtime/useWikiRuntime";
 import { useInputComposition } from './inputComposition';
 import {
@@ -602,11 +603,12 @@ export function PreviewFooter() {
         </div>
       </div>
       <nav aria-label="页脚导航">
-        <div><h2>一起维护资料</h2><Link to="/help/contributing/">第一次编辑怎么做</Link><Link to="/community/">共建任务与待核内容</Link><Link to="/history/">查看资料修订记录</Link><Link to="/copyright/">版权与许可 / Copyright</Link></div>
+        <div><h2>一起维护资料</h2><Link to="/help/contributing/">第一次编辑怎么做</Link><Link to="/community/">共建任务与待核内容</Link><Link to="/history/">查看资料修订记录</Link><Link to="/copyright/#credits">数据来源与致谢</Link><Link to="/copyright/">版权与许可 / Copyright</Link></div>
         <div><h2>来自洛克王国</h2><a href="https://17roco.qq.com/" target="_blank" rel="noreferrer">页游官方网站<ExternalLink size={11} /></a><a href="https://17roco.gamebbs.qq.com/" target="_blank" rel="noreferrer">官方论坛与游戏公告<ExternalLink size={11} /></a><button type="button" onClick={() => window.dispatchEvent(new CustomEvent("roco:open-feedback"))}><MessageSquareText size={13} />反馈本页问题</button></div>
       </nav>
       <small><span>玩家共建的非官方百科 · 原创代码 GPLv3 · 原创正文许可政策 CC BY-SA 4.0 · 游戏及第三方素材权利归原权利人，授权范围见版权声明。</span><span>{demo ? "界面预览 · 投稿、讨论与计算记录保存在当前浏览器；资料日期以条目内标注为准。" : "正式修订通过站内账号提交审核；资料日期以条目内标注为准。"}</span></small>
     </footer>
+    <HomeEndnote />
     </>
   );
 }

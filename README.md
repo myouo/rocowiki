@@ -1,7 +1,20 @@
-# RocoWiki
+<h1 align="center">
+  <a href="https://wiki.rocoai.app">
+    <img src=".github/assets/rocowiki.svg" width="392" alt="RocoWiki">
+  </a>
+</h1>
+
+<p align="center">洛克王国页游 · 玩家共建百科</p>
+
+<p align="center">
+  <a href="https://wiki.rocoai.app"><img src="https://img.shields.io/badge/Wiki-wiki.rocoai.app-315c89?style=flat-square" alt="访问 RocoWiki"></a>
+  <a href="https://github.com/myouo/rocowiki/actions/workflows/validate.yml"><img src="https://github.com/myouo/rocowiki/actions/workflows/validate.yml/badge.svg" alt="仓库检查状态"></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/code-GPL--3.0--only-7890b5?style=flat-square" alt="代码许可：GPL-3.0-only"></a>
+  <a href="COPYRIGHT.md"><img src="https://img.shields.io/badge/original_wiki_prose-CC_BY--SA_4.0-a6b8a0?style=flat-square" alt="原创 Wiki 正文许可：CC BY-SA 4.0"></a>
+</p>
 
 [English](README.en.md) · [贡献指南](CONTRIBUTING.md) · [版权声明](COPYRIGHT.md)
-<!-- rocowiki-policy: overview; version: 6; lang: zh-CN -->
+<!-- rocowiki-policy: overview; version: 7; lang: zh-CN -->
 
 <a id="about"></a>
 ## 关于 RocoWiki
@@ -39,3 +52,14 @@ RocoWiki 是面向《洛克王国》页游玩家的社区百科，整理宠物�
 有权按项目政策授权的原创 Wiki 正文采用 **CC BY-SA 4.0**，作者保留版权；转载和改编须署名，分享改编内容须遵守相同方式共享要求。原创代码采用 **GPL-3.0-only**，见 [LICENSE](LICENSE)。
 
 游戏图片、商标、字体及转载资料各有其权利归属，不自动纳入上述许可；已有作品也不会被追溯改许可。具体范围见 [版权声明](COPYRIGHT.md) 与 [第三方声明](THIRD_PARTY_NOTICES.md)。
+
+---
+
+<p align="center">
+  <strong>感谢每一位来查资料的小洛克 ✨</strong><br>
+  <sub>项目访问计数</sub>
+</p>
+
+<p align="center">
+  <img src="https://count.getloli.com/@rocowiki?theme=miku&amp;padding=7&amp;offset=0&amp;align=center&amp;scale=1.0&amp;pixelated=1&amp;darkmode=auto" alt="RocoWiki 项目访问计数器（Miku 主题）">
+</p>
