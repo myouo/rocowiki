@@ -118,7 +118,9 @@ async function main() {
   globalThis.__wikiLocation={pathname:'/',search:'',hash:''};
   await render(React.createElement(C.PreviewFooter));
   check('The shared footer links to the copyright statement',d.querySelector('.rw-footer a[href="/copyright/"]')?.textContent.includes('Copyright'));
-  check('The homepage source and visit note belongs inside the shared footer',Boolean(d.querySelector('.rw-footer > .rw-home-endnote'))&&!d.querySelector('.rw-footer + .rw-home-endnote'));
+  const homeNote=d.querySelector('.rw-footer > .rw-home-endnote');
+  check('The homepage source and visit note belongs inside the shared footer',Boolean(homeNote)&&!d.querySelector('.rw-footer + .rw-home-endnote'));
+  check('The homepage footer note includes acknowledgements and the shared visit counter',homeNote?.querySelector('a[href="/copyright/#credits"]')?.textContent.includes('数据来源与致谢')&&homeNote.querySelector('.rw-home-visit-counter small')?.textContent==='项目访问计数'&&homeNote.querySelector('.rw-home-visit-counter img')?.getAttribute('src')?.startsWith('https://count.getloli.com/@rocowiki?'));
   check('Legal information remains the final footer row',d.querySelector('.rw-footer')?.lastElementChild?.tagName==='SMALL');
   for(const [path,title,language] of [['/copyright/','版权与许可','zh-CN'],['/copyright/en/','Copyright and licensing','en']]){
     globalThis.__wikiLocation={pathname:path,search:'',hash:''};
