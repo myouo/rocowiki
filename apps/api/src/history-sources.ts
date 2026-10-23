@@ -16,6 +16,7 @@ export function historySources(value:string):HistorySource[] {
   if(doc)return [source(`apps/web/${doc.sourceFile}`)];
   if(!routes.includes(path))throw new Error('UNKNOWN_HISTORY_PAGE');
   const group=path.split('/')[1];
+  if(path==='/battle/history/')return [data('archive','赛事历史档案','ladder-history'),data('pets','奖励宠物与禁赛编号','official-pets')];
   if(group==='pets')return [data('pets','宠物基础资料','official-pets'),data('notes','补充资料','pet-metadata-v6'),data('pool','游戏技能池','game-skill-relations'),data('legacy','历史资料','pet-sources'),data('ladder','天梯费用','official-ladder')];
   if(group==='skills')return [data('skills','技能基础资料','official-skills'),data('analysis','效果与条件解析','skill-analysis-notes'),data('pool','游戏学习关系','game-skill-relations'),{id:'legacy',label:'历史整理资料',path:'apps/web/src/wiki/data.js',shared:true}];
   if(group==='bloodlines')return [data('bloodlines','血脉资料','pet-metadata-v6')];

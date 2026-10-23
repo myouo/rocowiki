@@ -1,0 +1,24 @@
+// SPDX-License-Identifier: GPL-3.0-only
+// Derive the adapter's types from its actual JSON inputs.
+export {default as petSourceData} from '../../../content/pet-sources.json';
+export {default as officialPetData} from '../../../content/official-pets.json';
+export {default as officialLadderData} from '../../../content/official-ladder.json';
+export {default as ladderHistoryData} from '../../../content/ladder-history.json';
+export {default as officialSkillData} from '../../../content/official-skills.json';
+export {default as skillAnalysisData} from '../../../content/skill-analyses.json';
+export {default as skillRelationData} from '../../../content/pet-skill-relations.json';
+export {default as gameSkillRelationData} from '../../../content/game-skill-relations.json';
+export {default as petMetadata} from '../../../content/pet-metadata-v6.json';
+export {default as petAppearances} from '../../../content/pet-appearances-v72.json';
+export {default as eventData} from '../../../content/events-v7.json';
+export {default as weekly} from '../../../content/weekly-v5.json';
+export {default as battleRelations} from '../../../content/battle-relations-v5.json';
+export {default as calculatorMappings} from '../../../content/calculator-mappings-v73.json';
+export {default as calculatorData} from '../../../content/calculator-sources-v7.json';
+export {default as pveData} from '../../../content/pve-v6.json';
+export {default as pvePetRecords} from '../../../content/pve-pet-recommendations-v7.json';
+export {default as seven} from '../../../content/seven-sanctuaries-v72.json';
+export {default as publishedDocs} from '../../../content/published-docs-v7.json';
+export {default as publishedSections} from '../../../content/published-sections-v7.json';
+export {default as contentRoutes} from '../../../content/routes.json';
+export {default as publicSearchRecords} from '../../generated/search.json';

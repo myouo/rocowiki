@@ -21,6 +21,7 @@ import { petLearnsSkill } from '../../skillLearnerModel';
 import SkillPoolSource from '../skills/PoolSource';
 import {matchesCatalogEntry, withCatalogContext} from '../../../../../../packages/wiki-schema/src/catalog-routes';
 import {useHydratedSearch} from './useHydratedSearch';
+import {seasonRewardReferences} from '../../ladderHistoryModel';
 
 function PetPage({ slug }) {
   const location = useLocation();
@@ -72,6 +73,7 @@ function PetPage({ slug }) {
   const petReturnBase = petDetailHref(pet);
   const mainSkills = skills.filter((s) => petLearnsSkill(pet, s).length || s.ownerSlug === pet.slug || s.learners?.some((row) => row.petSlug === pet.slug)).map(skill => ({ ...skill, learning: petLearnsSkill(pet, skill)[0] }));
   const meta = petMeta(pet);
+  const ladderRewards=pet.official?seasonRewardReferences(pet.official.id):[];
   const toc = [
     ["overview", "基础资料"],
     ["ability", "能力计算"],
@@ -333,6 +335,7 @@ function PetPage({ slug }) {
         <Section title="来源与修订" id="sources">
           <SkillPoolSource pet={pet} />
           <LadderSource magic={pet.officialLadder} />
+          {ladderRewards.length>0&&<p>历史天梯奖励记载：{ladderRewards.map(record=><Link key={record.number} to={record.href}>第 {record.number} 届天梯赛 </Link>)}</p>}
           <OfficialPetSource pet={pet.official} source={officialPetData.source} />
           {pet.sourceUrl !== officialPetData.source.url && <div className="rw-source-row">
             <BookOpen size={18} />
