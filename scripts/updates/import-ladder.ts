@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: GPL-3.0-only
 import { readFile } from 'node:fs/promises';
 import { parseArgs } from 'node:util';
-import { LADDER_CONFIG_URL, MAX_LADDER_BYTES, ladderSnapshot } from './ladder-config';
-import { saveSnapshot } from './snapshot';
+import { LADDER_CONFIG_URL, MAX_LADDER_BYTES } from './ladder-config';
+import {ladderHistoryObservation,saveLadderRefresh} from './ladder-history';
 
 const { values } = parseArgs({ options: {
   input: { type: 'string' }, 'retrieved-at': { type: 'string' }, force: { type: 'boolean', default: false },
@@ -25,6 +25,10 @@ async function download(): Promise<Buffer> {
   return Buffer.concat(chunks);
 }
 const bytes = values.input ? await readFile(values.input) : await download();
-const snapshot = ladderSnapshot(bytes, values['retrieved-at'] || new Date().toISOString());
-const changed = await saveSnapshot(new URL('../../apps/web/content/official-ladder.json', import.meta.url), snapshot, values.force);
+const observation=ladderHistoryObservation(bytes,values['retrieved-at']||new Date().toISOString());
+const {changed,archived,snapshot}=await saveLadderRefresh(
+  new URL('../../apps/web/content/official-ladder.json',import.meta.url),
+  new URL('../../apps/web/content/ladder-history.json',import.meta.url),observation,values.force,
+);
 console.log(`${changed ? 'Imported' : 'Unchanged:'} ${Object.keys(snapshot.costs).length} configured ladder costs; ${snapshot.bannedPetIds.length} banned pet IDs; unlisted IDs use the official client default ${snapshot.defaultCost}. SHA-256: ${snapshot.source.sha256}`);
+console.log(archived?'Retained ladder observations and reward fields in the history archive.':'Ladder history is unchanged.');

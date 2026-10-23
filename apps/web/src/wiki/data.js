@@ -509,6 +509,7 @@ export function getSearchRecords() {
         keywords: "纠错 反馈 补充 编辑 审核 贡献",
       },
     ],
+    {title:'天梯历史档案',kind:'对战',to:'/battle/history/',meta:'历届赛季、历史禁赛、奖励与费用变动',keywords:'天梯 历史 历届 赛季 结算 奖励 宠物 禁赛 魔力 费用 商城 兑换 档案'},
     ...pets.map((p) => ({
       title: p.name,
       kind: "宠物",

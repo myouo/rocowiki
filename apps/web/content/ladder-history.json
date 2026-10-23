@@ -1,0 +1,2731 @@
+{
+  "schemaVersion": 1,
+  "game": "roco-web",
+  "sources": [
+    {
+      "id": "pet-config-d25931420b28",
+      "kind": "official-config",
+      "title": "官方宠物图鉴 B6041 · 获取描述",
+      "url": "https://res.17roco.qq.com/conf/Angel.config",
+      "recordedAt": "2026-10-22T05:02:26.755Z",
+      "publishedAt": null,
+      "locator": "SpiritDes 的 id、name 与 getForm；仅使用明确写出届次的天梯获取描述",
+      "sha256": "d25931420b280a9a810a4c164d9053dfcc8ff4d90f09443c768f6077d119393d",
+      "note": "图鉴文字是历史获取线索；未注明的领取门槛和日期保持空缺，同届多条记载不自动视为相同领取方式。"
+    },
+    {
+      "id": "notice-2025-10-24",
+      "kind": "official-notice",
+      "title": "洛克王国10月24日更新速递",
+      "url": "https://roco.qq.com/webplat/info/news_version3/397/838/839/840/m682/202510/976901.shtml",
+      "recordedAt": "2026-10-23T16:07:45.557Z",
+      "publishedAt": null,
+      "locator": "三、本周告示；赛季结算及费用、兑换商城变动在相应小节",
+      "sha256": "05f2c11cd5473a3d86d96571a2eeae06d94dd748810f9dcf7de95b420c3576ce",
+      "note": "哈希对应提取后的 Markdown 正文；记录日期为公告面向的更新批次，不自动推断整周生效区间或精确切换时间。"
+    },
+    {
+      "id": "notice-2025-10-31",
+      "kind": "official-notice",
+      "title": "洛克王国10月31日更新速递",
+      "url": "https://roco.qq.com/webplat/info/news_version3/397/838/839/840/m682/202510/977204.shtml",
+      "recordedAt": "2026-10-23T16:07:45.622Z",
+      "publishedAt": null,
+      "locator": "三、本周告示；赛季结算及费用、兑换商城变动在相应小节",
+      "sha256": "8f34b7dd0114eddc42cfa4488be0e99fc16d6b68dcbc0e524860e58b32f7e91d",
+      "note": "哈希对应提取后的 Markdown 正文；记录日期为公告面向的更新批次，不自动推断整周生效区间或精确切换时间。"
+    },
+    {
+      "id": "notice-2025-11-07",
+      "kind": "official-notice",
+      "title": "洛克王国11月7日更新速递",
+      "url": "https://roco.qq.com/webplat/info/news_version3/397/838/839/840/m682/202511/977531.shtml",
+      "recordedAt": "2026-10-23T16:07:45.510Z",
+      "publishedAt": null,
+      "locator": "三、本周告示；赛季结算及费用、兑换商城变动在相应小节",
+      "sha256": "1e41098076f373a3697f52ebb7a8f8d85612c303847cf88dd6d9d36c037aafd4",
+      "note": "哈希对应提取后的 Markdown 正文；记录日期为公告面向的更新批次，不自动推断整周生效区间或精确切换时间。"
+    },
+    {
+      "id": "notice-2025-11-14",
+      "kind": "official-notice",
+      "title": "洛克王国11月14日更新速递",
+      "url": "https://roco.qq.com/webplat/info/news_version3/397/838/839/840/m682/202511/977844.shtml",
+      "recordedAt": "2026-10-23T16:07:45.545Z",
+      "publishedAt": null,
+      "locator": "三、本周告示；赛季结算及费用、兑换商城变动在相应小节",
+      "sha256": "9a606bc65db873e2a5c186a965007b3ab963ba78a5635ad815fcdd26ef1be889",
+      "note": "哈希对应提取后的 Markdown 正文；记录日期为公告面向的更新批次，不自动推断整周生效区间或精确切换时间。"
+    },
+    {
+      "id": "notice-2025-11-21",
+      "kind": "official-notice",
+      "title": "洛克王国11月21日更新速递",
+      "url": "https://roco.qq.com/webplat/info/news_version3/397/838/839/840/m682/202511/978277.shtml",
+      "recordedAt": "2026-10-23T16:07:46.399Z",
+      "publishedAt": null,
+      "locator": "三、本周告示；赛季结算及费用、兑换商城变动在相应小节",
+      "sha256": "1e0a6f79b25a10c8d73875e00043563b033b06399ed4a4eb69bc5a257199cbe9",
+      "note": "哈希对应提取后的 Markdown 正文；记录日期为公告面向的更新批次，不自动推断整周生效区间或精确切换时间。"
+    },
+    {
+      "id": "notice-2025-11-28",
+      "kind": "official-notice",
+      "title": "洛克王国11月28日更新速递",
+      "url": "https://roco.qq.com/webplat/info/news_version3/397/838/839/840/m682/202511/978612.shtml",
+      "recordedAt": "2026-10-23T16:07:46.552Z",
+      "publishedAt": null,
+      "locator": "三、本周告示；赛季结算及费用、兑换商城变动在相应小节",
+      "sha256": "843ade30e9564a78bbd6773416dc757a3ccde6426a2053dab4457ba9b255dc73",
+      "note": "哈希对应提取后的 Markdown 正文；记录日期为公告面向的更新批次，不自动推断整周生效区间或精确切换时间。"
+    },
+    {
+      "id": "notice-2025-12-05",
+      "kind": "official-notice",
+      "title": "洛克王国12月5日更新速递",
+      "url": "https://roco.qq.com/webplat/info/news_version3/397/838/839/840/m682/202512/978976.shtml",
+      "recordedAt": "2026-10-23T16:07:46.482Z",
+      "publishedAt": null,
+      "locator": "三、本周告示；赛季结算及费用、兑换商城变动在相应小节",
+      "sha256": "ddc20891f4cd238e578b212553534eb4a69033fe5b500de58fcce0dfa533e557",
+      "note": "哈希对应提取后的 Markdown 正文；记录日期为公告面向的更新批次，不自动推断整周生效区间或精确切换时间。"
+    },
+    {
+      "id": "notice-2025-12-12",
+      "kind": "official-notice",
+      "title": "洛克王国12月12日更新速递",
+      "url": "https://roco.qq.com/webplat/info/news_version3/397/838/839/840/m682/202512/979292.shtml",
+      "recordedAt": "2026-10-23T16:07:46.579Z",
+      "publishedAt": null,
+      "locator": "三、本周告示；赛季结算及费用、兑换商城变动在相应小节",
+      "sha256": "a532d3eaef960fec22cae5788c91e3d70dbc48698c0f73c04788514922bd3eb8",
+      "note": "哈希对应提取后的 Markdown 正文；记录日期为公告面向的更新批次，不自动推断整周生效区间或精确切换时间。"
+    },
+    {
+      "id": "notice-2025-12-19",
+      "kind": "official-notice",
+      "title": "洛克王国12月19日更新速递",
+      "url": "https://roco.qq.com/webplat/info/news_version3/397/838/839/840/m682/202512/979616.shtml",
+      "recordedAt": "2026-10-23T16:07:47.296Z",
+      "publishedAt": null,
+      "locator": "三、本周告示；赛季结算及费用、兑换商城变动在相应小节",
+      "sha256": "bc4f894039ba82326ed2dcf1daa3b14d9b851380b3f1c1c99ef02054ba69a051",
+      "note": "哈希对应提取后的 Markdown 正文；记录日期为公告面向的更新批次，不自动推断整周生效区间或精确切换时间。"
+    },
+    {
+      "id": "notice-2025-12-26",
+      "kind": "official-notice",
+      "title": "洛克王国12月26日更新速递",
+      "url": "https://roco.qq.com/webplat/info/news_version3/397/838/839/840/m682/202512/979945.shtml",
+      "recordedAt": "2026-10-23T16:07:47.295Z",
+      "publishedAt": null,
+      "locator": "三、本周告示；赛季结算及费用、兑换商城变动在相应小节",
+      "sha256": "0d4b7befd2ee94251a7e502b09796237bc22e1a57aef6b65723de7587303ae67",
+      "note": "哈希对应提取后的 Markdown 正文；记录日期为公告面向的更新批次，不自动推断整周生效区间或精确切换时间。"
+    },
+    {
+      "id": "notice-2026-01-02",
+      "kind": "official-notice",
+      "title": "洛克王国1月2日更新速递",
+      "url": "https://roco.qq.com/webplat/info/news_version3/397/838/839/840/m682/202512/979946.shtml",
+      "recordedAt": "2026-10-23T16:07:47.472Z",
+      "publishedAt": null,
+      "locator": "三、本周告示；赛季结算及费用、兑换商城变动在相应小节",
+      "sha256": "c108113574e0a906c07092da48d4e758667fd83140f2a65de4f3eab7cbaa3adf",
+      "note": "哈希对应提取后的 Markdown 正文；记录日期为公告面向的更新批次，不自动推断整周生效区间或精确切换时间。"
+    },
+    {
+      "id": "notice-2026-01-09",
+      "kind": "official-notice",
+      "title": "洛克王国1月9日更新速递",
+      "url": "https://roco.qq.com/webplat/info/news_version3/397/838/839/840/m682/202601/980505.shtml",
+      "recordedAt": "2026-10-23T16:07:47.478Z",
+      "publishedAt": null,
+      "locator": "三、本周告示；赛季结算及费用、兑换商城变动在相应小节",
+      "sha256": "cfb0cc09dd1bf4f2e2215c2a3170fafcc792f7115e44cea0697f1f2a55170c47",
+      "note": "哈希对应提取后的 Markdown 正文；记录日期为公告面向的更新批次，不自动推断整周生效区间或精确切换时间。"
+    },
+    {
+      "id": "notice-2026-01-16",
+      "kind": "official-notice",
+      "title": "洛克王国1月16日更新速递",
+      "url": "https://roco.qq.com/webplat/info/news_version3/397/838/839/840/m682/202601/980802.shtml",
+      "recordedAt": "2026-10-23T16:07:48.251Z",
+      "publishedAt": null,
+      "locator": "三、本周告示；赛季结算及费用、兑换商城变动在相应小节",
+      "sha256": "fa14ed9711638ca3edaf9fe1e84e4ddf4f38115520373a94bf2fa65f0fb68eb0",
+      "note": "哈希对应提取后的 Markdown 正文；记录日期为公告面向的更新批次，不自动推断整周生效区间或精确切换时间。"
+    },
+    {
+      "id": "notice-2026-01-23",
+      "kind": "official-notice",
+      "title": "洛克王国1月23日更新速递",
+      "url": "https://roco.qq.com/webplat/info/news_version3/397/838/839/840/m682/202601/981138.shtml",
+      "recordedAt": "2026-10-23T16:07:48.071Z",
+      "publishedAt": null,
+      "locator": "三、本周告示；赛季结算及费用、兑换商城变动在相应小节",
+      "sha256": "3d3ab3222e2cd40597f2854c2fa690d3c49f24fe5a953eb3de968a9d1b646ede",
+      "note": "哈希对应提取后的 Markdown 正文；记录日期为公告面向的更新批次，不自动推断整周生效区间或精确切换时间。"
+    },
+    {
+      "id": "notice-2026-01-30",
+      "kind": "official-notice",
+      "title": "洛克王国1月30日更新速递",
+      "url": "https://roco.qq.com/webplat/info/news_version3/397/838/839/840/m682/202601/981503.shtml",
+      "recordedAt": "2026-10-23T16:07:48.332Z",
+      "publishedAt": null,
+      "locator": "三、本周告示；赛季结算及费用、兑换商城变动在相应小节",
+      "sha256": "789b2354942a9d768bf06f2ab5663ff4ebfd01d88f640a806b372ab143ccd01f",
+      "note": "哈希对应提取后的 Markdown 正文；记录日期为公告面向的更新批次，不自动推断整周生效区间或精确切换时间。"
+    },
+    {
+      "id": "notice-2026-02-06",
+      "kind": "official-notice",
+      "title": "洛克王国2月6日更新速递",
+      "url": "https://roco.qq.com/webplat/info/news_version3/397/838/839/840/m682/202602/981860.shtml",
+      "recordedAt": "2026-10-23T16:07:48.465Z",
+      "publishedAt": null,
+      "locator": "三、本周告示；赛季结算及费用、兑换商城变动在相应小节",
+      "sha256": "cd288db11ef0366c4d8d481c03964b4ca46ca4d8c0c37934243c5036822cc79c",
+      "note": "哈希对应提取后的 Markdown 正文；记录日期为公告面向的更新批次，不自动推断整周生效区间或精确切换时间。"
+    },
+    {
+      "id": "notice-2026-02-13",
+      "kind": "official-notice",
+      "title": "洛克王国2月13日更新速递",
+      "url": "https://roco.qq.com/webplat/info/news_version3/397/838/839/840/m682/202602/982343.shtml",
+      "recordedAt": "2026-10-23T16:07:48.967Z",
+      "publishedAt": null,
+      "locator": "三、本周告示；赛季结算及费用、兑换商城变动在相应小节",
+      "sha256": "68421d0bf93df54946ad3b916596a9b621323420668c45e6312d87892a89bee1",
+      "note": "哈希对应提取后的 Markdown 正文；记录日期为公告面向的更新批次，不自动推断整周生效区间或精确切换时间。"
+    },
+    {
+      "id": "notice-2026-02-20",
+      "kind": "official-notice",
+      "title": "洛克王国2月20日更新速递",
+      "url": "https://roco.qq.com/webplat/info/news_version3/397/838/839/840/m682/202602/982344.shtml",
+      "recordedAt": "2026-10-23T16:07:50.148Z",
+      "publishedAt": null,
+      "locator": "三、本周告示；赛季结算及费用、兑换商城变动在相应小节",
+      "sha256": "11775a066d3562f895694933df763f715304d2ba41439e697b877788860dcc26",
+      "note": "哈希对应提取后的 Markdown 正文；记录日期为公告面向的更新批次，不自动推断整周生效区间或精确切换时间。"
+    },
+    {
+      "id": "notice-2026-02-27",
+      "kind": "official-notice",
+      "title": "洛克王国2月27日更新速递",
+      "url": "https://roco.qq.com/webplat/info/news_version3/397/838/839/840/m682/202602/982642.shtml",
+      "recordedAt": "2026-10-23T16:07:51.345Z",
+      "publishedAt": null,
+      "locator": "三、本周告示；赛季结算及费用、兑换商城变动在相应小节",
+      "sha256": "0ecafec7f7c7b295153f633461707e61b1ae0ed729c5ba6c1e791a3fde8e1e7e",
+      "note": "哈希对应提取后的 Markdown 正文；记录日期为公告面向的更新批次，不自动推断整周生效区间或精确切换时间。"
+    },
+    {
+      "id": "notice-2026-03-06",
+      "kind": "official-notice",
+      "title": "洛克王国3月6日更新速递",
+      "url": "https://roco.qq.com/webplat/info/news_version3/397/838/839/840/m682/202603/982917.shtml",
+      "recordedAt": "2026-10-23T16:07:49.600Z",
+      "publishedAt": null,
+      "locator": "三、本周告示；赛季结算及费用、兑换商城变动在相应小节",
+      "sha256": "78312b58560244dff2f86b62d03db4faacae6ef1b105f2c2eeaba40b319bb291",
+      "note": "哈希对应提取后的 Markdown 正文；记录日期为公告面向的更新批次，不自动推断整周生效区间或精确切换时间。"
+    },
+    {
+      "id": "notice-2026-03-13",
+      "kind": "official-notice",
+      "title": "洛克王国3月13日更新速递",
+      "url": "https://roco.qq.com/webplat/info/news_version3/397/838/839/840/m682/202603/983232.shtml",
+      "recordedAt": "2026-10-23T16:07:49.746Z",
+      "publishedAt": null,
+      "locator": "三、本周告示；赛季结算及费用、兑换商城变动在相应小节",
+      "sha256": "eac065ec2c8ede006f62dd6fdd1344235f1aed50695dc0113b2f710df1095ee1",
+      "note": "哈希对应提取后的 Markdown 正文；记录日期为公告面向的更新批次，不自动推断整周生效区间或精确切换时间。"
+    },
+    {
+      "id": "notice-2026-03-20",
+      "kind": "official-notice",
+      "title": "洛克王国3月20日更新速递",
+      "url": "https://roco.qq.com/webplat/info/news_version3/397/838/839/840/m682/202603/983584.shtml",
+      "recordedAt": "2026-10-23T16:07:50.434Z",
+      "publishedAt": null,
+      "locator": "三、本周告示；赛季结算及费用、兑换商城变动在相应小节",
+      "sha256": "e3f8c240bcde883601f734348abcdc23a45b6a08689c0c1b10a47b5ad21b6a29",
+      "note": "哈希对应提取后的 Markdown 正文；记录日期为公告面向的更新批次，不自动推断整周生效区间或精确切换时间。"
+    },
+    {
+      "id": "notice-2026-03-27",
+      "kind": "official-notice",
+      "title": "洛克王国3月27日更新速递",
+      "url": "https://roco.qq.com/webplat/info/news_version3/397/838/839/840/m682/202603/983870.shtml",
+      "recordedAt": "2026-10-23T16:07:50.530Z",
+      "publishedAt": null,
+      "locator": "三、本周告示；赛季结算及费用、兑换商城变动在相应小节",
+      "sha256": "8f825877013f79b6ee254d5590adc4b6717f88e1108474c2189c1e4381db638f",
+      "note": "哈希对应提取后的 Markdown 正文；记录日期为公告面向的更新批次，不自动推断整周生效区间或精确切换时间。"
+    },
+    {
+      "id": "notice-2026-04-03",
+      "kind": "official-notice",
+      "title": "洛克王国4月3日更新速递",
+      "url": "https://roco.qq.com/webplat/info/news_version3/397/838/839/840/m682/202604/984186.shtml",
+      "recordedAt": "2026-10-23T16:07:51.199Z",
+      "publishedAt": null,
+      "locator": "三、本周告示；赛季结算及费用、兑换商城变动在相应小节",
+      "sha256": "11a29c8a49f1284515aa730e357a006c84c730748c9835d6f5a0b3d889e31abe",
+      "note": "哈希对应提取后的 Markdown 正文；记录日期为公告面向的更新批次，不自动推断整周生效区间或精确切换时间。"
+    },
+    {
+      "id": "notice-2026-04-10",
+      "kind": "official-notice",
+      "title": "洛克王国4月10日更新速递",
+      "url": "https://roco.qq.com/webplat/info/news_version3/397/838/839/840/m682/202604/984429.shtml",
+      "recordedAt": "2026-10-23T16:07:51.308Z",
+      "publishedAt": null,
+      "locator": "三、本周告示；赛季结算及费用、兑换商城变动在相应小节",
+      "sha256": "7fcfe4a618aaba6a4a2effeba280a283c5ac089da96821ae865bd801f977b0c4",
+      "note": "哈希对应提取后的 Markdown 正文；记录日期为公告面向的更新批次，不自动推断整周生效区间或精确切换时间。"
+    },
+    {
+      "id": "notice-2026-04-17",
+      "kind": "official-notice",
+      "title": "洛克王国4月17日更新速递",
+      "url": "https://roco.qq.com/webplat/info/news_version3/397/838/839/840/m682/202604/984696.shtml",
+      "recordedAt": "2026-10-23T16:07:51.371Z",
+      "publishedAt": null,
+      "locator": "三、本周告示；赛季结算及费用、兑换商城变动在相应小节",
+      "sha256": "5cfe7ded98c4d0732cf41970c4a0dfb7ef86d1598c1059dd96ba0e5df7fe92fa",
+      "note": "哈希对应提取后的 Markdown 正文；记录日期为公告面向的更新批次，不自动推断整周生效区间或精确切换时间。"
+    },
+    {
+      "id": "notice-2026-04-24",
+      "kind": "official-notice",
+      "title": "洛克王国4月24日更新速递",
+      "url": "https://roco.qq.com/webplat/info/news_version3/397/838/839/840/m682/202604/984967.shtml",
+      "recordedAt": "2026-10-23T16:07:52.022Z",
+      "publishedAt": null,
+      "locator": "三、本周告示；赛季结算及费用、兑换商城变动在相应小节",
+      "sha256": "1397170bcb96bd233e25b43261ed8d129d09da8f5da157432a45c34b50631ba7",
+      "note": "哈希对应提取后的 Markdown 正文；记录日期为公告面向的更新批次，不自动推断整周生效区间或精确切换时间。"
+    },
+    {
+      "id": "notice-2026-05-01",
+      "kind": "official-notice",
+      "title": "洛克王国5月1日更新速递",
+      "url": "https://roco.qq.com/webplat/info/news_version3/397/838/839/840/m682/202604/985321.shtml",
+      "recordedAt": "2026-10-23T16:07:52.226Z",
+      "publishedAt": null,
+      "locator": "三、本周告示；赛季结算及费用、兑换商城变动在相应小节",
+      "sha256": "d9805398bc2a096f1836ee2526100c958b6c88135f95adc5e0f6481f6615d21a",
+      "note": "哈希对应提取后的 Markdown 正文；记录日期为公告面向的更新批次，不自动推断整周生效区间或精确切换时间。"
+    },
+    {
+      "id": "notice-2026-05-08",
+      "kind": "official-notice",
+      "title": "洛克王国5月8日更新速递",
+      "url": "https://roco.qq.com/webplat/info/news_version3/397/838/839/840/m682/202605/985516.shtml",
+      "recordedAt": "2026-10-23T16:07:52.192Z",
+      "publishedAt": null,
+      "locator": "三、本周告示；赛季结算及费用、兑换商城变动在相应小节",
+      "sha256": "5bcd4ed3bca365ca1bfcc445da9dbd1bb0a32e9f0511f1f296d1f3fa8b4ec207",
+      "note": "哈希对应提取后的 Markdown 正文；记录日期为公告面向的更新批次，不自动推断整周生效区间或精确切换时间。"
+    },
+    {
+      "id": "notice-2026-05-15",
+      "kind": "official-notice",
+      "title": "洛克王国5月15日更新速递",
+      "url": "https://roco.qq.com/webplat/info/news_version3/397/838/839/840/m682/202605/985768.shtml",
+      "recordedAt": "2026-10-23T16:07:52.299Z",
+      "publishedAt": null,
+      "locator": "三、本周告示；赛季结算及费用、兑换商城变动在相应小节",
+      "sha256": "3848a60c3b345bc40ef29b838e585d8f80510f4d1a434ffc5dd8da8fc6cb0be7",
+      "note": "哈希对应提取后的 Markdown 正文；记录日期为公告面向的更新批次，不自动推断整周生效区间或精确切换时间。"
+    },
+    {
+      "id": "notice-2026-05-22",
+      "kind": "official-notice",
+      "title": "洛克王国5月22日更新速递",
+      "url": "https://roco.qq.com/webplat/info/news_version3/397/838/839/840/m682/202605/986051.shtml",
+      "recordedAt": "2026-10-23T16:07:52.909Z",
+      "publishedAt": null,
+      "locator": "三、本周告示；赛季结算及费用、兑换商城变动在相应小节",
+      "sha256": "55461e3c3f83ccd62014f9075d978d36768a11712eda35afefff88b88942fbb2",
+      "note": "哈希对应提取后的 Markdown 正文；记录日期为公告面向的更新批次，不自动推断整周生效区间或精确切换时间。"
+    },
+    {
+      "id": "notice-2026-05-29",
+      "kind": "official-notice",
+      "title": "洛克王国5月29日更新速递",
+      "url": "https://roco.qq.com/webplat/info/news_version3/397/838/839/840/m682/202605/986346.shtml",
+      "recordedAt": "2026-10-23T16:07:53.021Z",
+      "publishedAt": null,
+      "locator": "三、本周告示；赛季结算及费用、兑换商城变动在相应小节",
+      "sha256": "314f90c4b66c6dc31a1b6c408b6e00f827f5f6deb716bb9ceec524fda645ffe9",
+      "note": "哈希对应提取后的 Markdown 正文；记录日期为公告面向的更新批次，不自动推断整周生效区间或精确切换时间。"
+    },
+    {
+      "id": "notice-2026-06-05",
+      "kind": "official-notice",
+      "title": "洛克王国6月5日更新速递",
+      "url": "https://roco.qq.com/webplat/info/news_version3/397/838/839/840/m682/202606/986690.shtml",
+      "recordedAt": "2026-10-23T16:07:53.115Z",
+      "publishedAt": null,
+      "locator": "三、本周告示；赛季结算及费用、兑换商城变动在相应小节",
+      "sha256": "a230b2fdf386468cbf85535770d9966bd43a8d693f49c74d0a2260fa97210898",
+      "note": "哈希对应提取后的 Markdown 正文；记录日期为公告面向的更新批次，不自动推断整周生效区间或精确切换时间。"
+    },
+    {
+      "id": "notice-2026-06-12",
+      "kind": "official-notice",
+      "title": "洛克王国6月12日更新速递",
+      "url": "https://roco.qq.com/webplat/info/news_version3/397/838/839/840/m682/202606/986937.shtml",
+      "recordedAt": "2026-10-23T16:07:53.207Z",
+      "publishedAt": null,
+      "locator": "三、本周告示；赛季结算及费用、兑换商城变动在相应小节",
+      "sha256": "3cd9d1fb8ab002c261a6848fc1c04a768b8dee071ff45c344bf9b5b7482bad76",
+      "note": "哈希对应提取后的 Markdown 正文；记录日期为公告面向的更新批次，不自动推断整周生效区间或精确切换时间。"
+    },
+    {
+      "id": "notice-2026-06-19",
+      "kind": "official-notice",
+      "title": "洛克王国6月19日更新速递",
+      "url": "https://roco.qq.com/webplat/info/news_version3/397/838/839/840/m682/202606/987273.shtml",
+      "recordedAt": "2026-10-23T16:07:53.784Z",
+      "publishedAt": null,
+      "locator": "三、本周告示；赛季结算及费用、兑换商城变动在相应小节",
+      "sha256": "c7183a935bce06a21ef1e4333577713f5efcbb87378d845e9b25913a01aa4b88",
+      "note": "哈希对应提取后的 Markdown 正文；记录日期为公告面向的更新批次，不自动推断整周生效区间或精确切换时间。"
+    },
+    {
+      "id": "notice-2026-06-26",
+      "kind": "official-notice",
+      "title": "洛克王国6月26日更新速递",
+      "url": "https://roco.qq.com/webplat/info/news_version3/397/838/839/840/m682/202606/987540.shtml",
+      "recordedAt": "2026-10-23T16:07:53.974Z",
+      "publishedAt": null,
+      "locator": "三、本周告示；赛季结算及费用、兑换商城变动在相应小节",
+      "sha256": "035f6cd71d59711ed0f80c5f174276890e0af82a9d79c9606e9c2d39f42acda2",
+      "note": "哈希对应提取后的 Markdown 正文；记录日期为公告面向的更新批次，不自动推断整周生效区间或精确切换时间。"
+    },
+    {
+      "id": "notice-2026-07-03",
+      "kind": "official-notice",
+      "title": "洛克王国7月3日更新速递",
+      "url": "https://roco.qq.com/webplat/info/news_version3/397/838/839/840/m682/202607/987919.shtml",
+      "recordedAt": "2026-10-23T16:07:54.002Z",
+      "publishedAt": null,
+      "locator": "三、本周告示；赛季结算及费用、兑换商城变动在相应小节",
+      "sha256": "b78aeae72c43ff0135ecf27947a895e6f4b4590acda872538752d4921a361847",
+      "note": "哈希对应提取后的 Markdown 正文；记录日期为公告面向的更新批次，不自动推断整周生效区间或精确切换时间。"
+    },
+    {
+      "id": "notice-2026-07-10",
+      "kind": "official-notice",
+      "title": "洛克王国7月10日更新速递",
+      "url": "https://roco.qq.com/webplat/info/news_version3/397/838/839/840/m682/202607/988212.shtml",
+      "recordedAt": "2026-10-23T16:07:54.236Z",
+      "publishedAt": null,
+      "locator": "三、本周告示；赛季结算及费用、兑换商城变动在相应小节",
+      "sha256": "2774807de1054e649c0973db838db5b2b2129d801b1f0a99b4692f671cb03e79",
+      "note": "哈希对应提取后的 Markdown 正文；记录日期为公告面向的更新批次，不自动推断整周生效区间或精确切换时间。"
+    },
+    {
+      "id": "notice-2026-07-17",
+      "kind": "official-notice",
+      "title": "洛克王国7月17日更新速递",
+      "url": "https://roco.qq.com/webplat/info/news_version3/397/838/839/840/m682/202607/988504.shtml",
+      "recordedAt": "2026-10-23T16:07:54.548Z",
+      "publishedAt": null,
+      "locator": "三、本周告示；赛季结算及费用、兑换商城变动在相应小节",
+      "sha256": "3167c81bad1d27f9f706cd5993da2b78eba79d850de700c5bef11196920ec34a",
+      "note": "哈希对应提取后的 Markdown 正文；记录日期为公告面向的更新批次，不自动推断整周生效区间或精确切换时间。"
+    },
+    {
+      "id": "notice-2026-07-24",
+      "kind": "official-notice",
+      "title": "洛克王国7月24日更新速递",
+      "url": "https://roco.qq.com/webplat/info/news_version3/397/838/839/840/m682/202607/988792.shtml",
+      "recordedAt": "2026-10-23T16:07:54.856Z",
+      "publishedAt": null,
+      "locator": "三、本周告示；赛季结算及费用、兑换商城变动在相应小节",
+      "sha256": "3722380dad76819ce7d5bbc328f49b763f74f789052a58639a429e9e05d646ab",
+      "note": "哈希对应提取后的 Markdown 正文；记录日期为公告面向的更新批次，不自动推断整周生效区间或精确切换时间。"
+    },
+    {
+      "id": "notice-2026-07-31",
+      "kind": "official-notice",
+      "title": "洛克王国7月31日更新速递",
+      "url": "https://roco.qq.com/webplat/info/news_version3/397/838/839/840/m682/202607/989045.shtml",
+      "recordedAt": "2026-10-23T16:07:54.804Z",
+      "publishedAt": null,
+      "locator": "三、本周告示；赛季结算及费用、兑换商城变动在相应小节",
+      "sha256": "b17e0fd5fb0b270cca41d470661cc05f3a7fc4b27b93c955000f462cc39702e8",
+      "note": "哈希对应提取后的 Markdown 正文；记录日期为公告面向的更新批次，不自动推断整周生效区间或精确切换时间。"
+    },
+    {
+      "id": "notice-2026-08-07",
+      "kind": "official-notice",
+      "title": "洛克王国8月7日更新速递",
+      "url": "https://roco.qq.com/webplat/info/news_version3/397/838/839/840/m682/202608/989370.shtml",
+      "recordedAt": "2026-10-23T16:07:55.055Z",
+      "publishedAt": null,
+      "locator": "三、本周告示；赛季结算及费用、兑换商城变动在相应小节",
+      "sha256": "19b2f56ef402278bf5ba3f5cb703b935ff69195469fe27d61a12615d559d4d9a",
+      "note": "哈希对应提取后的 Markdown 正文；记录日期为公告面向的更新批次，不自动推断整周生效区间或精确切换时间。"
+    },
+    {
+      "id": "notice-2026-08-14",
+      "kind": "official-notice",
+      "title": "洛克王国8月14日更新速递",
+      "url": "https://roco.qq.com/webplat/info/news_version3/397/838/839/840/m682/202608/989698.shtml",
+      "recordedAt": "2026-10-23T16:07:55.441Z",
+      "publishedAt": null,
+      "locator": "三、本周告示；赛季结算及费用、兑换商城变动在相应小节",
+      "sha256": "c001862adbdf860d5409c512b57e68358890ab717abdb69f35eb6e4727e42568",
+      "note": "哈希对应提取后的 Markdown 正文；记录日期为公告面向的更新批次，不自动推断整周生效区间或精确切换时间。"
+    },
+    {
+      "id": "notice-2026-08-21",
+      "kind": "official-notice",
+      "title": "洛克王国8月21日更新速递",
+      "url": "https://roco.qq.com/webplat/info/news_version3/397/838/839/840/m682/202608/990008.shtml",
+      "recordedAt": "2026-10-23T16:07:55.623Z",
+      "publishedAt": null,
+      "locator": "三、本周告示；赛季结算及费用、兑换商城变动在相应小节",
+      "sha256": "430c1acc1a73974c6a6f24487bb18773f0e95a8e673d46bff6172b49b46344e6",
+      "note": "哈希对应提取后的 Markdown 正文；记录日期为公告面向的更新批次，不自动推断整周生效区间或精确切换时间。"
+    },
+    {
+      "id": "notice-2026-08-28",
+      "kind": "official-notice",
+      "title": "洛克王国8月28日更新速递",
+      "url": "https://roco.qq.com/webplat/info/news_version3/397/838/839/840/m682/202608/990308.shtml",
+      "recordedAt": "2026-10-23T16:07:56.012Z",
+      "publishedAt": null,
+      "locator": "三、本周告示；赛季结算及费用、兑换商城变动在相应小节",
+      "sha256": "b017c4d9c459a5c7ada950601ac325d0ecafe6b90c14b6f62101bf96b1a0a47a",
+      "note": "哈希对应提取后的 Markdown 正文；记录日期为公告面向的更新批次，不自动推断整周生效区间或精确切换时间。"
+    },
+    {
+      "id": "notice-2026-09-04",
+      "kind": "official-notice",
+      "title": "洛克王国9月4日更新速递",
+      "url": "https://roco.qq.com/webplat/info/news_version3/397/838/839/840/m682/202609/990618.shtml",
+      "recordedAt": "2026-10-23T16:07:55.946Z",
+      "publishedAt": null,
+      "locator": "三、本周告示；赛季结算及费用、兑换商城变动在相应小节",
+      "sha256": "861169032f58c17eddc4f01d41080e7609401b36efaf9fdb1e2ae0dfa8698c82",
+      "note": "哈希对应提取后的 Markdown 正文；记录日期为公告面向的更新批次，不自动推断整周生效区间或精确切换时间。"
+    },
+    {
+      "id": "notice-2026-09-11",
+      "kind": "official-notice",
+      "title": "洛克王国9月11日更新速递",
+      "url": "https://roco.qq.com/webplat/info/news_version3/397/838/839/840/m682/202609/990838.shtml",
+      "recordedAt": "2026-10-23T16:07:56.312Z",
+      "publishedAt": null,
+      "locator": "三、本周告示；赛季结算及费用、兑换商城变动在相应小节",
+      "sha256": "78e78b3419a54579eee6fac1072df0a09d1daa88cbb0d56d5de244a1cb56d1a7",
+      "note": "哈希对应提取后的 Markdown 正文；记录日期为公告面向的更新批次，不自动推断整周生效区间或精确切换时间。"
+    },
+    {
+      "id": "notice-2026-09-18",
+      "kind": "official-notice",
+      "title": "洛克王国9月18日更新速递",
+      "url": "https://roco.qq.com/webplat/info/news_version3/397/838/839/840/m682/202609/991162.shtml",
+      "recordedAt": "2026-10-23T16:07:56.535Z",
+      "publishedAt": null,
+      "locator": "三、本周告示；赛季结算及费用、兑换商城变动在相应小节",
+      "sha256": "de31e523b596798b522fbad7df6f624612d000df5203df370eef51068860ef29",
+      "note": "哈希对应提取后的 Markdown 正文；记录日期为公告面向的更新批次，不自动推断整周生效区间或精确切换时间。"
+    },
+    {
+      "id": "notice-2026-09-25",
+      "kind": "official-notice",
+      "title": "洛克王国9月25日更新速递",
+      "url": "https://roco.qq.com/webplat/info/news_version3/397/838/839/840/m682/202609/991451.shtml",
+      "recordedAt": "2026-10-23T16:07:56.752Z",
+      "publishedAt": null,
+      "locator": "三、本周告示；赛季结算及费用、兑换商城变动在相应小节",
+      "sha256": "b19eabdd74206d24cfac8d64e1651420343a285c233b94a1eb77b8f93fc5a48f",
+      "note": "哈希对应提取后的 Markdown 正文；记录日期为公告面向的更新批次，不自动推断整周生效区间或精确切换时间。"
+    },
+    {
+      "id": "notice-2026-10-02",
+      "kind": "official-notice",
+      "title": "洛克王国10月2日更新速递",
+      "url": "https://roco.qq.com/webplat/info/news_version3/397/838/839/840/m682/202609/991453.shtml",
+      "recordedAt": "2026-10-23T16:07:56.894Z",
+      "publishedAt": null,
+      "locator": "三、本周告示；赛季结算及费用、兑换商城变动在相应小节",
+      "sha256": "7d88c81a59ec9e88cb98250a1de5e2d020033d910d8212083030e54d3b9e2cac",
+      "note": "哈希对应提取后的 Markdown 正文；记录日期为公告面向的更新批次，不自动推断整周生效区间或精确切换时间。"
+    },
+    {
+      "id": "notice-2026-10-09",
+      "kind": "official-notice",
+      "title": "洛克王国10月9日更新速递",
+      "url": "https://roco.qq.com/webplat/info/news_version3/397/838/839/840/m682/202609/991771.shtml",
+      "recordedAt": "2026-10-23T16:07:57.244Z",
+      "publishedAt": null,
+      "locator": "三、本周告示；赛季结算及费用、兑换商城变动在相应小节",
+      "sha256": "905ca78f53b33f12b59fbb1bd9a01ca06f7cd389666fe40e8175e1429596f2fc",
+      "note": "哈希对应提取后的 Markdown 正文；记录日期为公告面向的更新批次，不自动推断整周生效区间或精确切换时间。"
+    },
+    {
+      "id": "notice-2026-10-16",
+      "kind": "official-notice",
+      "title": "洛克王国10月16日更新速递",
+      "url": "https://roco.qq.com/webplat/info/news_version3/397/838/839/840/m682/202610/992075.shtml",
+      "recordedAt": "2026-10-23T16:07:57.635Z",
+      "publishedAt": null,
+      "locator": "三、本周告示；赛季结算及费用、兑换商城变动在相应小节",
+      "sha256": "8a06f16be80a85f8b299abd288ea20c0d57321417e2b3279f676898c11a3b91d",
+      "note": "哈希对应提取后的 Markdown 正文；记录日期为公告面向的更新批次，不自动推断整周生效区间或精确切换时间。"
+    },
+    {
+      "id": "notice-2026-10-23",
+      "kind": "official-notice",
+      "title": "洛克王国10月23日更新速递",
+      "url": "https://roco.qq.com/webplat/info/news_version3/397/838/839/840/m682/202610/992292.shtml",
+      "recordedAt": "2026-10-23T16:07:57.665Z",
+      "publishedAt": null,
+      "locator": "三、本周告示；赛季结算及费用、兑换商城变动在相应小节",
+      "sha256": "2a9e1db843fd099487d8dd7948e93da9cc6b0c47851ab066c13e9eac0e330e4e",
+      "note": "哈希对应提取后的 Markdown 正文；记录日期为公告面向的更新批次，不自动推断整周生效区间或精确切换时间。"
+    }
+  ],
+  "seasons": [
+    {
+      "number": 1,
+      "startDate": null,
+      "startSourceId": null,
+      "settlementDate": null,
+      "settlementSourceId": null,
+      "petRewards": [
+        {
+          "petId": 1821,
+          "name": "教练猿",
+          "requirement": null,
+          "sourceText": "天梯赛第一赛季奖励",
+          "sourceId": "pet-config-d25931420b28"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "number": 2,
+      "startDate": null,
+      "startSourceId": null,
+      "settlementDate": null,
+      "settlementSourceId": null,
+      "petRewards": [
+        {
+          "petId": 1876,
+          "name": "助手兔",
+          "requirement": null,
+          "sourceText": "天梯赛第二赛季奖励",
+          "sourceId": "pet-config-d25931420b28"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "number": 3,
+      "startDate": null,
+      "startSourceId": null,
+      "settlementDate": null,
+      "settlementSourceId": null,
+      "petRewards": [
+        {
+          "petId": 1920,
+          "name": "迷之小丑",
+          "requirement": null,
+          "sourceText": "第三届天梯赛奖励",
+          "sourceId": "pet-config-d25931420b28"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "number": 4,
+      "startDate": null,
+      "startSourceId": null,
+      "settlementDate": null,
+      "settlementSourceId": null,
+      "petRewards": [
+        {
+          "petId": 1977,
+          "name": "猴赛雷",
+          "requirement": null,
+          "sourceText": "天梯赛第四赛季奖励",
+          "sourceId": "pet-config-d25931420b28"
+        },
+        {
+          "petId": 2007,
+          "name": "炼狱使者",
+          "requirement": null,
+          "sourceText": "第四赛季天梯赛获得",
+          "sourceId": "pet-config-d25931420b28"
+        }
+      ],
+      "notes": [
+        "同份官方图鉴将多只宠物与本届关联；此处保留各自原文，不推断领取形式或段位要求相同。"
+      ]
+    },
+    {
+      "number": 5,
+      "startDate": null,
+      "startSourceId": null,
+      "settlementDate": null,
+      "settlementSourceId": null,
+      "petRewards": [
+        {
+          "petId": 2006,
+          "name": "乐谣女神",
+          "requirement": null,
+          "sourceText": "天梯赛第五赛季奖励",
+          "sourceId": "pet-config-d25931420b28"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "number": 6,
+      "startDate": null,
+      "startSourceId": null,
+      "settlementDate": null,
+      "settlementSourceId": null,
+      "petRewards": [
+        {
+          "petId": 2093,
+          "name": "美杜莎",
+          "requirement": null,
+          "sourceText": "天梯赛第六赛季奖励",
+          "sourceId": "pet-config-d25931420b28"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "number": 10,
+      "startDate": null,
+      "startSourceId": null,
+      "settlementDate": null,
+      "settlementSourceId": null,
+      "petRewards": [
+        {
+          "petId": 2347,
+          "name": "摄梦甜心",
+          "requirement": null,
+          "sourceText": "参与天梯赛第十届获得",
+          "sourceId": "pet-config-d25931420b28"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "number": 11,
+      "startDate": null,
+      "startSourceId": null,
+      "settlementDate": null,
+      "settlementSourceId": null,
+      "petRewards": [
+        {
+          "petId": 2380,
+          "name": "德鲁伊风灵",
+          "requirement": null,
+          "sourceText": "参加天梯赛第十一届获得",
+          "sourceId": "pet-config-d25931420b28"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "number": 12,
+      "startDate": null,
+      "startSourceId": null,
+      "settlementDate": null,
+      "settlementSourceId": null,
+      "petRewards": [
+        {
+          "petId": 2421,
+          "name": "紫楹茉儿",
+          "requirement": "高级段位",
+          "sourceText": "12届天梯赛高级段位奖励",
+          "sourceId": "pet-config-d25931420b28"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "number": 13,
+      "startDate": null,
+      "startSourceId": null,
+      "settlementDate": null,
+      "settlementSourceId": null,
+      "petRewards": [
+        {
+          "petId": 2444,
+          "name": "千泷",
+          "requirement": "高级段位",
+          "sourceText": "13届天梯赛高级段位宠物奖励。",
+          "sourceId": "pet-config-d25931420b28"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "number": 14,
+      "startDate": null,
+      "startSourceId": null,
+      "settlementDate": null,
+      "settlementSourceId": null,
+      "petRewards": [
+        {
+          "petId": 2547,
+          "name": "风暴巫医",
+          "requirement": "高级及以上",
+          "sourceText": "第十四届天梯赛结算高级及以上奖励获得",
+          "sourceId": "pet-config-d25931420b28"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "number": 15,
+      "startDate": null,
+      "startSourceId": null,
+      "settlementDate": null,
+      "settlementSourceId": null,
+      "petRewards": [
+        {
+          "petId": 2538,
+          "name": "菲伏汀",
+          "requirement": "高级及以上",
+          "sourceText": "第十五届天梯赛结算高级及以上奖励获得",
+          "sourceId": "pet-config-d25931420b28"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "number": 17,
+      "startDate": null,
+      "startSourceId": null,
+      "settlementDate": null,
+      "settlementSourceId": null,
+      "petRewards": [
+        {
+          "petId": 2698,
+          "name": "赛吉特瑞",
+          "requirement": null,
+          "sourceText": "参与“十七届天梯赛结算”活动获得",
+          "sourceId": "pet-config-d25931420b28"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "number": 18,
+      "startDate": null,
+      "startSourceId": null,
+      "settlementDate": null,
+      "settlementSourceId": null,
+      "petRewards": [
+        {
+          "petId": 2628,
+          "name": "伊冥",
+          "requirement": "高级及以上段位",
+          "sourceText": "第18届天梯赛高级及以上段位奖励",
+          "sourceId": "pet-config-d25931420b28"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "number": 20,
+      "startDate": null,
+      "startSourceId": null,
+      "settlementDate": null,
+      "settlementSourceId": null,
+      "petRewards": [
+        {
+          "petId": 2809,
+          "name": "金翼瑟卡特",
+          "requirement": "高级及以上段位",
+          "sourceText": "参与“第20届天梯赛高级及以上段位奖励”活动获得",
+          "sourceId": "pet-config-d25931420b28"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "number": 21,
+      "startDate": null,
+      "startSourceId": null,
+      "settlementDate": null,
+      "settlementSourceId": null,
+      "petRewards": [
+        {
+          "petId": 2817,
+          "name": "雷嘉",
+          "requirement": "高级及以上段位",
+          "sourceText": "参与“第21届天梯赛高级及以上段位奖励”活动获得",
+          "sourceId": "pet-config-d25931420b28"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "number": 22,
+      "startDate": null,
+      "startSourceId": null,
+      "settlementDate": null,
+      "settlementSourceId": null,
+      "petRewards": [
+        {
+          "petId": 2818,
+          "name": "岩亚之子",
+          "requirement": "高级及以上段位",
+          "sourceText": "参与“第22届天梯赛高级及以上段位奖励”活动获得",
+          "sourceId": "pet-config-d25931420b28"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "number": 23,
+      "startDate": null,
+      "startSourceId": null,
+      "settlementDate": null,
+      "settlementSourceId": null,
+      "petRewards": [
+        {
+          "petId": 2953,
+          "name": "武可儿",
+          "requirement": "高级及以上段位",
+          "sourceText": "参与“第23届天梯赛高级及以上段位奖励”活动获得",
+          "sourceId": "pet-config-d25931420b28"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "number": 24,
+      "startDate": null,
+      "startSourceId": null,
+      "settlementDate": null,
+      "settlementSourceId": null,
+      "petRewards": [
+        {
+          "petId": 3003,
+          "name": "元瑞",
+          "requirement": "高级及以上段位",
+          "sourceText": "参与“第24届天梯赛高级及以上段位奖励”活动获得",
+          "sourceId": "pet-config-d25931420b28"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "number": 25,
+      "startDate": null,
+      "startSourceId": null,
+      "settlementDate": null,
+      "settlementSourceId": null,
+      "petRewards": [
+        {
+          "petId": 3028,
+          "name": "普瑟斯",
+          "requirement": "高级及以上段位",
+          "sourceText": "参与“第25届天梯赛高级及以上段位奖励”活动获得",
+          "sourceId": "pet-config-d25931420b28"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "number": 26,
+      "startDate": null,
+      "startSourceId": null,
+      "settlementDate": null,
+      "settlementSourceId": null,
+      "petRewards": [
+        {
+          "petId": 3044,
+          "name": "蒂洛洛",
+          "requirement": "高级及以上段位",
+          "sourceText": "参与“第26届天梯赛高级及以上段位奖励”活动获得",
+          "sourceId": "pet-config-d25931420b28"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "number": 27,
+      "startDate": null,
+      "startSourceId": null,
+      "settlementDate": null,
+      "settlementSourceId": null,
+      "petRewards": [
+        {
+          "petId": 3072,
+          "name": "迅刃疾枪",
+          "requirement": "高级及以上段位",
+          "sourceText": "参与“第27届天梯赛高级及以上段位奖励”活动获得",
+          "sourceId": "pet-config-d25931420b28"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "number": 28,
+      "startDate": null,
+      "startSourceId": null,
+      "settlementDate": null,
+      "settlementSourceId": null,
+      "petRewards": [
+        {
+          "petId": 3109,
+          "name": "娑儿",
+          "requirement": "高级及以上段位",
+          "sourceText": "参与“第28届天梯赛高级及以上段位奖励”活动获得",
+          "sourceId": "pet-config-d25931420b28"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "number": 29,
+      "startDate": null,
+      "startSourceId": null,
+      "settlementDate": null,
+      "settlementSourceId": null,
+      "petRewards": [
+        {
+          "petId": 3115,
+          "name": "曼媞丝",
+          "requirement": "高级及以上段位",
+          "sourceText": "参与“第29届天梯赛高级及以上段位奖励”活动获得",
+          "sourceId": "pet-config-d25931420b28"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "number": 30,
+      "startDate": null,
+      "startSourceId": null,
+      "settlementDate": null,
+      "settlementSourceId": null,
+      "petRewards": [
+        {
+          "petId": 3144,
+          "name": "霆霓",
+          "requirement": "高级及以上段位",
+          "sourceText": "参与“第30届天梯赛高级及以上段位奖励”活动获得",
+          "sourceId": "pet-config-d25931420b28"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "number": 31,
+      "startDate": null,
+      "startSourceId": null,
+      "settlementDate": null,
+      "settlementSourceId": null,
+      "petRewards": [
+        {
+          "petId": 3166,
+          "name": "蜃海齿鲨",
+          "requirement": "高级及以上段位",
+          "sourceText": "参与“第31届天梯赛高级及以上段位奖励”活动获得",
+          "sourceId": "pet-config-d25931420b28"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "number": 32,
+      "startDate": null,
+      "startSourceId": null,
+      "settlementDate": null,
+      "settlementSourceId": null,
+      "petRewards": [
+        {
+          "petId": 3195,
+          "name": "形影宝戒",
+          "requirement": "高级及以上段位",
+          "sourceText": "参与“第32届天梯赛高级及以上段位奖励”活动获得",
+          "sourceId": "pet-config-d25931420b28"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "number": 33,
+      "startDate": null,
+      "startSourceId": null,
+      "settlementDate": null,
+      "settlementSourceId": null,
+      "petRewards": [
+        {
+          "petId": 3205,
+          "name": "巨盾铠犰",
+          "requirement": "高级及以上段位",
+          "sourceText": "参与“第33届天梯赛高级及以上段位奖励”活动获得",
+          "sourceId": "pet-config-d25931420b28"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "number": 34,
+      "startDate": null,
+      "startSourceId": null,
+      "settlementDate": null,
+      "settlementSourceId": null,
+      "petRewards": [
+        {
+          "petId": 3238,
+          "name": "赤翼牦牛",
+          "requirement": "高级及以上段位",
+          "sourceText": "参与“第34届天梯赛高级及以上段位奖励”活动获得",
+          "sourceId": "pet-config-d25931420b28"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "number": 35,
+      "startDate": null,
+      "startSourceId": null,
+      "settlementDate": null,
+      "settlementSourceId": null,
+      "petRewards": [
+        {
+          "petId": 3260,
+          "name": "玄光锦瑶",
+          "requirement": "高级及以上段位",
+          "sourceText": "参与“第35届天梯赛高级及以上段位奖励”活动获得",
+          "sourceId": "pet-config-d25931420b28"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "number": 36,
+      "startDate": null,
+      "startSourceId": null,
+      "settlementDate": null,
+      "settlementSourceId": null,
+      "petRewards": [
+        {
+          "petId": 3277,
+          "name": "螣岚",
+          "requirement": "高级及以上段位",
+          "sourceText": "参与“第36届天梯赛高级及以上段位奖励”活动获得",
+          "sourceId": "pet-config-d25931420b28"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "number": 37,
+      "startDate": null,
+      "startSourceId": null,
+      "settlementDate": null,
+      "settlementSourceId": null,
+      "petRewards": [
+        {
+          "petId": 3302,
+          "name": "冰溟魔魟",
+          "requirement": "高级及以上段位",
+          "sourceText": "参与“第37届天梯赛高级及以上段位奖励”活动获得",
+          "sourceId": "pet-config-d25931420b28"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "number": 38,
+      "startDate": null,
+      "startSourceId": null,
+      "settlementDate": null,
+      "settlementSourceId": null,
+      "petRewards": [
+        {
+          "petId": 3332,
+          "name": "独角金颀",
+          "requirement": "高级及以上段位",
+          "sourceText": "参与“第38届天梯赛高级及以上段位奖励”活动获得",
+          "sourceId": "pet-config-d25931420b28"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "number": 39,
+      "startDate": null,
+      "startSourceId": null,
+      "settlementDate": "2025-12-12",
+      "settlementSourceId": "notice-2025-12-12",
+      "petRewards": [
+        {
+          "petId": 3355,
+          "name": "瑟雷纳斯",
+          "requirement": "高级及以上段位",
+          "sourceText": "参与“第39届天梯赛高级及以上段位奖励”活动获得",
+          "sourceId": "pet-config-d25931420b28"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "number": 40,
+      "startDate": null,
+      "startSourceId": null,
+      "settlementDate": "2026-03-13",
+      "settlementSourceId": "notice-2026-03-13",
+      "petRewards": [
+        {
+          "petId": 3374,
+          "name": "拂影游侠",
+          "requirement": "高级及以上段位",
+          "sourceText": "参与“第40届天梯赛高级及以上段位奖励”活动获得",
+          "sourceId": "pet-config-d25931420b28"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "number": 41,
+      "startDate": null,
+      "startSourceId": null,
+      "settlementDate": "2026-06-12",
+      "settlementSourceId": "notice-2026-06-12",
+      "petRewards": [
+        {
+          "petId": 3400,
+          "name": "大鼻子叮咚",
+          "requirement": "高级及以上段位",
+          "sourceText": "参与“第41届天梯赛高级及以上段位奖励”活动获得",
+          "sourceId": "pet-config-d25931420b28"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "number": 42,
+      "startDate": null,
+      "startSourceId": null,
+      "settlementDate": "2026-09-11",
+      "settlementSourceId": "notice-2026-09-11",
+      "petRewards": [
+        {
+          "petId": 3432,
+          "name": "姝绒",
+          "requirement": "高级及以上段位",
+          "sourceText": "第四十二届天梯赛高级及以上段位奖励",
+          "sourceId": "pet-config-d25931420b28"
+        }
+      ],
+      "notes": []
+    }
+  ],
+  "notices": [
+    {
+      "id": "ladder-2025-10-24",
+      "mode": "ladder",
+      "date": "2025-10-24",
+      "sourceId": "notice-2025-10-24",
+      "bannedPetNames": [
+        "战钺蟠龙",
+        "伊瑟拉",
+        "诺格佩勒",
+        "云举瑶鹿",
+        "钧霆奥德诺",
+        "弥迹辛西娅",
+        "艾莉丝贝斯",
+        "乾坤武圣"
+      ]
+    },
+    {
+      "id": "ladder-2025-10-31",
+      "mode": "ladder",
+      "date": "2025-10-31",
+      "sourceId": "notice-2025-10-31",
+      "bannedPetNames": [
+        "柴可司机",
+        "普之舜舜",
+        "立春",
+        "圣灵草王",
+        "赛施尔",
+        "破晓凯瑞尔",
+        "禁之舜舜",
+        "桃夭",
+        "翡翠皇后",
+        "琴澜鸣鹤",
+        "赛诺拉斯",
+        "爱丽赛亚"
+      ]
+    },
+    {
+      "id": "ladder-2025-11-07",
+      "mode": "ladder",
+      "date": "2025-11-07",
+      "sourceId": "notice-2025-11-07",
+      "bannedPetNames": [
+        "伊瑟拉",
+        "美狄亚",
+        "琴澜鸣鹤",
+        "螣岚",
+        "希柯莉",
+        "华魇萌少",
+        "织魇帅帅",
+        "独角金颀"
+      ]
+    },
+    {
+      "id": "ladder-2025-11-14",
+      "mode": "ladder",
+      "date": "2025-11-14",
+      "sourceId": "notice-2025-11-14",
+      "bannedPetNames": [
+        "朝曦冰夕",
+        "圣萌王者",
+        "诺格佩勒",
+        "寂夜魔王",
+        "巴哈姆特",
+        "伊西希斯",
+        "弥迹辛西娅",
+        "乾坤武圣"
+      ]
+    },
+    {
+      "id": "ladder-2025-11-21",
+      "mode": "ladder",
+      "date": "2025-11-21",
+      "sourceId": "notice-2025-11-21",
+      "bannedPetNames": [
+        "柴可司机",
+        "普之舜舜",
+        "立春",
+        "禁之舜舜",
+        "伊瑟拉",
+        "桃夭",
+        "阿努拉尼",
+        "云举瑶鹿",
+        "海芙约忒",
+        "砾尊狂狮",
+        "华魇萌少",
+        "爱丽赛亚"
+      ]
+    },
+    {
+      "id": "ladder-2025-11-28",
+      "mode": "ladder",
+      "date": "2025-11-28",
+      "sourceId": "notice-2025-11-28",
+      "bannedPetNames": [
+        "朝曦冰夕",
+        "圣灵草王",
+        "圣湮伊莱娜",
+        "美狄亚",
+        "琴澜鸣鹤",
+        "螣岚",
+        "织魇帅帅",
+        "墨菲斯"
+      ]
+    },
+    {
+      "id": "type-2025-11-28",
+      "mode": "type",
+      "date": "2025-11-28",
+      "sourceId": "notice-2025-11-28",
+      "bannedPetNames": [
+        "乾镜双凤",
+        "煌明火王",
+        "炜煌雷诺",
+        "圣灵草王",
+        "硕果格兰",
+        "驭萝侠兔",
+        "伊西希斯",
+        "冰溟魔魟"
+      ],
+      "allowedTypes": [
+        "火",
+        "草",
+        "冰"
+      ]
+    },
+    {
+      "id": "type-2025-12-02",
+      "mode": "type",
+      "date": "2025-12-02",
+      "sourceId": "notice-2025-11-28",
+      "bannedPetNames": [
+        "破启幽王",
+        "冥铠战士",
+        "幻鸩毒王",
+        "如意毒王",
+        "美狄亚",
+        "西圣兽白鄂",
+        "元夕白鄂",
+        "舞蝶艾艾"
+      ],
+      "allowedTypes": [
+        "幽灵",
+        "毒",
+        "虫"
+      ]
+    },
+    {
+      "id": "ladder-2025-12-05",
+      "mode": "ladder",
+      "date": "2025-12-05",
+      "sourceId": "notice-2025-12-05",
+      "bannedPetNames": [
+        "赛施尔",
+        "云举瑶鹿",
+        "翡翠皇后",
+        "巴哈姆特",
+        "弥迹辛西娅",
+        "艾莉丝贝斯"
+      ]
+    },
+    {
+      "id": "ladder-2025-12-12",
+      "mode": "ladder",
+      "date": "2025-12-12",
+      "sourceId": "notice-2025-12-12",
+      "bannedPetNames": [
+        "乾镜双凤",
+        "柴可司机",
+        "普之舜舜",
+        "立春",
+        "破晓凯瑞尔",
+        "禁之舜舜",
+        "寂夜魔王",
+        "桃夭",
+        "希柯莉",
+        "赛诺拉斯",
+        "乾坤武圣",
+        "爱丽赛亚"
+      ]
+    },
+    {
+      "id": "ladder-2025-12-19",
+      "mode": "ladder",
+      "date": "2025-12-19",
+      "sourceId": "notice-2025-12-19",
+      "bannedPetNames": [
+        "伊瑟拉",
+        "美狄亚",
+        "诺格佩勒",
+        "海芙约忒",
+        "砾尊狂狮",
+        "琴澜鸣鹤",
+        "华魇萌少",
+        "织魇帅帅"
+      ]
+    },
+    {
+      "id": "ladder-2025-12-26",
+      "mode": "ladder",
+      "date": "2025-12-26",
+      "sourceId": "notice-2025-12-26",
+      "bannedPetNames": [
+        "圣灵草王",
+        "阿努拉尼",
+        "巴哈姆特",
+        "钧霆奥德诺",
+        "安麦伦",
+        "弥迹辛西娅",
+        "螣岚",
+        "协律迪莫"
+      ]
+    },
+    {
+      "id": "ladder-2026-01-02",
+      "mode": "ladder",
+      "date": "2026-01-02",
+      "sourceId": "notice-2026-01-02",
+      "bannedPetNames": [
+        "圣灵草王",
+        "阿努拉尼",
+        "巴哈姆特",
+        "钧霆奥德诺",
+        "安麦伦",
+        "弥迹辛西娅",
+        "螣岚",
+        "协律迪莫"
+      ]
+    },
+    {
+      "id": "ladder-2026-01-09",
+      "mode": "ladder",
+      "date": "2026-01-09",
+      "sourceId": "notice-2026-01-09",
+      "bannedPetNames": [
+        "柴可司机",
+        "普之舜舜",
+        "立春",
+        "踏云蹦影",
+        "禁之舜舜",
+        "桃夭",
+        "云举瑶鹿",
+        "琴澜鸣鹤",
+        "华魇萌少",
+        "织魇帅帅",
+        "赛诺拉斯",
+        "爱丽赛亚"
+      ]
+    },
+    {
+      "id": "ladder-2026-01-16",
+      "mode": "ladder",
+      "date": "2026-01-16",
+      "sourceId": "notice-2026-01-16",
+      "bannedPetNames": [
+        "破晓凯瑞尔",
+        "美狄亚",
+        "海芙约忒",
+        "螣岚",
+        "希柯莉",
+        "艾莉丝贝斯",
+        "乾坤武圣",
+        "幻梦天使"
+      ]
+    },
+    {
+      "id": "ladder-2026-01-23",
+      "mode": "ladder",
+      "date": "2026-01-23",
+      "sourceId": "notice-2026-01-23",
+      "bannedPetNames": [
+        "圣灵草王",
+        "晨曦凯露儿",
+        "伊瑟拉",
+        "煌明火王",
+        "寂夜魔王",
+        "砾尊狂狮",
+        "伊西希斯",
+        "弥迹辛西娅"
+      ]
+    },
+    {
+      "id": "ladder-2026-01-30",
+      "mode": "ladder",
+      "date": "2026-01-30",
+      "sourceId": "notice-2026-01-30",
+      "bannedPetNames": [
+        "柴可司机",
+        "普之舜舜",
+        "立春",
+        "禁之舜舜",
+        "诺格佩勒",
+        "桃夭",
+        "阿努拉尼",
+        "圣裁战龙王",
+        "巴哈姆特",
+        "琴澜鸣鹤",
+        "爱丽赛亚",
+        "独角金颀"
+      ]
+    },
+    {
+      "id": "ladder-2026-02-06",
+      "mode": "ladder",
+      "date": "2026-02-06",
+      "sourceId": "notice-2026-02-06",
+      "bannedPetNames": [
+        "踏云蹦影",
+        "美狄亚",
+        "云举瑶鹿",
+        "海芙约忒",
+        "螣岚",
+        "华魇萌少",
+        "织魇帅帅",
+        "乾坤武圣"
+      ]
+    },
+    {
+      "id": "ladder-2026-02-13",
+      "mode": "ladder",
+      "date": "2026-02-13",
+      "sourceId": "notice-2026-02-13",
+      "bannedPetNames": []
+    },
+    {
+      "id": "ladder-2026-02-20",
+      "mode": "ladder",
+      "date": "2026-02-20",
+      "sourceId": "notice-2026-02-20",
+      "bannedPetNames": []
+    },
+    {
+      "id": "ladder-2026-02-27",
+      "mode": "ladder",
+      "date": "2026-02-27",
+      "sourceId": "notice-2026-02-27",
+      "bannedPetNames": [
+        "乾镜双凤",
+        "柴可司机",
+        "普之舜舜",
+        "立春",
+        "禁之舜舜",
+        "寂夜魔王",
+        "桃夭",
+        "希柯莉",
+        "赛诺拉斯",
+        "瑟雷纳斯"
+      ]
+    },
+    {
+      "id": "ladder-2026-03-06",
+      "mode": "ladder",
+      "date": "2026-03-06",
+      "sourceId": "notice-2026-03-06",
+      "bannedPetNames": [
+        "圣灵草王",
+        "破晓凯瑞尔",
+        "阿努拉尼",
+        "海芙约忒",
+        "琴澜鸣鹤",
+        "华魇萌少",
+        "乾坤武圣",
+        "爱丽赛亚"
+      ]
+    },
+    {
+      "id": "ladder-2026-03-13",
+      "mode": "ladder",
+      "date": "2026-03-13",
+      "sourceId": "notice-2026-03-13",
+      "bannedPetNames": [
+        "朝曦冰夕",
+        "踏云蹦影",
+        "美狄亚",
+        "云举瑶鹿",
+        "螣岚",
+        "织魇帅帅",
+        "协律迪莫",
+        "墨菲斯"
+      ]
+    },
+    {
+      "id": "ladder-2026-03-20",
+      "mode": "ladder",
+      "date": "2026-03-20",
+      "sourceId": "notice-2026-03-20",
+      "bannedPetNames": [
+        "柴可司机",
+        "普之舜舜",
+        "立春",
+        "禁之舜舜",
+        "伊瑟拉",
+        "寂夜魔王",
+        "桃夭",
+        "伊西希斯",
+        "弥迹辛西娅",
+        "艾莉丝贝斯",
+        "幻梦天使",
+        "塞勒姆"
+      ]
+    },
+    {
+      "id": "ladder-2026-03-27",
+      "mode": "ladder",
+      "date": "2026-03-27",
+      "sourceId": "notice-2026-03-27",
+      "bannedPetNames": [
+        "巴哈姆特",
+        "安麦伦",
+        "琴澜鸣鹤",
+        "华魇萌少",
+        "赛诺拉斯",
+        "爱丽赛亚"
+      ]
+    },
+    {
+      "id": "ladder-2026-04-03",
+      "mode": "ladder",
+      "date": "2026-04-03",
+      "sourceId": "notice-2026-04-03",
+      "bannedPetNames": [
+        "圣灵草王",
+        "破晓凯瑞尔",
+        "美狄亚",
+        "煌明火王",
+        "阿努拉尼",
+        "钧霆奥德诺",
+        "螣岚",
+        "赑瑞玄龟"
+      ]
+    },
+    {
+      "id": "ladder-2026-04-10",
+      "mode": "ladder",
+      "date": "2026-04-10",
+      "sourceId": "notice-2026-04-10",
+      "bannedPetNames": [
+        "翡翠皇后",
+        "希柯莉",
+        "织魇帅帅",
+        "艾莉丝贝斯",
+        "协律迪莫",
+        "瑟雷纳斯",
+        "塞勒姆",
+        "拂影游侠"
+      ]
+    },
+    {
+      "id": "ladder-2026-04-17",
+      "mode": "ladder",
+      "date": "2026-04-17",
+      "sourceId": "notice-2026-04-17",
+      "bannedPetNames": [
+        "柴可司机",
+        "普之舜舜",
+        "立春",
+        "踏云蹦影",
+        "禁之舜舜",
+        "桃夭",
+        "海芙约忒",
+        "弥迹辛西娅",
+        "琴澜鸣鹤",
+        "华魇萌少",
+        "乾坤武圣",
+        "爱丽赛亚"
+      ]
+    },
+    {
+      "id": "ladder-2026-04-24",
+      "mode": "ladder",
+      "date": "2026-04-24",
+      "sourceId": "notice-2026-04-24",
+      "bannedPetNames": [
+        "煌明火王",
+        "寂夜魔王",
+        "巴哈姆特",
+        "伊西希斯",
+        "螣岚",
+        "赛诺拉斯"
+      ]
+    },
+    {
+      "id": "ladder-2026-05-01",
+      "mode": "ladder",
+      "date": "2026-05-01",
+      "sourceId": "notice-2026-05-01",
+      "bannedPetNames": [
+        "圣灵草王",
+        "破晓凯瑞尔",
+        "战钺蟠龙",
+        "圣裁战龙王",
+        "织魇帅帅",
+        "塞勒姆"
+      ]
+    },
+    {
+      "id": "ladder-2026-05-08",
+      "mode": "ladder",
+      "date": "2026-05-08",
+      "sourceId": "notice-2026-05-08",
+      "bannedPetNames": [
+        "美狄亚",
+        "阿努拉尼",
+        "琴澜鸣鹤",
+        "雾影灵仙",
+        "艾莉丝贝斯",
+        "爱丽赛亚",
+        "瑟雷纳斯",
+        "赑瑞玄龟"
+      ]
+    },
+    {
+      "id": "ladder-2026-05-15",
+      "mode": "ladder",
+      "date": "2026-05-15",
+      "sourceId": "notice-2026-05-15",
+      "bannedPetNames": [
+        "伊瑟拉",
+        "煌明火王",
+        "诺格佩勒",
+        "伊西希斯",
+        "安麦伦",
+        "弥迹辛西娅",
+        "螣岚",
+        "华魇萌少"
+      ]
+    },
+    {
+      "id": "ladder-2026-05-22",
+      "mode": "ladder",
+      "date": "2026-05-22",
+      "sourceId": "notice-2026-05-22",
+      "bannedPetNames": [
+        "圣灵草王",
+        "美狄亚",
+        "寂夜魔王",
+        "海芙约忒",
+        "钧霆奥德诺",
+        "乾坤武圣",
+        "塞勒姆",
+        "泷景"
+      ]
+    },
+    {
+      "id": "ladder-2026-05-29",
+      "mode": "ladder",
+      "date": "2026-05-29",
+      "sourceId": "notice-2026-05-29",
+      "bannedPetNames": [
+        "柴可司机",
+        "普之舜舜",
+        "立春",
+        "破晓凯瑞尔",
+        "禁之舜舜",
+        "桃夭",
+        "翡翠皇后",
+        "巴哈姆特",
+        "琴澜鸣鹤",
+        "织魇帅帅",
+        "赛诺拉斯",
+        "瑟雷纳斯"
+      ]
+    },
+    {
+      "id": "ladder-2026-06-05",
+      "mode": "ladder",
+      "date": "2026-06-05",
+      "sourceId": "notice-2026-06-05",
+      "bannedPetNames": [
+        "踏云蹦影",
+        "弥迹辛西娅",
+        "华魇萌少",
+        "艾莉丝贝斯",
+        "爱丽赛亚",
+        "赑瑞玄龟"
+      ]
+    },
+    {
+      "id": "ladder-2026-06-12",
+      "mode": "ladder",
+      "date": "2026-06-12",
+      "sourceId": "notice-2026-06-12",
+      "bannedPetNames": [
+        "美狄亚",
+        "煌明火王",
+        "寂夜魔王",
+        "阿努拉尼",
+        "云举瑶鹿",
+        "塞勒姆"
+      ]
+    },
+    {
+      "id": "ladder-2026-06-19",
+      "mode": "ladder",
+      "date": "2026-06-19",
+      "sourceId": "notice-2026-06-19",
+      "bannedPetNames": [
+        "柴可司机",
+        "普之舜舜",
+        "立春",
+        "禁之舜舜",
+        "伊瑟拉",
+        "诺格佩勒",
+        "桃夭",
+        "伊西希斯",
+        "琴澜鸣鹤",
+        "螣岚",
+        "织魇帅帅",
+        "乾坤武圣"
+      ]
+    },
+    {
+      "id": "ladder-2026-06-26",
+      "mode": "ladder",
+      "date": "2026-06-26",
+      "sourceId": "notice-2026-06-26",
+      "bannedPetNames": [
+        "圣灵草王",
+        "破晓凯瑞尔",
+        "翡翠皇后",
+        "钧霆奥德诺",
+        "弥迹辛西娅",
+        "华魇萌少",
+        "爱丽赛亚",
+        "瑟雷纳斯"
+      ]
+    },
+    {
+      "id": "ladder-2026-07-03",
+      "mode": "ladder",
+      "date": "2026-07-03",
+      "sourceId": "notice-2026-07-03",
+      "bannedPetNames": [
+        "圣湮伊莱娜",
+        "阿努拉尼",
+        "海芙约忒",
+        "安麦伦",
+        "艾莉丝贝斯",
+        "赑瑞玄龟"
+      ]
+    },
+    {
+      "id": "ladder-2026-07-10",
+      "mode": "ladder",
+      "date": "2026-07-10",
+      "sourceId": "notice-2026-07-10",
+      "bannedPetNames": [
+        "圣灵草王",
+        "美狄亚",
+        "圣裁战龙王",
+        "织魇帅帅",
+        "塞勒姆",
+        "泷景"
+      ]
+    },
+    {
+      "id": "ladder-2026-07-17",
+      "mode": "ladder",
+      "date": "2026-07-17",
+      "sourceId": "notice-2026-07-17",
+      "bannedPetNames": [
+        "伊瑟拉",
+        "云举瑶鹿",
+        "巴哈姆特",
+        "伊西希斯",
+        "琴澜鸣鹤",
+        "螣岚",
+        "华魇萌少",
+        "爱丽赛亚"
+      ]
+    },
+    {
+      "id": "ladder-2026-07-24",
+      "mode": "ladder",
+      "date": "2026-07-24",
+      "sourceId": "notice-2026-07-24",
+      "bannedPetNames": [
+        "破晓凯瑞尔",
+        "寂夜魔王",
+        "阿努拉尼",
+        "钧霆奥德诺",
+        "弥迹辛西娅",
+        "艾莉丝贝斯",
+        "乾坤武圣",
+        "瑟雷纳斯"
+      ]
+    },
+    {
+      "id": "ladder-2026-07-31",
+      "mode": "ladder",
+      "date": "2026-07-31",
+      "sourceId": "notice-2026-07-31",
+      "bannedPetNames": [
+        "柴可司机",
+        "普之舜舜",
+        "立春",
+        "圣灵草王",
+        "禁之舜舜",
+        "桃夭",
+        "海芙约忒",
+        "砾尊狂狮",
+        "希柯莉",
+        "赛诺拉斯",
+        "赑瑞玄龟",
+        "塞勒姆"
+      ]
+    },
+    {
+      "id": "ladder-2026-08-07",
+      "mode": "ladder",
+      "date": "2026-08-07",
+      "sourceId": "notice-2026-08-07",
+      "bannedPetNames": [
+        "破晓凯瑞尔",
+        "煌明火王",
+        "诺格佩勒",
+        "云举瑶鹿",
+        "螣岚",
+        "织魇帅帅",
+        "爱丽赛亚",
+        "泷景"
+      ]
+    },
+    {
+      "id": "ladder-2026-08-14",
+      "mode": "ladder",
+      "date": "2026-08-14",
+      "sourceId": "notice-2026-08-14",
+      "bannedPetNames": [
+        "寂夜魔王",
+        "弥迹辛西娅",
+        "琴澜鸣鹤",
+        "华魇萌少",
+        "艾莉丝贝斯",
+        "艾克斯菲特"
+      ]
+    },
+    {
+      "id": "ladder-2026-08-21",
+      "mode": "ladder",
+      "date": "2026-08-21",
+      "sourceId": "notice-2026-08-21",
+      "bannedPetNames": [
+        "圣灵草王",
+        "美狄亚",
+        "钧霆奥德诺",
+        "赑瑞玄龟",
+        "塞勒姆",
+        "厄影潘多拉"
+      ]
+    },
+    {
+      "id": "ladder-2026-08-28",
+      "mode": "ladder",
+      "date": "2026-08-28",
+      "sourceId": "notice-2026-08-28",
+      "bannedPetNames": [
+        "柴可司机",
+        "普之舜舜",
+        "立春",
+        "禁之舜舜",
+        "诺格佩勒",
+        "寂夜魔王",
+        "桃夭",
+        "海芙约忒",
+        "伊西希斯",
+        "赤翼牦牛",
+        "织魇帅帅",
+        "乾坤武圣"
+      ]
+    },
+    {
+      "id": "ladder-2026-09-04",
+      "mode": "ladder",
+      "date": "2026-09-04",
+      "sourceId": "notice-2026-09-04",
+      "bannedPetNames": [
+        "煌明火王",
+        "阿努拉尼",
+        "巴哈姆特",
+        "弥迹辛西娅",
+        "琴澜鸣鹤",
+        "华魇萌少",
+        "爱丽赛亚",
+        "瑟雷纳斯"
+      ]
+    },
+    {
+      "id": "ladder-2026-09-11",
+      "mode": "ladder",
+      "date": "2026-09-11",
+      "sourceId": "notice-2026-09-11",
+      "bannedPetNames": [
+        "圣灵草王",
+        "破晓凯瑞尔",
+        "美狄亚",
+        "螣岚",
+        "艾莉丝贝斯",
+        "塞勒姆",
+        "厄影潘多拉",
+        "艾克斯菲特"
+      ]
+    },
+    {
+      "id": "ladder-2026-09-18",
+      "mode": "ladder",
+      "date": "2026-09-18",
+      "sourceId": "notice-2026-09-18",
+      "bannedPetNames": [
+        "柴可司机",
+        "普之舜舜",
+        "立春",
+        "禁之舜舜",
+        "伊瑟拉",
+        "诺格佩勒",
+        "桃夭",
+        "钧霆奥德诺",
+        "琴澜鸣鹤",
+        "织魇帅帅",
+        "乾坤武圣",
+        "赑瑞玄龟"
+      ]
+    },
+    {
+      "id": "ladder-2026-09-25",
+      "mode": "ladder",
+      "date": "2026-09-25",
+      "sourceId": "notice-2026-09-25",
+      "bannedPetNames": [
+        "寂夜魔王",
+        "海芙约忒",
+        "伊西希斯",
+        "赤翼牦牛",
+        "弥迹辛西娅",
+        "赛诺拉斯",
+        "瑟雷纳斯",
+        "厄影潘多拉"
+      ]
+    },
+    {
+      "id": "ladder-2026-10-02",
+      "mode": "ladder",
+      "date": "2026-10-02",
+      "sourceId": "notice-2026-10-02",
+      "bannedPetNames": [
+        "寂夜魔王",
+        "海芙约忒",
+        "伊西希斯",
+        "赤翼牦牛",
+        "弥迹辛西娅",
+        "赛诺拉斯",
+        "瑟雷纳斯",
+        "厄影潘多拉"
+      ]
+    },
+    {
+      "id": "ladder-2026-10-09",
+      "mode": "ladder",
+      "date": "2026-10-09",
+      "sourceId": "notice-2026-10-09",
+      "bannedPetNames": [
+        "柴可司机",
+        "普之舜舜",
+        "立春",
+        "禁之舜舜",
+        "煌明火王",
+        "桃夭",
+        "阿努拉尼",
+        "华魇萌少",
+        "爱丽赛亚",
+        "赑瑞玄龟",
+        "塞勒姆",
+        "艾克斯菲特"
+      ]
+    },
+    {
+      "id": "type-2026-10-09",
+      "mode": "type",
+      "date": "2026-10-09",
+      "sourceId": "notice-2026-10-09",
+      "bannedPetNames": [
+        "革凡普王",
+        "赛诺拉斯",
+        "姝绒",
+        "戟叶蓼",
+        "巴哈姆特",
+        "乾坤武圣",
+        "耆望磁鹿",
+        "拂影游侠",
+        "混沌石王",
+        "阿尔贝西",
+        "墨菲斯"
+      ],
+      "allowedTypes": [
+        "普通",
+        "武",
+        "石"
+      ]
+    },
+    {
+      "id": "type-2026-10-13",
+      "mode": "type",
+      "date": "2026-10-13",
+      "sourceId": "notice-2026-10-09",
+      "bannedPetNames": [
+        "赫苏",
+        "琴澜鸣鹤",
+        "汐纱水王",
+        "渚雷",
+        "乾镜双凤",
+        "煌明火王",
+        "艾瑟丽贝",
+        "伊西希斯",
+        "塞勒姆",
+        "鬼魅雪影"
+      ],
+      "allowedTypes": [
+        "水",
+        "火",
+        "冰"
+      ]
+    },
+    {
+      "id": "ladder-2026-10-16",
+      "mode": "ladder",
+      "date": "2026-10-16",
+      "sourceId": "notice-2026-10-16",
+      "bannedPetNames": [
+        "朝曦冰夕",
+        "圣灵草王",
+        "美狄亚",
+        "诺格佩勒",
+        "钧霆奥德诺",
+        "琴澜鸣鹤",
+        "螣岚",
+        "织魇帅帅"
+      ]
+    },
+    {
+      "id": "ladder-2026-10-23",
+      "mode": "ladder",
+      "date": "2026-10-23",
+      "sourceId": "notice-2026-10-23",
+      "bannedPetNames": [
+        "朝曦冰夕",
+        "圣灵草王",
+        "美狄亚",
+        "诺格佩勒",
+        "钧霆奥德诺",
+        "琴澜鸣鹤",
+        "螣岚",
+        "织魇帅帅"
+      ]
+    },
+    {
+      "id": "type-2026-10-23",
+      "mode": "type",
+      "date": "2026-10-23",
+      "sourceId": "notice-2026-10-23",
+      "bannedPetNames": [
+        "乾镜双凤",
+        "煌明火王",
+        "炜煌雷诺",
+        "灵瑞朱雀",
+        "伊西希斯",
+        "塞勒姆",
+        "渡风",
+        "朝曦冰夕",
+        "爱丽赛亚"
+      ],
+      "allowedTypes": [
+        "火",
+        "冰",
+        "虫"
+      ]
+    },
+    {
+      "id": "type-2026-10-27",
+      "mode": "type",
+      "date": "2026-10-27",
+      "sourceId": "notice-2026-10-23",
+      "bannedPetNames": [
+        "破启幽王",
+        "瑟雷纳斯",
+        "幽游灵姬",
+        "圣湮伊莱娜",
+        "御械女帝",
+        "钢铁加鲁鲁兽",
+        "织魇帅帅",
+        "革凡普王",
+        "赛诺拉斯",
+        "姝绒",
+        "戟叶蓼"
+      ],
+      "allowedTypes": [
+        "幽灵",
+        "机械",
+        "普通"
+      ]
+    }
+  ],
+  "changes": [
+    {
+      "id": "fees-2025-12-12",
+      "date": "2025-12-12",
+      "kind": "fees",
+      "title": "魔力费用新增记录",
+      "summary": "该期公告列出：瑟雷纳斯2点魔力。",
+      "sourceId": "notice-2025-12-12"
+    },
+    {
+      "id": "shop-2025-12-12",
+      "date": "2025-12-12",
+      "kind": "shop",
+      "title": "天梯兑换商城调整",
+      "summary": "天梯赛兑换商城将于12月12新增可兑换宠物：巨盾铠犰，狗头策划小北。",
+      "sourceId": "notice-2025-12-12"
+    },
+    {
+      "id": "fees-2026-02-13",
+      "date": "2026-02-13",
+      "kind": "fees",
+      "title": "魔力费用新增记录",
+      "summary": "该期公告列出：赑瑞玄龟3点魔力，塞勒姆4点魔力。",
+      "sourceId": "notice-2026-02-13"
+    },
+    {
+      "id": "fees-2026-03-13",
+      "date": "2026-03-13",
+      "kind": "fees",
+      "title": "魔力费用新增记录",
+      "summary": "该期公告列出：拂影游侠2点魔力。",
+      "sourceId": "notice-2026-03-13"
+    },
+    {
+      "id": "shop-2026-03-13",
+      "date": "2026-03-13",
+      "kind": "shop",
+      "title": "天梯兑换商城调整",
+      "summary": "天梯赛兑换商城将于3月13日新增可兑换宠物：玄光锦瑶。",
+      "sourceId": "notice-2026-03-13"
+    },
+    {
+      "id": "fees-2026-04-10",
+      "date": "2026-04-10",
+      "kind": "fees",
+      "title": "魔力费用新增记录",
+      "summary": "该期公告列出：泷景3点魔力。",
+      "sourceId": "notice-2026-04-10"
+    },
+    {
+      "id": "shop-2026-06-12",
+      "date": "2026-06-12",
+      "kind": "shop",
+      "title": "天梯兑换商城调整",
+      "summary": "天梯赛兑换商城将于6月12日新增可兑换宠物：螣岚。",
+      "sourceId": "notice-2026-06-12"
+    },
+    {
+      "id": "fees-2026-07-03",
+      "date": "2026-07-03",
+      "kind": "fees",
+      "title": "魔力费用新增记录",
+      "summary": "该期公告列出：厄影潘多拉3点魔力。",
+      "sourceId": "notice-2026-07-03"
+    },
+    {
+      "id": "fees-2026-07-10",
+      "date": "2026-07-10",
+      "kind": "fees",
+      "title": "魔力费用新增记录",
+      "summary": "该期公告列出：艾克斯菲特3点魔力。",
+      "sourceId": "notice-2026-07-10"
+    },
+    {
+      "id": "fees-2026-08-14",
+      "date": "2026-08-14",
+      "kind": "fees",
+      "title": "魔力费用新增记录",
+      "summary": "该期公告列出：伊里斯3点魔力，伊莉斯3点魔力。",
+      "sourceId": "notice-2026-08-14"
+    },
+    {
+      "id": "fees-2026-09-04",
+      "date": "2026-09-04",
+      "kind": "fees",
+      "title": "魔力费用新增记录",
+      "summary": "该期公告列出：玄光锦瑶·昭愿2点魔力。",
+      "sourceId": "notice-2026-09-04"
+    },
+    {
+      "id": "fees-2026-09-11",
+      "date": "2026-09-11",
+      "kind": "fees",
+      "title": "魔力费用新增记录",
+      "summary": "该期公告列出：姝绒2点魔力。",
+      "sourceId": "notice-2026-09-11"
+    },
+    {
+      "id": "shop-2026-09-11",
+      "date": "2026-09-11",
+      "kind": "shop",
+      "title": "天梯兑换商城调整",
+      "summary": "天梯赛兑换商城将于9月11日新增可兑换宠物：乾坤武圣、傲凌冰龙王、冰溟魔魟。下架可兑换宠物：圣裁战龙王、御械女帝。",
+      "sourceId": "notice-2026-09-11"
+    },
+    {
+      "id": "fees-2026-09-25",
+      "date": "2026-09-25",
+      "kind": "fees",
+      "title": "魔力费用新增记录",
+      "summary": "该期公告列出：圣萌王者·金冕2点魔力。",
+      "sourceId": "notice-2026-09-25"
+    }
+  ],
+  "observations": [
+    {
+      "schemaVersion": 1,
+      "source": {
+        "url": "https://res.17roco.qq.com/plugins/LadderMatch/LadderMatchConfig.xml",
+        "retrievedAt": "2026-10-11T23:39:11.678Z",
+        "sha256": "ec536f515134dc4d7df980ea7687a3c8aba8c62414eaf6617e1901a063e3b6d1",
+        "costEntryCount": 96,
+        "banEntryCount": 12
+      },
+      "defaultCost": 1,
+      "costs": {
+        "2030": 3,
+        "2060": 2,
+        "2297": 2,
+        "2302": 3,
+        "2315": 3,
+        "2344": 2,
+        "2368": 3,
+        "2371": 3,
+        "2376": 3,
+        "2377": 3,
+        "2378": 3,
+        "2379": 3,
+        "2396": 3,
+        "2402": 2,
+        "2419": 2,
+        "2427": 2,
+        "2449": 2,
+        "2456": 3,
+        "2466": 3,
+        "2528": 2,
+        "2549": 2,
+        "2559": 2,
+        "2585": 4,
+        "2606": 3,
+        "2661": 2,
+        "2689": 3,
+        "2696": 3,
+        "2717": 2,
+        "2768": 2,
+        "2806": 2,
+        "2810": 4,
+        "2811": 2,
+        "2824": 3,
+        "2825": 2,
+        "2862": 3,
+        "2889": 3,
+        "2908": 2,
+        "2920": 4,
+        "2928": 4,
+        "2930": 3,
+        "2949": 3,
+        "2956": 2,
+        "2962": 4,
+        "2980": 2,
+        "2991": 2,
+        "3018": 3,
+        "3019": 4,
+        "3031": 2,
+        "3036": 2,
+        "3039": 3,
+        "3081": 3,
+        "3092": 5,
+        "3095": 3,
+        "3103": 2,
+        "3116": 2,
+        "3117": 3,
+        "3124": 3,
+        "3138": 3,
+        "3139": 2,
+        "3144": 2,
+        "3152": 4,
+        "3159": 3,
+        "3164": 3,
+        "3172": 5,
+        "3174": 2,
+        "3201": 3,
+        "3219": 3,
+        "3220": 3,
+        "3225": 2,
+        "3226": 3,
+        "3244": 3,
+        "3260": 2,
+        "3262": 4,
+        "3266": 3,
+        "3277": 2,
+        "3285": 3,
+        "3297": 2,
+        "3298": 2,
+        "3308": 3,
+        "3309": 3,
+        "3316": 3,
+        "3330": 2,
+        "3332": 2,
+        "3338": 3,
+        "3355": 2,
+        "3361": 3,
+        "3362": 4,
+        "3374": 2,
+        "3380": 3,
+        "3392": 2,
+        "3402": 2,
+        "3407": 3,
+        "3409": 3,
+        "3422": 3,
+        "3423": 3,
+        "3432": 2
+      },
+      "bannedPetIds": [
+        2060,
+        2297,
+        2344,
+        2717,
+        2949,
+        2991,
+        3004,
+        3297,
+        3317,
+        3361,
+        3362,
+        3409
+      ]
+    },
+    {
+      "schemaVersion": 1,
+      "source": {
+        "url": "https://res.17roco.qq.com/plugins/LadderMatch/LadderMatchConfig.xml",
+        "retrievedAt": "2026-10-22T05:02:28.191Z",
+        "sha256": "03ae1100eb789e1e22d7683d2171c81d33b280cc1ae2b24e001595125605fc94",
+        "costEntryCount": 96,
+        "banEntryCount": 8
+      },
+      "defaultCost": 1,
+      "costs": {
+        "2030": 3,
+        "2060": 2,
+        "2297": 2,
+        "2302": 3,
+        "2315": 3,
+        "2344": 2,
+        "2368": 3,
+        "2371": 3,
+        "2376": 3,
+        "2377": 3,
+        "2378": 3,
+        "2379": 3,
+        "2396": 3,
+        "2402": 2,
+        "2419": 2,
+        "2427": 2,
+        "2449": 2,
+        "2456": 3,
+        "2466": 3,
+        "2528": 2,
+        "2549": 2,
+        "2559": 2,
+        "2585": 4,
+        "2606": 3,
+        "2661": 2,
+        "2689": 3,
+        "2696": 3,
+        "2717": 2,
+        "2768": 2,
+        "2806": 2,
+        "2810": 4,
+        "2811": 2,
+        "2824": 3,
+        "2825": 2,
+        "2862": 3,
+        "2889": 3,
+        "2908": 2,
+        "2920": 4,
+        "2928": 4,
+        "2930": 3,
+        "2949": 3,
+        "2956": 2,
+        "2962": 4,
+        "2980": 2,
+        "2991": 2,
+        "3018": 3,
+        "3019": 4,
+        "3031": 2,
+        "3036": 2,
+        "3039": 3,
+        "3081": 3,
+        "3092": 5,
+        "3095": 3,
+        "3103": 2,
+        "3116": 2,
+        "3117": 3,
+        "3124": 3,
+        "3138": 3,
+        "3139": 2,
+        "3144": 2,
+        "3152": 4,
+        "3159": 3,
+        "3164": 3,
+        "3172": 5,
+        "3174": 2,
+        "3201": 3,
+        "3219": 3,
+        "3220": 3,
+        "3225": 2,
+        "3226": 3,
+        "3244": 3,
+        "3260": 2,
+        "3262": 4,
+        "3266": 3,
+        "3277": 2,
+        "3285": 3,
+        "3297": 2,
+        "3298": 2,
+        "3308": 3,
+        "3309": 3,
+        "3316": 3,
+        "3330": 2,
+        "3332": 2,
+        "3338": 3,
+        "3355": 2,
+        "3361": 3,
+        "3362": 4,
+        "3374": 2,
+        "3380": 3,
+        "3392": 2,
+        "3402": 2,
+        "3407": 3,
+        "3409": 3,
+        "3422": 3,
+        "3423": 3,
+        "3432": 2
+      },
+      "bannedPetIds": [
+        2315,
+        2449,
+        2928,
+        2962,
+        3220,
+        3266,
+        3277,
+        3306
+      ],
+      "rewards": {
+        "seasonDescriptions": [
+          "果儿糖*3，5w经验果*5，入门训练师边框*30天",
+          "果儿糖*5，10w经验果*5，初级训练师边框*30天",
+          "果儿糖*5，10w经验果*10，中级训练师边框*30天",
+          "果儿糖*10，10w经验果*15，高级训练师边框*30天，专属宠物蛋*1",
+          "果儿糖*10，10w经验果*20，大师训练师边框*30天，专属宠物蛋*1，专属套装*1"
+        ],
+        "seasonItems": [
+          [
+            {
+              "id": 17367044,
+              "quantity": 3
+            },
+            {
+              "id": 17170483,
+              "quantity": 5
+            },
+            {
+              "id": 67372558,
+              "quantity": 1
+            }
+          ],
+          [
+            {
+              "id": 17367044,
+              "quantity": 5
+            },
+            {
+              "id": 17170484,
+              "quantity": 5
+            },
+            {
+              "id": 67372559,
+              "quantity": 1
+            }
+          ],
+          [
+            {
+              "id": 17367044,
+              "quantity": 5
+            },
+            {
+              "id": 17170484,
+              "quantity": 10
+            },
+            {
+              "id": 67372560,
+              "quantity": 1
+            }
+          ],
+          [
+            {
+              "id": 17367044,
+              "quantity": 10
+            },
+            {
+              "id": 17170484,
+              "quantity": 15
+            },
+            {
+              "id": 67372561,
+              "quantity": 1
+            },
+            {
+              "id": 3432,
+              "quantity": 1
+            }
+          ],
+          [
+            {
+              "id": 17367044,
+              "quantity": 10
+            },
+            {
+              "id": 17170484,
+              "quantity": 20
+            },
+            {
+              "id": 67372562,
+              "quantity": 1
+            },
+            {
+              "id": 3432,
+              "quantity": 1
+            },
+            {
+              "id": 33620449,
+              "quantity": 1
+            },
+            {
+              "id": 33751511,
+              "quantity": 1
+            },
+            {
+              "id": 33817019,
+              "quantity": 1
+            },
+            {
+              "id": 33882300,
+              "quantity": 1
+            },
+            {
+              "id": 34013556,
+              "quantity": 1
+            },
+            {
+              "id": 34209863,
+              "quantity": 1
+            }
+          ]
+        ],
+        "peakItems": [
+          [
+            {
+              "id": 67371891,
+              "quantity": 50
+            }
+          ],
+          [
+            {
+              "id": 67371891,
+              "quantity": 100
+            },
+            {
+              "id": 33751512,
+              "quantity": 1
+            }
+          ]
+        ],
+        "deliveryNote": "赛季宝箱领取后会以邮件形式发送，请预留足够的邮件空位。"
+      }
+    }
+  ]
+}

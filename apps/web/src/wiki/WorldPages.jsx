@@ -7,6 +7,9 @@ import { AdventureHome } from "./world/AdventurePage.jsx";
 import { PlaceDetail, PlacesIndex } from "./world/PlacesPages.jsx";
 import { NpcDetail, NpcIndex } from "./world/NpcPages.jsx";
 import { BattlePage, BattleRules } from "./world/BattlePages.jsx";
+import LadderHistoryPage from "./world/LadderHistory";
+import {PageHeader,TextLink} from './core';
+import {historyMode} from './ladderHistoryModel';
 import { ChallengesIndex, StarTower } from "./world/ChallengePages.jsx";
 import { ItemsIndex, PotionDetail } from "./world/ItemPages.jsx";
 import { BadgesPage, TasksIndex } from "./world/TaskPages.jsx";
@@ -32,6 +35,8 @@ function WorldPages({ path, query = new URLSearchParams() }) {
   if (parts[0] === "battle")
     return !parts[1] ? (
       <BattlePage query={query} />
+    ) : parts[1] === "history" ? (
+      <LadderHistoryPage query={query} header={<PageHeader title="天梯历史档案" eyebrow="赛事资料" description="按届次查奖励，按公告记录查禁赛，再对照费用与兑换变动。" crumbs={[{label:'对战与禁赛',to:'/battle/'},{label:'历史档案'}]} edit={false} actions={<TextLink to={`/battle/?mode=${historyMode(query.get('mode'))}`}>返回当前对战资料</TextLink>}/>}/>
     ) : parts[1] === "rules" ? (
       <BattleRules query={query} />
     ) : (

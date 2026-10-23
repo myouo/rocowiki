@@ -5,7 +5,8 @@ import { weekly, officialLadderData, officialPetData } from "../content/bundled.
 import { LadderBanList, LadderBanSource } from "./LadderBans";
 import { PetNameChips, SourceLine, Tabs, hrefWith, useWorldQuery } from "./components.jsx";
 import { WeeklyEdition, WeeklySources, dateLabel, useWeeklyDate } from "./weekly.jsx";
-import { LegacyBattlePage } from "./legacy/BattlePage.jsx";
+import {findBanNotice,historyHref,archiveSource} from '../ladderHistoryModel';
+import {ArchiveSource,NoticeBanNames} from './LadderHistory';
 
 const PVP_MODE_NAMES = {
   type: "系别排位赛",
@@ -82,15 +83,7 @@ function BattlePage({ query }) {
   const showConfig = mode !== "type" && !historicalDate;
   const fallbackDate = stale ? weekly.edition.startDate : today;
   const date = historicalDate || fallbackDate;
-  const oldArchive =
-    date === "2025-11-28" ||
-    (mode === "type" && date === "2025-12-02") ||
-    (mode === "peak" && date === "2025-12-12");
-  if (oldArchive) {
-    const oldQuery = new URLSearchParams(query.toString());
-    oldQuery.set("mode", mode);
-    return <LegacyBattlePage query={oldQuery} />;
-  }
+  const historicalNotice=historicalDate?findBanNotice(historicalDate,mode):null;
   const inEdition =
     date >= weekly.edition.startDate && date < weekly.edition.reviewDueDate;
   const activePeriod = [...weekly.pvp.typeTournament.periods]
@@ -104,10 +97,10 @@ function BattlePage({ query }) {
         description="先看主属性与禁用宠物，再核对完整阵容；系别赛与天梯名单分别查阅。"
         crumbs={[{ label: "首页", to: "/" }, { label: "对战与禁赛" }]}
         actions={
-          <TextLink to={`/battle/rules/?mode=${mode}`}>参赛规则</TextLink>
+          <><TextLink to={`/battle/rules/?mode=${mode}`}>参赛规则</TextLink><TextLink to={historyHref({mode})}>历届赛季与奖励</TextLink></>
         }
       />
-      {!showConfig && <WeeklyEdition stale={stale} />}
+      {!showConfig && inEdition && <WeeklyEdition stale={stale} />}
       <Tabs
         path="/battle/"
         query={query}
@@ -208,6 +201,14 @@ function BattlePage({ query }) {
           )}
           <WeeklySources detailed />
         </>
+      ) : historicalNotice ? (
+        <Section title={`${date} 公告禁赛记录`} id="historical-bans">
+          <p>这份公告记录对应所选批次，未自动推断相邻日期的完整适用区间。{mode==='peak'?'巅峰赛共享天梯名单，其他参赛条件分别核对。':''}</p>
+          {historicalNotice.allowedTypes&&<p>该场参赛主属性：<strong>{historicalNotice.allowedTypes.join(' / ')}</strong></p>}
+          {historicalNotice.bannedPetNames.length?<NoticeBanNames names={historicalNotice.bannedPetNames}/>:<p className="lh-zero">原公告明确记载：本期无禁赛宠物。</p>}
+          <ArchiveSource source={archiveSource(historicalNotice.sourceId)}/>
+          <TextLink to={historyHref({view:'bans',mode,record:historicalNotice.id})}>查看这一期的完整档案</TextLink>
+        </Section>
       ) : (
         <EmptyState
           title={`${dateLabel(date)} 的规则尚未收录`}
@@ -216,11 +217,12 @@ function BattlePage({ query }) {
               className="rw-button"
               to={`/battle/?mode=${mode}&date=${weekly.edition.startDate}`}
             >
-              查看 10月9日规则快照
+              查看已收录规则快照
             </Link>
           }
         >
           本站只对已收录批次列出名单，缺少公告时不会沿用上一期禁赛作为当前规则。
+          <TextLink to={historyHref({view:'bans',mode})}>浏览已有历史记录</TextLink>
         </EmptyState>
       )}
       <Section title="继续查阅" id="battle-reading">
@@ -252,14 +254,12 @@ function BattlePage({ query }) {
         </div>
       </Section>
       <div className="wa-v5-archive-link">
-        <TextLink to={`/battle/?mode=${mode}&date=2025-11-28`}>
-          2025.11.28 规则档案
-        </TextLink>
+        <TextLink to={historyHref({mode})}>历届赛季、历史禁赛与奖励档案</TextLink>
         <TextLink to="/events/">同期活动</TextLink>
       </div>
       <Contribution
         entity={`${PVP_MODE_NAMES[mode]} · ${showConfig ? "配置禁赛" : date}`}
-        source={showConfig ? officialLadderData.source.url : inEdition ? weekly.sources[0].url : undefined}
+        source={showConfig ? officialLadderData.source.url : inEdition ? weekly.sources[0].url : historicalNotice ? archiveSource(historicalNotice.sourceId).url : undefined}
       />
     </div>
   );
@@ -428,6 +428,8 @@ function BattleRules({ query }) {
           <p className="wa-small">
             以上通用参赛条件按该段记录整理；遇到之后的调整，应保留新公告日期并更新本页。
           </p>
+          <TextLink to={historyHref({view:'changes',mode})}>查看历史费用与兑换变动</TextLink>
+          <TextLink to={historyHref({view:'bans',mode})}>查看各期禁赛档案</TextLink>
         </Section>
         <Contribution
           entity={`${PVP_MODE_NAMES[mode]} · 参赛规则`}

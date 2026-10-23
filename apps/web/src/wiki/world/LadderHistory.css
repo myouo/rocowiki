@@ -1,0 +1,37 @@
+.lh-page { min-width: 0; }
+.lh-overview { display: flex; flex-wrap: wrap; gap: 12px 28px; margin: 20px 0; color: var(--rw-muted); font-size: 13px; }
+.lh-overview span { display: inline-flex; align-items: center; gap: 8px; }
+.lh-overview svg { color: #8094b8; }.lh-overview strong { color: var(--rw-ink); font-size: 18px; }
+.lh-tabs { margin-bottom: 20px; }
+.lh-tabs a { white-space: nowrap; }
+.lh-toolbar { display: flex; flex-wrap: wrap; gap: 16px; align-items: end; padding: 18px 20px; margin-bottom: 24px; border: 1px solid var(--rw-line); border-radius: 16px; background: #ffffffa8; }
+.lh-toolbar label,.lh-record-picker { display: grid; gap: 7px; color: var(--rw-muted); font-size: 12px; min-width: 0; }
+.lh-search { flex: 1 1 280px; }
+.lh-toolbar input,.lh-toolbar select,.lh-record-picker select { min-width: 0; width: 100%; border: 1px solid var(--rw-line); border-radius: 10px; padding: 10px 12px; background: #fff; color: var(--rw-ink); font: inherit; font-size: 13px; }
+.lh-section { margin-top: 24px; }.lh-section h2 { font-size: 20px; margin-bottom: 14px; }
+.lh-section-heading { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
+.lh-section-heading > span { color: var(--rw-muted); font-size: 12px; }.lh-section-heading h3 { margin: 0; }
+.lh-muted { color: var(--rw-muted); font-size: 12px; line-height: 1.9; }
+.lh-season-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 16px; margin-top: 20px; }
+.lh-season-grid:has(.is-selected) { grid-template-columns: minmax(0,1fr); }
+.lh-card { min-width: 0; padding: 20px; border: 1px solid var(--rw-line); border-radius: 17px; background: #ffffffbf; }
+.lh-card h3 { font-size: 16px; margin: 0 0 12px; }.lh-card p { line-height: 1.9; font-size: 13px; }
+.lh-card-heading { display: flex; gap: 9px; align-items: center; }.lh-card-heading svg { flex-shrink: 0; color: #ac9770; }.lh-card-heading h3 { margin: 0; }
+.lh-season-date { display: flex; align-items: center; gap: 7px; color: var(--rw-muted); font-size: 12px!important; }
+.lh-reward-names,.lh-links { display: flex; flex-wrap: wrap; gap: 8px 14px; margin: 12px 0; }
+.lh-pet-link { font-weight: 500; }.lh-detail-link { display: inline-flex; align-items: center; gap: 7px; margin-top: 14px; font-size: 12px; }
+.lh-kicker { display: block; color: var(--rw-muted); font-size: 11px; margin-bottom: 10px; }
+.lh-source { margin-top: 16px; border-top: 1px solid var(--rw-line); padding-top: 12px; font-size: 12px; color: var(--rw-muted); }
+.lh-source summary,.lh-observation-details summary { cursor: pointer; color: #627ca5; }.lh-source > a { display: block; margin-top: 10px; }.lh-source p { font-size: 12px; }.lh-hash code { overflow-wrap: anywhere; }
+.lh-season-facts { display: grid; gap: 8px; margin: 18px 0; }.lh-season-facts > div { display: flex; gap: 16px; }.lh-season-facts dt { color: var(--rw-muted); }.lh-season-facts dd { margin: 0; }
+.lh-reward-evidence { margin-top: 18px; padding-top: 16px; border-top: 1px solid var(--rw-line); }
+.lh-mode-tabs { display: flex; flex-wrap: wrap; gap: 8px; margin: 16px 0; }.lh-mode-tabs a { padding: 8px 12px; border-radius: 10px; border: 1px solid var(--rw-line); font-size: 12px; }.lh-mode-tabs [aria-current] { background: #eaf0fc; color: #43699f; }
+.lh-record-picker { max-width: 460px; margin: 18px 0; }.lh-record { margin-top: 18px; }.lh-record .wa-name-chips { margin-top: 18px; }
+.lh-zero { border-radius: 10px; padding: 14px; background: #eef5f2; color: #4d7666; }
+.lh-observation-details { margin-top: 20px; padding-top: 15px; border-top: 1px solid var(--rw-line); font-size: 12px; }
+.lh-cost-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 8px 20px; }.lh-cost-grid > div { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px; border-bottom: 1px solid var(--rw-line); padding: 9px 0; }.lh-cost-grid dd { margin: 0; color: var(--rw-muted); }
+.lh-change-list { display: grid; gap: 14px; margin-bottom: 30px; }
+.lh-empty { padding: 24px; border: 1px dashed var(--rw-line); border-radius: 14px; color: var(--rw-muted); font-size: 13px; }
+.lh-footnote { margin-top: 30px; padding-top: 20px; border-top: 1px solid var(--rw-line); font-size: 12px; color: var(--rw-muted); }.lh-footnote a { display: inline-flex; align-items: center; gap: 8px; }
+@media(max-width:996px) { .lh-season-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }.lh-cost-grid { grid-template-columns: repeat(2,minmax(0,1fr)); } }
+@media(max-width:600px) { .lh-season-grid { grid-template-columns: minmax(0,1fr); }.lh-toolbar { padding: 15px; gap: 12px; }.lh-toolbar label { width: 100%; }.lh-overview { gap: 10px 16px; font-size: 11px; }.lh-overview strong { font-size: 16px; }.lh-card { padding: 16px; }.lh-cost-grid { grid-template-columns: minmax(0,1fr); }.lh-section h2 { font-size: 18px; } }

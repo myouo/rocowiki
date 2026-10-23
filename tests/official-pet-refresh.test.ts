@@ -22,8 +22,9 @@ const extraSnapshots = {
   'apps/web/content/official-skills.json': { schemaVersion: 1, source: { url: 'https://example.test/Angel.config', retrievedAt: '2026-10-11T00:00:00Z', sha256: 'a'.repeat(64) }, skills: [] },
   'apps/web/content/pet-skill-relations.json': { schemaVersion: 1, source: { url: 'https://example.test/public-pools', retrievedAt: '2026-10-11T00:00:00Z', sha256: 'a'.repeat(64) }, pets: {} },
   'apps/web/content/game-skill-relations.json': { schemaVersion: 1, source: null, pets: {} },
+  'apps/web/content/ladder-history.json': {schemaVersion:1,game:'roco-web',sources:[],seasons:[],notices:[],changes:[],observations:[]},
 };
-const branchFor = (pets: OfficialPetSnapshot, base = '', ladder?: OfficialLadderSnapshot) => updateBranch({ ...extraSnapshots, 'apps/web/content/official-pets.json': pets, ...(ladder ? { 'apps/web/content/official-ladder.json': ladder } : {}) }, base);
+const branchFor = (pets: OfficialPetSnapshot, base = '', ladder?: OfficialLadderSnapshot, history:unknown=extraSnapshots['apps/web/content/ladder-history.json']) => updateBranch({ ...extraSnapshots, 'apps/web/content/official-pets.json': pets, ...(ladder ? { 'apps/web/content/official-ladder.json': ladder } : {}),'apps/web/content/ladder-history.json':history }, base);
 
 describe('scheduled official pet refresh', () => {
   it('does not rewrite a snapshot or change its branch when only the check time changes', async () => {
@@ -83,7 +84,7 @@ describe('official pet PR publication through real Git', () => {
   const script = resolve('scripts/updates/publish.ts');
   const tsx = resolve('node_modules/tsx/dist/loader.mjs');
   const git = (cwd: string, ...args: string[]) => execFileSync('git', args, { cwd, encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'] }).trim();
-  async function fixture(kind: 'pets' | 'ladder' = 'pets') {
+  async function fixture(kind: 'pets' | 'ladder' | 'archive' = 'pets') {
     const root = await directory(), remote = join(root, 'remote.git'), work = join(root, 'work'), bin = join(root, 'bin');
     await mkdir(work); await mkdir(bin);
     git(root, 'init', '--bare', '--initial-branch=main', remote);
@@ -109,11 +110,13 @@ if(args[0]==='workflow'&&args[1]==='run')fs.writeFileSync(process.env.GH_TEST_ST
     const ladder = kind === 'ladder' ? { ...ladderSnapshot(), costs: { '137': 2 }, source: { ...ladderSnapshot().source, sha256: 'b'.repeat(64), costEntryCount: 1 } } : ladderSnapshot();
     await writeFile(join(work, 'apps/web/content/official-pets.json'), JSON.stringify(next));
     await writeFile(join(work, 'apps/web/content/official-ladder.json'), JSON.stringify(ladder));
+    const history=kind==='archive'?{...extraSnapshots['apps/web/content/ladder-history.json'],observations:[ladderSnapshot()]}:extraSnapshots['apps/web/content/ladder-history.json'];
+    await writeFile(join(work,'apps/web/content/ladder-history.json'),JSON.stringify(history));
     await writeFile(join(work, 'apps/web/content/published-sections-v7.json'), '{"updated":true}');
     const log = join(root, 'gh.log');
     const env = { ...process.env, PATH: `${bin}:${process.env.PATH}`, GITHUB_ACTIONS: 'true', GITHUB_REPOSITORY: 'example/fixture', GH_TOKEN: 'synthetic-actions-token', RUNNER_TEMP: root, GH_TEST_LOG: log, GH_TEST_STATE: join(root, 'runs.json'), GH_TEST_EXISTING: '' };
     const publish = (overrides = {}) => execFileSync(process.execPath, ['--import', tsx, script], { cwd: work, env: { ...env, ...overrides }, encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'] });
-    return { work, remote, log, next, ladder, publish };
+    return { work, remote, log, next, ladder, history, publish };
   }
   it('pushes only data to a new branch, creates a PR, dispatches checks, and reuses the candidate on retry', async () => {
     const f = await fixture(), main = git(f.remote, 'rev-parse', 'main'), branch = branchFor(f.next, main, f.ladder);
@@ -153,6 +156,13 @@ if(args[0]==='workflow'&&args[1]==='run')fs.writeFileSync(process.env.GH_TEST_ST
     expect(git(f.remote, 'rev-parse', 'main')).toBe(main);
     expect(git(f.remote, 'diff', '--name-only', `main...${branch}`).split('\n').sort()).toEqual(['apps/web/content/official-ladder.json', 'apps/web/content/published-sections-v7.json']);
     expect(branch).not.toBe(branchFor(f.next, main, ladderSnapshot()));
+  });
+  it('publishes and retains a history-only enrichment without changing the current ladder snapshot',async()=>{
+    const f=await fixture('archive'),main=git(f.remote,'rev-parse','main'),branch=branchFor(f.next,main,f.ladder,f.history);
+    expect(f.publish()).toContain('ready for review');
+    expect(git(f.remote,'rev-parse','main')).toBe(main);
+    expect(git(f.remote,'diff','--name-only',`main...${branch}`).split('\n').sort()).toEqual(['apps/web/content/ladder-history.json','apps/web/content/published-sections-v7.json']);
+    expect(JSON.parse(git(f.remote,'show',`${branch}:apps/web/content/ladder-history.json`))).toEqual(f.history);
   });
   it('refuses to reuse a branch containing code changes even when the snapshot matches', async () => {
     const f = await fixture(), branch = branchFor(f.next, git(f.work, 'rev-parse', 'HEAD'), f.ladder);
