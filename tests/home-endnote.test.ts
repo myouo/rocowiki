@@ -18,8 +18,17 @@ vi.mock("@docusaurus/Link", () => ({
 afterEach(() => {
   route.pathname = route.baseUrl = "/";
   anchors.length = 0;
+  vi.useRealTimers();
   vi.unstubAllGlobals();
 });
+
+function requestSpies() {
+  const fetcher = vi.fn(async () => new Response(null));
+  const images = vi.fn(function Image() {});
+  vi.stubGlobal("fetch", fetcher);
+  vi.stubGlobal("Image", images);
+  return { fetcher, images };
+}
 
 function harness(url = "https://wiki.test/") {
   const { JSDOM } = createRequire(import.meta.url)("jsdom");
@@ -37,6 +46,7 @@ function harness(url = "https://wiki.test/") {
 }
 
 it("does not emit counting requests into static HTML or non-home routes", () => {
+  const requests = requestSpies();
   const html = renderToString(createElement(HomeEndnote));
   expect(html).toContain("/copyright/#credits");
   expect(html).not.toContain("count.getloli.com");
@@ -44,10 +54,13 @@ it("does not emit counting requests into static HTML or non-home routes", () => 
     route.pathname = path;
     expect(renderToString(createElement(HomeEndnote))).toBe("");
   }
+  expect(requests.fetcher).not.toHaveBeenCalled();
+  expect(requests.images).not.toHaveBeenCalled();
 });
 
-it("counts homepage visits under a base path using the shared project counter", async () => {
-  route.baseUrl = route.pathname = "/wiki/";
+it.each(["/wiki/", "/wiki", "/"])("counts a base-prefixed or relative homepage (%s) using the shared project counter", async pathname => {
+  route.baseUrl = "/wiki/";
+  route.pathname = pathname;
   const h = harness("https://wiki.test/wiki/");
   try {
     await h.render();
@@ -61,6 +74,44 @@ it("counts homepage visits under a base path using the shared project counter", 
     await h.render();
     expect(h.document.querySelector("img")).toBeNull();
     expect(h.document.querySelector(".rw-home-endnote")).toBeNull();
+  } finally { await h.close(); }
+});
+
+it("bounds stalled image loading and does not retry after a late load event", async () => {
+  const h = harness();
+  vi.useFakeTimers({ toFake: ["setTimeout", "clearTimeout"] });
+  try {
+    await h.render();
+    const image = h.document.querySelector("img")!;
+    await act(async () => { await vi.advanceTimersByTimeAsync(14999); });
+    expect(h.document.querySelector("img")).toBe(image);
+    await act(async () => { await vi.advanceTimersByTimeAsync(1); });
+    expect(h.document.querySelector("img")).toBeNull();
+    expect(h.document.querySelector('[role="status"]')?.textContent).toBe("访问计数暂时无法加载");
+    await act(async () => image.dispatchEvent(new h.dom.window.Event("load")));
+    expect(h.document.querySelector("img")).toBeNull();
+  } finally { await h.close(); }
+});
+
+it("cancels the loading deadline after success and on route unmount", async () => {
+  const h = harness();
+  vi.useFakeTimers({ toFake: ["setTimeout", "clearTimeout"] });
+  try {
+    await h.render();
+    const image = h.document.querySelector("img")!;
+    await act(async () => image.dispatchEvent(new h.dom.window.Event("load")));
+    expect(vi.getTimerCount()).toBe(0);
+    await act(async () => { await vi.advanceTimersByTimeAsync(20000); });
+    expect(h.document.querySelector("img")).toBe(image);
+    expect(h.document.querySelector('[role="status"]')).toBeNull();
+    route.pathname = "/pets/";
+    await h.render();
+    route.pathname = "/";
+    await h.render();
+    expect(vi.getTimerCount()).toBe(1);
+    route.pathname = "/pets/";
+    await h.render();
+    expect(vi.getTimerCount()).toBe(0);
   } finally { await h.close(); }
 });
 
@@ -84,11 +135,16 @@ it("handles counter failure without retrying and recovers on the next homepage v
 
 it("leaves the standalone file preview offline without sending counting requests", async () => {
   const h = harness("file:///tmp/rocowiki-preview.html");
+  const requests = requestSpies();
+  h.dom.window.fetch = requests.fetcher;
+  h.dom.window.Image = requests.images;
   try {
     await h.render();
     expect(h.document.querySelector('a[href="/copyright/#credits"]')).not.toBeNull();
     expect(h.document.querySelector("img")).toBeNull();
     expect(h.document.querySelector('[role="status"]')).toBeNull();
+    expect(requests.fetcher).not.toHaveBeenCalled();
+    expect(requests.images).not.toHaveBeenCalled();
   } finally { await h.close(); }
 });
 

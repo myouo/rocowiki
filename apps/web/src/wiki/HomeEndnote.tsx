@@ -9,21 +9,30 @@ import "./HomeEndnote.css";
 const counterUrl = "https://count.getloli.com/@rocowiki?theme=miku&padding=7&offset=0&align=center&scale=1.0&pixelated=1&darkmode=auto";
 
 function HomeVisitCounter() {
-  const [state, setState] = useState<"pending" | "ready" | "failed">("pending");
+  const [state, setState] = useState<"pending" | "loading" | "loaded" | "failed">("pending");
   useEffect(() => {
     // Keep static rendering and the standalone file preview free of counting requests.
-    if (window.location.protocol !== "file:") setState("ready");
+    if (window.location.protocol !== "file:") setState("loading");
   }, []);
+  useEffect(() => {
+    if (state !== "loading") return;
+    const timer = window.setTimeout(() => {
+      setState(current => current === "loading" ? "failed" : current);
+    }, 15000);
+    return () => window.clearTimeout(timer);
+  }, [state]);
 
   if (state === "pending") return null;
   return (
     <div className="rw-home-visit-counter">
       <span>感谢每一位来查资料的小洛克</span>
-      <div className="rw-home-counter-image">
-        {state === "ready" ? (
-          <img src={counterUrl} alt="RocoWiki 项目访问计数（Miku 主题）" decoding="async" onError={() => setState("failed")} />
-        ) : (
+      <div className="rw-home-counter-image" aria-busy={state === "loading"}>
+        {state === "failed" ? (
           <p role="status">访问计数暂时无法加载</p>
+        ) : (
+          <img src={counterUrl} alt="RocoWiki 项目访问计数（Miku 主题）" decoding="async"
+            onLoad={() => setState(current => current === "loading" ? "loaded" : current)}
+            onError={() => setState("failed")} />
         )}
       </div>
       <small>项目访问计数</small>
@@ -55,6 +64,10 @@ function HomeEndnoteContent() {
 export default function HomeEndnote() {
   const { pathname } = useLocation();
   const baseUrl = useBaseUrl("/");
-  const isHome = pathname.replace(/\/$/, "") === baseUrl.replace(/\/$/, "");
+  const basePath = baseUrl.replace(/\/+$/, "");
+  const routePath = basePath && (pathname === basePath || pathname.startsWith(basePath + "/"))
+    ? pathname.slice(basePath.length)
+    : pathname;
+  const isHome = routePath === "" || routePath === "/";
   return isHome ? <HomeEndnoteContent /> : null;
 }

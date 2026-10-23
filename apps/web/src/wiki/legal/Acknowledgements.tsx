@@ -14,7 +14,7 @@ const groups: CreditGroup[] = [
       { name: { zh: "洛克小册子", en: "Roco Booklet" }, href: "https://roco.dvg.cn/", description: { zh: "部分宠物样本资料与角色原图的整理来源。", en: "A reference for selected pet samples and original character images." } },
       { name: { zh: "roco-desc", en: "roco-desc" }, href: "https://gitcode.com/rocoai-dev/roco-desc", description: { zh: "历史技能关联快照与技能解析样板的事实参考，具体记录保留来源提交与署名。", en: "A reference for historical skill-relation snapshots and facts in sample skill analyses. Records retain source commits and attribution." } },
       { name: { zh: "4399 洛克王国", en: "4399 Roco Kingdom" }, href: "https://news.4399.com/luoke/", description: { zh: "活动公告转载、历史攻略与部分游戏规则的交叉核对来源。", en: "Reprinted event announcements, historical guides and corroborating game-rule references." } },
-      { name: { zh: "17173 与 3DM 的公告转载", en: "Announcement reprints on 17173 and 3DM" }, href: "https://news.17173.com/content/09302026/210344424.shtml", description: { zh: "与同期公告对照，用于核对周更活动和开放日期；原始链接保留在各期来源中。", en: "Contemporaneous reprints used to cross-check weekly events and opening dates. Each edition retains its original links." } },
+      { name: { zh: "17173 与 3DM 的公告转载", en: "Announcement reprints on 17173 and 3DM" }, href: "https://ol.3dmgame.com/gl/355096.html", description: { zh: "与同期公告对照，用于核对周更活动和开放日期；原始链接保留在各期来源中。", en: "Contemporaneous reprints used to cross-check weekly events and opening dates. Each edition retains its original links." } },
     ],
   },
   {
