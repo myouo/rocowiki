@@ -2,6 +2,7 @@
 module.exports = {
   mechanicsSidebar: [
     "mechanics/overview",
+    "mechanics/battle-walkthrough",
     {
       type: "category",
       label: "基础与行动",
@@ -55,6 +56,7 @@ module.exports = {
     },
   ],
   guidesSidebar: [
+    "guides/game-systems",
     "guides/returning",
     {
       type: "category",
