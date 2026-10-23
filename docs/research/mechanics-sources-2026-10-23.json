@@ -1,0 +1,548 @@
+{
+  "schemaVersion": 1,
+  "game": "roco-web",
+  "investigationDate": "2026-10-23",
+  "purpose": "Research provenance only; not a runtime rule registry or a claim of complete game verification.",
+  "config": {
+    "url": "https://res.17roco.qq.com/conf/Angel.config",
+    "retrievedAt": "2026-10-23T15:04:34.091Z",
+    "sha256": "d25931420b280a9a810a4c164d9053dfcc8ff4d90f09443c768f6077d119393d",
+    "objectCount": 26,
+    "configVersion": "B2070",
+    "petConfigVersion": "B6041",
+    "definitionCount": 4033,
+    "excludedCount": 63,
+    "duplicateIds": [
+      188,
+      1317,
+      1335,
+      1356,
+      1358,
+      1579
+    ],
+    "overriddenFields": [
+      {
+        "id": 188,
+        "fields": [
+          "power"
+        ]
+      },
+      {
+        "id": 1317,
+        "fields": [
+          "description"
+        ]
+      },
+      {
+        "id": 1335,
+        "fields": [
+          "description"
+        ]
+      },
+      {
+        "id": 1358,
+        "fields": [
+          "description",
+          "power",
+          "speed"
+        ]
+      },
+      {
+        "id": 1579,
+        "fields": [
+          "description"
+        ]
+      }
+    ],
+    "kind": "official-public-config",
+    "readingScope": "26资源的结构盘点与13个候选案例技能字段；非全机制行为分析",
+    "matchesBundledSnapshot": true,
+    "changedSelectedIds": [],
+    "inspectedSkillIds": [
+      91,
+      101,
+      158,
+      230,
+      345,
+      354,
+      414,
+      1842,
+      1959,
+      1960,
+      1961,
+      2247,
+      2307
+    ],
+    "publishedExampleSkillIds": [
+      91,
+      101,
+      230,
+      1842,
+      1959,
+      1960,
+      1961
+    ],
+    "runtimeRetested": false,
+    "resourceNames": [
+      "achieve_conf",
+      "ItemConfig",
+      "DazzleDressSet",
+      "ManorSeedConfig",
+      "scene_conf",
+      "plugins_conf",
+      "NewbieGuideConfig",
+      "AutoExec",
+      "FurnitureConstInfo",
+      "magic_conf",
+      "striveItem_conf",
+      "guardianPet_conf",
+      "GrowUpTask",
+      "GuideList",
+      "GameList",
+      "guardianPetVipAvatar_conf",
+      "spiritRect_conf",
+      "RoomList",
+      "Title_Conf",
+      "spirit_conf",
+      "spiritSkill_conf",
+      "TaskList",
+      "SpiritBooks",
+      "spiritEquipment_conf",
+      "DazzleDress",
+      "TaskGroup"
+    ]
+  },
+  "formulaImages": [
+    {
+      "sourceId": "training",
+      "scope": "精力公式",
+      "viewed": true,
+      "sha256": "19a5a5f9909d50dc8d4b8ad21177186b9bc102df8fc330aa17064338a6a387e5",
+      "url": "https://dp.gtimg.cn/discuzpic/0/discuz_17roco_gamebbs_qq_com_forum_202510_30_1510353gvh0gzigbxuhiuu.png/0"
+    },
+    {
+      "sourceId": "training",
+      "scope": "速度公式",
+      "viewed": true,
+      "sha256": "a1e7e768e4c81c69f8b91c2f37be8403fa9b973a8c62b559e7bf913611421d19",
+      "url": "https://dp.gtimg.cn/discuzpic/0/discuz_17roco_gamebbs_qq_com_forum_202510_30_151849bcstvesxvtbxx6r7.png/0"
+    },
+    {
+      "sourceId": "training",
+      "scope": "其余四项能力公式",
+      "viewed": true,
+      "sha256": "627090e947864d301c2f7c27a591e5f875ef8de2d055f9f7e470251a4d2db454",
+      "url": "https://dp.gtimg.cn/discuzpic/0/discuz_17roco_gamebbs_qq_com_forum_202510_30_151038t1fo3oxii3ai3dob.png/0"
+    }
+  ],
+  "sources": [
+    {
+      "id": "training",
+      "kind": "forum-moderator-guide",
+      "title": "【PK入门·1】宠物能力培养指南",
+      "author": "巴甫洛夫的猫",
+      "url": "https://17roco.gamebbs.qq.com/forum.php?mod=viewthread&tid=162202",
+      "readableUrl": "https://17roco.gamebbs.qq.com/forum.php?action=printable&mod=viewthread&tid=162202",
+      "firstPublishedAt": "2025-07-17T18:10:00+08:00",
+      "postEditTimes": [
+        "2026-06-29T16:09:00+08:00",
+        "2026-10-09T11:23:00+08:00",
+        "2026-06-10T15:13:00+08:00",
+        "2026-04-14T20:25:00+08:00",
+        "2026-07-07T08:14:00+08:00",
+        "2026-04-14T20:29:00+08:00",
+        "2026-04-14T20:31:00+08:00",
+        "2026-04-28T15:55:00+08:00",
+        "2026-04-14T20:35:00+08:00",
+        "2026-04-14T20:36:00+08:00"
+      ],
+      "capturedAt": "2026-10-23T15:01:07.029Z",
+      "locator": "培养的九个部分及总结公式；三个六维公式图单独查看",
+      "readingScope": "相关文字与公式图",
+      "evidenceStatus": "source_text",
+      "runtimeRetested": false,
+      "capturedRepresentation": "Defuddle Markdown; includes only extracted text and image references",
+      "capturedTextSha256": "fb5ec55b1e15e47c6fb5b02f9a0d0ee653a7d8564a9df4a45a6155cddbf2d292",
+      "rawHtmlSha256": "d89600e13723b526971d1b1223d17dcd5c4132ef28c0fd0778c6dee668c34764",
+      "limitation": "论坛教程不等同服务端源码；采集日期不等于游戏测试日期。未将原帖全文纳入仓库。"
+    },
+    {
+      "id": "power",
+      "kind": "forum-moderator-guide",
+      "title": "【计算工具】威力伤害计算器",
+      "author": "巴甫洛夫的猫；原味酸甜修订",
+      "url": "https://17roco.gamebbs.qq.com/forum.php?mod=viewthread&tid=162103",
+      "readableUrl": "https://17roco.gamebbs.qq.com/archiver/?tid-162103.html=",
+      "firstPublishedAt": "2025-07-14T01:15:28+08:00",
+      "postEditTimes": [
+        "2026-10-06T21:08:00+08:00"
+      ],
+      "capturedAt": "2026-10-23T15:01:06.741Z",
+      "locator": "applyLevel 与 render；五档关系、21档枚举、增减伤与最终取整",
+      "readingScope": "相关函数原文",
+      "evidenceStatus": "source_text",
+      "runtimeRetested": false,
+      "capturedRepresentation": "Defuddle Markdown; includes only extracted text and image references",
+      "capturedTextSha256": "8d83e00db3a26a85fbc79015d9f0fdc4e166e743c0d4709364c998b56439db73",
+      "rawHtmlSha256": "6bea0d862a49bbe7faff3bfb5b57667c40c4c9d11520dfa59540533aa6773ac4",
+      "limitation": "论坛教程不等同服务端源码；采集日期不等于游戏测试日期。未将原帖全文纳入仓库。"
+    },
+    {
+      "id": "turns",
+      "kind": "forum-moderator-guide",
+      "title": "【PK进阶·1】回合的基本概念",
+      "author": "巴甫洛夫的猫",
+      "url": "https://17roco.gamebbs.qq.com/forum.php?mod=viewthread&tid=157475",
+      "readableUrl": "https://17roco.gamebbs.qq.com/forum.php?action=printable&mod=viewthread&tid=157475",
+      "firstPublishedAt": "2024-07-02T02:17:00+08:00",
+      "postEditTimes": [
+        "2026-10-11T11:09:00+08:00",
+        "2026-07-07T08:48:00+08:00",
+        "2026-07-07T08:50:00+08:00",
+        "2026-10-13T07:11:00+08:00",
+        "2026-07-07T08:37:00+08:00"
+      ],
+      "capturedAt": "2026-10-23T15:06:12.888Z",
+      "locator": "自然回合、普通排序、连锁、技能回合与多个技能带出",
+      "readingScope": "相关正文",
+      "evidenceStatus": "source_text",
+      "runtimeRetested": false,
+      "capturedRepresentation": "Defuddle Markdown; includes only extracted text and image references",
+      "capturedTextSha256": "8661d11c52c72bb2cd30c38aea0f3a1de35ff048858092023ef7afabb6fbdb4a",
+      "limitation": "论坛教程不等同服务端源码；采集日期不等于游戏测试日期。未将原帖全文纳入仓库。"
+    },
+    {
+      "id": "skill-basics",
+      "kind": "forum-moderator-guide",
+      "title": "【PK进阶·2】关于技能的基础知识",
+      "author": "巴甫洛夫的猫",
+      "url": "https://17roco.gamebbs.qq.com/forum.php?mod=viewthread&tid=157477",
+      "readableUrl": "https://17roco.gamebbs.qq.com/forum.php?action=printable&mod=viewthread&tid=157477",
+      "firstPublishedAt": "2024-07-02T02:55:00+08:00",
+      "postEditTimes": [
+        "2026-10-11T11:11:00+08:00",
+        "2026-06-02T10:20:00+08:00",
+        "2026-06-02T10:21:00+08:00",
+        "2026-03-16T12:36:00+08:00"
+      ],
+      "capturedAt": "2026-10-23T15:06:12.871Z",
+      "locator": "技能特征、伤害分类与结算逻辑；条件和 Boss 例外",
+      "readingScope": "相关正文",
+      "evidenceStatus": "source_text",
+      "runtimeRetested": false,
+      "capturedRepresentation": "Defuddle Markdown; includes only extracted text and image references",
+      "capturedTextSha256": "07640290feb4a1d72a5f4e4f611def7c6b52b28f346d56b49dcb1897e303c5d6",
+      "limitation": "论坛教程不等同服务端源码；采集日期不等于游戏测试日期。未将原帖全文纳入仓库。"
+    },
+    {
+      "id": "effect-terms",
+      "kind": "forum-moderator-guide",
+      "title": "【PK进阶·3】技能效果名词解释",
+      "author": "巴甫洛夫的猫",
+      "url": "https://17roco.gamebbs.qq.com/forum.php?mod=viewthread&tid=157476",
+      "readableUrl": "https://17roco.gamebbs.qq.com/forum.php?action=printable&mod=viewthread&tid=157476",
+      "firstPublishedAt": "2024-07-02T02:46:00+08:00",
+      "postEditTimes": [
+        "2026-06-29T06:36:00+08:00",
+        "2026-09-10T10:58:00+08:00",
+        "2026-07-14T08:06:00+08:00",
+        "2026-06-23T08:25:00+08:00",
+        "2026-06-23T08:26:00+08:00",
+        "2026-07-12T21:30:00+08:00",
+        "2026-06-22T08:38:00+08:00",
+        "2026-06-23T08:35:00+08:00",
+        "2026-07-12T21:08:00+08:00",
+        "2026-07-07T07:47:00+08:00",
+        "2026-06-24T11:14:00+08:00"
+      ],
+      "capturedAt": "2026-10-23T15:06:13.161Z",
+      "locator": "异常、强化、PP、被动与名词分类",
+      "readingScope": "相关段落，非所有效果配对实测",
+      "evidenceStatus": "source_text",
+      "runtimeRetested": false,
+      "capturedRepresentation": "Defuddle Markdown; includes only extracted text and image references",
+      "capturedTextSha256": "a5bac0c6f0b8b5c4d1397ae038d252d0deb8bcdce2fc6d34c29a987cdefe90f4",
+      "limitation": "论坛教程不等同服务端源码；采集日期不等于游戏测试日期。未将原帖全文纳入仓库。"
+    },
+    {
+      "id": "type-chart",
+      "kind": "forum-moderator-guide",
+      "title": "【查询工具】属性克制抵抗关系表",
+      "author": "巴甫洛夫的猫",
+      "url": "https://17roco.gamebbs.qq.com/forum.php?mod=viewthread&tid=158387",
+      "readableUrl": "https://17roco.gamebbs.qq.com/forum.php?action=printable&mod=viewthread&tid=158387",
+      "firstPublishedAt": "2024-07-25T18:05:00+08:00",
+      "postEditTimes": [
+        "2026-10-06T21:11:00+08:00",
+        "2026-10-06T21:33:00+08:00",
+        "2026-06-09T19:58:00+08:00"
+      ],
+      "capturedAt": "2026-10-23T15:07:45.676Z",
+      "locator": "属性组合文字规则与神系例外",
+      "readingScope": "说明正文；未完整导入交互矩阵",
+      "evidenceStatus": "source_text",
+      "runtimeRetested": false,
+      "capturedRepresentation": "Defuddle Markdown; includes only extracted text and image references",
+      "capturedTextSha256": "0dc44e33dd6dbe8624b2119700de0d9bf35021b75067d6b7a53ee0f92bea746e",
+      "limitation": "论坛教程不等同服务端源码；采集日期不等于游戏测试日期。未将原帖全文纳入仓库。"
+    },
+    {
+      "id": "weather",
+      "kind": "forum-moderator-guide",
+      "title": "【查询工具】天气环境效果表",
+      "author": "巴甫洛夫的猫",
+      "url": "https://17roco.gamebbs.qq.com/forum.php?mod=viewthread&tid=157056",
+      "readableUrl": "https://17roco.gamebbs.qq.com/forum.php?action=printable&mod=viewthread&tid=157056",
+      "firstPublishedAt": "2024-05-17T15:29:00+08:00",
+      "postEditTimes": [
+        "2026-10-06T21:12:00+08:00",
+        "2026-06-14T10:51:00+08:00"
+      ],
+      "capturedAt": "2026-10-23T15:07:45.425Z",
+      "locator": "天气环境的召唤、计时、覆盖与强制例外",
+      "readingScope": "说明正文；未逐项导入动态效果表",
+      "evidenceStatus": "source_text",
+      "runtimeRetested": false,
+      "capturedRepresentation": "Defuddle Markdown; includes only extracted text and image references",
+      "capturedTextSha256": "f4bc7aa0f490a3ac1855c653b413d770383a8690b483952e61e370e84e486c38",
+      "limitation": "论坛教程不等同服务端源码；采集日期不等于游戏测试日期。未将原帖全文纳入仓库。"
+    },
+    {
+      "id": "battle-system",
+      "kind": "forum-moderator-guide",
+      "title": "【PK入门·2】对战系统&PVP赛制介绍",
+      "author": "巴甫洛夫的猫",
+      "url": "https://17roco.gamebbs.qq.com/forum.php?mod=viewthread&tid=157484",
+      "readableUrl": "https://17roco.gamebbs.qq.com/forum.php?action=printable&mod=viewthread&tid=157484",
+      "firstPublishedAt": "2024-07-02T09:20:00+08:00",
+      "postEditTimes": [
+        "2026-06-29T06:41:00+08:00",
+        "2026-04-25T07:15:00+08:00",
+        "2026-04-25T23:11:00+08:00",
+        "2026-06-16T20:23:00+08:00"
+      ],
+      "capturedAt": "2026-10-23T15:06:12.736Z",
+      "locator": "战斗信息展示、操作与 PVP 模式分类",
+      "readingScope": "相关正文；当前开放状态与赛季奖励未逐项验收",
+      "evidenceStatus": "source_text",
+      "runtimeRetested": false,
+      "capturedRepresentation": "Defuddle Markdown; includes only extracted text and image references",
+      "capturedTextSha256": "3c3c13789cc19527e8c8a9d72356cc3c3ce1097bc715f7ef5d7ea77825430738",
+      "limitation": "论坛教程不等同服务端源码；采集日期不等于游戏测试日期。未将原帖全文纳入仓库。"
+    },
+    {
+      "id": "practical-index",
+      "kind": "forum-moderator-guide",
+      "title": "【攻略】洛克王国实用攻略大集锦！！",
+      "author": "巴甫洛夫的猫",
+      "url": "https://17roco.gamebbs.qq.com/forum.php?mod=viewthread&tid=157872",
+      "readableUrl": "https://17roco.gamebbs.qq.com/forum.php?action=printable&mod=viewthread&tid=157872",
+      "firstPublishedAt": "2024-07-14T16:14:00+08:00",
+      "postEditTimes": [
+        "2026-10-18T16:24:00+08:00"
+      ],
+      "capturedAt": "2026-10-23T15:06:12.573Z",
+      "locator": "战斗、玩法、收集的原始文章索引",
+      "readingScope": "目录定位",
+      "evidenceStatus": "source_text",
+      "runtimeRetested": false,
+      "capturedRepresentation": "Defuddle Markdown; includes only extracted text and image references",
+      "capturedTextSha256": "b59e885e8fa321aa9f633531a9a894fb074a1fdcfeead77def47c35e5c56ab39",
+      "limitation": "论坛教程不等同服务端源码；采集日期不等于游戏测试日期。未将原帖全文纳入仓库。"
+    },
+    {
+      "id": "abnormal-status",
+      "kind": "forum-moderator-guide",
+      "title": "【查询工具】洛克王国异常状态效果表",
+      "author": "巴甫洛夫的猫",
+      "url": "https://17roco.gamebbs.qq.com/forum.php?mod=viewthread&tid=157070",
+      "readableUrl": "https://17roco.gamebbs.qq.com/forum.php?action=printable&mod=viewthread&tid=157070",
+      "firstPublishedAt": "2024-05-20T00:59:00+08:00",
+      "postEditTimes": [
+        "2026-06-01T23:14:00+08:00",
+        "2026-06-10T22:16:00+08:00"
+      ],
+      "capturedAt": "2026-10-23T15:10:37.755Z",
+      "locator": "异常分类、控制与掉血异常的说明",
+      "readingScope": "引言与相关文字；动态图表未逐项复核",
+      "evidenceStatus": "source_text",
+      "runtimeRetested": false,
+      "capturedRepresentation": "Defuddle Markdown; includes only extracted text and image references",
+      "capturedTextSha256": "875612d0e4c5f24fe9f308362b3ef257d24accca8bc675bc73d538a8b74bd54d",
+      "limitation": "论坛教程不等同服务端源码；采集日期不等于游戏测试日期。未将原帖全文纳入仓库。"
+    },
+    {
+      "id": "bloodlines",
+      "kind": "forum-moderator-guide",
+      "title": "【PK资料】洛克王国血脉天赋大全",
+      "author": "巴甫洛夫的猫",
+      "url": "https://17roco.gamebbs.qq.com/forum.php?mod=viewthread&tid=164516",
+      "readableUrl": "https://17roco.gamebbs.qq.com/forum.php?action=printable&mod=viewthread&tid=164516",
+      "firstPublishedAt": "2026-06-01T20:54:00+08:00",
+      "postEditTimes": [
+        "2026-06-29T00:17:00+08:00",
+        "2026-06-01T21:06:00+08:00",
+        "2026-10-19T21:44:00+08:00",
+        "2026-09-10T11:08:00+08:00",
+        "2026-09-10T11:07:00+08:00",
+        "2026-06-01T21:35:00+08:00",
+        "2026-07-26T15:51:00+08:00",
+        "2026-09-20T00:19:00+08:00"
+      ],
+      "capturedAt": "2026-10-23T15:06:13.610Z",
+      "locator": "通用/专属血脉分类与对应玩法原帖入口",
+      "readingScope": "引言与部分通用条目；未逐个血脉复核",
+      "evidenceStatus": "source_text",
+      "runtimeRetested": false,
+      "capturedRepresentation": "Defuddle Markdown; includes only extracted text and image references",
+      "capturedTextSha256": "80d56761b1f31f0d1e4020290657c152b9d663446dbe1ad1da9bd0fbac5ce229",
+      "limitation": "论坛教程不等同服务端源码；采集日期不等于游戏测试日期。未将原帖全文纳入仓库。"
+    },
+    {
+      "id": "capture",
+      "kind": "forum-moderator-guide",
+      "title": "【收集攻略】场景宠物捕捉地点大全",
+      "author": "巴甫洛夫的猫",
+      "url": "https://17roco.gamebbs.qq.com/forum.php?mod=viewthread&tid=157192",
+      "readableUrl": "https://17roco.gamebbs.qq.com/forum.php?action=printable&mod=viewthread&tid=157192",
+      "firstPublishedAt": "2024-06-05T09:38:00+08:00",
+      "postEditTimes": [
+        "2026-10-06T21:17:00+08:00",
+        "2026-05-08T08:53:00+08:00",
+        "2025-10-27T01:29:00+08:00",
+        "2026-05-08T08:52:00+08:00",
+        "2025-10-22T11:54:00+08:00",
+        "2025-10-22T11:55:00+08:00",
+        "2026-05-08T08:54:00+08:00",
+        "2026-04-30T11:22:00+08:00",
+        "2026-03-24T14:00:00+08:00",
+        "2025-10-22T11:09:00+08:00",
+        "2025-10-27T02:00:00+08:00"
+      ],
+      "capturedAt": "2026-10-23T15:07:46.158Z",
+      "locator": "捕捉条件介绍与各地图分组",
+      "readingScope": "引言与目录；地点及出现条件未全量复核",
+      "evidenceStatus": "source_text",
+      "runtimeRetested": false,
+      "capturedRepresentation": "Defuddle Markdown; includes only extracted text and image references",
+      "capturedTextSha256": "6f66c79731b58a456bb76dce4ad69d100c08810dc4c86a0b78d427542d44ba8e",
+      "limitation": "论坛教程不等同服务端源码；采集日期不等于游戏测试日期。未将原帖全文纳入仓库。"
+    },
+    {
+      "id": "breeding",
+      "kind": "forum-moderator-guide",
+      "title": "【知识百科】洛克王国遗传技能大全",
+      "author": "巴甫洛夫的猫",
+      "url": "https://17roco.gamebbs.qq.com/forum.php?mod=viewthread&tid=156449",
+      "readableUrl": "https://17roco.gamebbs.qq.com/forum.php?action=printable&mod=viewthread&tid=156449",
+      "firstPublishedAt": "2024-03-11T23:03:00+08:00",
+      "postEditTimes": [
+        "2026-10-12T13:25:00+08:00",
+        "2026-10-12T12:25:00+08:00",
+        "2026-10-12T12:05:00+08:00",
+        "2026-10-12T12:23:00+08:00",
+        "2026-10-12T12:29:00+08:00",
+        "2026-10-12T12:33:00+08:00",
+        "2026-10-12T12:35:00+08:00",
+        "2026-10-12T12:37:00+08:00",
+        "2026-10-12T12:56:00+08:00",
+        "2026-10-12T12:58:00+08:00"
+      ],
+      "capturedAt": "2026-10-23T15:10:37.814Z",
+      "locator": "生蛋、亲本、遗传与孵化的说明",
+      "readingScope": "说明正文；组别遗传图片未逐项抄录",
+      "evidenceStatus": "source_text",
+      "runtimeRetested": false,
+      "capturedRepresentation": "Defuddle Markdown; includes only extracted text and image references",
+      "capturedTextSha256": "2c3e593c5fe304683c1857960d461b53ce70398eadf337e5f4ecf054093697a8",
+      "limitation": "论坛教程不等同服务端源码；采集日期不等于游戏测试日期。未将原帖全文纳入仓库。"
+    },
+    {
+      "id": "rebirth",
+      "kind": "forum-moderator-guide",
+      "title": "【玩法介绍】破茧重生玩法介绍 · 宠物重生精粹数盘点",
+      "author": "巴甫洛夫的猫",
+      "url": "https://17roco.gamebbs.qq.com/forum.php?mod=viewthread&tid=152294",
+      "readableUrl": "https://17roco.gamebbs.qq.com/forum.php?action=printable&mod=viewthread&tid=152294",
+      "firstPublishedAt": "2023-07-20T14:19:00+08:00",
+      "postEditTimes": [
+        "2026-10-13T01:29:00+08:00",
+        "2026-10-03T21:20:00+08:00"
+      ],
+      "capturedAt": "2026-10-23T15:07:45.435Z",
+      "locator": "前置、保留与重置、资源来源",
+      "readingScope": "说明正文；动态精粹表未全量核验",
+      "evidenceStatus": "source_text",
+      "runtimeRetested": false,
+      "capturedRepresentation": "Defuddle Markdown; includes only extracted text and image references",
+      "capturedTextSha256": "2108126729d5b4509ccb073e2eb16c58584d6b1013177d5e7016a09f7264d441",
+      "limitation": "论坛教程不等同服务端源码；采集日期不等于游戏测试日期。未将原帖全文纳入仓库。"
+    },
+    {
+      "id": "park",
+      "kind": "forum-moderator-guide",
+      "title": "【玩法介绍】乐园玩法介绍 · 乐园宠物获得攻略",
+      "author": "巴甫洛夫的猫",
+      "url": "https://17roco.gamebbs.qq.com/forum.php?mod=viewthread&tid=157541",
+      "readableUrl": "https://17roco.gamebbs.qq.com/forum.php?action=printable&mod=viewthread&tid=157541",
+      "firstPublishedAt": "2024-07-03T02:18:00+08:00",
+      "postEditTimes": [
+        "2026-10-19T08:12:00+08:00",
+        "2026-01-19T21:02:00+08:00",
+        "2026-03-30T16:53:00+08:00",
+        "2025-10-18T14:48:00+08:00"
+      ],
+      "capturedAt": "2026-10-23T15:07:45.643Z",
+      "locator": "亲密培养、专属宠物与成就的划分",
+      "readingScope": "引言、亲密说明与目录；未逐项验收召唤和成就",
+      "evidenceStatus": "source_text",
+      "runtimeRetested": false,
+      "capturedRepresentation": "Defuddle Markdown; includes only extracted text and image references",
+      "capturedTextSha256": "a87b41574bc9d411aaf275c64575b2752aaffb100db7e611b704cd397681c362",
+      "limitation": "论坛教程不等同服务端源码；采集日期不等于游戏测试日期。未将原帖全文纳入仓库。"
+    },
+    {
+      "id": "resources",
+      "kind": "forum-moderator-guide",
+      "title": "【收集攻略】洛克钻资源获取指南",
+      "author": "巴甫洛夫的猫",
+      "url": "https://17roco.gamebbs.qq.com/forum.php?mod=viewthread&tid=164522",
+      "readableUrl": "https://17roco.gamebbs.qq.com/forum.php?action=printable&mod=viewthread&tid=164522",
+      "firstPublishedAt": "2026-06-02T23:30:00+08:00",
+      "postEditTimes": [
+        "2026-10-21T09:29:00+08:00"
+      ],
+      "capturedAt": "2026-10-23T15:07:45.341Z",
+      "locator": "洛克钻周期性收益与一次性收益的划分",
+      "readingScope": "开头说明与目录；当期额度未逐项确认",
+      "evidenceStatus": "source_text",
+      "runtimeRetested": false,
+      "capturedRepresentation": "Defuddle Markdown; includes only extracted text and image references",
+      "capturedTextSha256": "f42981b808fa765b946ddd099f9e8e500df9d46472069f9d240fa5181c1179af",
+      "limitation": "论坛教程不等同服务端源码；采集日期不等于游戏测试日期。未将原帖全文纳入仓库。"
+    },
+    {
+      "id": "gathering",
+      "kind": "forum-moderator-guide",
+      "title": "【收集攻略】魔法材料采集地点大全（魔法石 · 灵石）",
+      "author": "巴甫洛夫的猫",
+      "url": "https://17roco.gamebbs.qq.com/forum.php?mod=viewthread&tid=156015",
+      "readableUrl": "https://17roco.gamebbs.qq.com/forum.php?action=printable&mod=viewthread&tid=156015",
+      "firstPublishedAt": "2024-02-08T22:51:00+08:00",
+      "postEditTimes": [
+        "2026-10-06T21:16:00+08:00",
+        "2025-10-20T12:29:00+08:00",
+        "2025-10-20T05:16:00+08:00",
+        "2025-10-24T01:34:00+08:00"
+      ],
+      "capturedAt": "2026-10-23T15:07:45.807Z",
+      "locator": "材料种类与地点条目的组织",
+      "readingScope": "引言与目录；未逐点验证产出概率",
+      "evidenceStatus": "source_text",
+      "runtimeRetested": false,
+      "capturedRepresentation": "Defuddle Markdown; includes only extracted text and image references",
+      "capturedTextSha256": "6fe3e874b84c9f1a3e9a9ec52a8ae5371d3caf381ef323c9b41a372f337ebb06",
+      "limitation": "论坛教程不等同服务端源码；采集日期不等于游戏测试日期。未将原帖全文纳入仓库。"
+    }
+  ]
+}

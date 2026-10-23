@@ -6,12 +6,12 @@
     "src/wiki/WikiPage.jsx": "ce88975bb98a5da7f574defd909239a0b7de7c660108d496b05b529d1af64e62",
     "src/wiki/HomePage.jsx": "992e5aad7029a60bef11e1ebc62bf4acad87cb3062fc5fde91f34a05c99a37ea",
     "src/wiki/CatalogPages.jsx": "8278a140395baf372863d81db635e65d8fbff753b38c9e0a7ecc66a77215cd2c",
-    "src/wiki/MechanicsPages.jsx": "36a66e065489f0db5858faa92c1b2e7c530cf67921c92b732335636b3ce16534",
+    "src/wiki/MechanicsPages.jsx": "28202d3f45028f1f7ec15b1e49b00e23dcc70c8f5e9eb5b308136edb47d8cb13",
     "src/wiki/WorldPages.jsx": "9c4ff943bd19d12569fc15501c94b0dacc793ff67b63c087c78ebe80ffab5f3c",
     "src/wiki/EventPagesV7.jsx": "429540c23f2174cdcfb0fd3c114b3d53be4d2889664bd3ec1723eefe78ca467c",
     "src/wiki/PvePages.jsx": "a34bc57c87921ff946cb7d16700693af5ad916ff067aefc373681323ffa4cc2c",
     "src/wiki/ToolsPages.jsx": "2e9c4a48903089bde7a70ddce32f96799a59e05fa295a487aaa653e4ca8d7114",
-    "src/wiki/data.js": "e28ed9e452257ff655e081191d92c8e3555acc4564d415896bad08cc94df5eb3"
+    "src/wiki/data.js": "5f8c369586255cc027d7444fb39d18fec051eeef0f13df92187f161063db9140"
   },
   "sections": [
     {
