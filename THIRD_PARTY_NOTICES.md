@@ -1,6 +1,6 @@
 # 许可与第三方权利
 [English](THIRD_PARTY_NOTICES.en.md) · [LICENSE](LICENSE)
-<!-- rocowiki-policy: rights; version: 3; lang: zh-CN -->
+<!-- rocowiki-policy: rights; version: 4; lang: zh-CN -->
 
 <a id="scope"></a>
 ## 项目许可范围
@@ -11,6 +11,8 @@
 
 <a id="inventory"></a>
 ## 依赖与素材记录
+
+README 的徽章由 [Shields.io](https://shields.io/) 与 [GitHub Actions](https://github.com/myouo/rocowiki/actions/workflows/validate.yml) 提供，README 与首页的 `miku` 主题访问计数器由 [count.getloli.com](https://count.getloli.com/) 提供，统一使用 `rocowiki` 计数名称。仓库仅引用这些外部图片 URL，不保存或重新许可服务方的主题素材；相关素材权利归各自权利人。站点的 `/copyright/#credits` 与 `/copyright/en/#credits` 汇总已记录的数据来源、玩家研究与开源项目致谢。
 
 直接依赖的名称、版本和安装包声明的许可在台账登记，可取得的原始许可文本保存在 licenses/third-party/。该记录不代表已完成全部传递依赖或每个发布制品的法律审查；缺失版权/许可正文的项标为 metadata-only，发行前取得必要声明。
 

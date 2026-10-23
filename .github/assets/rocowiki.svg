@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="448" height="128" viewBox="0 0 448 128" role="img" aria-labelledby="title desc">
+  <!-- SPDX-License-Identifier: GPL-3.0-only -->
+  <title id="title">RocoWiki</title>
+  <desc id="desc">An open blue book and the RocoWiki wordmark in the site's Georgia serif typeface.</desc>
+  <style>
+    @media (prefers-color-scheme: dark) { .wordmark { fill: #e3edf7; } }
+  </style>
+  <rect x="4" y="4" width="120" height="120" rx="32" fill="#f6f4f0" stroke="#e3e5ec" stroke-width="2"/>
+  <path d="M28 39c13-4 25-2 36 5v47c-11-7-23-9-36-5Z" fill="#e3edf7"/>
+  <path d="M100 39c-13-4-25-2-36 5v47c11-7 23-9 36-5Z" fill="#eef2fb"/>
+  <g fill="none" stroke="#607cac" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M64 44c-11-7-23-9-36-5v47c13-4 25-2 36 5 11-7 23-9 36-5V39c-13-4-25-2-36 5Zm0 0v47"/>
+    <path d="M38 52c6-1 11 0 16 3m-16 8c6-1 11 0 16 3m20-11c5-3 10-4 16-3m-16 14c5-3 10-4 16-3" stroke="#7890b5" stroke-width="2.5"/>
+  </g>
+  <path d="m97 19 3 7 7 3-7 3-3 7-3-7-7-3 7-3Z" fill="#b58945"/>
+  <circle cx="30" cy="101" r="3" fill="#a6b8a0"/>
+  <!-- Match .rw-wordmark b in apps/web/src/css/v5.css and v7.css. -->
+  <text class="wordmark" x="148" y="82" fill="#303e54" font-family="Georgia, 'Times New Roman', serif" font-size="56" font-weight="600" letter-spacing="-1.35">RocoWiki</text>
+</svg>

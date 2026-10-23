@@ -1,6 +1,6 @@
 # Licensing and third-party rights
 [中文](THIRD_PARTY_NOTICES.md) · [LICENSE](LICENSE)
-<!-- rocowiki-policy: rights; version: 3; lang: en -->
+<!-- rocowiki-policy: rights; version: 4; lang: en -->
 
 <a id="scope"></a>
 ## Project license scope
@@ -11,6 +11,8 @@ Existing third-party copyright and license notices remain effective. Game images
 
 <a id="inventory"></a>
 ## Dependencies and assets
+
+README badges are served by [Shields.io](https://shields.io/) and [GitHub Actions](https://github.com/myouo/rocowiki/actions/workflows/validate.yml); the `miku` theme counters on the README and homepage are served by [count.getloli.com](https://count.getloli.com/) using the shared name `rocowiki`. The repository references these external image URLs without storing or relicensing the providers' theme assets; rights remain with their respective holders. The site's `/copyright/#credits` and `/copyright/en/#credits` summarize recorded data sources, player research and open-source acknowledgements.
 
 The inventory records direct dependencies, versions and package-declared licenses. Available original license files are retained under licenses/third-party/. This is not a complete legal review of transitive dependencies or every release artifact. Entries missing copyright/license text are marked metadata-only and require necessary notices before distribution.
 

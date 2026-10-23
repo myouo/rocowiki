@@ -1,5 +1,6 @@
 import React from "react";
 import Link from "@docusaurus/Link";
+import Acknowledgements from "./Acknowledgements";
 import "./CopyrightPage.css";
 
 type Section = { id: string; title: string; paragraphs: string[] };
@@ -44,6 +45,7 @@ export default function CopyrightPage({ english = false }: { english?: boolean }
         </nav>
       </header>
       <div className="rw-legal-sections">
+        <Acknowledgements english={english} />
         {notice.sections.map(section => (
           <section key={section.id} aria-labelledby={section.id}>
             <h2 id={section.id}>{section.title}</h2>

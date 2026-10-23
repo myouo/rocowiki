@@ -5,7 +5,7 @@
   "documents": [
     {
       "id": "overview",
-      "version": 6,
+      "version": 7,
       "zh": "README.md",
       "en": "README.en.md",
       "sections": [
@@ -94,7 +94,7 @@
     },
     {
       "id": "rights",
-      "version": 3,
+      "version": 4,
       "zh": "THIRD_PARTY_NOTICES.md",
       "en": "THIRD_PARTY_NOTICES.en.md",
       "sections": [

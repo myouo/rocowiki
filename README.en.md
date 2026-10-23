@@ -1,7 +1,20 @@
-# RocoWiki
+<h1 align="center">
+  <a href="https://wiki.rocoai.app">
+    <img src=".github/assets/rocowiki.svg" width="392" alt="RocoWiki">
+  </a>
+</h1>
+
+<p align="center">Roco Kingdom browser game · A player-built encyclopedia</p>
+
+<p align="center">
+  <a href="https://wiki.rocoai.app"><img src="https://img.shields.io/badge/Wiki-wiki.rocoai.app-315c89?style=flat-square" alt="Visit RocoWiki"></a>
+  <a href="https://github.com/myouo/rocowiki/actions/workflows/validate.yml"><img src="https://github.com/myouo/rocowiki/actions/workflows/validate.yml/badge.svg" alt="Repository validation status"></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/code-GPL--3.0--only-7890b5?style=flat-square" alt="Code license: GPL-3.0-only"></a>
+  <a href="COPYRIGHT.en.md"><img src="https://img.shields.io/badge/original_wiki_prose-CC_BY--SA_4.0-a6b8a0?style=flat-square" alt="Original Wiki prose license: CC BY-SA 4.0"></a>
+</p>
 
 [中文](README.md) · [Contributing](CONTRIBUTING.en.md) · [Copyright](COPYRIGHT.en.md)
-<!-- rocowiki-policy: overview; version: 6; lang: en -->
+<!-- rocowiki-policy: overview; version: 7; lang: en -->
 
 <a id="about"></a>
 ## About RocoWiki
@@ -39,3 +52,14 @@ Follow the [code of conduct](CODE_OF_CONDUCT.en.md) and respect other readers an
 Original Wiki prose that can be licensed under project policy uses **CC BY-SA 4.0**, with authors retaining copyright. Redistribution and adaptation require attribution; sharing adaptations requires ShareAlike compliance. Original code uses **GPL-3.0-only**; see [LICENSE](LICENSE).
 
 Game images, trademarks, fonts and quoted material retain their own rights and are not automatically covered by these licenses. Existing works are not relicensed retroactively. See [copyright](COPYRIGHT.en.md) and [third-party notices](THIRD_PARTY_NOTICES.en.md) for the scope.
+
+---
+
+<p align="center">
+  <strong>Thanks to every Roco explorer who stops by ✨</strong><br>
+  <sub>Project visit counter</sub>
+</p>
+
+<p align="center">
+  <img src="https://count.getloli.com/@rocowiki?theme=miku&amp;padding=7&amp;offset=0&amp;align=center&amp;scale=1.0&amp;pixelated=1&amp;darkmode=auto" alt="RocoWiki project visit counter (Miku theme)">
+</p>
