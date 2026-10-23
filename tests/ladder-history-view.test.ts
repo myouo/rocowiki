@@ -24,3 +24,8 @@ it('shows sourced season rewards with a real pet link and keeps missing dates ex
   expect(html).toContain('尚未收录');expect(html).toContain('来源与记录范围');
   expect(render('view=seasons&season=9999')).toContain('没有找到这一届');
 });
+it('keeps a capture-day observation distinct from a dated announcement link',()=>{
+  const html=render('view=bans&date=2026-10-22');
+  expect(html).toContain('配置采集');expect(html).toContain('查看当前配置与参赛资料');
+  expect(html).not.toContain('href="/battle/?mode=ladder&amp;date=2026-10-22"');
+});
