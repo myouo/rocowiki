@@ -5,8 +5,8 @@ import { weekly, officialLadderData, officialPetData } from "../content/bundled.
 import { LadderBanList, LadderBanSource } from "./LadderBans";
 import { PetNameChips, SourceLine, Tabs, hrefWith, useWorldQuery } from "./components.jsx";
 import { WeeklyEdition, WeeklySources, dateLabel, useWeeklyDate } from "./weekly.jsx";
-import {findBanNotice,historyHref,archiveSource} from '../ladderHistoryModel';
-import {ArchiveSource,NoticeBanNames} from './LadderHistory';
+import {resolveBattleArchive,historyHref,archiveSource} from '../ladderHistoryModel';
+import {BattleArchiveRecords} from './LadderHistory';
 
 const PVP_MODE_NAMES = {
   type: "系别排位赛",
@@ -80,10 +80,14 @@ function BattlePage({ query }) {
   const { today, stale } = useWeeklyDate();
   const mode = normalizePvpMode(query.get("mode"));
   const historicalDate = validDate(query.get("date")) ? query.get("date") : null;
-  const showConfig = mode !== "type" && !historicalDate;
+  const hasHistoryRequest=!!historicalDate||query.has('record');
+  const historical=resolveBattleArchive(historicalDate,mode,query.has('record')?query.get('record')||'':null);
+  const hasHistoricalContent=historical.records.length>0||historical.events.length>0;
+  const firstRecord=historical.records[0];
+  const historicalSource=firstRecord?.notice?archiveSource(firstRecord.notice.sourceId).url:firstRecord?.observation?firstRecord.observation.source.url:historical.events[0]?archiveSource(historical.events[0].sourceId).url:undefined;
+  const showConfig = mode !== "type" && !hasHistoryRequest;
   const fallbackDate = stale ? weekly.edition.startDate : today;
-  const date = historicalDate || fallbackDate;
-  const historicalNotice=historicalDate?findBanNotice(historicalDate,mode):null;
+  const date = historical.date || historicalDate || fallbackDate;
   const inEdition =
     date >= weekly.edition.startDate && date < weekly.edition.reviewDueDate;
   const activePeriod = [...weekly.pvp.typeTournament.periods]
@@ -100,7 +104,7 @@ function BattlePage({ query }) {
           <><TextLink to={`/battle/rules/?mode=${mode}`}>参赛规则</TextLink><TextLink to={historyHref({mode})}>历届赛季与奖励</TextLink></>
         }
       />
-      {!showConfig && inEdition && <WeeklyEdition stale={stale} />}
+      {!showConfig && !hasHistoryRequest && inEdition && <WeeklyEdition stale={stale} />}
       <Tabs
         path="/battle/"
         query={query}
@@ -128,15 +132,15 @@ function BattlePage({ query }) {
           查询历史日期
           <input
             type="date"
-            value={showConfig ? "" : date}
+            value={showConfig ? "" : hasHistoryRequest ? historical.date||historicalDate||'' : date}
             aria-label="查询规则日期"
             onChange={(event) =>
-              update({ date: event.target.value || null })
+              update({ date: event.target.value || null, record: null })
             }
           />
         </label>
       </div>
-      {mode !== "type" && !showConfig && <TextLink to={hrefWith("/battle/", query, { date: null })}>查看 XML 配置禁赛</TextLink>}
+      {mode !== "type" && !showConfig && <TextLink to={hrefWith("/battle/", query, { date: null, record: null })}>查看 XML 配置禁赛</TextLink>}
       {showConfig ? (
         <Section title={mode === "peak" ? "巅峰赛共享配置禁赛名单" : "天梯配置禁赛名单"} id="weekly-bans">
           <div className="wa-ban-heading"><Shield size={21} /><strong>官方天梯配置</strong><Badge>{officialLadderData.bannedPetIds.length} 只</Badge></div>
@@ -144,7 +148,9 @@ function BattlePage({ query }) {
           <LadderBanList snapshot={officialLadderData} catalog={officialPetData.pets} />
           <LadderBanSource snapshot={officialLadderData} />
         </Section>
-      ) : inEdition ? (
+      ) : hasHistoryRequest&&hasHistoricalContent ? (
+        <Section title="所选历史档案" id="historical-records"><BattleArchiveRecords records={historical.records} events={historical.events} mode={mode}/></Section>
+      ) : !hasHistoryRequest&&inEdition ? (
         <>
           <div className="wa-list-meta">
             <span>
@@ -201,17 +207,9 @@ function BattlePage({ query }) {
           )}
           <WeeklySources detailed />
         </>
-      ) : historicalNotice ? (
-        <Section title={`${date} 公告禁赛记录`} id="historical-bans">
-          <p>这份公告记录对应所选批次，未自动推断相邻日期的完整适用区间。{mode==='peak'?'巅峰赛共享天梯名单，其他参赛条件分别核对。':''}</p>
-          {historicalNotice.allowedTypes&&<p>该场参赛主属性：<strong>{historicalNotice.allowedTypes.join(' / ')}</strong></p>}
-          {historicalNotice.bannedPetNames.length?<NoticeBanNames names={historicalNotice.bannedPetNames}/>:<p className="lh-zero">原公告明确记载：本期无禁赛宠物。</p>}
-          <ArchiveSource source={archiveSource(historicalNotice.sourceId)}/>
-          <TextLink to={historyHref({view:'bans',mode,record:historicalNotice.id})}>查看这一期的完整档案</TextLink>
-        </Section>
       ) : (
         <EmptyState
-          title={`${dateLabel(date)} 的规则尚未收录`}
+          title={query.has('record')?'指定档案记录尚未收录':historical.date||historicalDate?`${dateLabel(date)} 的规则尚未收录`:'指定档案记录尚未收录'}
           action={
             <Link
               className="rw-button"
@@ -258,8 +256,8 @@ function BattlePage({ query }) {
         <TextLink to="/events/">同期活动</TextLink>
       </div>
       <Contribution
-        entity={`${PVP_MODE_NAMES[mode]} · ${showConfig ? "配置禁赛" : date}`}
-        source={showConfig ? officialLadderData.source.url : inEdition ? weekly.sources[0].url : historicalNotice ? archiveSource(historicalNotice.sourceId).url : undefined}
+        entity={`${PVP_MODE_NAMES[mode]} · ${showConfig ? "配置禁赛" : historical.date||(!hasHistoryRequest?date:'未收录档案')}`}
+        source={showConfig ? officialLadderData.source.url : hasHistoryRequest ? historicalSource : inEdition ? weekly.sources[0].url : undefined}
       />
     </div>
   );

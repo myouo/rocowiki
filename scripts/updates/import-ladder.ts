@@ -26,9 +26,10 @@ async function download(): Promise<Buffer> {
 }
 const bytes = values.input ? await readFile(values.input) : await download();
 const observation=ladderHistoryObservation(bytes,values['retrieved-at']||new Date().toISOString());
-const {changed,archived,snapshot}=await saveLadderRefresh(
+const {changed,archived,snapshot,rewardExtractionError}=await saveLadderRefresh(
   new URL('../../apps/web/content/official-ladder.json',import.meta.url),
   new URL('../../apps/web/content/ladder-history.json',import.meta.url),observation,values.force,
 );
 console.log(`${changed ? 'Imported' : 'Unchanged:'} ${Object.keys(snapshot.costs).length} configured ladder costs; ${snapshot.bannedPetIds.length} banned pet IDs; unlisted IDs use the official client default ${snapshot.defaultCost}. SHA-256: ${snapshot.source.sha256}`);
 console.log(archived?'Retained ladder observations and reward fields in the history archive.':'Ladder history is unchanged.');
+if(rewardExtractionError)console.warn(`Ladder reward extraction warning: ${rewardExtractionError}; valid costs and bans were retained. Reward history was not overwritten.`);

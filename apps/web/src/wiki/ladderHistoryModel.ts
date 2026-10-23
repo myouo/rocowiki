@@ -46,3 +46,23 @@ export function rewardMatches(season:number,rewards:readonly {petId:number;name:
   if(numbered){const number=Number(numbered[1]);return season===number||(!/[第届]/.test(text)&&rewards.some(row=>row.petId===number));}
   const normalized=text.toLocaleLowerCase();return rewards.some(row=>(row.name+' '+(row.sourceText||'')).toLocaleLowerCase().includes(normalized));
 }
+export type SeasonHistoryEvent={id:string;kind:'settlement'|'preview';season:number;date:string;title:string;summary:string;sourceId:string};
+export function seasonHistoryEvents(date:string,mode:HistoryMode,archive:LadderHistory=ladderArchive):SeasonHistoryEvent[]{
+  if(mode==='type'||!historyDate(date))return [];
+  const settlements:SeasonHistoryEvent[]=archive.seasons.filter(row=>row.settlementDate===date&&(mode==='ladder'||row.settlementModes?.includes('peak'))).map(row=>({
+    id:'settlement-'+row.number,kind:'settlement',season:row.number,date,title:`第 ${row.number} 届${mode==='peak'?'巅峰赛':'天梯赛'}结算`,
+    summary:'结算日期按当期公告记录。天梯赛与巅峰赛的奖励分别核对领取依据。',sourceId:row.settlementSourceId!,
+  }));
+  const previews:SeasonHistoryEvent[]=archive.changes.filter(row=>row.kind==='schedule'&&row.date===date&&row.seasonNumber&&row.modes?.includes(mode)).map(row=>({
+    id:row.id,kind:'preview',season:row.seasonNumber!,date,title:row.title,summary:row.summary,sourceId:row.sourceId,
+  }));
+  return [...settlements,...previews];
+}
+export function resolveBattleArchive(date:string|null,mode:HistoryMode,record:string|null=null,archive:LadderHistory=ladderArchive){
+  const rows=archiveBanRows(archive).filter(row=>row.mode===(mode==='type'?'type':'ladder'));
+  if(record!==null){
+    const selected=rows.find(row=>row.id===record&&(!date||row.date===date));
+    return {date:selected?.date||date,records:selected?[selected]:[],events:selected?seasonHistoryEvents(selected.date,mode,archive):[]};
+  }
+  return {date,records:date?rows.filter(row=>row.date===date):[],events:date?seasonHistoryEvents(date,mode,archive):[]};
+}
